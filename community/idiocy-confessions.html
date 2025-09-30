@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDIOT Confessions - Share Your Dumbest Moves</title>
+  <style>
+    :root {
+      --bg: #0b0d0f; --card: #12161b; --muted: #1a2330; --text: #e6edf3; --sub: #8aa5b8; 
+      --accent: #b3ff00; --warn: #ffd24d; --danger: #ff5577;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+    .card { background: var(--card); border: 1px solid var(--muted); border-radius: 12px; padding: 20px; margin: 20px 0; }
+    .confession { background: var(--muted); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--accent); }
+    .submit-form { background: var(--card); padding: 20px; border-radius: 12px; border: 2px solid var(--accent); }
+    .btn { background: var(--accent); color: #0b0d0f; padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); }
+    textarea { width: 100%; padding: 12px; border: 1px solid var(--muted); border-radius: 8px; background: var(--bg); color: var(--text); margin: 10px 0; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+    .stat { text-align: center; padding: 15px; background: var(--muted); border-radius: 8px; }
+    .highlight { color: var(--accent); font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" style="text-align: center; border: 2px solid var(--accent);">
+      <h1>🎭 IDIOT Confessions</h1>
+      <p>Everyone's got some idiot in them. Share your dumbest moves and join the community!</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="highlight" id="total-confessions">0</div>
+        <div>Confessions</div>
+      </div>
+      <div class="stat">
+        <div class="highlight" id="total-lost">$0</div>
+        <div>Collectively Lost</div>
+      </div>
+      <div class="stat">
+        <div class="highlight" id="avg-loss">$0</div>
+        <div>Average Loss</div>
+      </div>
+    </div>
+
+    <div class="submit-form">
+      <h2>Share Your IDIOT Moment</h2>
+      <form id="confession-form">
+        <textarea id="confession-text" placeholder="Tell us about your dumbest financial move, trading mistake, or general idiocy... (Keep it clean and funny!)" rows="4"></textarea>
+        <br>
+        <button type="submit" class="btn">Submit Confession</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Latest Confessions</h2>
+      <div id="confessions-list">
+        <div class="confession">
+          <strong>@crypto_noob:</strong> "Bought the top of every pump, sold the bottom of every dump. Still holding bags from 2021. AMA."
+        </div>
+        <div class="confession">
+          <strong>@diamond_hands:</strong> "Put my rent money into a 'sure thing' coin. Landlord wasn't impressed with my 'diamond hands' explanation."
+        </div>
+        <div class="confession">
+          <strong>@fomo_king:</strong> "Saw a coin pump 1000% and thought 'this is my chance!' Bought at the absolute peak. It's down 99% now."
+        </div>
+        <div class="confession">
+          <strong>@paper_hands:</strong> "Sold my Bitcoin at $30k because I 'needed the money for groceries.' It hit $60k two weeks later."
+        </div>
+        <div class="confession">
+          <strong>@yolo_trader:</strong> "Leveraged 100x on a meme coin. Made $50k in 10 minutes, lost it all in the next 10 minutes. Still not sure what happened."
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="text-align: center; background: var(--muted);">
+      <h3>🎯 Join the IDIOT Community</h3>
+      <p>Share your confessions, learn from others' mistakes, and embrace the chaos together!</p>
+      <div style="margin: 20px 0;">
+        <a href="#" class="btn" style="margin: 5px;">Discord</a>
+        <a href="#" class="btn" style="margin: 5px;">Twitter</a>
+        <a href="#" class="btn" style="margin: 5px;">Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let confessions = [
+      { user: "@crypto_noob", text: "Bought the top of every pump, sold the bottom of every dump. Still holding bags from 2021. AMA.", loss: 5000 },
+      { user: "@diamond_hands", text: "Put my rent money into a 'sure thing' coin. Landlord wasn't impressed with my 'diamond hands' explanation.", loss: 2000 },
+      { user: "@fomo_king", text: "Saw a coin pump 1000% and thought 'this is my chance!' Bought at the absolute peak. It's down 99% now.", loss: 10000 },
+      { user: "@paper_hands", text: "Sold my Bitcoin at $30k because I 'needed the money for groceries.' It hit $60k two weeks later.", loss: 15000 },
+      { user: "@yolo_trader", text: "Leveraged 100x on a meme coin. Made $50k in 10 minutes, lost it all in the next 10 minutes. Still not sure what happened.", loss: 50000 }
+    ];
+
+    function updateStats() {
+      const total = confessions.length;
+      const totalLost = confessions.reduce((sum, c) => sum + c.loss, 0);
+      const avg = totalLost / total;
+      
+      document.getElementById('total-confessions').textContent = total;
+      document.getElementById('total-lost').textContent = `$${totalLost.toLocaleString()}`;
+      document.getElementById('avg-loss').textContent = `$${Math.round(avg).toLocaleString()}`;
+    }
+
+    function addConfession(user, text) {
+      const confession = { user, text, loss: Math.floor(Math.random() * 10000) + 1000 };
+      confessions.unshift(confession);
+      
+      const confessionsList = document.getElementById('confessions-list');
+      const newConfession = document.createElement('div');
+      newConfession.className = 'confession';
+      newConfession.innerHTML = `<strong>${user}:</strong> "${text}"`;
+      confessionsList.insertBefore(newConfession, confessionsList.firstChild);
+      
+      updateStats();
+    }
+
+    document.getElementById('confession-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = document.getElementById('confession-text').value.trim();
+      if (text) {
+        const user = `@idiot_${Math.random().toString(36).substr(2, 6)}`;
+        addConfession(user, text);
+        document.getElementById('confession-text').value = '';
+      }
+    });
+
+    updateStats();
+  </script>
+</body>
+</html>
