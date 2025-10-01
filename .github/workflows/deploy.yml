@@ -31,10 +31,7 @@ jobs:
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
           port: ${{ secrets.SFTP_PORT }}
-          source: |
-            01_LIVE_SITE/main_site/index.html
-            01_LIVE_SITE/main_site/assets/**
-            01_LIVE_SITE/main_site/airdrop/**
+          source: 01_LIVE_SITE/main_site/**
           target: ${{ secrets.REMOTE_DIR }}
           overwrite: true
           strip_components: 2
