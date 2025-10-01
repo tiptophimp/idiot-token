@@ -1,0 +1,42 @@
+name: Deploy to Hostinger via SFTP
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure remote dir exists
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASS }}
+          port: ${{ secrets.SFTP_PORT }}
+          script: |
+            mkdir -p "${{ secrets.REMOTE_DIR }}"
+            mkdir -p "${{ secrets.REMOTE_DIR }}/assets"
+            mkdir -p "${{ secrets.REMOTE_DIR }}/airdrop"
+
+      - name: SFTP upload (static site)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          password: ${{ secrets.SFTP_PASS }}
+          port: ${{ secrets.SFTP_PORT }}
+          source: |
+            01_LIVE_SITE/main_site/index.html
+            01_LIVE_SITE/main_site/assets/**
+            01_LIVE_SITE/main_site/airdrop/**
+          target: ${{ secrets.REMOTE_DIR }}
+          overwrite: true
+          strip_components: 2
+          # exclude: ${{ secrets.EXCLUDES }}
+

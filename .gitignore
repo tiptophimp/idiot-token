@@ -1,0 +1,8 @@
+05_ARCHIVES/**
+*.zip
+*.gz
+*.7z
+**/.DS_Store
+**/Thumbs.db
+**/.env
+
