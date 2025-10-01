@@ -12,18 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Ensure remote dir exists
-        uses: appleboy/ssh-action@v1.1.0
-        with:
-          host: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USER }}
-          password: ${{ secrets.SFTP_PASS }}
-          port: ${{ secrets.SFTP_PORT }}
-          script: |
-            mkdir -p "${{ secrets.REMOTE_DIR }}"
-            mkdir -p "${{ secrets.REMOTE_DIR }}/assets"
-            mkdir -p "${{ secrets.REMOTE_DIR }}/airdrop"
-
       - name: SFTP upload (static site)
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -36,18 +24,27 @@ jobs:
           overwrite: true
           strip_components: 2
           recursive: true
-      
-      - name: Verify remote contents
-        uses: appleboy/ssh-action@v1.1.0
+
+  ftp_fallback:
+    needs: deploy
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: FTP-SSL upload fallback (FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.SFTP_HOST }}
+          server: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
-          port: ${{ secrets.SFTP_PORT }}
-          script: |
-            echo "Listing REMOTE_DIR: ${{ secrets.REMOTE_DIR }}"
-            ls -la "${{ secrets.REMOTE_DIR }}" || true
-            ls -la "${{ secrets.REMOTE_DIR }}/assets" || true
-            ls -la "${{ secrets.REMOTE_DIR }}/airdrop" || true
+          protocol: ftps
+          port: 21
+          local-dir: 01_LIVE_SITE/main_site
+          server-dir: ${{ secrets.REMOTE_DIR }}
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/05_ARCHIVES/**
           # exclude: ${{ secrets.EXCLUDES }}
 
