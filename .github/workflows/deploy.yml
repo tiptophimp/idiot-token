@@ -1,4 +1,4 @@
-name: Deploy to Hostinger via SFTP
+name: Create Deployment Package
 
 on:
   push:
@@ -6,44 +6,27 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  deploy:
+  package:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: SFTP upload (static site)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USER }}
-          password: ${{ secrets.SFTP_PASS }}
-          port: 65002
-          source: 01_LIVE_SITE/main_site/**
-          target: ${{ secrets.REMOTE_DIR }}
-          overwrite: true
-          strip_components: 2
+      - name: Create deployment package
+        run: |
+          cd 01_LIVE_SITE/main_site
+          zip -r ../../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
 
-  ftp_fallback:
-    needs: deploy
-    if: ${{ failure() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: FTP-SSL upload fallback (FTPS)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Upload deployment package
+        uses: actions/upload-artifact@v4
         with:
-          server: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USER }}
-          password: ${{ secrets.SFTP_PASS }}
-          protocol: ftps
-          port: 65002
-          local-dir: 01_LIVE_SITE/main_site/
-          server-dir: ${{ secrets.REMOTE_DIR }}/
-          exclude: |
-            **/.git*
-            **/.github/**
-            **/05_ARCHIVES/**
+          name: stupidiots-deploy
+          path: deploy-package.zip
+          retention-days: 30
+
+      - name: Create download URL
+        run: |
+          echo "Deployment package created. Download URL will be available after workflow completes."
+          echo "Manual download: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           # exclude: ${{ secrets.EXCLUDES }}
 
