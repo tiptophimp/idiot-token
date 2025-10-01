@@ -23,7 +23,6 @@ jobs:
           target: ${{ secrets.REMOTE_DIR }}
           overwrite: true
           strip_components: 2
-          recursive: true
 
   ftp_fallback:
     needs: deploy
@@ -40,7 +39,7 @@ jobs:
           password: ${{ secrets.SFTP_PASS }}
           protocol: ftps
           port: 21
-          local-dir: 01_LIVE_SITE/main_site
+          local-dir: 01_LIVE_SITE/main_site/
           server-dir: ${{ secrets.REMOTE_DIR }}
           exclude: |
             **/.git*
