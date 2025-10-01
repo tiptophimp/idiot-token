@@ -18,7 +18,7 @@ jobs:
           host: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
-          port: ${{ secrets.SFTP_PORT }}
+          port: 65002
           source: 01_LIVE_SITE/main_site/**
           target: ${{ secrets.REMOTE_DIR }}
           overwrite: true
@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASS }}
           protocol: ftps
-          port: 21
+          port: 65002
           local-dir: 01_LIVE_SITE/main_site/
           server-dir: ${{ secrets.REMOTE_DIR }}/
           exclude: |
