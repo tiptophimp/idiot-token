@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IDIOT Token — ROMO over FOMO (Live on Base)</title>
+  <meta name="description" content="IDIOT Token — a high‑volatility, community‑driven meme asset on Base. Buy, chart, read the roadmap, and join the community." />
+  <meta name="robots" content="index,follow">
+  <meta name="keywords" content="IDIOT token, Base chain, meme token, cryptocurrency, DeFi, Uniswap, DexScreener, liquidity pool, zero tax, Base blockchain, crypto trading, meme coin, community token" />
+  <meta name="author" content="IDIOT Token Team" />
+  <meta name="theme-color" content="#b3ff00" />
+  <link rel="canonical" href="https://stupidiots.com/" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "IDIOT Token",
+    "description": "A community-driven meme token on Base blockchain with zero tax and transparent tokenomics",
+    "url": "https://stupidiots.com",
+    "logo": "https://stupidiots.com/assets/img/logo.png",
+    "image": "https://stupidiots.com/assets/img/logo.png",
+    "sameAs": [
+      "https://discord.gg/he2tC85ynx"
+    ]
+  }
+  </script>
+  
+  <!-- Token Logo for Base Network Verification -->
+  <link rel="icon" type="image/svg+xml" href="https://stupidiots.com/assets/img/idiot-coin-32x32-lime-fixed.svg" sizes="32x32">
+  
+  <meta property="og:title" content="IDIOT Token — Official Site" />
+  <meta property="og:description" content="The most honest meme token on Base. No promises, no moon missions, just pure unadulterated chaos." />
+  <meta property="og:image" content="https://stupidiots.com/assets/img/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://stupidiots.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="IDIOT Token — Official Site" />
+  <meta name="twitter:description" content="The most honest meme token on Base. No promises, no moon missions, just pure unadulterated chaos." />
+  <meta name="twitter:image" content="https://stupidiots.com/assets/img/og-image.png" />
+  <meta name="twitter:image:alt" content="IDIOT Token - Official Site" />
+  <meta name="twitter:site" content="@stupidiots" />
+  <meta name="twitter:creator" content="@stupidiots" />
+  
+  <!-- Additional Open Graph tags -->
+  <meta property="og:site_name" content="IDIOT Token" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image:alt" content="IDIOT Token - Official Site" />
+  
+  <!-- Favicons -->
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/img/favicon.ico" type="image/vnd.microsoft.icon">
+  <link rel="shortcut icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="60x60" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/favicon.ico">
+  
+  <!-- Preloads -->
+  <link rel="preload" href="assets/img/logo.png?v=20250119" as="image" />
+  <link rel="preload" href="assets/img/coin-1.png" as="image" />
+  <link rel="preload" href="ChatGPT Image Sep 28, 2025, 04_50_50 PM.png" as="image" fetchpriority="high" />
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+  
+  <!-- Google Analytics (Replace with your tracking ID) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_TRACKING_ID');
+  </script> -->
+  <style>
+    :root{
+      --bg:#0b0d0f; --panel:#12161b; --panel-2:#0e1318; --txt:#e6edf3; --muted:#a7b0bb; --brand:#b3ff00; --brand-2:#ffd24d; --danger:#ff5577; --ok:#30e0a1;
+      --br:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--txt); font:18px/1.6 Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .wrap{max-width:1200px; margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:20px}
+    .btn{display:inline-flex; align-items:center; gap:12px; padding:16px 24px; border-radius:999px; background:var(--brand); color:#08110a; font-weight:700; font-size: 1.1rem; box-shadow:var(--shadow); border:0; cursor:pointer; transition:all 0.3s ease}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 15px 40px rgba(0,0,0,.4)}
+    .btn.alt{background:#1c252f; color:var(--txt); border:1px solid #27313b}
+    .btn.alt:hover{background:#2a3540; border-color:#3a4550}
+    .btn.ghost{background:transparent; border:1px solid #2a3540; color:var(--txt)}
+    .btn.ghost:hover{background:#1a2330; border-color:#3a4550}
+    .tag{display:inline-block; padding:6px 10px; border-radius:999px; background:#1a222b; color:var(--brand); font-weight:700; letter-spacing:.2px; font-size:12px}
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(8px); background:rgba(8,10,12,.55); border-bottom:1px solid #151a21}
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px; min-height:64px; flex-wrap:wrap}
+    .nav .links{display:flex; gap:15px; align-items:center; justify-content:flex-start; flex:1; flex-wrap:wrap; margin-left:0}
+    .nav a{padding:8px 12px; border-radius:12px; font-size: 0.907rem; font-weight: 600; color: var(--brand); background: rgba(8,10,12,0.65); border: 1px solid #1e2630; transition: all 0.3s ease; white-space:nowrap}
+    .nav a:hover{background:#0f141a; color: var(--brand-2); border-color:#2a3540; transform: translateY(-2px)}
+    .nav .logo{flex-shrink:0}
+    .hero{position:relative; overflow:hidden; min-height:455px; background:url('ChatGPT Image Sep 28, 2025, 04_50_50 PM.png') center/contain no-repeat, radial-gradient(1200px 600px at 20% -10%, #1b2430 0%, transparent 60%),
+                           radial-gradient(1200px 600px at 100% 10%, #19261a 0%, transparent 60%),
+                           linear-gradient(180deg, #0b0d0f 0%, #0a0c0e 100%);}
+    .hero{background-size: clamp(315px, 52.5vw, 788px), auto, auto, auto; background-position: center top, center, center, center;}
+    .hero .content{padding:100px 0 68px 0}
+    .kicker{margin:10px 0 18px}
+    h1{font-size: clamp(24px, 3.5vw, 42px); line-height:1.05; margin:0 0 12px}
+    @keyframes pulse{0%,100%{transform:scale(1); box-shadow: 0 0 20px rgba(179, 255, 0, 0.6);}50%{transform:scale(1.1); box-shadow: 0 0 30px rgba(179, 255, 0, 0.9);}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .coin-hover:hover{transform:scale(1.1); box-shadow:0 0 40px rgba(179, 255, 0, 0.5) !important}
+    .nav img:hover{transform:scale(1.2) !important; box-shadow:0 0 40px rgba(179, 255, 0, 1) !important; animation-play-state: paused;}
+    
+    /* Mobile coin image visibility */
+    @media (max-width: 768px) {
+      /* Hero mobile fixes */
+      .hero {
+        min-height: 300px !important;
+        background-size: clamp(200px, 50vw, 400px), auto, auto, auto !important;
+      }
+      
+      .hero .content {
+        text-align: center;
+        padding: 20px 15px !important;
+        max-width: 100% !important;
+      }
+      
+      /* Trade widgets mobile */
+      .wrap[style*="max-width: 1100px"] {
+        max-width: 100% !important;
+        padding: 0 15px !important;
+      }
+      
+      .wrap[style*="max-width: 1100px"] > div[style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      
+      .wrap[style*="max-width: 1100px"] > div[style*="display: grid"] > div {
+        min-height: 300px !important;
+        aspect-ratio: 16/10 !important;
+      }
+      
+      /* CTA buttons mobile */
+      .cta {
+        flex-direction: column !important;
+        gap: 8px !important;
+        align-items: center !important;
+      }
+      
+      .cta .btn {
+        width: 100% !important;
+        max-width: 280px !important;
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+      }
+      
+      /* Menu mobile fixes */
+      .nav {
+        height: auto !important;
+        min-height: auto !important;
+        padding: 12px 0 !important;
+        flex-direction: column !important;
+      }
+      
+      .nav .links {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        justify-content: center !important;
+        margin-top: 8px !important;
+      }
+      
+      .nav a {
+        padding: 6px 10px !important;
+        font-size: 0.8rem !important;
+      }
+      
+      .nav .logo img {
+        width: 140px !important;
+        height: auto !important;
+      }
+      
+      /* Contract address mobile */
+      p[style*="font-size: 1.6rem"] {
+        font-size: 1.2rem !important;
+        word-break: break-all !important;
+      }
+      
+      p[style*="font-size: 1.6rem"] span {
+        font-size: 1.1rem !important;
+      }
+      
+      /* Post-hero copy mobile */
+      #post-hero-copy {
+        padding: 8px 12px !important;
+        margin: 8px auto 0 auto !important;
+      }
+      
+      #post-hero-copy p {
+        font-size: clamp(14px, 3.5vw, 18px) !important;
+        line-height: 1.4 !important;
+      }
+      
+      /* Section spacing mobile */
+      section {
+        padding: 40px 0 !important;
+      }
+      
+      /* Cards mobile */
+      .cards {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      
+      /* Form mobile */
+      #contact-form div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Footer mobile */
+      .foot-grid {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+        gap: 16px !important;
+      }
+      
+      /* Headings mobile */
+      h1 {
+        font-size: clamp(20px, 5vw, 28px) !important;
+      }
+      
+      h2 {
+        font-size: clamp(22px, 4vw, 32px) !important;
+      }
+      
+      h3 {
+        font-size: clamp(18px, 3.5vw, 24px) !important;
+      }
+      
+      /* DexScreener widget mobile */
+      iframe[title="DexScreener"] {
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+      
+      iframe[title="Uniswap"] {
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+      
+      .coin-hover {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+    }
+    .lead{font-size: clamp(14px, 1.8vw, 19px); color:var(--muted); max-width:720px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+
+    section{padding:100px 0; border-top:1px solid #121820}
+    .panel{background:var(--panel); border:1px solid #1b242e; border-radius:var(--br); padding:32px}
+    .panel.alt{background:var(--panel-2)}
+    h2{font-size: clamp(32px, 4.2vw, 52px); margin:0 0 16px; font-weight: 700}
+    p.section-lead{margin:0 0 20px; color:var(--muted)}
+
+    /* Tokenomics */
+    .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px}
+    .card{background:#0f141a; border:1px solid #1a2330; border-radius:20px; padding:28px; transition:all 0.3s ease; cursor:pointer; font-size: 1.1rem}
+    .card:hover{transform:translateY(-5px); border-color:var(--brand); box-shadow:0 10px 25px rgba(0,0,0,.3)}
+    .bar{height:10px; background:#0b1117; border:1px solid #1a2330; border-radius:999px; overflow:hidden}
+    .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand-2)); width:var(--w,0%)}
+
+    /* Roadmap */
+    .timeline{position:relative}
+    .timeline:before{content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background:#1a2330}
+    .tl-item{position:relative; padding-left:40px; margin:20px 0}
+    .tl-item:before{content:""; position:absolute; left:6px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px #142014}
+    .tl-item.done:before{background:var(--ok)}
+    .tl-item.soon:before{background:var(--brand-2)}
+
+    /* How to Buy */
+    .steps{counter-reset:step}
+    .step{display:flex; gap:16px; background:#0f141a; border:1px solid #1a2330; border-radius:16px; padding:16px}
+    .step:before{counter-increment:step; content:counter(step); display:inline-grid; place-content:center; width:34px; height:34px; border-radius:10px; font-weight:800; background:#17212b; border:1px solid #26303a}
+
+    /* FAQ */
+    details{background:#0f141a; border:1px solid #1a2330; border-radius:14px; padding:16px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer; font-weight:700}
+    details p{color:var(--muted); margin:10px 0 0}
+
+    footer{padding:40px 0; border-top:1px solid #121820; color:#9aa6b2}
+    .foot-grid{display:grid; gap:18px; grid-template-columns: 1fr auto}
+    .socials{display:flex; gap:10px}
+    .socials a{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid #26303a; border-radius:12px; background:#0f141a}
+
+    /* Utility */
+    .right{justify-self:end}
+    .muted{color:var(--muted)}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    .center{text-align:center}
+    
+    /* Loading animation */
+    .loading{opacity:0; animation:fadeIn 0.5s ease-in forwards}
+    @keyframes fadeIn{to{opacity:1}}
+    
+    /* Smooth scrolling */
+    html{scroll-behavior:smooth}
+    
+    /* Enhanced Mobile Responsiveness */
+    @media (max-width: 1024px) {
+      .nav .links{gap:10px; margin-left:0; justify-content:center}
+      .nav a{padding:8px 12px; font-size:0.847rem}
+    }
+    @media (max-width: 768px) {
+      .hero .content {
+        text-align: center;
+        padding: 34px 20px;
+        max-width: 100% !important;
+      }
+      
+      .hero .content img {
+        width: 80px !important;
+        height: 80px !important;
+        margin: 15px 0;
+      }
+      
+      .cta {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .nav {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+        padding: 15px 0;
+      }
+      
+      .nav .links {
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 0.9rem;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      
+      .nav .logo {
+        position: static;
+        margin-bottom: 0;
+      }
+      
+      .nav a {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
+      
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .foot-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .nav {
+        height: 70px;
+        min-height: 70px;
+      }
+      
+      .nav .logo img {
+        width: 150px;
+        height: auto;
+      }
+      
+      /* Mobile grid improvements */
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      /* Guide sections mobile */
+      .guide-category {
+        margin-bottom: 20px;
+      }
+      
+      .guide-item {
+        margin-bottom: 10px;
+      }
+      
+      .guide-btn {
+        font-size: 1rem !important;
+        padding: 12px !important;
+      }
+      
+      /* Section padding mobile */
+      section {
+        padding: 60px 0 !important;
+      }
+      
+      /* Hero mobile improvements */
+      .hero .content {
+        padding: 50px 20px !important;
+      }
+      
+      h1 {
+        font-size: clamp(20px, 5vw, 32px) !important;
+      }
+      
+      h2 {
+        font-size: clamp(24px, 4vw, 36px) !important;
+      }
+      
+      /* Mobile form improvements */
+      #contact-form div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* DexScreener widget mobile improvements */
+      iframe[title="DexScreener"] {
+        max-width: 100% !important;
+        overflow: hidden !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 250px !important;
+        background-size: clamp(180px, 45vw, 350px), auto, auto, auto !important;
+      }
+      
+      .hero .content {
+        padding: 15px 10px !important;
+      }
+      
+      .nav .logo img {
+        width: 120px !important;
+      }
+      
+      .nav a {
+        padding: 5px 8px !important;
+        font-size: 0.75rem !important;
+      }
+      
+      .cta .btn {
+        padding: 10px 14px !important;
+        font-size: 13px !important;
+      }
+      
+      section {
+        padding: 30px 0 !important;
+      }
+      
+      h1 {
+        font-size: clamp(18px, 4.5vw, 24px) !important;
+      }
+      
+      h2 {
+        font-size: clamp(20px, 3.5vw, 28px) !important;
+      }
+    }
+  </style>
+</head>
+<body class="loading">
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="wrap nav">
+      <a href="#top" class="logo" aria-label="IDIOT Token home">
+        <img src="assets/img/logo.png" alt="IDIOT logo" width="180" height="45" loading="eager" style="max-width: 200px; height: auto;" />
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#tokenomics">Tokenomics</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#guides">Guides</a>
+        <a href="#how">Buy</a>
+        <a href="#whitepaper">Whitepaper</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <a id="top"></a>
+  <section class="hero">
+    
+    
+    <div class="wrap content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <div>
+        
+        <p style="margin-top:10px; font-size: 1.6rem; text-align: center; color: var(--brand); font-weight: bold; text-shadow: 2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000;">Contract: <span id="ca" class="mono" style="font-size: 1.6rem; color: var(--brand); cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: all 0.3s ease; border: 2px solid transparent; text-shadow: 2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000;" title="Click to copy contract address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span> <span style="color: var(--ok); font-size: 24px; text-shadow: 2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000;">✅ LIVE</span></p>
+        
+        <div id="post-hero-copy" style="max-width: 900px; margin: 10px auto 0 auto; text-align: center; padding: 10px 20px;">
+          <p style="color: var(--brand-2); font-weight: 700; letter-spacing: .2px; margin: 6px 0 10px; font-size: 1.05rem;">Naive optics; ruthless risk.</p>
+          <p style="color: var(--muted); font-size: clamp(16px, 2.2vw, 20px); line-height: 1.5; margin: 0 auto; max-width: 820px;">
+            If you buy this token, you're an IDIOT—by design. Join the quickest-growing group of crypto clowns—with receipts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRADE WIDGETS (Chart + Buy) ===== -->
+  <section style="padding: 60px 0; background: var(--bg); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 1100px; margin: 0 auto;">
+      <div style="text-align:center; margin-bottom: 16px;">
+        <img src="assets/img/coin-1.png" alt="IDIOT coin" width="72" height="72" style="width:72px;height:72px;image-rendering:auto;filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));" loading="lazy" />
+      </div>
+      <div style="background: var(--brand); padding: 12px; border-radius: 12px; margin: 0 0 18px 0; text-align: center; color: #000; font-weight: 700; font-size: 15px; border: 2px solid var(--brand);">
+        🚀 <strong>LIVE ON BASE</strong> • Zero Tax • Community Driven • 100% Transparent
+      </div>
+      <div class="cta" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 0 0 22px 0;">
+        <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold;">👉 Swap IDIOT</a>
+        <a class="btn ghost" href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Open Chart</a>
+        <button class="btn alt" id="copyContract" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Copy Contract</button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: stretch;">
+        <!-- Live Chart -->
+        <div style="width: 100%; aspect-ratio: 16/10; border:2px solid #1a2330; border-radius:18px; overflow:hidden; background:#0c1116; min-height: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+          <iframe title="DexScreener" src="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1?embed=1&theme=dark" style="width:100%; height:100%; border:0; display:block;"></iframe>
+        </div>
+        
+        <!-- Buy Widget -->
+        <div style="width: 100%; border:2px solid #1a2330; border-radius:18px; overflow:hidden; background:#0c1116; min-height: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+          <iframe title="Uniswap" src="https://app.uniswap.org/#/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base&embed=1" style="width:100%; height:520px; border:0; display:block; background:#0c1116;"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EARN WITH IDIOT TOKEN ===== -->
+  <section style="padding: 80px 0; background: linear-gradient(135deg, #1a2330 0%, #0b0d0f 50%, #1a2330 100%); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <!-- Heading -->
+      <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 12px; color: var(--brand); display:flex; align-items:center; justify-content:center; gap:14px;">
+        <img src="assets/img/coin-1.png" alt="IDIOT coin" width="42" height="42" style="width:42px;height:42px;border-radius:50%; box-shadow:0 2px 10px rgba(0,0,0,0.35);" loading="lazy" />
+        💸 Earn with IDIOT Token
+      </h2>
+      <p style="font-size: 1.2rem; color: var(--muted); margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        No token taxes. No gimmicks. Just real rewards. Provide liquidity to the <strong style="color: var(--brand-2);">WETH / IDIOT</strong> pool 
+        on Uniswap and earn your share of trading fees with every swap.
+      </p>
+
+      <!-- Steps -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; margin-bottom: 50px;">
+        <div style="background: var(--panel-2); border-radius: 20px; box-shadow: var(--shadow); padding: 30px; border: 1px solid #1a2330;">
+          <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; color: var(--brand);">1. Provide Liquidity</h3>
+          <p style="color: var(--muted); line-height: 1.6;">
+            Deposit <strong style="color: var(--brand-2);">equal values</strong> of IDIOT and WETH into the pool. In return, you'll receive a unique NFT representing your position.
+          </p>
+        </div>
+        <div style="background: var(--panel-2); border-radius: 20px; box-shadow: var(--shadow); padding: 30px; border: 1px solid #1a2330;">
+          <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; color: var(--brand);">2. Earn Trading Fees</h3>
+          <p style="color: var(--muted); line-height: 1.6;">
+            Every swap generates a <strong style="color: var(--brand-2);">0.3% fee</strong>, automatically distributed to all LPs. Watch your share grow over time.
+          </p>
+        </div>
+        <div style="background: var(--panel-2); border-radius: 20px; box-shadow: var(--shadow); padding: 30px; border: 1px solid #1a2330;">
+          <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 15px; color: var(--brand);">3. Withdraw Anytime</h3>
+          <p style="color: var(--muted); line-height: 1.6;">
+            Exit the pool whenever you like. Get back your tokens <strong style="color: var(--brand-2);">plus fees earned</strong> — straight into your wallet.
+          </p>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div style="margin-top: 50px;">
+        <a href="https://app.uniswap.org/#/pool" target="_blank" rel="noopener"
+           style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 20px 40px; border-radius: 15px; box-shadow: var(--shadow); transition: all 0.3s ease; text-decoration: none; font-size: 1.1rem;"
+           onmouseover="this.style.transform='translateY(-5px) scale(1.05)'; this.style.background='var(--brand-2)';"
+           onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.background='var(--brand)';">
+          🚀 Start Earning Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IDIOT'S CRASH COURSE TO CRYPTO ===== -->
+  <section style="padding: 80px 0; background: var(--bg); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 800px; margin: 0 auto;">
+      <!-- Heading -->
+      <h2 style="font-size: 3rem; font-weight: 700; text-align: center; margin-bottom: 30px; color: var(--brand);">🤯 Idiot's Crash Course to Crypto</h2>
+      <p style="font-size: 1.2rem; color: var(--muted); text-align: center; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        New here? Don't sweat it. We've put together a simple guide to help you understand the basics of crypto before you dive in. 
+        Start here, and you'll sound like a pro in no time.
+      </p>
+
+      <!-- FAQ Style Accordion -->
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 50px;">
+        <!-- Q1 -->
+        <div style="background: var(--panel-2); border-radius: 15px; box-shadow: var(--shadow); border: 1px solid #1a2330;">
+          <button class="crash-course-btn" style="width: 100%; text-align: left; padding: 25px; font-size: 1.3rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>🔑 What is a Wallet?</span>
+            <span class="crash-course-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+          </button>
+          <div class="crash-course-content" style="padding: 0 25px 25px; color: var(--muted); line-height: 1.6; display: none;">
+            A crypto wallet is like your bank account, but for digital assets. It lets you send, receive, and store tokens. 
+            Examples: MetaMask (software) or Ledger (hardware).
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div style="background: var(--panel-2); border-radius: 15px; box-shadow: var(--shadow); border: 1px solid #1a2330;">
+          <button class="crash-course-btn" style="width: 100%; text-align: left; padding: 25px; font-size: 1.3rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>💰 What is Ethereum / WETH?</span>
+            <span class="crash-course-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+          </button>
+          <div class="crash-course-content" style="padding: 0 25px 25px; color: var(--muted); line-height: 1.6; display: none;">
+            Ethereum (ETH) is one of the biggest cryptocurrencies. On Uniswap, ETH is usually wrapped into WETH (Wrapped ETH) to make it compatible with smart contracts.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div style="background: var(--panel-2); border-radius: 15px; box-shadow: var(--shadow); border: 1px solid #1a2330;">
+          <button class="crash-course-btn" style="width: 100%; text-align: left; padding: 25px; font-size: 1.3rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>🪙 What are Tokens?</span>
+            <span class="crash-course-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+          </button>
+          <div class="crash-course-content" style="padding: 0 25px 25px; color: var(--muted); line-height: 1.6; display: none;">
+            Tokens are digital assets created on blockchains. They can represent projects, communities, or even memes (like IDIOT Token 🚀). 
+            They trade just like ETH, but usually live on top of a blockchain.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div style="background: var(--panel-2); border-radius: 15px; box-shadow: var(--shadow); border: 1px solid #1a2330;">
+          <button class="crash-course-btn" style="width: 100%; text-align: left; padding: 25px; font-size: 1.3rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>📈 What's a Liquidity Pool (LP)?</span>
+            <span class="crash-course-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+          </button>
+          <div class="crash-course-content" style="padding: 0 25px 25px; color: var(--muted); line-height: 1.6; display: none;">
+            An LP is where users deposit tokens into a shared pool on Uniswap. Traders swap against that pool, 
+            and LPs earn a cut of the fees (0.3% per trade on IDIOT Token).
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div style="background: var(--panel-2); border-radius: 15px; box-shadow: var(--shadow); border: 1px solid #1a2330;">
+          <button class="crash-course-btn" style="width: 100%; text-align: left; padding: 25px; font-size: 1.3rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>⚡ What are Gas Fees?</span>
+            <span class="crash-course-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+          </button>
+          <div class="crash-course-content" style="padding: 0 25px 25px; color: var(--muted); line-height: 1.6; display: none;">
+            Gas fees are the network costs paid to process your transaction. On Base (an Ethereum L2), gas fees are cheap compared to main Ethereum.
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div style="background: var(--panel-2); border-radius: 15px; box-shadow: var(--shadow); border: 1px solid #1a2330;">
+          <button class="crash-course-btn" style="width: 100%; text-align: left; padding: 25px; font-size: 1.3rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center;">
+            <span>🛡️ What does "Zero Tax" Mean?</span>
+            <span class="crash-course-icon" style="font-size: 1.5rem; transition: transform 0.3s ease;">+</span>
+          </button>
+          <div class="crash-course-content" style="padding: 0 25px 25px; color: var(--muted); line-height: 1.6; display: none;">
+            IDIOT Token doesn't skim a cut from your transfers. You keep 100% of what you buy, sell, or send. 
+            The only fees are Uniswap's 0.3% trading fee, which goes to liquidity providers, not to the dev team.
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div style="text-align: center;">
+        <a href="#guides" 
+           style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 20px 40px; border-radius: 15px; box-shadow: var(--shadow); transition: all 0.3s ease; text-decoration: none; font-size: 1.1rem;"
+           onmouseover="this.style.transform='translateY(-5px) scale(1.05)'; this.style.background='var(--brand-2)';"
+           onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.background='var(--brand)';">
+          📚 Continue Learning with Our Full Guides
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IDIOT'S GUIDE SERIES ===== -->
+  <section id="guides" style="padding: 80px 0; background: var(--bg); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <!-- Heading -->
+      <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 30px; color: var(--brand);">📚 IDIOT's Complete Guide Series</h2>
+      <p style="font-size: 1.2rem; color: var(--muted); margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        Learn crypto step by step — from setting up a wallet to earning fees and reading charts. 
+        Start your journey below.
+      </p>
+
+      <!-- Search Bar -->
+      <div style="margin-bottom: 50px;">
+        <input type="text" id="guideSearch" placeholder="Search guides..." 
+               style="width: 100%; max-width: 500px; padding: 15px 20px; border-radius: 10px; background: var(--panel-2); border: 1px solid #1a2330; color: var(--txt); font-size: 1rem; outline: none;"
+               onkeyup="filterGuides()">
+      </div>
+
+      <!-- Guide Categories -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; margin-bottom: 50px;">
+        
+        <!-- Beginner Guides -->
+        <div style="background: var(--panel-2); border-radius: 20px; box-shadow: var(--shadow); padding: 30px; border: 1px solid #1a2330;">
+          <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--brand);">🦊 Beginner Guides</h3>
+          <div class="guide-category" data-category="beginner">
+            <div class="guide-item" data-title="metamask setup wallet">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>🦊 Setting Up MetaMask</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Install MetaMask, connect to Base, and add IDIOT Token securely.</p>
+                <ol style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Install MetaMask → <a href="https://metamask.io" target="_blank" rel="noopener" style="color: var(--brand-2);">metamask.io</a></li>
+                  <li>Create wallet + back up seed phrase safely</li>
+                  <li>Add Base Network (Chain ID 8453, RPC https://mainnet.base.org)</li>
+                  <li>Import IDIOT Token with contract address</li>
+                  <li>Practice sending/receiving a small amount</li>
+                </ol>
+                <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Start Trading →</a>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="buying idiot token">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>💰 Buying IDIOT Token</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Step-by-step guide to buying IDIOT Token on Uniswap.</p>
+                <ol style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Connect your MetaMask wallet to Uniswap</li>
+                  <li>Select ETH as input, IDIOT as output</li>
+                  <li>Enter amount you want to buy</li>
+                  <li>Review transaction details and gas fees</li>
+                  <li>Confirm transaction in MetaMask</li>
+                </ol>
+                <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Buy Now →</a>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="understanding gas fees">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>⚡ Understanding Gas Fees</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Learn about gas fees and how to optimize them on Base.</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Gas fees are network transaction costs</li>
+                  <li>Base has much lower fees than Ethereum mainnet</li>
+                  <li>Fees vary based on network congestion</li>
+                  <li>You can adjust gas price for faster/slower confirmation</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="sending receiving idiot tokens">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>📤📥 Sending & Receiving IDIOT</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px; color: var(--brand-2); font-weight: 600;">📖 How to Send & Receive $IDIOT Tokens</p>
+                <p style="margin-bottom: 15px;">$IDIOT runs on Base Network (Ethereum Layer 2). Sending and receiving tokens is easy — just follow these steps carefully.</p>
+                
+                <h4 style="color: var(--brand); margin: 20px 0 10px 0;">📤 Sending $IDIOT</h4>
+                <p style="margin-bottom: 10px; font-weight: 600;">Add Base Network to your wallet (MetaMask or Coinbase Wallet):</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px; font-size: 0.9rem;">
+                  <li><strong>Network Name:</strong> Base Mainnet</li>
+                  <li><strong>RPC URL:</strong> https://mainnet.base.org</li>
+                  <li><strong>Chain ID:</strong> 8453</li>
+                  <li><strong>Currency Symbol:</strong> ETH</li>
+                  <li><strong>Block Explorer:</strong> https://basescan.org</li>
+                </ul>
+                <p style="margin-bottom: 10px;">Import $IDIOT Token using the official contract address.</p>
+                <p style="margin-bottom: 10px;">In your wallet:</p>
+                <ol style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Go to Assets → $IDIOT → Send</li>
+                  <li>Paste the recipient's Base wallet address</li>
+                  <li>Enter the amount of tokens</li>
+                  <li>Confirm the transaction (gas is paid in ETH on Base)</li>
+                </ol>
+                <p style="margin-bottom: 15px; color: var(--danger); font-weight: 600;">⚠️ Warning: Never send $IDIOT directly to Ethereum Mainnet, Binance Smart Chain, or other networks. Tokens will be lost.</p>
+                
+                <h4 style="color: var(--brand); margin: 20px 0 10px 0;">📥 Receiving $IDIOT</h4>
+                <p style="margin-bottom: 10px; font-weight: 600;">Set Up Base Network in your wallet (same steps as above).</p>
+                <p style="margin-bottom: 10px; font-weight: 600;">Share Your Wallet Address:</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>In MetaMask, click your account name → "Copy Address"</li>
+                  <li>Example: 0x1234…abcd</li>
+                  <li>Provide That Address to Sender (make sure they're also sending on Base)</li>
+                </ul>
+                <p style="margin-bottom: 10px; font-weight: 600;">Check Your Balance:</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Open MetaMask → Assets → $IDIOT</li>
+                  <li>If you don't see it, click "Import Token" and paste the contract address</li>
+                </ul>
+                
+                <h4 style="color: var(--ok); margin: 20px 0 10px 0;">✅ Quick Checklist</h4>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Both sender & receiver must use Base network</li>
+                  <li>Always keep a small amount of ETH on Base for gas fees</li>
+                  <li>Double-check addresses before confirming any transaction</li>
+                </ul>
+                
+                <h4 style="color: var(--brand-2); margin: 20px 0 10px 0;">🌐 Resources</h4>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li><a href="https://stupidiots.com" target="_blank" rel="noopener" style="color: var(--brand-2);">Idiot Token Website</a></li>
+                  <li><a href="https://basescan.org" target="_blank" rel="noopener" style="color: var(--brand-2);">Base Explorer</a></li>
+                  <li><a href="https://app.uniswap.org" target="_blank" rel="noopener" style="color: var(--brand-2);">Uniswap Pool</a></li>
+                </ul>
+                
+                <p style="margin-bottom: 15px; color: var(--brand); font-weight: 600; font-style: italic;">⚡ Idiots win together. Whether you're sending or receiving, do it safe and smart 🤡🚀</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intermediate Guides -->
+        <div style="background: var(--panel-2); border-radius: 20px; box-shadow: var(--shadow); padding: 30px; border: 1px solid #1a2330;">
+          <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--brand);">📈 Intermediate Guides</h3>
+          <div class="guide-category" data-category="intermediate">
+            <div class="guide-item" data-title="adding liquidity">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>📈 Adding Liquidity</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Earn trading fees by providing liquidity in Uniswap.</p>
+                <ol style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Get equal value of IDIOT Token + WETH</li>
+                  <li>Go to <a href="https://app.uniswap.org/#/pool" target="_blank" rel="noopener" style="color: var(--brand-2);">Uniswap → Pool → New Position</a></li>
+                  <li>Approve IDIOT Token + WETH in MetaMask</li>
+                  <li>Confirm Add Liquidity transaction</li>
+                  <li>View your LP at <a href="https://app.uniswap.org/positions" target="_blank" rel="noopener" style="color: var(--brand-2);">Uniswap Positions</a></li>
+                </ol>
+                <a href="https://app.uniswap.org/#/pool" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Add Liquidity →</a>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="reading charts">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>📊 Reading Charts</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Learn candlestick basics, timeframes, and how to follow market moves.</p>
+                <h4 style="color: var(--brand-2); margin: 15px 0 10px 0;">🕯️ Candlestick Basics</h4>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Body = open vs close price</li>
+                  <li>Wicks = highs & lows</li>
+                  <li>Green = price up, Red = price down</li>
+                </ul>
+                <h4 style="color: var(--brand-2); margin: 15px 0 10px 0;">⏳ Timeframes</h4>
+                <p style="margin-bottom: 15px;">1m (fast), 1h (balanced), 1d (big picture). Beginners → use 1h or 1d.</p>
+                <a href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">View Chart →</a>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="wallet security">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>🛡️ Wallet Security</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Essential security practices to protect your crypto assets.</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Never share your seed phrase with anyone</li>
+                  <li>Use hardware wallets for large amounts</li>
+                  <li>Enable 2FA on all exchanges</li>
+                  <li>Verify contract addresses before interacting</li>
+                  <li>Keep software updated</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Guides -->
+        <div style="background: var(--panel-2); border-radius: 20px; box-shadow: var(--shadow); padding: 30px; border: 1px solid #1a2330;">
+          <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--brand);">🚀 Advanced Guides</h3>
+          <div class="guide-category" data-category="advanced">
+            <div class="guide-item" data-title="trading strategies">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>📊 Trading Strategies</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Advanced trading techniques for experienced users.</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Dollar-cost averaging (DCA)</li>
+                  <li>Technical analysis patterns</li>
+                  <li>Risk management strategies</li>
+                  <li>Portfolio diversification</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="smart contracts">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>⚙️ Smart Contract Interaction</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Understanding and interacting with smart contracts directly.</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Reading contract code on BaseScan</li>
+                  <li>Understanding function calls</li>
+                  <li>Gas optimization techniques</li>
+                  <li>Contract verification methods</li>
+                </ul>
+                <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">View Contract →</a>
+              </div>
+            </div>
+
+            <div class="guide-item" data-title="risk management">
+              <button class="guide-btn" style="width: 100%; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: 600; color: var(--brand); background: none; border: none; cursor: pointer; outline: none; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span>⚠️ Risk Management</span>
+                <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
+              </button>
+              <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <p style="margin-bottom: 15px;">Protect your investments with proper risk management.</p>
+                <ul style="padding-left: 20px; margin-bottom: 15px;">
+                  <li>Never invest more than you can afford to lose</li>
+                  <li>Set stop-loss orders</li>
+                  <li>Diversify your portfolio</li>
+                  <li>Keep emergency funds separate</li>
+                  <li>Stay informed about market conditions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div style="margin-top: 50px;">
+        <a href="#contact" 
+           style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 20px 40px; border-radius: 15px; box-shadow: var(--shadow); transition: all 0.3s ease; text-decoration: none; font-size: 1.1rem;"
+           onmouseover="this.style.transform='translateY(-5px) scale(1.05)'; this.style.background='var(--brand-2)';"
+           onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.background='var(--brand)';">
+          🚀 Need Help? Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" style="padding: 80px 0;">
+    <div class="wrap" style="max-width: 800px; margin: 0 auto;">
+      <!-- What is IDIOT - Centered -->
+      <div class="panel alt" style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 2.8rem; margin-bottom: 25px;">What is IDIOT?</h2>
+        <p class="section-lead" style="font-size: 1.3rem; line-height: 1.6; margin-bottom: 30px;">A no‑nonsense meme token with a simple playbook: loud community, transparent rules, zero hand‑holding. Entertainment with receipts.</p>
+        <div style="background: var(--panel-2); padding: 30px; border-radius: 16px; margin: 30px 0; border-left: 6px solid var(--brand); font-size: 1.1rem; line-height: 1.7;">
+          <strong style="font-size: 1.2rem;">💡 The IDIOT Philosophy:</strong><br><br>
+          We're not here to promise you the moon. We're here to be honest about being idiots, together. 
+          If you're looking for the next 1000x, look elsewhere. If you're looking for a good time with 
+          people who know they're making questionable financial decisions, welcome home.
+        </div>
+        <ul class="muted" style="display: inline-block; text-align: left;">
+          <li>Chain: <b>Base</b></li>
+          <li>Symbol: <b>IDIOT</b></li>
+          <li>Decimals: <b>18</b></li>
+          <li>Tax: <b>0% / 0%</b> <!-- change if different --></li>
+        </ul>
+      </div>
+      
+      <!-- Live Data - Centered -->
+      <div class="panel" style="padding: 30px; text-align: center;">
+        <h3 style="margin:0 0 20px; font-size: 1.8rem;">Live Data</h3>
+        
+        <!-- Live Token Stats -->
+        <div style="background: var(--panel-2); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #1a2330;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 15px;">
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">Token Name</div>
+              <div id="tokenName" style="color: var(--brand); font-weight: bold; font-size: 1.1rem;">Loading...</div>
+        </div>
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">Symbol</div>
+              <div id="tokenSymbol" style="color: var(--brand); font-weight: bold; font-size: 1.1rem;">Loading...</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">Price (USD)</div>
+              <div id="tokenPriceUsd" style="color: var(--brand-2); font-weight: bold; font-size: 1.1rem;">Loading...</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">Total Supply</div>
+              <div id="tokenSupply" style="color: var(--brand); font-weight: bold; font-size: 1.1rem;">Loading...</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">Liquidity (USD)</div>
+              <div id="poolLiquidityUsd" style="color: var(--ok); font-weight: bold; font-size: 1.1rem;">Loading...</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">24h Volume</div>
+              <div id="volume24h" style="color: var(--brand-2); font-weight: bold; font-size: 1.1rem;">Loading...</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="color: var(--muted); font-size: 0.9rem; margin-bottom: 5px;">Last Updated</div>
+              <div id="lastUpdated" style="color: var(--muted); font-size: 0.9rem;">Loading...</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Live Chart -->
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOKENOMICS ===== -->
+  <section id="tokenomics" style="padding: 80px 0;">
+    <div class="wrap" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 3rem; margin-bottom: 25px;">Tokenomics</h2>
+      <p class="section-lead" style="font-size: 1.4rem; line-height: 1.6; margin-bottom: 40px;">Transparent allocation, zero hidden fees, maximum chaos. Here's how we're distributing the idiocy.</p>
+      
+      <!-- Total Supply -->
+      <div style="background: var(--panel); border: 1px solid #1a2330; border-radius: 15px; padding: 25px; margin-bottom: 40px;">
+        <h3 style="color: var(--brand); margin-bottom: 15px; font-size: 1.8rem;">Total Supply</h3>
+        <p style="font-size: 3rem; font-weight: bold; color: var(--txt); margin: 0;">1,000,000,000</p>
+        <p style="color: var(--muted); margin: 10px 0 0; font-size: 1.2rem;">IDIOT Tokens</p>
+      </div>
+      
+      <!-- Pie Chart Visualization -->
+      <div style="background: var(--panel); border: 1px solid #1a2330; border-radius: 20px; padding: 40px; margin-bottom: 40px; position: relative;">
+        <h3 style="color: var(--brand); margin-bottom: 30px; font-size: 1.8rem;">Token Distribution</h3>
+        
+        <!-- Pie Chart Container -->
+        <div style="position: relative; width: 300px; height: 300px; margin: 0 auto 30px; border-radius: 50%; background: conic-gradient(
+          #b3ff00 0deg 169.2deg,      /* 47% Reserve */
+          #ffd24d 169.2deg 259.2deg,  /* 25% Community */
+          #30e0a1 259.2deg 313.2deg,  /* 15% LP */
+          #ff5577 313.2deg 324deg,    /* 3% Treasury */
+          #8b5cf6 324deg 360deg       /* 10% Team */
+        ); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(179, 255, 0, 0.3);">
+          
+          <!-- Center IDIOT Coin -->
+          <div style="width: 120px; height: 120px; background: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--brand); box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+            <img src="assets/img/idiot-coin-512.png?v=20250121" alt="IDIOT Token" width="80" height="80" style="border-radius: 50%;" />
+          </div>
+        </div>
+        
+        <!-- Legend -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; text-align: left;">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg); border-radius: 8px; border-left: 4px solid #b3ff00;">
+            <div style="width: 12px; height: 12px; background: #b3ff00; border-radius: 50%;"></div>
+            <div>
+              <span style="color: var(--txt); font-weight: bold;">Reserve (Cold Treasury)</span>
+              <span style="color: var(--brand); font-weight: bold; float: right;">47%</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg); border-radius: 8px; border-left: 4px solid #ffd24d;">
+            <div style="width: 12px; height: 12px; background: #ffd24d; border-radius: 50%;"></div>
+            <div>
+              <span style="color: var(--txt); font-weight: bold;">Community & Airdrops</span>
+              <span style="color: var(--brand); font-weight: bold; float: right;">25%</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg); border-radius: 8px; border-left: 4px solid #30e0a1;">
+            <div style="width: 12px; height: 12px; background: #30e0a1; border-radius: 50%;"></div>
+            <div>
+              <span style="color: var(--txt); font-weight: bold;">Liquidity Pool</span>
+              <span style="color: var(--brand); font-weight: bold; float: right;">15%</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg); border-radius: 8px; border-left: 4px solid #8b5cf6;">
+            <div style="width: 12px; height: 12px; background: #8b5cf6; border-radius: 50%;"></div>
+            <div>
+              <span style="color: var(--txt); font-weight: bold;">Team (Locked & Vested)</span>
+              <span style="color: var(--brand); font-weight: bold; float: right;">10%</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg); border-radius: 8px; border-left: 4px solid #ff5577;">
+            <div style="width: 12px; height: 12px; background: #ff5577; border-radius: 50%;"></div>
+            <div>
+              <span style="color: var(--txt); font-weight: bold;">Treasury / Ops</span>
+              <span style="color: var(--brand); font-weight: bold; float: right;">3%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Rules Section -->
+      <div style="background: var(--panel); border: 1px solid #1a2330; border-radius: 20px; padding: 30px; text-align: left;">
+        <h3 style="color: var(--brand); margin-bottom: 20px; text-align: center; font-size: 1.8rem;">Rules & Transparency</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+          <div style="padding: 15px; background: var(--bg); border-radius: 10px; border-left: 4px solid var(--brand);">
+            <h4 style="color: var(--brand-2); margin-bottom: 8px;">🔒 Liquidity Pool</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem;">Locked and renounced for transparency</p>
+          </div>
+          
+          <div style="padding: 15px; background: var(--bg); border-radius: 10px; border-left: 4px solid var(--brand);">
+            <h4 style="color: var(--brand-2); margin-bottom: 8px;">👥 Team Allocation</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem;">10% locked & vested (12-month cliff, 24-month linear)</p>
+          </div>
+          
+          <div style="padding: 15px; background: var(--bg); border-radius: 10px; border-left: 4px solid var(--brand);">
+            <h4 style="color: var(--brand-2); margin-bottom: 8px;">🚫 Mint/Burn</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem;">Disabled after deploy - no inflation</p>
+          </div>
+          
+          <div style="padding: 15px; background: var(--bg); border-radius: 10px; border-left: 4px solid var(--brand);">
+            <h4 style="color: var(--brand-2); margin-bottom: 8px;">🏛️ Ownership</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 0.9rem;">Renounced for full decentralization</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLOGAN BANNER ===== -->
+  <section style="padding: 40px 0; background: linear-gradient(135deg, #1a2330 0%, #0f141a 100%); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="text-align: center;">
+      <h2 style="font-size: 2.5rem; margin: 0; color: var(--brand);">FOMO in. ROMO hold.</h2>
+      <p style="font-size: 1.2rem; margin: 10px 0 0; color: var(--muted);">We clown the crowd; we settle on-chain.</p>
+    </div>
+  </section>
+
+  <!-- ===== IDIOCRACY AIRDROP ===== -->
+  <section id="airdrop" style="padding: 60px 0; background: linear-gradient(135deg, #0f141a 0%, #1a2330 100%);">
+    <div class="wrap">
+      <div class="card" style="max-width:1200px;margin:0 auto;padding:24px;background:var(--panel);border:2px solid var(--brand);">
+        <h2 style="color:var(--brand-2);text-align:center;font-size:2.2rem;margin:0 0 20px">🎭 Idiocracy Airdrop — Round #1</h2>
+        <ul style="color:var(--txt);max-width:1000px;margin:12px auto 18px;line-height:1.6;list-style:none;padding:0">
+          <li style="margin:8px 0"><strong>Budget:</strong> 250,000,000 IDIOT (25%)</li>
+          <li style="margin:8px 0"><strong>Pools:</strong> Early Buyers 40% • LP 15% • Community 25% • Meme Bounties 10% • Partners 10%</li>
+          <li style="margin:8px 0"><strong>Snapshot:</strong> <span id="air-snap">2025-10-15 20:00 UTC (4:00 PM ET)</span></li>
+          <li style="margin:8px 0"><strong>Claim window:</strong> 30 days after proofs publish</li>
+          <li style="margin:8px 0"><strong>Leftovers:</strong> return to Treasury</li>
+        </ul>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:20px 0">
+          <a id="viewRules" class="btn alt" href="/airdrop/idiocracy" style="text-decoration:none">View Rules</a>
+          <a id="viewProofs" class="btn ghost" href="/airdrop/idiocracy-1.json" target="_blank" rel="noopener" download="idiocracy-1.json">Download Proofs (JSON)</a>
+          <a id="claimBtn" class="btn" href="/airdrop/" rel="noopener">Open Claim Portal</a>
+        </div>
+        <p style="color:var(--muted);font-size:12px;margin-top:12px;text-align:center">
+          Eligibility is subject to anti-sybil screening. This is not financial advice.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP ===== -->
+  <section id="roadmap" style="padding: 80px 0;">
+    <div class="wrap">
+      <h2 style="font-size: 3rem; margin-bottom: 25px; text-align: center;">Roadmap</h2>
+      <p class="section-lead" style="font-size: 1.4rem; line-height: 1.6; margin-bottom: 50px; text-align: center;">Short, credible, and shippable. No fairy tales.</p>
+      <div class="timeline" style="gap: 30px;">
+        <div class="tl-item done" style="padding: 25px; font-size: 1.1rem;">
+          <b style="font-size: 1.4rem;">Phase 1 — Brand & One‑Pager</b>
+          <div class="muted" style="font-size: 1.1rem; margin-top: 8px; line-height: 1.5;">Logo, visuals, site foundations, social handles.</div>
+        </div>
+        <div class="tl-item done" style="padding: 25px; font-size: 1.1rem;">
+          <b style="font-size: 1.4rem;">Phase 2 — Deploy & Seed LP</b>
+          <div class="muted" style="font-size: 1.1rem; margin-top: 8px; line-height: 1.5;">Contract verification, initial liquidity, basic listings.</div>
+        </div>
+        <div class="tl-item soon" style="padding: 25px; font-size: 1.1rem;">
+          <b style="font-size: 1.4rem;">Phase 3 — Idiocracy Airdrop</b>
+          <div class="muted" style="font-size: 1.1rem; margin-top: 8px; line-height: 1.5;">25% community allocation. Rules + allowlist. Transparent distribution and proofs.</div>
+        </div>
+        <div class="tl-item" style="padding: 25px; font-size: 1.1rem;">
+          <b style="font-size: 1.4rem;">Phase 4 — Community Flywheel</b>
+          <div class="muted" style="font-size: 1.1rem; margin-top: 8px; line-height: 1.5;">Contests, meme bounties, and partnerships.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW TO BUY ===== -->
+  <section id="how" style="padding: 80px 0;">
+    <div class="wrap">
+      <h2 style="font-size: 3rem; margin-bottom: 25px; text-align: center;">How to Buy IDIOT Token</h2>
+      <p class="section-lead" style="font-size: 1.4rem; line-height: 1.6; margin-bottom: 50px; text-align: center;">Complete beginner's guide to buying and selling IDIOT on Base network</p>
+      
+      <!-- Crypto Basics -->
+      <div class="panel" style="margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, var(--panel-2) 0%, #1a2330 100%); border-left: 6px solid var(--brand);">
+        <h3 style="color: var(--brand); margin-bottom: 20px; font-size: 1.6rem;">📚 Crypto Basics - What You Need to Know</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 10px;">🔗 What is Base Network?</h4>
+            <p style="color: var(--muted); line-height: 1.6; margin: 0;">Base is a Layer 2 blockchain built by Coinbase. It's faster and cheaper than Ethereum mainnet, but still secure. Think of it as a "fast lane" for Ethereum transactions.</p>
+        </div>
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 10px;">💰 What is WETH?</h4>
+            <p style="color: var(--muted); line-height: 1.6; margin: 0;">WETH = Wrapped Ethereum. When you send ETH to Uniswap, it automatically converts to WETH for trading. It's the same value as ETH, just in a format that works with smart contracts.</p>
+        </div>
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 10px;">🔄 What is a Token Pair?</h4>
+            <p style="color: var(--muted); line-height: 1.6; margin: 0;">IDIOT/ETH means you can trade between IDIOT tokens and Ethereum. You can buy IDIOT with ETH, or sell IDIOT back to ETH anytime at equal value.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 10px;">💎 Why Equal Value?</h4>
+            <p style="color: var(--muted); line-height: 1.6; margin: 0;">The liquidity pool ensures fair pricing. If IDIOT price goes up, you get more ETH when selling. If it goes down, you get less ETH. It's always 1:1 value exchange.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Guide -->
+      <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+        <div>
+          <h3 style="font-size: 1.8rem; margin-bottom: 30px; color: var(--brand);">📋 Step-by-Step Buying Guide</h3>
+          <div class="steps" style="gap: 25px;">
+            <div class="step" style="padding: 25px; background: var(--panel-2); border-radius: 12px; border-left: 4px solid var(--brand);">
+              <div>
+                <b style="font-size: 1.3rem; color: var(--brand-2);">Step 1: Install a Crypto Wallet</b>
+                <div class="muted" style="font-size: 1.1rem; margin-top: 10px; line-height: 1.6;">
+                  Download <strong>MetaMask</strong> (most popular) or <strong>Rabby</strong> browser extension. 
+                  This is like your digital wallet for crypto. Never share your seed phrase with anyone!
+                </div>
+              </div>
+            </div>
+            <div class="step" style="padding: 25px; background: var(--panel-2); border-radius: 12px; border-left: 4px solid var(--brand);">
+              <div>
+                <b style="font-size: 1.3rem; color: var(--brand-2);">Step 2: Add Base Network</b>
+                <div class="muted" style="font-size: 1.1rem; margin-top: 10px; line-height: 1.6;">
+                  In your wallet, add the Base network. You can find the settings in MetaMask under "Networks" → "Add Network". 
+                  Base RPC: <span class="mono" style="color: var(--brand);">https://mainnet.base.org</span>
+                </div>
+              </div>
+            </div>
+            <div class="step" style="padding: 25px; background: var(--panel-2); border-radius: 12px; border-left: 4px solid var(--brand);">
+              <div>
+                <b style="font-size: 1.3rem; color: var(--brand-2);">Step 3: Get ETH on Base</b>
+                <div class="muted" style="font-size: 1.1rem; margin-top: 10px; line-height: 1.6;">
+                  Buy ETH on Coinbase, then withdraw to Base network (it's free!). Or use a bridge like 
+                  <strong>Base Bridge</strong> to move ETH from Ethereum to Base.
+                </div>
+              </div>
+            </div>
+            <div class="step" style="padding: 25px; background: var(--panel-2); border-radius: 12px; border-left: 4px solid var(--brand);">
+              <div>
+                <b style="font-size: 1.3rem; color: var(--brand-2);">Step 4: Buy IDIOT on Uniswap</b>
+                <div class="muted" style="font-size: 1.1rem; margin-top: 10px; line-height: 1.6;">
+                  Click our Uniswap link below. Select ETH as input, IDIOT as output. 
+                  Enter amount and click "Swap". Confirm the transaction in your wallet.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 style="font-size: 1.8rem; margin-bottom: 30px; color: var(--brand);">🔗 Quick Access Links</h3>
+          <div class="panel alt" style="padding: 30px;">
+            <div style="margin-bottom: 25px;">
+              <h4 style="color: var(--brand-2); margin-bottom: 15px;">🚀 Buy IDIOT (Recommended)</h4>
+              <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" style="display: block; text-align: center; margin-bottom: 20px; font-size: 1.2rem; padding: 15px;">👉 Buy IDIOT on Uniswap</a>
+              <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">This link automatically sets up the trade for you</p>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+              <h4 style="color: var(--brand-2); margin-bottom: 15px;">📊 Track Price & Volume</h4>
+              <a class="btn ghost" href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="display: block; text-align: center; margin-bottom: 10px;">DexScreener Chart</a>
+              <a class="btn ghost" href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="display: block; text-align: center;">BaseScan Explorer</a>
+            </div>
+            
+            <div style="background: var(--panel-2); padding: 20px; border-radius: 8px; border-left: 4px solid var(--ok);">
+              <h4 style="color: var(--ok); margin-bottom: 10px;">✅ Contract Address</h4>
+              <p class="mono" style="color: var(--brand); font-size: 0.9rem; margin: 0; word-break: break-all;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+              <p style="color: var(--muted); font-size: 0.8rem; margin: 10px 0 0;">Always verify this matches before trading</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selling Instructions -->
+      <div class="panel" style="margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #1a2330 0%, var(--panel-2) 100%); border-left: 6px solid var(--brand-2);">
+        <h3 style="color: var(--brand-2); margin-bottom: 20px; font-size: 1.6rem;">💸 How to Sell IDIOT (Same Process, Reversed)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <div>
+            <h4 style="color: var(--brand); margin-bottom: 10px;">1. Go to Uniswap</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 1rem;">Use the same link above</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand); margin-bottom: 10px;">2. Select IDIOT as Input</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 1rem;">Choose IDIOT from the dropdown</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand); margin-bottom: 10px;">3. Select ETH as Output</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 1rem;">ETH will be your output token</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand); margin-bottom: 10px;">4. Enter Amount & Swap</h4>
+            <p style="color: var(--muted); margin: 0; font-size: 1rem;">Enter how much IDIOT to sell</p>
+          </div>
+        </div>
+        <div style="margin-top: 20px; padding: 15px; background: rgba(179, 255, 0, 0.1); border-radius: 8px; border: 1px solid var(--brand);">
+          <p style="color: var(--brand); margin: 0; font-weight: bold;">💡 Pro Tip: You can sell anytime for equal value as Ethereum. The liquidity pool ensures fair pricing!</p>
+        </div>
+      </div>
+
+      <!-- Important Warnings -->
+      <div class="panel" style="padding: 30px; background: linear-gradient(135deg, #2d1a1a 0%, #1a2330 100%); border-left: 6px solid #ff4444;">
+        <h3 style="color: #ff4444; margin-bottom: 20px; font-size: 1.6rem;">⚠️ Important Safety Information</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+          <div>
+            <h4 style="color: #ff6666; margin-bottom: 10px;">🔒 Never Share Your Seed Phrase</h4>
+            <p style="color: var(--muted); margin: 0; line-height: 1.6;">Your 12-24 word seed phrase is like your wallet password. Never share it with anyone, ever. Legitimate projects will never ask for it.</p>
+          </div>
+          <div>
+            <h4 style="color: #ff6666; margin-bottom: 10px;">✅ Always Verify Contract Address</h4>
+            <p style="color: var(--muted); margin: 0 0 10px; line-height: 1.6;">Double-check the contract address matches exactly:</p>
+            <p class="mono" style="color: var(--brand); margin: 0; font-size: 0.9rem; word-break: break-all; background: rgba(179, 255, 0, 0.1); padding: 8px; border-radius: 6px; border: 1px solid rgba(179, 255, 0, 0.3);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+          </div>
+          <div>
+            <h4 style="color: #ff6666; margin-bottom: 10px;">💰 Start Small</h4>
+            <p style="color: var(--muted); margin: 0; line-height: 1.6;">Only invest what you can afford to lose. This is a meme token with no guaranteed returns. Start with a small amount to test the process.</p>
+          </div>
+          <div>
+            <h4 style="color: #ff6666; margin-bottom: 10px;">🌐 Use Official Links Only</h4>
+            <p style="color: var(--muted); margin: 0; line-height: 1.6;">Always use links from this official website. Scammers create fake websites with similar names to steal your funds.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHITEPAPER ===== -->
+  <section id="whitepaper" style="padding: 80px 0; background: var(--panel-2); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <!-- Heading -->
+      <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 30px; color: var(--brand);">📄 IDIOT Token Whitepaper</h2>
+      <p style="font-size: 1.2rem; color: var(--muted); margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        Download our comprehensive whitepaper to understand the full vision, tokenomics, and roadmap for IDIOT Token.
+      </p>
+
+      <!-- Whitepaper Download -->
+      <div style="background: var(--panel); border-radius: 20px; box-shadow: var(--shadow); padding: 40px; border: 1px solid #1a2330; margin-bottom: 30px;">
+        <div style="font-size: 4rem; margin-bottom: 20px;">📋</div>
+             <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: var(--brand);">IDIOT Token Whitepaper v11.0</h3>
+        <p style="color: var(--muted); margin-bottom: 30px; font-size: 1.1rem;">
+          Complete technical documentation including tokenomics, use cases, roadmap, and community guidelines.
+        </p>
+        
+        <!-- Download Buttons -->
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+          <a href="https://stupidiots.com/assets/docs/IDIOT_Whitepaper_v11.pdf" target="_blank" rel="noopener" download="IDIOT_Whitepaper_v11.pdf"
+             style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-size: 1.1rem; transition: all 0.3s ease;"
+             onmouseover="this.style.transform='translateY(-3px)'; this.style.background='var(--brand-2)';"
+             onmouseout="this.style.transform='translateY(0)'; this.style.background='var(--brand)';">
+            📥 Download PDF
+          </a>
+        </div>
+        
+        <!-- File Info -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left; margin-top: 30px;">
+          <div style="background: var(--bg); padding: 20px; border-radius: 10px; border: 1px solid #1a2330;">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">📊 File Size</h4>
+            <p style="color: var(--muted); margin: 0;">PDF: ~2.5 MB</p>
+            <p style="color: var(--muted); margin: 0;">DOCX: ~1.8 MB</p>
+          </div>
+          <div style="background: var(--bg); padding: 20px; border-radius: 10px; border: 1px solid #1a2330;">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">📅 Last Updated</h4>
+            <p style="color: var(--muted); margin: 0;">January 20, 2025</p>
+          </div>
+          <div style="background: var(--bg); padding: 20px; border-radius: 10px; border: 1px solid #1a2330;">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">🔗 Version</h4>
+                 <p style="color: var(--muted); margin: 0;">v11.0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Summary -->
+      <div style="background: var(--panel); border-radius: 20px; box-shadow: var(--shadow); padding: 40px; border: 1px solid #1a2330;">
+        <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px; color: var(--brand);">📋 Quick Summary</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left;">
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 15px;">🎯 Vision</h4>
+            <p style="color: var(--muted); line-height: 1.6;">Creating the most honest and transparent meme token community on Base blockchain.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 15px;">💰 Tokenomics</h4>
+            <p style="color: var(--muted); line-height: 1.6;">Zero tax, community-driven, with transparent token distribution and governance.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand-2); margin-bottom: 15px;">🚀 Roadmap</h4>
+            <p style="color: var(--muted); line-height: 1.6;">Community growth, DeFi integration, and long-term sustainability planning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRADING ===== -->
+  <section style="padding: 60px 0; background: linear-gradient(135deg, #1a2330 0%, #0f141a 100%); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap">
+      <h2 style="text-align: center; color: var(--brand); margin-bottom: 30px;">🔗 Direct Uniswap Trading</h2>
+      <div class="panel" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h3 style="color: var(--brand-2); margin-bottom: 20px;">Trade IDIOT/ETH on Base</h3>
+        <p style="font-size: 1.1rem; margin-bottom: 25px; color: var(--muted);">
+          Use our direct Uniswap link for seamless buying and selling. No manual token import needed!
+        </p>
+        
+        <div style="background: linear-gradient(45deg, var(--brand), var(--brand-2)); padding: 20px; border-radius: 12px; margin: 25px 0; color: #000; font-weight: bold;">
+          <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="color: #000; text-decoration: none; font-size: 1.2rem;">
+            🚀 Open Uniswap Trade Link
+          </a>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; text-align: left;">
+          <div>
+            <h4 style="color: var(--brand); margin-bottom: 10px;">🟢 Buy IDIOT</h4>
+            <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">
+              Users swap ETH (wrapped into WETH automatically) for your token. Simple one-click trading.
+            </p>
+          </div>
+          <div>
+            <h4 style="color: var(--brand); margin-bottom: 10px;">🔴 Sell IDIOT</h4>
+            <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">
+              Users select IDIOT as the input token and swap back into ETH. Full liquidity available.
+            </p>
+          </div>
+        </div>
+        
+        <div style="margin-top: 25px; padding: 15px; background: var(--panel-2); border-radius: 8px; border-left: 4px solid var(--brand);">
+          <p style="margin: 0; color: var(--muted); font-size: 0.9rem;">
+            <strong>Note:</strong> Runs entirely on Base network. Contract address: 
+            <span class="mono" style="color: var(--brand);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AIRDROP RULES ===== -->
+  <section id="airdrop-rules" style="padding: 60px 0; background: var(--panel-2);">
+    <div class="wrap">
+      <h2 style="text-align: center; color: var(--brand-2); margin-bottom: 30px;">🎭 Idiocracy Airdrop Rules</h2>
+      <div class="panel" style="max-width: 800px; margin: 0 auto;">
+        <h3 style="color: var(--brand); margin-bottom: 20px;">Eligibility Pools</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+        <div class="card">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">Early Buyers (40% - 100M IDIOT)</h4>
+            <p class="muted">Pro-rata by net buys before snapshot</p>
+            <p class="muted"><strong>Min:</strong> 2,000 IDIOT | <strong>Max:</strong> 50,000 IDIOT per wallet</p>
+        </div>
+          
+        <div class="card">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">Liquidity Providers (15% - 37.5M IDIOT)</h4>
+            <p class="muted">Pro-rata by LP units at snapshot</p>
+            <p class="muted"><strong>Min:</strong> 3,000 IDIOT | <strong>Max:</strong> 75,000 IDIOT per wallet</p>
+        </div>
+          
+        <div class="card">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">Community & Social (25% - 62.5M IDIOT)</h4>
+            <p class="muted">Fixed grants for allowlisted wallets</p>
+            <p class="muted">Discord "Verified" role + task completion</p>
+        </div>
+          
+        <div class="card">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">Meme Bounties (10% - 25M IDIOT)</h4>
+            <p class="muted">Curated awards for best content</p>
+            <p class="muted"><strong>Range:</strong> 25,000 - 150,000 IDIOT per winner</p>
+        </div>
+          
+        <div class="card">
+            <h4 style="color: var(--brand); margin-bottom: 10px;">Partners / Strategic (10% - 25M IDIOT)</h4>
+            <p class="muted">Collabs, KOLs, spaces, integrations</p>
+            <p class="muted">Strategic partnerships and collaborations</p>
+        </div>
+      </div>
+        
+        <h3 style="color: var(--brand); margin-bottom: 20px;">Rules & Requirements</h3>
+        <ul class="muted" style="line-height: 1.8;">
+          <li><strong>One wallet per human:</strong> Sybil screening will exclude obvious farms</li>
+          <li><strong>Base network only:</strong> Must hold tokens on Base at snapshot time</li>
+          <li><strong>Anti-sybil measures:</strong> Fresh funded wallets and circular transfers excluded</li>
+          <li><strong>Community pool:</strong> Requires at least one on-chain action before claim</li>
+          <li><strong>Claim window:</strong> 30 days after proofs are published</li>
+          <li><strong>Unclaimed tokens:</strong> Return to Treasury for future rounds</li>
+          <li><strong>Dispute window:</strong> 48 hours for challenges before claim opens</li>
+        </ul>
+        
+        <div style="background: var(--panel-2); padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid var(--brand);">
+          <p style="margin: 0; color: var(--muted); font-size: 14px;">
+            <strong>⚠️ Important:</strong> This is not financial advice. Eligibility is subject to anti-sybil screening. 
+            Manual review for top 1% recipients. All decisions are final.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IDIOT CONFESSIONS ===== -->
+  <section id="confessions" style="padding: 60px 0; background: linear-gradient(135deg, #0f141a 0%, #1a2330 100%);">
+    <div class="wrap">
+        <h2 style="text-align: center; color: var(--brand-2); margin-bottom: 30px;">🎭 IDIOT Confessions</h2>
+        <p style="text-align: center; color: var(--muted); margin-bottom: 40px; font-size: 1.1rem;">
+          Stupid fools panic; IDIOTs plan. Share your dumbest moves and join the community!
+        </p>
+      
+      <!-- Stats -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin: 30px 0;">
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="font-size: 2rem; color: var(--brand); font-weight: bold;" id="total-confessions">0</div>
+          <div style="color: var(--muted);">Confessions</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="font-size: 2rem; color: var(--brand); font-weight: bold;" id="total-lost">$0</div>
+          <div style="color: var(--muted);">Collectively Lost</div>
+        </div>
+        <div class="card" style="text-align: center; padding: 20px;">
+          <div style="font-size: 2rem; color: var(--brand); font-weight: bold;" id="avg-loss">$0</div>
+          <div style="color: var(--muted);">Average Loss</div>
+        </div>
+        </div>
+
+      <!-- Confession Form -->
+      <div class="card" style="max-width: 600px; margin: 0 auto 40px; border: 2px solid var(--brand);">
+        <h3 style="color: var(--brand); margin-bottom: 20px; text-align: center;">Share Your IDIOT Moment</h3>
+        <p style="text-align: center; color: var(--muted); margin-bottom: 20px; font-style: italic;">
+          "If you're an idiot, be an intentional one."
+        </p>
+        <form id="confession-form">
+          <textarea id="confession-text" placeholder="Tell us about your dumbest financial move, trading mistake, or general idiocy... (Keep it clean and funny!)" style="width: 100%; padding: 15px; border: 1px solid var(--muted); border-radius: 8px; background: var(--panel-2); color: var(--txt); margin: 10px 0; font-family: inherit; resize: vertical; min-height: 100px;"></textarea>
+          <div style="text-align: center;">
+            <button type="submit" class="btn" style="margin: 10px 0;">Submit Confession</button>
+      </div>
+        </form>
+    </div>
+
+      <!-- Confessions List -->
+      <div class="card">
+        <h3 style="color: var(--brand); margin-bottom: 20px;">Latest Confessions</h3>
+        <div id="confessions-list">
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@crypto_noob:</strong> "Bought the top of every pump, sold the bottom of every dump. Still holding bags from 2021. AMA."
+        </div>
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@diamond_hands:</strong> "Put my rent money into a 'sure thing' coin. Landlord wasn't impressed with my 'diamond hands' explanation."
+        </div>
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@fomo_king:</strong> "Saw a coin pump 1000% and thought 'this is my chance!' Bought at the absolute peak. It's down 99% now."
+          </div>
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@paper_hands:</strong> "Sold my Bitcoin at $30k because I 'needed the money for groceries.' It hit $60k two weeks later."
+          </div>
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@yolo_trader:</strong> "Leveraged 100x on a meme coin. Made $50k in 10 minutes, lost it all in the next 10 minutes. Still not sure what happened."
+          </div>
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@brainless_aesthetic:</strong> "Goofy branding, grim discipline. Looked like a noob but executed like a pro."
+          </div>
+          <div style="background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);">
+            <strong>@oblivious_to_hype:</strong> "Oblivious to influencers; obsessed with fills. Naive in public, cold-blooded in profit."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" style="padding: 80px 0;">
+    <div class="wrap">
+      <h2 style="font-size: 3rem; margin-bottom: 40px; text-align: center;">FAQ</h2>
+      <div style="max-width: 800px; margin: 0 auto;">
+      <details style="margin-bottom: 20px; padding: 25px; background: var(--panel-2); border-radius: 12px; border: 1px solid #1a2330;">
+        <summary style="font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-bottom: 15px;">What is IDIOT token, really?</summary>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">A meme coin on Base with clear token rules and a focus on community‑led growth. No promises, just vibes and shipping. We're the token for people who know they're making questionable financial decisions but want to have fun doing it.</p>
+      </details>
+      <details style="margin-bottom: 20px; padding: 25px; background: var(--panel-2); border-radius: 12px; border: 1px solid #1a2330;">
+        <summary style="font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-bottom: 15px;">Is there a team allocation?</summary>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">Yes, there's a 10% team allocation. We're not hiding it - we built this thing and we deserve a slice. But we're not taking the whole pie. The community gets the majority because that's where the real value is.</p>
+      </details>
+      <details style="margin-bottom: 20px; padding: 25px; background: var(--panel-2); border-radius: 12px; border: 1px solid #1a2330;">
+        <summary style="font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-bottom: 15px;">Is the liquidity locked?</summary>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">Liquidity details will be announced before launch. We're committed to transparency - if it's locked, we'll show you the proof. If it's not, we'll tell you why. No surprises, no rug pulls.</p>
+      </details>
+      <details style="margin-bottom: 20px; padding: 25px; background: var(--panel-2); border-radius: 12px; border: 1px solid #1a2330;">
+        <summary style="font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-bottom: 15px;">Why should I buy IDIOT?</summary>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">Honestly? You probably shouldn't. This is a meme token with no utility, no roadmap to the moon, and no promises of riches. But if you want to join a community of people who are honest about being idiots, welcome aboard.</p>
+      </details>
+      <details style="margin-bottom: 20px; padding: 25px; background: var(--panel-2); border-radius: 12px; border: 1px solid #1a2330;">
+        <summary style="font-size: 1.3rem; font-weight: bold; cursor: pointer; margin-bottom: 15px;">What's the point of this token?</summary>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px;">Entertainment, community, and maybe some laughs. We're not trying to revolutionize finance or save the world. We're just here to have fun, make memes, and be honest about the fact that we're all making questionable decisions together.</p>
+      </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / SOCIALS ===== -->
+  <section id="contact">
+    <div class="wrap">
+      <h2 style="text-align: center; margin-bottom: 40px;">Join the Idiots</h2>
+      
+      <!-- Contact Form -->
+      <div class="card" style="max-width: 600px; margin: 0 auto 40px; border: 2px solid var(--brand);">
+        <h3 style="color: var(--brand); margin-bottom: 20px; text-align: center;">Get in Touch</h3>
+        <p style="text-align: center; color: var(--muted); margin-bottom: 20px; font-style: italic;">
+          "If you're an idiot, be an intentional one." - Drop us a line!
+        </p>
+        <form id="contact-form">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <input type="text" id="contact-name" placeholder="Your Name" required style="padding: 12px; border: 1px solid var(--muted); border-radius: 8px; background: var(--panel-2); color: var(--txt); font-family: inherit;">
+            <input type="email" id="contact-email" placeholder="Your Email" required style="padding: 12px; border: 1px solid var(--muted); border-radius: 8px; background: var(--panel-2); color: var(--txt); font-family: inherit;">
+          </div>
+          <textarea id="contact-message" placeholder="Tell us about your IDIOT moment, ask questions, or just say hi..." required style="width: 100%; padding: 12px; border: 1px solid var(--muted); border-radius: 8px; background: var(--panel-2); color: var(--txt); margin-bottom: 15px; font-family: inherit; resize: vertical; min-height: 120px;"></textarea>
+          <div style="text-align: center;">
+            <button type="submit" class="btn" style="margin: 10px 0;">Send Message</button>
+        </div>
+          <div id="contact-status" style="text-align: center; margin-top: 15px; font-size: 14px;"></div>
+        </form>
+        </div>
+
+      <!-- Social Links -->
+      <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <h3 style="color: var(--brand); margin-bottom: 20px; text-align: center;">Or Connect With Us</h3>
+        <p style="text-align: center; color: var(--muted); margin-bottom: 20px;">Pick a lane: lurk, meme, or build. Up to you.</p>
+        <div class="socials" style="justify-content: center; margin-bottom: 20px;">
+          <a href="https://www.facebook.com/profile.php?id=61580473892697" target="_blank" rel="noopener"><img src="assets/img/idiot-logo-icon_64.png" width="18" height="18" alt="Facebook"/>Facebook</a>
+          <a href="https://x.com/Stup_IDIOT_s" target="_blank" rel="noopener"><img src="assets/img/idiot-logo-icon_64.png" width="18" height="18" alt="X"/>X</a>
+          <a href="https://discord.gg/he2tC85ynx" target="_blank" rel="noopener"><img src="assets/img/idiot-logo-icon_64.png" width="18" height="18" alt="Discord"/>Discord</a>
+        </div>
+        <div style="text-align: center;">
+          <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener">Buy $IDIOT</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding: 60px 0; border-top: 2px solid #121820; background: linear-gradient(135deg, #0f141a 0%, #1a2330 100%);">
+    <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap">
+      <div style="display:flex; align-items:center; gap:15px">
+        <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="text-decoration: none;">
+          <img src="assets/img/coin-1.png" alt="IDIOT Token Coin - Click to Buy" width="50" height="50" style="border-radius: 50%; box-shadow: 0 0 20px rgba(179, 255, 0, 0.4); transition: all 0.3s ease; cursor: pointer;" />
+        </a>
+        <span class="muted" style="font-size: 1.1rem; line-height: 1.5;">© <span id="y"></span> IDIOT. All mistakes reserved. • Made with questionable financial decisions • Not financial advice (obviously)</span>
+        <a id="downloadTicker32" href="assets/img/idiot-coin-32x32-lime-fixed.svg" download="idiot-coin-32x32-lime-fixed.svg" class="muted" style="font-size: 1.0rem; text-decoration: none; padding: 6px 10px; background: var(--panel-2); border-radius: 8px; transition: all 0.3s ease;">Download 32x32 Ticker SVG</a>
+      </div>
+      <a class="muted" href="#top" style="font-size: 1.1rem; padding: 10px 20px; background: var(--panel-2); border-radius: 8px; text-decoration: none; transition: all 0.3s ease;">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Chatbot -->
+  <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: inherit;">
+    <div id="chatbot-window" style="display: none; width: 350px; height: 500px; background: linear-gradient(135deg, #1a2330 0%, #0f141a 100%); border: 2px solid var(--brand); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden;">
+      <div style="background: var(--brand); padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/img/coin-1.png" alt="IDIOT Bot" width="30" height="30" style="border-radius: 50%;">
+          <div>
+            <h4 style="margin: 0; color: #000; font-size: 1.1rem;">IDIOT Bot</h4>
+            <p style="margin: 0; color: #000; font-size: 0.8rem; opacity: 0.8;">Ask me anything!</p>
+          </div>
+        </div>
+        <button id="close-chatbot" style="background: none; border: none; color: #000; font-size: 1.5rem; cursor: pointer; padding: 5px;">×</button>
+      </div>
+      <div id="chatbot-messages" style="height: 350px; overflow-y: auto; padding: 15px; background: var(--panel-2);">
+        <div class="bot-message" style="margin-bottom: 15px; padding: 10px; background: var(--panel); border-radius: 10px; border-left: 3px solid var(--brand);">
+          <p style="margin: 0; color: var(--txt);">Hey! I'm the IDIOT Bot 🤖 I can help you with:</p>
+          <ul style="margin: 10px 0 0 20px; color: var(--muted); font-size: 0.9rem;">
+            <li>How to buy/sell IDIOT</li>
+            <li>Contract address & links</li>
+            <li>Base network info</li>
+            <li>Safety tips</li>
+            <li>General questions</li>
+          </ul>
+          <p style="margin: 10px 0 0; color: var(--brand); font-size: 0.9rem;">What would you like to know? 😊</p>
+        </div>
+      </div>
+      <div style="padding: 15px; background: var(--panel-2); border-top: 1px solid #1a2330;">
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="chatbot-input" placeholder="Ask me anything about IDIOT..." style="flex: 1; padding: 10px; border: 1px solid #1a2330; border-radius: 8px; background: var(--panel); color: var(--txt); font-size: 0.9rem;">
+          <button id="chatbot-send" style="padding: 10px 15px; background: var(--brand); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Send</button>
+        </div>
+        <div style="margin-top: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
+          <button class="quick-question" data-question="How do I buy IDIOT?" style="padding: 5px 10px; background: var(--panel); border: 1px solid var(--brand); border-radius: 15px; color: var(--brand); font-size: 0.8rem; cursor: pointer;">Buy IDIOT</button>
+          <button class="quick-question" data-question="What's the contract address?" style="padding: 5px 10px; background: var(--panel); border: 1px solid var(--brand); border-radius: 15px; color: var(--brand); font-size: 0.8rem; cursor: pointer;">Contract</button>
+          <button class="quick-question" data-question="How do I sell IDIOT?" style="padding: 5px 10px; background: var(--panel); border: 1px solid var(--brand); border-radius: 15px; color: var(--brand); font-size: 0.8rem; cursor: pointer;">Sell IDIOT</button>
+          <button class="quick-question" data-question="What is Base network?" style="padding: 5px 10px; background: var(--panel); border: 1px solid var(--brand); border-radius: 15px; color: var(--brand); font-size: 0.8rem; cursor: pointer;">Base Network</button>
+        </div>
+      </div>
+    </div>
+    <button id="chatbot-toggle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, var(--brand), var(--brand-2)); border: none; color: #000; font-size: 1.5rem; cursor: pointer; box-shadow: 0 5px 15px rgba(179, 255, 0, 0.3); transition: all 0.3s ease;">
+      🤖
+    </button>
+  </div>
+
+  <script>
+    // Page load animation
+    window.addEventListener('load', () => {
+      document.body.classList.remove('loading');
+    });
+
+    // Chatbot System with Organic Knowledge
+    class IDIOTBot {
+      constructor() {
+        this.knowledgeBase = {
+          // Pre-programmed responses
+          responses: {
+            'buy': {
+              keywords: ['buy', 'purchase', 'how to buy', 'get idiot', 'acquire'],
+              answer: `To buy IDIOT tokens:
+
+1. **Install a wallet** (MetaMask or Rabby)
+2. **Add Base network** to your wallet
+3. **Get ETH on Base** (buy on Coinbase and withdraw to Base)
+4. **Use our Uniswap link**: https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base
+
+The link automatically sets up the trade for you! 🚀`,
+              links: ['https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base']
+            },
+            'sell': {
+              keywords: ['sell', 'how to sell', 'cash out', 'convert back'],
+              answer: `To sell IDIOT tokens:
+
+1. **Go to the same Uniswap link**
+2. **Select IDIOT as input** (from dropdown)
+3. **Select ETH as output**
+4. **Enter amount** you want to sell
+5. **Click Swap** and confirm in wallet
+
+You can sell anytime for equal value as Ethereum! 💰`,
+              links: ['https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base']
+            },
+            'contract': {
+              keywords: ['contract', 'address', 'ca', 'contract address', 'token address'],
+              answer: `**IDIOT Token Contract Address:**
+\`0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1\`
+
+**Always verify this matches before trading!** ✅
+
+**Links:**
+• [BaseScan Explorer](https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1)
+• [DexScreener Chart](https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1)`,
+              links: ['https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1', 'https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1']
+            },
+            'base': {
+              keywords: ['base', 'base network', 'what is base', 'base blockchain'],
+              answer: `**Base Network** is a Layer 2 blockchain built by Coinbase:
+
+• **Faster & Cheaper** than Ethereum mainnet
+• **Secure** - backed by Ethereum's security
+• **Easy to use** - Coinbase integration
+• **Low fees** - perfect for meme tokens
+
+Think of it as a "fast lane" for Ethereum transactions! 🚀`,
+              links: []
+            },
+            'safety': {
+              keywords: ['safe', 'safety', 'secure', 'scam', 'legit', 'legitimate'],
+              answer: `**Safety Tips for IDIOT Token:**
+
+🔒 **Never share your seed phrase** - legitimate projects never ask for it
+✅ **Always verify contract address** - double-check it matches
+💰 **Start small** - only invest what you can afford to lose
+🌐 **Use official links only** - from this website
+📊 **Check liquidity** - ensure there's enough trading volume
+
+**Remember:** This is a meme token with no guaranteed returns! 😅`,
+              links: []
+            },
+            'price': {
+              keywords: ['price', 'value', 'worth', 'cost', 'chart', 'trading'],
+              answer: `**IDIOT Token Price & Trading:**
+
+📊 **Live Chart**: [DexScreener](https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1)
+📈 **Volume & Stats**: Check the chart above
+💱 **Trading Pair**: IDIOT/ETH on Base network
+🔄 **Liquidity**: Provided by community
+
+**Note:** Price changes constantly based on supply and demand! 📊`,
+              links: ['https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1']
+            },
+            'team': {
+              keywords: ['team', 'who made', 'creator', 'developer', 'founder'],
+              answer: `**IDIOT Token Team:**
+
+• **Anonymous team** - common in meme tokens
+• **Community-driven** - built by and for the community
+• **Transparent allocation** - 10% team, 90% community
+• **No promises** - we're honest about being idiots! 😅
+
+**Philosophy:** We're not here to promise the moon, just to have fun and be honest about questionable financial decisions! 🤡`,
+              links: []
+            }
+          },
+          // Organic learning storage
+          learnedResponses: JSON.parse(localStorage.getItem('idiotBotKnowledge') || '{}'),
+          // Conversation memory
+          conversationHistory: JSON.parse(localStorage.getItem('idiotBotHistory') || '[]')
+        };
+        
+        this.initializeBot();
+      }
+
+      initializeBot() {
+        // Toggle chatbot
+        document.getElementById('chatbot-toggle').addEventListener('click', () => {
+          const window = document.getElementById('chatbot-window');
+          window.style.display = window.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Close chatbot
+        document.getElementById('close-chatbot').addEventListener('click', () => {
+          document.getElementById('chatbot-window').style.display = 'none';
+        });
+
+        // Send message
+        document.getElementById('chatbot-send').addEventListener('click', () => {
+          this.sendMessage();
+        });
+
+        // Enter key to send
+        document.getElementById('chatbot-input').addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            this.sendMessage();
+          }
+        });
+
+        // Quick question buttons
+        document.querySelectorAll('.quick-question').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const question = btn.getAttribute('data-question');
+            this.addUserMessage(question);
+            this.processMessage(question);
+          });
+        });
+      }
+
+      sendMessage() {
+        const input = document.getElementById('chatbot-input');
+        const message = input.value.trim();
+        if (message) {
+          this.addUserMessage(message);
+          this.processMessage(message);
+          input.value = '';
+        }
+      }
+
+      addUserMessage(message) {
+        const messagesContainer = document.getElementById('chatbot-messages');
+        const userMessage = document.createElement('div');
+        userMessage.style.cssText = 'margin-bottom: 15px; padding: 10px; background: var(--brand); border-radius: 10px; margin-left: 50px; color: #000;';
+        userMessage.innerHTML = `<p style="margin: 0; font-weight: bold;">You:</p><p style="margin: 5px 0 0;">${message}</p>`;
+        messagesContainer.appendChild(userMessage);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      addBotMessage(message, links = []) {
+        const messagesContainer = document.getElementById('chatbot-messages');
+        const botMessage = document.createElement('div');
+        botMessage.style.cssText = 'margin-bottom: 15px; padding: 10px; background: var(--panel); border-radius: 10px; border-left: 3px solid var(--brand);';
+        
+        let messageHTML = `<p style="margin: 0; color: var(--txt);">${message}</p>`;
+        
+        if (links.length > 0) {
+          messageHTML += '<div style="margin-top: 10px;">';
+          links.forEach(link => {
+            messageHTML += `<a href="${link}" target="_blank" style="color: var(--brand); text-decoration: none; margin-right: 10px; font-size: 0.9rem;">🔗 Open Link</a>`;
+          });
+          messageHTML += '</div>';
+        }
+        
+        botMessage.innerHTML = messageHTML;
+        messagesContainer.appendChild(botMessage);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      processMessage(message) {
+        const lowerMessage = message.toLowerCase();
+        
+        // Check pre-programmed responses first
+        for (const [key, data] of Object.entries(this.knowledgeBase.responses)) {
+          if (data.keywords.some(keyword => lowerMessage.includes(keyword))) {
+            this.addBotMessage(data.answer, data.links);
+            this.saveConversation(message, data.answer);
+            return;
+          }
+        }
+
+        // Check learned responses
+        if (this.knowledgeBase.learnedResponses[lowerMessage]) {
+          this.addBotMessage(this.knowledgeBase.learnedResponses[lowerMessage]);
+          this.saveConversation(message, this.knowledgeBase.learnedResponses[lowerMessage]);
+          return;
+        }
+
+        // Organic learning - ask user to teach the bot
+        this.addBotMessage(`I don't know the answer to "${message}" yet! 🤔
+
+Can you help me learn? Please provide the answer and I'll remember it for next time! 
+
+Or try asking about:
+• How to buy/sell IDIOT
+• Contract address
+• Base network
+• Safety tips
+• Price & charts
+
+What would you like to know? 😊`);
+
+        // Store the question for learning
+        this.storeQuestionForLearning(message);
+      }
+
+      storeQuestionForLearning(question) {
+        // Store unanswered questions for potential learning
+        if (!this.knowledgeBase.learnedResponses[question.toLowerCase()]) {
+          this.knowledgeBase.learnedResponses[question.toLowerCase()] = null; // Mark as unanswered
+          this.saveKnowledge();
+        }
+      }
+
+      saveConversation(question, answer) {
+        this.knowledgeBase.conversationHistory.push({
+          question: question,
+          answer: answer,
+          timestamp: new Date().toISOString()
+        });
+        
+        // Keep only last 50 conversations
+        if (this.knowledgeBase.conversationHistory.length > 50) {
+          this.knowledgeBase.conversationHistory = this.knowledgeBase.conversationHistory.slice(-50);
+        }
+        
+        localStorage.setItem('idiotBotHistory', JSON.stringify(this.knowledgeBase.conversationHistory));
+      }
+
+      saveKnowledge() {
+        localStorage.setItem('idiotBotKnowledge', JSON.stringify(this.knowledgeBase.learnedResponses));
+      }
+
+      // Method to add new knowledge (can be called externally)
+      learnNewResponse(question, answer) {
+        this.knowledgeBase.learnedResponses[question.toLowerCase()] = answer;
+        this.saveKnowledge();
+        this.addBotMessage(`Thanks! I've learned that: "${question}" → "${answer}" 🤖`);
+      }
+    }
+
+    // Live Token Data Configuration
+    const CONTRACT_ADDRESS = "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1";
+    const POOL_ADDRESS = "0x763c9ab550dc0dabd32f40131481bf4ba4d8c1ea";
+    const RPC_URL = "https://mainnet.base.org";
+
+    const ERC20_ABI = [
+      "function name() view returns (string)",
+      "function symbol() view returns (string)",
+      "function decimals() view returns (uint8)",
+      "function totalSupply() view returns (uint256)"
+    ];
+
+    async function loadTokenData() {
+      try {
+        const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+        const token = new ethers.Contract(CONTRACT_ADDRESS, ERC20_ABI, provider);
+
+        const [name, symbol, decimals, supply] = await Promise.all([
+          token.name(),
+          token.symbol(),
+          token.decimals(),
+          token.totalSupply()
+        ]);
+
+        document.getElementById("tokenName").innerText = name;
+        document.getElementById("tokenSymbol").innerText = symbol;
+        document.getElementById("tokenSupply").innerText =
+          ethers.utils.formatUnits(supply, decimals);
+
+        // DexScreener API for price & liquidity
+        const url = `https://api.dexscreener.com/latest/dex/pairs/base/${POOL_ADDRESS}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data && data.pair) {
+          const priceUsd = data.pair.priceUsd || "N/A";
+          const liquidityUsd = data.pair.liquidity?.usd || "N/A";
+          const volume24h = data.pair.volume?.h24 || "N/A";
+
+          document.getElementById("tokenPriceUsd").innerText = `$${Number(priceUsd).toFixed(6)}`;
+          document.getElementById("poolLiquidityUsd").innerText = `$${Number(liquidityUsd).toLocaleString()}`;
+          document.getElementById("volume24h").innerText = `$${Number(volume24h).toLocaleString()}`;
+        }
+
+        // Update timestamp
+        const now = new Date();
+        document.getElementById("lastUpdated").innerText = now.toLocaleTimeString();
+
+      } catch (err) {
+        console.error("Error loading data:", err);
+        // Show error state
+        document.getElementById("tokenName").innerText = "Error";
+        document.getElementById("tokenSymbol").innerText = "Error";
+        document.getElementById("tokenPriceUsd").innerText = "Error";
+        document.getElementById("tokenSupply").innerText = "Error";
+        document.getElementById("poolLiquidityUsd").innerText = "Error";
+        document.getElementById("volume24h").innerText = "Error";
+        document.getElementById("lastUpdated").innerText = "Failed to load";
+      }
+    }
+
+    // Initialize the chatbot when page loads
+    let idiotBot;
+    window.addEventListener('load', () => {
+      idiotBot = new IDIOTBot();
+      
+      // Load token data on page load + auto-refresh every 30 seconds
+      loadTokenData();
+      setInterval(loadTokenData, 30000);
+    });
+
+    // Global function to teach the bot (can be called from console or other scripts)
+    window.teachIDIOTBot = function(question, answer) {
+      if (idiotBot) {
+        idiotBot.learnNewResponse(question, answer);
+      }
+    };
+    
+    // Smooth scroll for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{const id=a.getAttribute('href'); if(id.length>1){e.preventDefault(); document.querySelector(id).scrollIntoView({behavior:'smooth', block:'start'});} });
+    });
+    
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+    
+    // Copy contract with enhanced feedback
+    const CONTRACT = '0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1'; // ✅ IDIOT Token Contract Address
+    const ca = document.getElementById('ca');
+    ca.textContent = CONTRACT;
+    
+    // Copy contract button functionality
+    document.getElementById('copyContract').addEventListener('click', async ()=>{
+      try{ 
+        await navigator.clipboard.writeText(CONTRACT); 
+        const b = document.getElementById('copyContract'); 
+        const old=b.textContent; 
+        b.textContent='✅ Copied!'; 
+        b.style.background = 'var(--ok)';
+        b.style.color = '#000';
+        setTimeout(()=>{
+          b.textContent=old;
+          b.style.background = '';
+          b.style.color = '';
+        },2000);
+      }catch(err){ 
+        alert('Copy failed - please copy manually: ' + CONTRACT); 
+      }
+    });
+    
+    // Contract address click to copy functionality
+    ca.addEventListener('click', async ()=>{
+      try{ 
+        await navigator.clipboard.writeText(CONTRACT); 
+        const originalStyle = ca.style.cssText;
+        ca.style.background = 'var(--ok)';
+        ca.style.color = '#000';
+        ca.style.border = '2px solid var(--ok)';
+        ca.textContent = '✅ Copied!';
+        setTimeout(()=>{
+          ca.style.cssText = originalStyle;
+          ca.textContent = CONTRACT;
+        },2000);
+      }catch(err){ 
+        alert('Copy failed - please copy manually: ' + CONTRACT); 
+      }
+    });
+    
+    // Add hover effects for contract address
+    ca.addEventListener('mouseenter', ()=>{
+      ca.style.background = 'rgba(179, 255, 0, 0.1)';
+      ca.style.border = '2px solid var(--brand)';
+    });
+    
+    ca.addEventListener('mouseleave', ()=>{
+      ca.style.background = 'transparent';
+      ca.style.border = '2px solid transparent';
+    });
+    
+    // Add click animation to cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          card.style.transform = '';
+        }, 150);
+      });
+    });
+    
+    // Add scroll-triggered animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Observe sections for scroll animations
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+    
+    // Add error handling for images
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', function() {
+        console.log('Image failed to load:', this.src);
+        // You can add fallback logic here
+      });
+    });
+    
+    // Add loading states
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('load', function() {
+        this.style.opacity = '1';
+      });
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 0.3s ease';
+    });
+    
+    // Rotating slogans
+    const slogans = [
+      "Buy the peak, sell the dip—on purpose.",
+      "FOMO in. ROMO hold.",
+      "If you buy this token, you're an IDIOT—by design.",
+      "Join the quickest-growing group of crypto clowns—with receipts.",
+      "Hold Idiot Tokens if you're brave enough to be called clueless and patient enough to be right.",
+      "Noob face, pro execution.",
+      "Goofy branding, grim discipline.",
+      "Brainless aesthetic, big-brain exits.",
+      "Naive optics; ruthless risk.",
+      "Oblivious to hype, allergic to promises.",
+      "Gullible to memes, immune to panic.",
+      "Ignorant of FUD, fluent in liquidity.",
+      "Stupid fools panic; IDIOTs plan.",
+      "We clown the crowd; we settle on-chain.",
+      "If you hold Idiot Tokens, you're either 'clueless'… or quietly correct."
+    ];
+    // Slogan carousel disabled on hero; reserved for future placement
+
+    // IDIOT Confessions functionality
+    let confessions = [
+      { user: "@crypto_noob", text: "Bought the top of every pump, sold the bottom of every dump. Still holding bags from 2021. AMA.", loss: 5000 },
+      { user: "@diamond_hands", text: "Put my rent money into a 'sure thing' coin. Landlord wasn't impressed with my 'diamond hands' explanation.", loss: 2000 },
+      { user: "@fomo_king", text: "Saw a coin pump 1000% and thought 'this is my chance!' Bought at the absolute peak. It's down 99% now.", loss: 10000 },
+      { user: "@paper_hands", text: "Sold my Bitcoin at $30k because I 'needed the money for groceries.' It hit $60k two weeks later.", loss: 15000 },
+      { user: "@yolo_trader", text: "Leveraged 100x on a meme coin. Made $50k in 10 minutes, lost it all in the next 10 minutes. Still not sure what happened.", loss: 50000 },
+      { user: "@brainless_aesthetic", text: "Goofy branding, grim discipline. Looked like a noob but executed like a pro.", loss: 3000 },
+      { user: "@oblivious_to_hype", text: "Oblivious to influencers; obsessed with fills. Naive in public, cold-blooded in profit.", loss: 8000 },
+      { user: "@gullible_face", text: "Gullible to memes, immune to panic. Ignorant of FUD, fluent in liquidity.", loss: 12000 },
+      { user: "@clueless_execution", text: "Clueless at first glance; dangerous at execution. Goofy until it isn't.", loss: 25000 }
+    ];
+
+    function updateStats() {
+      const total = confessions.length;
+      const totalLost = confessions.reduce((sum, c) => sum + c.loss, 0);
+      const avg = totalLost / total;
+      
+      const totalConfessionsEl = document.getElementById('total-confessions');
+      const totalLostEl = document.getElementById('total-lost');
+      const avgLossEl = document.getElementById('avg-loss');
+      
+      if (totalConfessionsEl) totalConfessionsEl.textContent = total;
+      if (totalLostEl) totalLostEl.textContent = `$${totalLost.toLocaleString()}`;
+      if (avgLossEl) avgLossEl.textContent = `$${Math.round(avg).toLocaleString()}`;
+    }
+
+    function addConfession(user, text) {
+      const loss = Math.floor(Math.random() * 10000) + 1000;
+      const confession = { user, text, loss };
+      confessions.unshift(confession);
+      
+      const confessionsList = document.getElementById('confessions-list');
+      if (confessionsList) {
+        const newConfession = document.createElement('div');
+        newConfession.style.cssText = 'background: var(--panel-2); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid var(--brand);';
+        newConfession.innerHTML = `<strong>${user}:</strong> "${text}"`;
+        confessionsList.insertBefore(newConfession, confessionsList.firstChild);
+      }
+      
+      updateStats();
+      
+      // Show success message
+      const form = document.getElementById('confession-form');
+      if (form) {
+        const button = form.querySelector('button');
+        const originalText = button.textContent;
+        button.textContent = 'Confession Submitted!';
+        button.style.background = 'var(--ok)';
+        button.style.color = '#000';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = '';
+          button.style.color = '';
+        }, 2000);
+      }
+    }
+
+    // Confession form handler
+    const confessionForm = document.getElementById('confession-form');
+    if (confessionForm) {
+      confessionForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const text = document.getElementById('confession-text').value.trim();
+        if (text) {
+          const user = `@idiot_${Math.random().toString(36).substr(2, 6)}`;
+          addConfession(user, text);
+          document.getElementById('confession-text').value = '';
+        }
+      });
+    }
+
+    // Initialize stats when page loads
+    setTimeout(updateStats, 100);
+
+    // Contact form functionality
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+        const status = document.getElementById('contact-status');
+        
+        if (!name || !email || !message) {
+          status.innerHTML = '<span style="color: var(--danger);">Please fill in all fields.</span>';
+          return;
+        }
+        
+        // Create mailto link
+        const subject = `IDIOT Token Contact - ${name}`;
+        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+        const mailtoLink = `mailto:contact@stupidiots.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Show success message
+        status.innerHTML = '<span style="color: var(--ok);">✅ Email client opened! Send your message to contact@stupidiots.com</span>';
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Clear status after 5 seconds
+        setTimeout(() => {
+          status.innerHTML = '';
+        }, 5000);
+      });
+    }
+
+    // ===== CRASH COURSE ACCORDION =====
+    const crashCourseBtns = document.querySelectorAll('.crash-course-btn');
+    
+    crashCourseBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('.crash-course-icon');
+        
+        // Toggle content visibility
+        if (content.style.display === 'none' || content.style.display === '') {
+          content.style.display = 'block';
+          icon.textContent = '−';
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          content.style.display = 'none';
+          icon.textContent = '+';
+          icon.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+
+    // ===== GUIDE SERIES ACCORDION =====
+    const guideBtns = document.querySelectorAll('.guide-btn');
+    
+    guideBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('.guide-icon');
+        
+        // Toggle content visibility
+        if (content.style.display === 'none' || content.style.display === '') {
+          content.style.display = 'block';
+          icon.textContent = '−';
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          content.style.display = 'none';
+          icon.textContent = '+';
+          icon.style.transform = 'rotate(0deg)';
+        }
+      });
+    });
+
+    // ===== GUIDE SEARCH FUNCTIONALITY =====
+    window.filterGuides = function() {
+      const searchInput = document.getElementById('guideSearch');
+      if (!searchInput) return; // Safety check
+      
+      const searchTerm = searchInput.value.toLowerCase();
+      const guideItems = document.querySelectorAll('.guide-item');
+      
+      guideItems.forEach(item => {
+        const title = item.getAttribute('data-title') ? item.getAttribute('data-title').toLowerCase() : '';
+        const content = item.textContent ? item.textContent.toLowerCase() : '';
+        
+        if (title.includes(searchTerm) || content.includes(searchTerm)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    };
+  </script>
+  
+</body>
+</html>
