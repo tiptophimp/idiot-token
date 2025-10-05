@@ -47,57 +47,16 @@ jobs:
         run: |
           unzip deploy-package.zip -d ./deploy-files/
 
-      - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          local-dir: ./deploy-files/
-          server-dir: /public_html/
-          protocol: ftp
-          port: 21
-          timeout: 300000
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
-            **/Thumbs.db
-            **/*.log
-        continue-on-error: true
-
-      - name: Alternative SFTP Deploy (if FTP fails)
-        if: failure()
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          local-dir: ./deploy-files/
-          server-dir: /public_html/
-          protocol: sftp
-          port: 22
-          timeout: 300000
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
-            **/Thumbs.db
-            **/*.log
-        continue-on-error: true
-
-      - name: Manual Upload Instructions (if both fail)
-        if: failure()
+      - name: Setup SSH Key
         run: |
-          echo "🚨 Both FTP and SFTP failed. Manual upload required."
-          echo "📦 Download the deployment package from the artifacts section"
-          echo "🌐 Upload manually to Hostinger File Manager:"
-          echo "   - Go to: https://hpanel.hostinger.com/file-manager"
-          echo "   - Navigate to: /public_html/"
-          echo "   - Upload and extract: stupidiots-deploy-${{ github.run_number }}.zip"
-          echo "   - Move files from extracted folder to /public_html/ root"
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H us-bos-web1384.main-hosting.eu >> ~/.ssh/known_hosts
+
+      - name: Deploy via SFTP/SSH
+        run: |
+          rsync -avz --delete ./deploy-files/ u939125353@us-bos-web1384.main-hosting.eu:/home/u939125353/domains/stupidiots.com/public_html/
 
       - name: Upload deployment package as artifact
         uses: actions/upload-artifact@v4

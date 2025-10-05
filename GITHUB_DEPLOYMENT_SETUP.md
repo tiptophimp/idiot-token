@@ -16,31 +16,26 @@ You need to add these secrets to your GitHub repository:
 - Visit: https://github.com/tiptophimp/idiot-token/settings/secrets/actions
 - Click "New repository secret" for each secret below
 
-### 2. Add These Secrets
+### 2. Add These Secrets (SSH Method - Recommended):
 
 | Secret Name | Value | Description |
 |-------------|-------|-------------|
-| `HOSTINGER_FTP_SERVER` | `stupidiots.com` | Your Hostinger domain |
-| `HOSTINGER_FTP_USERNAME` | `u939125353.srv855356hstgrcloud` | Your Hostinger FTP username |
-| `HOSTINGER_FTP_PASSWORD` | `r!dZuXG3ohvr2F2D` | Your Hostinger FTP password |
+| `HOSTINGER_SSH_KEY` | `[Your Private SSH Key]` | Your Hostinger private SSH key |
+| `HOSTINGER_SSH_HOST` | `us-bos-web1384.main-hosting.eu` | Your Hostinger SSH host |
+| `HOSTINGER_SSH_USER` | `u939125353` | Your Hostinger SSH username |
 
-### 3. Alternative: SSH Key Method (More Secure)
+### 3. SSH Key Setup:
 
-If you prefer SSH keys over FTP passwords:
-
-1. Generate SSH key pair:
-```bash
-ssh-keygen -t rsa -b 4096 -C "github-deploy@stupidiots.com" -f hostinger_deploy_key
+**You already have an SSH key configured!** The public key is:
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDaU3CraneEIyrTcD0hK0hKS/n/xIGxf+kbJiNs2sOOqRXPBmF8jmGCwHPL1grfC0vZtQyptpS4V6bLK8XFd6kJE3wa7TuOzDNBjGqU0oxrtm3GgBiUz9gJzmSFg1vPbL709TQRt1Uuqj98CXhMp3vtXX5tVc+sfJt3OZFdNry9Y14yffeTZeorXTxe63NMNT1oy0QJhC+0CMI0hfIyRA3BQSh9bituTFEn+ySdMftpgksxgU2qUz9rFWAHsTBHhr0NrzQnjv+Xl+V6jJa6QKbFIW6qGkbdEOMUrVAYgBOEYw61bs3fKPCoB7VBoBb0M3/oYBpW1yeUwxxmIGaJE+1YFi0S9o1aLTo9SU6UmC2hswn29iBJ9R5wgUB6ar9rPYqC3OVekJ1ZBthOCy86n0fN9ZUwGGYrrL+t5ZD+IrnLewJ1Y9oZBJaoy2ApBoyHyk6VD3v5ixX+n2IW422zH4STrAEXCN9gPV4Svy6+svi5kdyDtJcr+x+5mqdhbeO74hU= u939125353@us-bos-web1384.main-hosting.eu
 ```
 
-2. Add public key to Hostinger:
-   - Copy `hostinger_deploy_key.pub` content
-   - Add to Hostinger SSH keys section
-
-3. Add these secrets instead:
-   - `HOSTINGER_SSH_HOST`: `stupidiots.com`
-   - `HOSTINGER_SSH_USERNAME`: `u939125353`
-   - `HOSTINGER_SSH_PRIVATE_KEY`: Content of `hostinger_deploy_key` (private key)
+**To get your private key:**
+1. Go to your Hostinger control panel
+2. Navigate to SSH Access section
+3. Download or copy your private key
+4. Add it as `HOSTINGER_SSH_KEY` secret
 
 ## 🎯 How It Works
 
