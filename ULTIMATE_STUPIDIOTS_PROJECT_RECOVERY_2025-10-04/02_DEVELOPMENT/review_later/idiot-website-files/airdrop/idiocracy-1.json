@@ -1,0 +1,62 @@
+{
+  "name": "Idiocracy Airdrop #1",
+  "token": "0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1",
+  "chainId": 8453,
+  "snapshot": "2025-10-15T20:00:00Z",
+  "claimStart": "2025-10-17T20:00:00Z",
+  "claimEnd": "2025-11-16T20:00:00Z",
+  "merkleRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "total": "250000000",
+  "decimals": 18,
+  "pools": {
+    "early_buyers": {
+      "percentage": 40,
+      "tokens": "100000000",
+      "description": "Pro-rata by net buys before snapshot",
+      "min": "2000",
+      "max": "50000"
+    },
+    "liquidity_providers": {
+      "percentage": 15,
+      "tokens": "37500000",
+      "description": "Pro-rata by LP units at snapshot",
+      "min": "3000",
+      "max": "75000"
+    },
+    "community": {
+      "percentage": 25,
+      "tokens": "62500000",
+      "description": "Fixed grants for allowlisted wallets",
+      "requirements": "Discord Verified role + task completion"
+    },
+    "meme_bounties": {
+      "percentage": 10,
+      "tokens": "25000000",
+      "description": "Curated awards for best content",
+      "min": "25000",
+      "max": "150000"
+    },
+    "partners": {
+      "percentage": 10,
+      "tokens": "25000000",
+      "description": "Collabs, KOLs, spaces, integrations"
+    }
+  },
+  "claims": {
+    "0x0000000000000000000000000000000000000000": {
+      "amount": "0",
+      "proof": [],
+      "pool": "placeholder"
+    }
+  },
+  "rules": {
+    "one_wallet_per_human": true,
+    "base_network_only": true,
+    "anti_sybil_screening": true,
+    "community_onchain_action_required": true,
+    "claim_window_days": 30,
+    "unclaimed_to_treasury": true,
+    "dispute_window_hours": 48
+  },
+  "notes": "This is a template. Replace claims with actual addresses and amounts. Update merkleRoot when tree is generated."
+}

@@ -1,0 +1,65 @@
+{
+  "timestamp": "2025-10-04T21:29:00.000Z",
+  "network": "Base Mainnet",
+  "chainId": 8453,
+  "contractAddress": "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+  "contractMetadata": {
+    "name": "Idiot Token",
+    "symbol": "IDIOT",
+    "decimals": 18,
+    "totalSupply": "1000000000.0",
+    "owner": "No owner function"
+  },
+  "verification": {
+    "basescanVerified": true,
+    "contractSource": "OpenZeppelin ERC20",
+    "compilerVersion": "0.8.20",
+    "optimization": "Enabled (200 runs)",
+    "verificationUrl": "https://basescan.org/address/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1"
+  },
+  "wallets": {
+    "deployer": {
+      "address": "0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e",
+      "balance": "448396494.45941",
+      "balanceWei": "448396494459410000000000000000",
+      "percentage": "44.84"
+    },
+    "lpHot": {
+      "address": "0xAC95d0B5603C7212a690bd089BAD472473496374",
+      "balance": "149994999.00835",
+      "balanceWei": "149994999008350000000000000000",
+      "percentage": "15.00"
+    },
+    "opsHot": {
+      "address": "0x721d2adcCf634f4185edE152ee98cA836CF22EA6",
+      "balance": "249935000.0",
+      "balanceWei": "249935000000000000000000000",
+      "percentage": "24.99"
+    },
+    "team": {
+      "address": "0x5817DcCb35cd3a67520e5bda1ebc413cf097a8ee",
+      "balance": "50643000.0",
+      "balanceWei": "50643000000000000000000000",
+      "percentage": "5.06"
+    },
+    "vest1": {
+      "address": "0x6AD03686ab6c3bA2c77992995E4879c62dE88996",
+      "balance": "100000000.0",
+      "balanceWei": "100000000000000000000000000",
+      "percentage": "10.00"
+    },
+    "vest3": {
+      "address": "0x9d466e39799fec7204f40133ecc0beb115813c13",
+      "balance": "100000000.0",
+      "balanceWei": "100000000000000000000000000",
+      "percentage": "10.00"
+    }
+  },
+  "summary": {
+    "totalCirculating": "1098969493.46776",
+    "totalSupply": "1000000000.0",
+    "supplyCoverage": "109.90%",
+    "verificationStatus": "COMPLETE",
+    "ledgerConfirmationRequired": true
+  }
+}

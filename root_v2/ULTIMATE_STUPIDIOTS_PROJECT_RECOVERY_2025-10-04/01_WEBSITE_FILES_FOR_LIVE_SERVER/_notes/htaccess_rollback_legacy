@@ -1,0 +1,2 @@
+# Rollback version — serve the legacy index.html in /public_html/
+DirectoryIndex index.html

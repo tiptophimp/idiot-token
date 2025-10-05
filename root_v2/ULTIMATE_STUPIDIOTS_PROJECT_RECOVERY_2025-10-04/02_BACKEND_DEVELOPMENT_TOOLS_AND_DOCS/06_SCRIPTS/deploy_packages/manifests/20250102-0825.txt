@@ -1,0 +1,53 @@
+STUPIDIOTS RELEASE MANIFEST - 20250102-0825
+Generated: 2025-01-02 08:25 AM
+Package: stupidiots-RELEASE-20250102-0825.zip
+Size: 9.6 MB
+
+=== FILES INCLUDED ===
+index.html (152KB) - Main homepage with updated footer links
+learn.html (14KB) - Learning hub with updated buy guide link
+community_rewards.html (8KB) - Community rewards with updated footer
+docs/how-to-buy-idiot-on-base.html (6KB) - NEW: Canonical buy guide
+docs/legacy/how-to-buy-on-base.html (5KB) - Legacy guide (preserved)
+airdrop/index.html (8KB) - Airdrop portal
+airdrop/idiocracy-1.json (1KB) - Airdrop data
+airdrop/ping.json (1KB) - Ping data
+
+=== ASSETS ===
+assets/img/ (7 files) - Main images and logos
+assets/legacy/ (7 files) - Legacy images for meme wall
+docs/legacy/ (4 files) - Legacy guides and tutorials
+legacy/ (1 file) - Brand voice and memes
+
+=== NEW FEATURES ===
+✅ Canonical Buy Guide - New /docs/how-to-buy-idiot-on-base.html
+✅ 3-Button Row - Token Address, Price, Buy IDIOT
+✅ Social Row - Discord, X, Buy, View, Facebook
+✅ Copy Functionality - Token address clipboard copy
+✅ Unified Styling - Dark/white theme across all buttons
+✅ Contact Clarity - Discord and email support options
+
+=== BUTTON FUNCTIONALITY ===
+- Token Address: Copies contract to clipboard with visual feedback
+- Price: Shows "Loading..." (disabled until pair URL available)
+- Buy IDIOT: Links to Uniswap swap page
+- Social buttons: All properly linked and styled
+
+=== LINK UPDATES ===
+- learn.html: Updated to point to new canonical guide
+- index.html footer: Updated Quick Guides link
+- community_rewards.html footer: Updated Quick Guides link
+- Legacy guide: Preserved with outdated banner
+
+=== TECHNICAL NOTES ===
+- All buttons use dark background (#333) with white text
+- Mobile responsive: Buttons stack vertically on small screens
+- Copy functionality includes fallback for older browsers
+- All external links open in new tabs with proper security
+- No outdated banners on new canonical guide
+
+=== QA STATUS ===
+- All functionality tested and verified
+- Mobile responsiveness confirmed
+- Accessibility standards met
+- No broken links or missing files
