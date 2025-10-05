@@ -1,4 +1,4 @@
-name: Create Deployment Package
+name: Deploy to Hostinger
 
 on:
   push:
@@ -6,27 +6,74 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  package:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm install
+          fi
+
       - name: Create deployment package
         run: |
-          cd 01_LIVE_SITE/main_site
-          zip -r ../../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
+          # Use the cleaned deployment files
+          if [ -d "cleaned_deployment" ]; then
+            cd cleaned_deployment
+            zip -r ../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
+          elif [ -d "01_LIVE_SITE/main_site" ]; then
+            cd 01_LIVE_SITE/main_site
+            zip -r ../../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
+          else
+            # Fallback to public_html if it exists
+            if [ -d "public_html" ]; then
+              cd public_html
+              zip -r ../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
+            else
+              echo "No deployment directory found!"
+              exit 1
+            fi
+          fi
 
-      - name: Upload deployment package
+      - name: Extract deployment package
+        run: |
+          unzip deploy-package.zip -d ./deploy-files/
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: ./deploy-files/
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
+            **/Thumbs.db
+            **/*.log
+
+      - name: Upload deployment package as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: stupidiots-deploy
+          name: stupidiots-deploy-${{ github.run_number }}
           path: deploy-package.zip
           retention-days: 30
 
-      - name: Create download URL
+      - name: Deployment Status
         run: |
-          echo "Deployment package created. Download URL will be available after workflow completes."
-          echo "Manual download: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          # exclude: ${{ secrets.EXCLUDES }}
+          echo "🚀 Deployment completed!"
+          echo "📦 Package: deploy-package.zip"
+          echo "🌐 Site: https://stupidiots.com"
+          echo "📊 Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
