@@ -52,11 +52,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H us-bos-web1384.main-hosting.eu >> ~/.ssh/known_hosts
+          ssh-keyscan -H -p 65002 ${{ secrets.HOSTINGER_SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy via SFTP/SSH
         run: |
-          rsync -avz --delete ./deploy-files/ u939125353@us-bos-web1384.main-hosting.eu:/home/u939125353/domains/stupidiots.com/public_html/
+          rsync -avz --delete -e "ssh -p 65002" ./deploy-files/ ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:/home/u939125353/domains/stupidiots.com/public_html/
 
       - name: Upload deployment package as artifact
         uses: actions/upload-artifact@v4
