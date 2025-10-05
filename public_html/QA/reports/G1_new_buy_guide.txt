@@ -1,0 +1,60 @@
+G1 NEW BUY GUIDE - CHANGE LOG
+Generated: 2025-01-02 07:10 AM
+
+=== SOURCE → TARGET ===
+Source: C:\stupidiots_project\01_LIVE_SITE\main_site_ready_for_upload\main_site\docs\legacy\how-to-buy-on-base.html
+Target: C:\stupidiots_project\01_LIVE_SITE\main_site_ready_for_upload\main_site\docs\how-to-buy-idiot-on-base.html
+
+=== SUBSTITUTIONS MADE ===
+
+1. REMOVED OUTDATED BANNER
+   - Removed: <div class="outdated-banner">⚠️ Outdated reference...</div>
+   - Removed: .outdated-banner CSS rule
+   - Reason: Create canonical current guide
+
+2. ADDED HERO IMAGE
+   - Added: <img src="/assets/legacy/logo.png" alt="IDIOT" style="display:block;margin:24px auto;max-width:200px;height:auto;">
+   - Location: Above H1 title
+   - Reason: Visual branding for canonical guide
+
+3. UPDATED TRUTH BLOCKS
+   - Contract (Base): 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1 ✅ (already correct)
+   - DexScreener (PAIR): <INSERT YOUR PAIR URL HERE> → "Pending" placeholder
+   - Uniswap (PAIR): <INSERT YOUR UNISWAP PAIR URL HERE> → "Pending" placeholder
+   - Reason: Mark as pending until pair URLs are available
+
+4. ADDED RESOURCES SECTION
+   - Added: "Additional Resources" section with contract and placeholder links
+   - Added: Link back to homepage for tokenomics
+   - Reason: Provide current information and direct to source of truth
+
+5. MAINTAINED EXISTING CONTENT
+   - All step-by-step instructions preserved
+   - All safety warnings maintained
+   - All styling and layout preserved
+   - Contract address already correct in existing content
+
+=== FILE STATUS ===
+✅ New canonical guide created
+✅ Outdated banner removed
+✅ Hero image added
+✅ Contract address verified correct
+✅ Placeholder URLs added for pending pair links
+✅ Link to homepage for tokenomics added
+
+=== VERIFICATION ===
+- File size: 4,992 bytes (original) → 5,200+ bytes (updated)
+- Contract address: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1 (consistent)
+- Hero image: /assets/legacy/logo.png (exists)
+- All internal links: Functional
+- All external links: Properly configured with rel="noopener"
+
+=== DONE CRITERIA ===
+✅ New file exists at /docs/how-to-buy-idiot-on-base.html
+✅ Hero image added above H1
+✅ Correct contract address present
+✅ Outdated banner removed
+✅ Placeholder URLs for pending pair links
+✅ Change log written
+
+Status: COMPLETE

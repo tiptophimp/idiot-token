@@ -1,0 +1,48 @@
+PATCH LOG - Footer Contract Block Enhancement
+============================================
+Timestamp: 2025-01-03 21:55:55
+File: index.html (footer component)
+Scope: Minimal footer contract block enhancement
+
+CHANGES IMPLEMENTED:
+===================
+
+1. HTML Structure (Footer Section):
+   - Replaced plain hex text paragraph with interactive contract block
+   - Added contract-line div container
+   - Added contractAddress code element with selectable text
+   - Added copyContract button with aria-label
+   - Added Basescan link with proper target and rel attributes
+
+2. CSS Styles Added:
+   - .contract-line: white-space:nowrap; display:flex; gap:.5rem; align-items:center
+   - #contractAddress: user-select:all; font-family:ui-monospace, SFMono-Regular, Menlo, monospace
+
+3. JavaScript Functionality:
+   - Added footer contract copy functionality
+   - Copy button changes to "Copied!" for 1.5 seconds
+   - Uses navigator.clipboard.writeText() API
+   - Graceful error handling
+
+BEFORE:
+-------
+<p style="color: var(--muted); font-family: monospace; font-size: 0.9rem; word-break: break-all; margin: 0;">
+  0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1
+</p>
+
+AFTER:
+------
+<div class="contract-line">
+  <code id="contractAddress">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code>
+  <button id="copyContract" aria-label="Copy contract">Copy</button>
+  <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener noreferrer">View on Basescan</a>
+</div>
+
+VERIFICATION:
+=============
+- Single-line display (no wrap/truncation) ✓
+- Copy functionality places exact hex to clipboard ✓
+- Basescan link opens in new tab ✓
+- Maintains existing styling and layout ✓
+
+STATUS: COMPLETED SUCCESSFULLY

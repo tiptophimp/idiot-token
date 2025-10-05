@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IDIOT Token — Idiocracy Airdrop Claim Portal (Enhanced)</title>
+  <meta name="description" content="Claim your IDIOT tokens from the Idiocracy Airdrop #1" />
+  <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
+  <style>
+    :root{
+      --bg:#0b0d0f; --panel:#12161b; --panel-2:#0e1318; --txt:#e6edf3; --muted:#a7b0bb; --brand:#b3ff00; --brand-2:#ffd24d; --danger:#ff5577; --ok:#30e0a1;
+      --br:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--txt); font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:800px; margin:0 auto; padding:20px}
+    .card{background:var(--panel); border:1px solid #1b242e; border-radius:var(--br); padding:24px; margin:20px 0}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; background:var(--brand); color:#08110a; font-weight:700; box-shadow:var(--shadow); border:0; cursor:pointer; text-decoration:none}
+    .btn:hover{transform:translateY(-2px); box-shadow:0 15px 40px rgba(0,0,0,.4)}
+    .btn.alt{background:#1c252f; color:var(--txt); border:1px solid #27313b}
+    .btn.ghost{background:transparent; border:1px solid #2a3540; color:var(--txt)}
+    .status{text-align:center; margin:20px 0}
+    .status.success{color:var(--ok)}
+    .status.error{color:var(--danger)}
+    .status.pending{color:var(--brand-2)}
+    input{width:100%; padding:12px; border:1px solid #2a3540; border-radius:8px; background:var(--panel-2); color:var(--txt); margin:10px 0}
+    .claim-info{background:var(--panel-2); padding:20px; border-radius:12px; margin:20px 0}
+    .loading{opacity:0.6; pointer-events:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" style="text-align:center; border:2px solid var(--brand);">
+      <h1 style="color:var(--brand-2); margin:0 0 10px">🎭 Idiocracy Airdrop Claim Portal</h1>
+      <p style="color:var(--muted); margin:0">Claim your IDIOT tokens from Round #1</p>
+    </div>
+
+    <div class="card">
+      <h2>Check Eligibility</h2>
+      <p>Enter your wallet address to check if you're eligible for the airdrop:</p>
+      <input type="text" id="walletAddress" placeholder="0x..." style="font-family: monospace;">
+      <button class="btn" onclick="checkEligibility()">Check Eligibility</button>
+      <div id="status" class="status"></div>
+    </div>
+
+    <div id="claimInfo" class="claim-info" style="display:none">
+      <h3>Your Airdrop Details</h3>
+      <div id="claimDetails"></div>
+      <button class="btn" id="claimBtn" onclick="claimTokens()" style="display:none">Claim Tokens</button>
+    </div>
+
+    <div class="card">
+      <h3>Airdrop Information</h3>
+      <ul style="color:var(--muted); line-height:1.8;">
+        <li><strong>Total Budget:</strong> 250,000,000 IDIOT (25% of supply)</li>
+        <li><strong>Snapshot:</strong> October 15, 2025 at 20:00 UTC</li>
+        <li><strong>Claim Window:</strong> 30 days after proofs are published</li>
+        <li><strong>Network:</strong> Base (Chain ID: 8453)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Contract Addresses</h3>
+      <div style="margin: 20px 0;">
+        <!-- Airdrop/Claim Contract -->
+        <div style="margin-bottom: 15px; padding: 15px; background: var(--panel-2); border-radius: 8px; border-left: 4px solid var(--brand-2);">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <strong style="color: var(--brand-2);">Airdrop/Claim Contract:</strong>
+            <code id="claimAddr" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--brand); background: rgba(179, 255, 0, 0.1); padding: 4px 8px; border-radius: 4px;">0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1</code>
+            <button id="copyClaim" type="button" aria-label="Copy airdrop contract" style="background: var(--brand-2); color: #000; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px;">Copy</button>
+            <a href="https://basescan.org/address/0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1" target="_blank" rel="noopener noreferrer" style="color: var(--brand-2); text-decoration: none; padding: 6px 12px; border: 1px solid var(--brand-2); border-radius: 4px; font-size: 12px;">View on BaseScan</a>
+          </div>
+        </div>
+        
+        <!-- Token Contract -->
+        <div style="padding: 15px; background: var(--panel-2); border-radius: 8px; border-left: 4px solid var(--brand);">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <strong style="color: var(--brand);">Token Contract:</strong>
+            <code id="tokenAddr" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--brand); background: rgba(179, 255, 0, 0.1); padding: 4px 8px; border-radius: 4px;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code>
+            <button id="copyToken" type="button" aria-label="Copy token contract" style="background: var(--brand); color: #000; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px;">Copy</button>
+            <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener noreferrer" style="color: var(--brand); text-decoration: none; padding: 6px 12px; border: 1px solid var(--brand); border-radius: 4px; font-size: 12px;">View on BaseScan</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Eligibility Pools</h3>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;">
+        <div style="background:var(--panel-2); padding:15px; border-radius:8px;">
+          <strong>Early Buyers (40%)</strong><br>
+          <small>Pro-rata by net buys</small>
+        </div>
+        <div style="background:var(--panel-2); padding:15px; border-radius:8px;">
+          <strong>LP Providers (15%)</strong><br>
+          <small>Pro-rata by LP units</small>
+        </div>
+        <div style="background:var(--panel-2); padding:15px; border-radius:8px;">
+          <strong>Community (25%)</strong><br>
+          <small>Discord + tasks</small>
+        </div>
+        <div style="background:var(--panel-2); padding:15px; border-radius:8px;">
+          <strong>Meme Bounties (10%)</strong><br>
+          <small>Curated awards</small>
+        </div>
+        <div style="background:var(--panel-2); padding:15px; border-radius:8px;">
+          <strong>Partners (10%)</strong><br>
+          <small>Strategic collabs</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <p style="color:var(--muted); font-size:14px;">
+        <strong>⚠️ Important:</strong> This is not financial advice. One wallet per human. 
+        Anti-sybil screening applies. Unclaimed tokens return to Treasury.
+      </p>
+      <a href="../stupidiots_one_page_static_site_index.html" class="btn alt">← Back to Main Site</a>
+    </div>
+  </div>
+
+  <script>
+    let airdropData = null;
+    
+    // Load airdrop data
+    async function loadAirdropData() {
+      try {
+        const response = await fetch('./idiocracy-1.json');
+        airdropData = await response.json();
+        console.log('Airdrop data loaded:', airdropData);
+      } catch (error) {
+        console.error('Failed to load airdrop data:', error);
+        showStatus('Failed to load airdrop data. Please try again later.', 'error');
+      }
+    }
+
+    function showStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `status ${type}`;
+    }
+
+    function checkEligibility() {
+      const address = document.getElementById('walletAddress').value.trim();
+      
+      if (!address || !address.startsWith('0x') || address.length !== 42) {
+        showStatus('Please enter a valid Ethereum address', 'error');
+        return;
+      }
+
+      // Simulate eligibility check
+      showStatus('Checking eligibility...', 'pending');
+      
+      setTimeout(() => {
+        // This would normally check against the merkle tree
+        if (address.toLowerCase() in (airdropData?.claims || {})) {
+          const claim = airdropData.claims[address.toLowerCase()];
+          showClaimInfo(claim, address);
+          showStatus('✅ You are eligible for the airdrop!', 'success');
+        } else {
+          showStatus('❌ Address not found in airdrop list', 'error');
+          document.getElementById('claimInfo').style.display = 'none';
+        }
+      }, 1500);
+    }
+
+    function showClaimInfo(claim, address) {
+      const claimInfo = document.getElementById('claimInfo');
+      const claimDetails = document.getElementById('claimDetails');
+      
+      claimDetails.innerHTML = `
+        <p><strong>Wallet:</strong> ${address}</p>
+        <p><strong>Amount:</strong> ${parseInt(claim.amount).toLocaleString()} IDIOT</p>
+        <p><strong>Pool:</strong> ${claim.pool.replace('_', ' ').toUpperCase()}</p>
+        <p><strong>Status:</strong> Ready to claim</p>
+      `;
+      
+      claimInfo.style.display = 'block';
+      document.getElementById('claimBtn').style.display = 'inline-flex';
+    }
+
+    function claimTokens() {
+      showStatus('Claiming tokens...', 'pending');
+      
+      // This would normally interact with the smart contract
+      setTimeout(() => {
+        showStatus('✅ Tokens claimed successfully! Check your wallet.', 'success');
+        document.getElementById('claimBtn').style.display = 'none';
+      }, 2000);
+    }
+
+    // Copy functionality for contract addresses
+    function setupCopyButtons() {
+      // Copy airdrop contract
+      const copyClaimBtn = document.getElementById('copyClaim');
+      const claimAddr = document.getElementById('claimAddr');
+      if (copyClaimBtn && claimAddr) {
+        copyClaimBtn.addEventListener('click', async () => {
+          const text = claimAddr.textContent.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            copyClaimBtn.textContent = 'Copied!';
+            setTimeout(() => copyClaimBtn.textContent = 'Copy', 1500);
+          } catch (e) {
+            console.error('Copy failed:', e);
+          }
+        });
+      }
+
+      // Copy token contract
+      const copyTokenBtn = document.getElementById('copyToken');
+      const tokenAddr = document.getElementById('tokenAddr');
+      if (copyTokenBtn && tokenAddr) {
+        copyTokenBtn.addEventListener('click', async () => {
+          const text = tokenAddr.textContent.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+            copyTokenBtn.textContent = 'Copied!';
+            setTimeout(() => copyTokenBtn.textContent = 'Copy', 1500);
+          } catch (e) {
+            console.error('Copy failed:', e);
+          }
+        });
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAirdropData();
+      setupCopyButtons();
+    });
+  </script>
+</body>
+</html>

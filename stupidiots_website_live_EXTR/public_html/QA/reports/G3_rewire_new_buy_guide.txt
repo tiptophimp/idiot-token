@@ -1,0 +1,54 @@
+G3 REWIRE NEW BUY GUIDE - CHANGE LOG
+Generated: 2025-01-02 08:20 AM
+
+=== PURPOSE ===
+Ensure users never land on the bannered legacy page by mistake.
+All public links now target the new canonical guide.
+
+=== CHANGES MADE ===
+
+1. LEARN.HTML UPDATED
+   - File: learn.html
+   - Change: "How to Buy" card link updated
+   - From: docs/legacy/how-to-buy-on-base.html
+   - To: docs/how-to-buy-idiot-on-base.html
+   - Location: Start Here section, second card
+
+2. INDEX.HTML FOOTER UPDATED
+   - File: index.html
+   - Change: Footer "Quick Guides" section updated
+   - From: docs/legacy/how-to-buy-on-base.html
+   - To: docs/how-to-buy-idiot-on-base.html
+   - Location: Footer Quick Guides section
+
+3. COMMUNITY_REWARDS.HTML FOOTER UPDATED
+   - File: community_rewards.html
+   - Change: Footer "Quick Guides" section updated
+   - From: docs/legacy/how-to-buy-on-base.html
+   - To: docs/how-to-buy-idiot-on-base.html
+   - Location: Footer Quick Guides section
+
+=== LEGACY PAGE VERIFICATION ===
+✅ Legacy page remains available: /docs/legacy/how-to-buy-on-base.html
+✅ Outdated banner present: 1 instance found
+✅ Banner text: "⚠️ Outdated reference. For current contract, tokenomics, links, and LP/vesting proofs, please see the homepage."
+
+=== AFFECTED FILES ===
+- learn.html: 1 link updated
+- index.html: 1 link updated  
+- community_rewards.html: 1 link updated
+- docs/legacy/how-to-buy-on-base.html: Unchanged (legacy preserved)
+
+=== LINK VERIFICATION ===
+✅ All public-facing links now point to new canonical guide
+✅ Legacy guide remains accessible but not linked from main navigation
+✅ Users will not accidentally land on bannered legacy page
+✅ New guide has no outdated banner and current information
+
+=== DONE CRITERIA ===
+✅ All public links target the new guide
+✅ Legacy page remains available under /docs/legacy/
+✅ Legacy page still shows "Outdated reference" banner
+✅ No broken links or missing files
+
+Status: COMPLETE

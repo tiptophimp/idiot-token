@@ -1,0 +1,7 @@
+0| “Watch this, I’m a genius.”
+1| “What if we skipped steps 1–10?”
+2| “Coffee: deployed to production.”
+3| “Push? Pull? …Yes.”
+4| “Precision pouring: Nailed it.”
+5| “DIY = Done It… Yikes.”
+6| “Nailed it. (Narrator: Did not.)”

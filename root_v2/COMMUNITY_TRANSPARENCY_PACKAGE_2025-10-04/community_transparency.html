@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDIOT Token - Community Transparency</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        .transparency-badge {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px;
+            font-weight: bold;
+        }
+        .tokenomics-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .allocation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .allocation-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .pie-chart {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #b3ff00 0deg 169.2deg,      /* 47% Reserve */
+                #ffd24d 169.2deg 259.2deg,  /* 25% Community */
+                #30e0a1 259.2deg 313.2deg,  /* 15% LP */
+                #ff5577 313.2deg 324deg,    /* 3% Treasury */
+                #8b5cf6 324deg 360deg       /* 10% Team */
+            );
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chart-center {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #667eea;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .contract-info {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .contract-address {
+            font-family: monospace;
+            background: #333;
+            color: #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .trading-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .trading-link {
+            background: #667eea;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .trading-link:hover {
+            background: #5a6fd8;
+        }
+        .airdrop-section {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #ffc107;
+        }
+        .vesting-schedule {
+            background: #d1ecf1;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #17a2b8;
+        }
+        .documentation-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .doc-link {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #333;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        .doc-link:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧠 IDIOT Token - Community Transparency</h1>
+            <p>Complete transparency, zero hidden fees, maximum community focus</p>
+            <div class="transparency-badge">✅ 100% Transparent</div>
+            <div class="transparency-badge">✅ Zero Tax</div>
+            <div class="transparency-badge">✅ Community Driven</div>
+        </div>
+
+        <div class="contract-info">
+            <h2>📋 Contract Information</h2>
+            <p><strong>Contract Address:</strong></p>
+            <div class="contract-address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</div>
+            <p><strong>Network:</strong> Base Mainnet (Chain ID: 8453)</p>
+            <p><strong>Symbol:</strong> IDIOT | <strong>Decimals:</strong> 18</p>
+        </div>
+
+        <div class="trading-links">
+            <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" class="trading-link" target="_blank">
+                🦄 Buy on Uniswap
+            </a>
+            <a href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" class="trading-link" target="_blank">
+                📊 View Chart
+            </a>
+            <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" class="trading-link" target="_blank">
+                🔍 View on BaseScan
+            </a>
+        </div>
+
+        <div class="tokenomics-section">
+            <h2>📊 Tokenomics - Complete Transparency</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <h3>Total Supply: 1,000,000,000 IDIOT</h3>
+            </div>
+
+            <!-- Pie Chart -->
+            <div style="text-align: center; margin: 40px 0;">
+                <div class="pie-chart">
+                    <div class="chart-center">
+                        <div style="font-size: 1.2rem; font-weight: bold; color: #667eea;">IDIOT</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allocation Breakdown -->
+            <div class="allocation-grid">
+                <div class="allocation-card">
+                    <h3 style="color: #b3ff00;">Reserve (Cold Treasury)</h3>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">47%</p>
+                    <p style="color: #666;">470,000,000 IDIOT</p>
+                    <p>Long-term treasury for community development and future initiatives</p>
+                </div>
+                
+                <div class="allocation-card">
+                    <h3 style="color: #ffd24d;">Community & Airdrops</h3>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">25%</p>
+                    <p style="color: #666;">250,000,000 IDIOT</p>
+                    <p>Direct distribution to community members and airdrop participants</p>
+                </div>
+                
+                <div class="allocation-card">
+                    <h3 style="color: #30e0a1;">Liquidity Pool</h3>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">15%</p>
+                    <p style="color: #666;">150,000,000 IDIOT</p>
+                    <p>Initial liquidity provision, locked and renounced for transparency</p>
+                </div>
+                
+                <div class="allocation-card">
+                    <h3 style="color: #8b5cf6;">Team (Locked & Vested)</h3>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">10%</p>
+                    <p style="color: #666;">100,000,000 IDIOT</p>
+                    <p>Team allocation with 12-month cliff and 24-month linear vesting</p>
+                </div>
+                
+                <div class="allocation-card">
+                    <h3 style="color: #ff5577;">Treasury / Ops</h3>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">3%</p>
+                    <p style="color: #666;">30,000,000 IDIOT</p>
+                    <p>Operational expenses and community initiatives</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="vesting-schedule">
+            <h2>🔒 Vesting Schedule</h2>
+            <ul>
+                <li><strong>Team Allocation:</strong> 10% locked & vested</li>
+                <li><strong>Cliff Period:</strong> 12 months (no tokens released)</li>
+                <li><strong>Total Vesting:</strong> 24 months linear release</li>
+                <li><strong>Mint/Burn:</strong> Disabled after deployment</li>
+                <li><strong>Liquidity Pool:</strong> Locked and renounced for full decentralization</li>
+            </ul>
+        </div>
+
+        <div class="airdrop-section">
+            <h2>🎁 Community Airdrop Details</h2>
+            <p><strong>Total Budget:</strong> 250,000,000 IDIOT (25% of total supply)</p>
+            
+            <div class="allocation-grid">
+                <div class="allocation-card">
+                    <h4>Early Buyers</h4>
+                    <p style="font-size: 1.5rem; font-weight: bold;">40%</p>
+                    <p>100,000,000 IDIOT</p>
+                </div>
+                <div class="allocation-card">
+                    <h4>Liquidity Providers</h4>
+                    <p style="font-size: 1.5rem; font-weight: bold;">15%</p>
+                    <p>37,500,000 IDIOT</p>
+                </div>
+                <div class="allocation-card">
+                    <h4>Community & Social</h4>
+                    <p style="font-size: 1.5rem; font-weight: bold;">25%</p>
+                    <p>62,500,000 IDIOT</p>
+                </div>
+                <div class="allocation-card">
+                    <h4>Meme Bounties</h4>
+                    <p style="font-size: 1.5rem; font-weight: bold;">10%</p>
+                    <p>25,000,000 IDIOT</p>
+                </div>
+                <div class="allocation-card">
+                    <h4>Partners/Strategic</h4>
+                    <p style="font-size: 1.5rem; font-weight: bold;">10%</p>
+                    <p>25,000,000 IDIOT</p>
+                </div>
+            </div>
+            
+            <h3>📅 Timeline</h3>
+            <ul>
+                <li><strong>Snapshot Date:</strong> October 15, 2025 at 20:00 UTC (4:00 PM ET)</li>
+                <li><strong>Claim Window:</strong> 30 days after proofs publish</li>
+                <li><strong>Unclaimed Tokens:</strong> Return to Treasury</li>
+            </ul>
+        </div>
+
+        <div class="tokenomics-section">
+            <h2>📚 Complete Documentation</h2>
+            <p>All community transparency documents and guides:</p>
+            
+            <div class="documentation-links">
+                <a href="IDIOT_OnePage_Community_Transparency.pdf" class="doc-link" target="_blank">
+                    <h4>📄 Community Transparency PDF</h4>
+                    <p>One-page transparency summary</p>
+                </a>
+                
+                <a href="IDIOT_Whitepaper.pdf" class="doc-link" target="_blank">
+                    <h4>📖 IDIOT Whitepaper</h4>
+                    <p>Complete project documentation</p>
+                </a>
+                
+                <a href="IDIOT_Ops_Runbook.pdf" class="doc-link" target="_blank">
+                    <h4>⚙️ Operations Runbook</h4>
+                    <p>Community operations guide</p>
+                </a>
+                
+                <a href="IDIOT_Community_Emissions_Schedule.csv" class="doc-link" target="_blank">
+                    <h4>📊 Emissions Schedule</h4>
+                    <p>Community token distribution schedule</p>
+                </a>
+                
+                <a href="IDIOT_How_to_Claim_OnePager.rtf" class="doc-link" target="_blank">
+                    <h4>🎁 How to Claim Guide</h4>
+                    <p>Step-by-step claiming instructions</p>
+                </a>
+                
+                <a href="IDIOT_LP_Participant_Guide.rtf" class="doc-link" target="_blank">
+                    <h4>💧 LP Participant Guide</h4>
+                    <p>Liquidity provider participation guide</p>
+                </a>
+                
+                <a href="how-to-buy-idiot-on-base.html" class="doc-link" target="_blank">
+                    <h4>🛒 How to Buy Guide</h4>
+                    <p>Complete buying instructions for Base network</p>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; text-align: center; color: #666;">
+            <p><strong>Last Updated:</strong> October 4, 2025</p>
+            <p><strong>Status:</strong> ✅ Complete transparency maintained</p>
+            <p><strong>Philosophy:</strong> "ROMO over FOMO" - The most honest meme token on Base</p>
+        </div>
+    </div>
+</body>
+</html>

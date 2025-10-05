@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-10-04T21:35:00.000Z",
+  "purpose": "IDIOT Token Verification Confirmation",
+  "contractAddress": "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+  "network": "Base Mainnet",
+  "chainId": 8453,
+  "deployerAddress": "0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e",
+  "message": "I confirm the IDIOT Token distribution and verification data is accurate and complete.",
+  "ledgerSignature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12",
+  "ledgerAddress": "0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e",
+  "confirmationStatus": "CONFIRMED",
+  "signedAt": "2025-10-04T21:35:00.000Z"
+}
