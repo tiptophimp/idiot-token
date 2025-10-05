@@ -86,6 +86,18 @@ jobs:
             **/.DS_Store
             **/Thumbs.db
             **/*.log
+        continue-on-error: true
+
+      - name: Manual Upload Instructions (if both fail)
+        if: failure()
+        run: |
+          echo "🚨 Both FTP and SFTP failed. Manual upload required."
+          echo "📦 Download the deployment package from the artifacts section"
+          echo "🌐 Upload manually to Hostinger File Manager:"
+          echo "   - Go to: https://hpanel.hostinger.com/file-manager"
+          echo "   - Navigate to: /public_html/"
+          echo "   - Upload and extract: stupidiots-deploy-${{ github.run_number }}.zip"
+          echo "   - Move files from extracted folder to /public_html/ root"
 
       - name: Upload deployment package as artifact
         uses: actions/upload-artifact@v4
