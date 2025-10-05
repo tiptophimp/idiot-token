@@ -1,0 +1,32 @@
+name: Create Deployment Package
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create deployment package
+        run: |
+          cd 01_LIVE_SITE/main_site
+          zip -r ../../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
+
+      - name: Upload deployment package
+        uses: actions/upload-artifact@v4
+        with:
+          name: stupidiots-deploy
+          path: deploy-package.zip
+          retention-days: 30
+
+      - name: Create download URL
+        run: |
+          echo "Deployment package created. Download URL will be available after workflow completes."
+          echo "Manual download: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          # exclude: ${{ secrets.EXCLUDES }}
+

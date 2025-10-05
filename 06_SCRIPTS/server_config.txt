@@ -1,0 +1,11 @@
+# Server Configuration
+# Update these with your actual server details
+
+ServerPath=ftp://your-server.com/public_html/
+Username=your-username
+Password=your-password
+
+# Example:
+# ServerPath=ftp://stupidiots.com/public_html/
+# Username=stupidiots_user
+# Password=your_secure_password
