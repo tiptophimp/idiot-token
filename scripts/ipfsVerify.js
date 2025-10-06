@@ -3,7 +3,17 @@ import fs from "fs";
 import { create } from "ipfs-http-client";
 
 const auditFilePath = "./audit/vesting_verification_log.md";
-const ipfs = create({ url: "https://ipfs.infura.io:5001/api/v0" });
+// Use Infura IPFS with authentication if available
+const ipfsConfig = process.env.IPFS_PROJECT_ID && process.env.IPFS_PROJECT_SECRET
+  ? {
+      url: "https://ipfs.infura.io:5001/api/v0",
+      headers: {
+        authorization: `Basic ${Buffer.from(`${process.env.IPFS_PROJECT_ID}:${process.env.IPFS_PROJECT_SECRET}`).toString('base64')}`
+      }
+    }
+  : { url: "https://ipfs.infura.io:5001/api/v0" };
+
+const ipfs = create(ipfsConfig);
 
 async function verifyIPFSIntegrity() {
   console.log("🔍 IPFS Audit Integrity Verification");

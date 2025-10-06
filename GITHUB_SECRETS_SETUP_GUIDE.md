@@ -1,95 +1,115 @@
-# 🔑 GitHub Secrets Setup Guide for Hostinger SSH Key
+# 🔐 GitHub Secrets Setup Guide
 
-## **CURRENT STATUS:**
-✅ **Public Key Received:** `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCYH1KfTCDu2DLsRJZgLKUq+teXOm0sSBoUzLddvLfHNEdOgnIL0ANNoaawlmgmILVhMvlqY+J2TlTH/P0omFMFWNY4kEMLXGPGh+C0x1On5V/KfElEZku8psOkMR6sKs9dFwaz3TDHZihEWTktb+r2FriSXlerHoXiyrjvfwXGnMXvd4JA42B0BNtVuae1Otl3tmS+z23/GLmidLAIZlrJ+jtFdiBcOiR3IhCvYfWWHHcLcAuG5ZxQ4VRtE9f+E1TFo7xbh68E7+Q/miwFQxRtpDSXhM4wX7YKug4I1EluLBPC8vsJKYGW7JQEPw17qDhWoJWOJGHEgmx/4NNEbtfDef08J7Bs0HpsrYmSCN1erNuWCRAcVRNtFyI9yBnzps82gHckDvm8ZpFfUomiY5/BH532KO3sEpk1HkDhvaKqTsVfwVXWWEAxgtVI1hzg12UGQV63OJJHkHqQGekGWTpIkbgwEyocOiL8AFFt1RbDpHREzgx1ln/mR8O6MbZeBbM= u939125353@us-bos-web1384.main-hosting.eu`
+This guide will help you configure the required secrets for the IDIOT token verification workflow to run successfully.
 
-## **STEP 1: GET THE PRIVATE KEY**
+## 📋 Required Secrets
 
-### **From Hostinger Control Panel:**
-1. **Login to Hostinger** control panel
-2. **Go to:** Advanced → SSH Access
-3. **Find:** "Add this SSH key to your Github, Bitbucket or any other service to deploy private repositories"
-4. **Look for:** "Private Key" or "Download Private Key" button
-5. **Download/Copy** the private key content
+You need to add these secrets to your GitHub repository:
 
-### **Private Key Format Should Look Like:**
-```
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
-NhAAAAAwEAAQAAAYEAmB9Sn0wg7tgy7ESWYCylKvrXlzptLEgaFMy3Xby3xzRHTIJyC9AD
-TaGmsJZoJiC1YTL5amPidk5Ux/z9KJhTBVjWOJBDC1xjxofgtMdTp+VfynxJRGRLvKbDp
-DEerCrPXRcGs90wx2YoRFk5LW/q9ha4kl5Xax6F4sq4738FxpzF73eCQONgdATbVbmntT
-rZd7Zkvs9t/xi5onSwCGZayfo7RXYgXDokdyIQr2H1lhx3C3ALhuWcUOFUbRPX/hNUxaO
-8W4evBO/kP5osBUMUbaQ0l4TOMF+2CroOCNRJbiwTwvL7CSmBluyUBD8Ne6g4VqCVjiRh
-xIJsf+DTRG7Xw3n9PCewbNB6bK2JkgjdXqzbg==
------END OPENSSH PRIVATE KEY-----
-```
+### 1. **PRIVATE_KEY** (Required)
+- **Purpose**: Deployer private key for contract verification
+- **Format**: `0x...` (64 character hex string)
+- **How to get**: Export from your wallet (MetaMask, etc.)
+- **Security**: ⚠️ **CRITICAL** - Never share this key publicly
 
-## **STEP 2: ADD TO GITHUB SECRETS**
+### 2. **BASESCAN_API_KEY** (Required)
+- **Purpose**: API key for BaseScan contract verification
+- **How to get**:
+  1. Visit [https://basescan.org/apis](https://basescan.org/apis)
+  2. Create an account or log in
+  3. Generate a new API key
+  4. Copy the key (starts with letters/numbers)
+- **Format**: Alphanumeric string (e.g., `ABC123DEF456...`)
 
-### **Navigate to GitHub Repository:**
-1. **Go to:** https://github.com/tiptophimp/idiot-token
-2. **Click:** Settings (in repository menu)
-3. **Click:** Secrets and variables → Actions
-4. **Click:** "New repository secret"
+### 3. **DISCORD_WEBHOOK_URL** (Optional)
+- **Purpose**: Send verification notifications to Discord
+- **How to get**:
+  1. Go to your Discord server settings
+  2. Navigate to Integrations → Webhooks
+  3. Create a new webhook
+  4. Copy the webhook URL
+- **Format**: `https://discord.com/api/webhooks/xxxxx/yyyyy`
 
-### **Add These 3 Secrets:**
+### 4. **SLACK_WEBHOOK_URL** (Optional)
+- **Purpose**: Send verification notifications to Slack
+- **How to get**:
+  1. Go to your Slack workspace
+  2. Create a new app or use existing one
+  3. Enable Incoming Webhooks
+  4. Create a webhook URL
+- **Format**: `https://hooks.slack.com/services/xxxxx/yyyyy`
 
-#### **Secret 1: HOSTINGER_SSH_KEY**
-- **Name:** `HOSTINGER_SSH_KEY`
-- **Value:** The ENTIRE private key content (including -----BEGIN and -----END lines)
-- **Important:** Copy the complete private key, not just the key part
+### 5. **IPFS_PROJECT_ID** (Optional)
+- **Purpose**: Infura IPFS project ID for immutable storage
+- **How to get**:
+  1. Visit [https://infura.io](https://infura.io)
+  2. Create an account or log in
+  3. Create a new IPFS project
+  4. Copy the Project ID
+- **Format**: UUID string (e.g., `2ABC123DEF456...`)
 
-#### **Secret 2: HOSTINGER_SSH_HOST**
-- **Name:** `HOSTINGER_SSH_HOST`
-- **Value:** `us-bos-web1384.main-hosting.eu`
+### 6. **IPFS_PROJECT_SECRET** (Optional)
+- **Purpose**: Infura IPFS project secret for authentication
+- **How to get**:
+  1. Same as above - in your Infura IPFS project
+  2. Copy the Project Secret
+- **Format**: Long alphanumeric string
 
-#### **Secret 3: HOSTINGER_SSH_USER**
-- **Name:** `HOSTINGER_SSH_USER`
-- **Value:** `u939125353`
+## 🚀 How to Add Secrets
 
-## **STEP 3: VERIFY SETUP**
+1. **Go to your GitHub repository**
+2. **Click on "Settings" tab**
+3. **In the left sidebar, click "Secrets and variables" → "Actions"**
+4. **Click "New repository secret"**
+5. **Add each secret one by one:**
+   - Name: `PRIVATE_KEY`
+   - Value: `0x...` (your private key)
+   - Click "Add secret"
+6. **Repeat for all required secrets**
 
-### **Check GitHub Actions:**
-1. **Go to:** https://github.com/tiptophimp/idiot-token/actions
-2. **Look for:** Recent workflow runs
-3. **Check:** If the test commit (17268e2) triggered a workflow
+## ✅ Verification
 
-### **Test Deployment:**
-1. **Make a small change** to `10_MAIN_SITE/index.html`
-2. **Commit and push:** `git add . && git commit -m "Test deployment" && git push origin main`
-3. **Watch:** GitHub Actions should automatically deploy
-4. **Verify:** Live site updates in 2-3 minutes
+After adding all secrets, the workflow will:
+- ✅ Verify contracts on BaseScan
+- ✅ Generate audit logs
+- ✅ Upload to IPFS (if configured)
+- ✅ Send notifications (if configured)
+- ✅ Create GitHub releases
+- ✅ Update transparency page
 
-## **STEP 4: TROUBLESHOOTING**
+## 🔒 Security Notes
 
-### **If GitHub Actions Still Fails:**
-- **Check:** All 3 secrets are added correctly
-- **Verify:** Private key includes BEGIN/END lines
-- **Ensure:** No extra spaces or characters in secrets
-- **Test:** Manual deployment with `bash manual_deploy.sh`
+- **Never commit private keys to code**
+- **Use GitHub Secrets for all sensitive data**
+- **Rotate keys regularly**
+- **Monitor secret usage in Actions logs**
 
-### **Common Issues:**
-- **Wrong key format:** Must be OpenSSH private key format
-- **Missing secrets:** All 3 secrets must be present
-- **Incorrect values:** Double-check host and user values
+## 🆘 Troubleshooting
 
-## **STEP 5: SUCCESS INDICATORS**
+### "API token not found" error
+- Check that `BASESCAN_API_KEY` is correctly set
+- Verify the API key is valid on BaseScan
 
-### **GitHub Actions Success:**
-- ✅ **Green checkmark** on workflow run
-- ✅ **"Deploy to Hostinger"** step completed
-- ✅ **No error messages** in logs
+### "Write access not granted" error
+- The workflow now has proper permissions configured
+- This should be resolved automatically
 
-### **Live Site Success:**
-- ✅ **Site updates** automatically after push
-- ✅ **Test changes** appear on live site
-- ✅ **No manual deployment** needed
+### "IPFS project id required" error
+- Add `IPFS_PROJECT_ID` and `IPFS_PROJECT_SECRET` secrets
+- Or remove IPFS upload step if not needed
 
-## **🎯 NEXT ACTION REQUIRED:**
+### "Webhook failed" error
+- Check webhook URLs are correct
+- Test webhooks manually first
 
-**Please get the PRIVATE key from Hostinger and add all 3 secrets to GitHub. Then we can test the automated deployment!**
+## 📞 Support
+
+If you encounter issues:
+1. Check the Actions tab for detailed error logs
+2. Verify all secrets are correctly set
+3. Test individual components locally first
+4. Review this guide for missing steps
 
 ---
 
-**Once you've added the secrets, let me know and I'll help you test the automated deployment!** 🚀
+**Ready to deploy?** Once all secrets are configured, push to the main branch to trigger the verification workflow! 🚀
