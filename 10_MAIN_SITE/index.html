@@ -672,6 +672,7 @@
         <a href="#roadmap">Roadmap</a>
         <a href="#guides">Guides</a>
         <a href="#how">Buy</a>
+        <a href="#transparency">Contracts</a>
         <a href="#whitepaper">Whitepaper</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
@@ -1693,6 +1694,123 @@
             <p style="color: var(--muted); margin: 0; line-height: 1.6;">Always use links from this official website. Scammers create fake websites with similar names to steal your funds.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SMART CONTRACT TRANSPARENCY ===== -->
+  <section id="transparency" style="padding: 80px 0; background: var(--panel-1); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 1000px; margin: 0 auto;">
+      <!-- Heading -->
+      <div style="text-align: center; margin-bottom: 50px;">
+        <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px; color: var(--brand);">🔍 Verified Smart Contracts</h2>
+        <p style="font-size: 1.2rem; color: var(--muted); max-width: 600px; margin: 0 auto;">
+          All IDIOT project smart contracts are deployed on <strong>Base Mainnet</strong> and verified for public transparency.
+        </p>
+      </div>
+
+      <!-- Contracts Table -->
+      <div style="background: var(--panel-2); border-radius: 15px; padding: 30px; border: 1px solid #1a2330; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; margin: 0;">
+          <thead>
+            <tr style="background: var(--panel-1);">
+              <th style="padding: 15px; text-align: left; color: var(--brand); font-weight: 600; border-bottom: 2px solid var(--brand);">Contract Name</th>
+              <th style="padding: 15px; text-align: left; color: var(--brand); font-weight: 600; border-bottom: 2px solid var(--brand);">Description</th>
+              <th style="padding: 15px; text-align: left; color: var(--brand); font-weight: 600; border-bottom: 2px solid var(--brand);">Address</th>
+              <th style="padding: 15px; text-align: center; color: var(--brand); font-weight: 600; border-bottom: 2px solid var(--brand);">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #1a2330;">
+              <td style="padding: 15px; font-weight: 600; color: #FFFFFF;">IDIOT Token</td>
+              <td style="padding: 15px; color: var(--muted);">Core ERC-20 token contract</td>
+              <td style="padding: 15px;">
+                <code style="background: rgba(179, 255, 0, 0.1); padding: 4px 8px; border-radius: 4px; color: var(--brand); font-size: 0.9rem; cursor: pointer;" onclick="copyContractAddress(this)" title="Click to copy">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code>
+              </td>
+              <td style="padding: 15px; text-align: center;">
+                <span style="color: #00ff88; font-weight: 600;">✅ Verified</span>
+                <br>
+                <a href="https://basescan.org/address/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="color: var(--brand-2); font-size: 0.8rem; text-decoration: none;">BaseScan</a>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #1a2330;">
+              <td style="padding: 15px; font-weight: 600; color: #FFFFFF;">Uniswap V3 Pool</td>
+              <td style="padding: 15px; color: var(--muted);">Active liquidity pool for IDIOT/WETH</td>
+              <td style="padding: 15px;">
+                <code style="background: rgba(179, 255, 0, 0.1); padding: 4px 8px; border-radius: 4px; color: var(--brand); font-size: 0.9rem;">0xa351ad93ab35cdbb5c06a495c345263545d9a581</code>
+              </td>
+              <td style="padding: 15px; text-align: center;">
+                <span style="color: #00ff88; font-weight: 600;">✅ Verified</span>
+                <br>
+                <a href="https://basescan.org/address/0xa351ad93ab35cdbb5c06a495c345263545d9a581" target="_blank" rel="noopener" style="color: var(--brand-2); font-size: 0.8rem; text-decoration: none;">BaseScan</a>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #1a2330;">
+              <td style="padding: 15px; font-weight: 600; color: #FFFFFF;">Uniswap V2 Pool</td>
+              <td style="padding: 15px; color: var(--muted);">Legacy pool (deprecated)</td>
+              <td style="padding: 15px;">
+                <code style="background: rgba(255, 165, 0, 0.1); padding: 4px 8px; border-radius: 4px; color: #ffa500; font-size: 0.9rem;">0xcd6030e0F73cb4c729f2fBFa93Dc33BF87fAa63a</code>
+              </td>
+              <td style="padding: 15px; text-align: center;">
+                <span style="color: #ffa500; font-weight: 600;">⚠️ Deprecated</span>
+                <br>
+                <span style="color: var(--muted); font-size: 0.8rem;">Do Not Trade</span>
+              </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #1a2330;">
+              <td style="padding: 15px; font-weight: 600; color: #FFFFFF;">Merkle Distributor</td>
+              <td style="padding: 15px; color: var(--muted);">Airdrop contract for verified holders</td>
+              <td style="padding: 15px;">
+                <em style="color: var(--muted);">Pending</em>
+              </td>
+              <td style="padding: 15px; text-align: center;">
+                <span style="color: #ffa500; font-weight: 600;">⏳ Deployment Soon</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 15px; font-weight: 600; color: #FFFFFF;">Vesting Contract</td>
+              <td style="padding: 15px; color: var(--muted);">Team and contributor vesting</td>
+              <td style="padding: 15px;">
+                <em style="color: var(--muted);">Pending</em>
+              </td>
+              <td style="padding: 15px; text-align: center;">
+                <span style="color: #ffa500; font-weight: 600;">⏳ In Progress</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Network Info -->
+      <div style="margin-top: 30px; padding: 20px; background: var(--panel-2); border-radius: 10px; border-left: 4px solid var(--brand);">
+        <h4 style="color: var(--brand); margin-bottom: 15px; font-size: 1.2rem;">🌐 Network Information</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <div>
+            <strong style="color: #FFFFFF;">Network:</strong><br>
+            <span style="color: var(--muted);">Base Mainnet</span>
+          </div>
+          <div>
+            <strong style="color: #FFFFFF;">Explorer:</strong><br>
+            <a href="https://basescan.org" target="_blank" rel="noopener" style="color: var(--brand-2); text-decoration: none;">BaseScan</a>
+          </div>
+          <div>
+            <strong style="color: #FFFFFF;">DEX:</strong><br>
+            <a href="https://app.uniswap.org/#/swap?chain=base&inputCurrency=ETH&outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="color: var(--brand-2); text-decoration: none;">Uniswap</a>
+          </div>
+          <div>
+            <strong style="color: #FFFFFF;">Chart:</strong><br>
+            <a href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="color: var(--brand-2); text-decoration: none;">DexScreener</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Notice -->
+      <div style="margin-top: 30px; padding: 20px; background: rgba(255, 165, 0, 0.1); border-radius: 10px; border: 1px solid rgba(255, 165, 0, 0.3);">
+        <h4 style="color: #ffa500; margin-bottom: 10px; font-size: 1.1rem;">⚠️ Security Notice</h4>
+        <p style="color: var(--muted); margin: 0; line-height: 1.6;">
+          Always verify contract addresses before trading. Only use the verified addresses listed above. 
+          Be cautious of impersonation tokens and always double-check the contract address matches exactly.
+        </p>
       </div>
     </div>
   </section>
