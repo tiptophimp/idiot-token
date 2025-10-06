@@ -50,13 +50,13 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/hostinger_key
+          chmod 600 ~/.ssh/hostinger_key
           ssh-keyscan -H -p 65002 ${{ secrets.HOSTINGER_SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy via SFTP/SSH
         run: |
-          rsync -avz --delete -e "ssh -p 65002" ./deploy-files/ ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:/home/u939125353/domains/stupidiots.com/public_html/
+          rsync -avz --delete -e "ssh -p 65002 -i ~/.ssh/hostinger_key" ./deploy-files/ ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:/home/u939125353/domains/stupidiots.com/public_html/
 
       - name: Upload deployment package as artifact
         uses: actions/upload-artifact@v4
