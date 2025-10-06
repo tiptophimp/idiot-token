@@ -181,7 +181,18 @@ async function getOwner(address) {
 async function uploadAuditToIPFS() {
   try {
     const { create } = await import('ipfs-http-client');
-    const ipfs = create({ url: 'https://ipfs.infura.io:5001/api/v0' });
+    
+    // Use Infura IPFS with authentication if available
+    const ipfsConfig = process.env.IPFS_PROJECT_ID && process.env.IPFS_PROJECT_SECRET
+      ? {
+          url: 'https://ipfs.infura.io:5001/api/v0',
+          headers: {
+            authorization: `Basic ${Buffer.from(`${process.env.IPFS_PROJECT_ID}:${process.env.IPFS_PROJECT_SECRET}`).toString('base64')}`
+          }
+        }
+      : { url: 'https://ipfs.infura.io:5001/api/v0' };
+    
+    const ipfs = create(ipfsConfig);
     
     if (!fs.existsSync(auditFile)) {
       console.log("📄 No audit file to upload to IPFS");

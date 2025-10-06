@@ -8,6 +8,10 @@ on:
 jobs:
   verify-audit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      pull-requests: write
 
     steps:
       - name: 🧾 Checkout Repository
@@ -56,6 +60,9 @@ jobs:
 
       - name: 🪣 Upload Audit to IPFS (Optional)
         if: success()
+        env:
+          IPFS_PROJECT_ID: ${{ secrets.IPFS_PROJECT_ID }}
+          IPFS_PROJECT_SECRET: ${{ secrets.IPFS_PROJECT_SECRET }}
         run: |
           npm install ipfs-http-client
           node scripts/ipfsVerify.js || echo "IPFS upload skipped or failed, continuing..."
