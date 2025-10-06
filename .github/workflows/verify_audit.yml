@@ -31,7 +31,6 @@ jobs:
 
       - name: 🔐 Load Environment Variables
         env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -40,12 +39,11 @@ jobs:
 
       - name: 🔍 Verify and Audit Contracts
         env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          npx hardhat run scripts/verifyAuditNotify.js --network base
+          npx hardhat run scripts/verifyOnly.js --network base
 
       - name: ☁️ Upload Audit Artifact
         uses: actions/upload-artifact@v4
