@@ -1,0 +1,135 @@
+name: IDIOT Contract Verification • Transparency • Release Automation
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for tagging and pushing commits
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📦 Install Dependencies
+        run: |
+          npm ci
+          npx hardhat compile
+
+      - name: 🔐 Load Environment Variables
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          echo "Environment variables initialized."
+
+      - name: 🔍 Verify and Audit Contracts
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          npx hardhat run scripts/verifyAuditNotify.js --network base
+
+      - name: ☁️ Upload Audit Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-log
+          path: audit/vesting_verification_log.md
+
+      - name: 🧩 Preserve Historical Snapshot
+        run: |
+          mkdir -p audit/history
+          cp audit/vesting_verification_log.md audit/history/vesting_verification_log_$(date -u +'%Y%m%d_%H%M').md
+
+      - name: 🪣 Upload Audit to IPFS (Optional)
+        if: success()
+        run: |
+          npm install ipfs-http-client
+          node scripts/ipfsVerify.js || echo "IPFS upload skipped or failed, continuing..."
+
+      - name: 🪪 Commit and Push Updated Audit Logs
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add audit/
+          git commit -m "chore(audit): update verification logs $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || echo "No changes to commit."
+          git pull --rebase origin main
+          git push origin main
+
+      - name: 🏷️ Tag and Release Audit Version
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="audit-v$(date -u +'%Y.%m.%d-%H%M')"
+          git tag -a "$TAG" -m "Automated audit verification release - $TAG"
+          git push origin "$TAG"
+          echo "✅ Created tag $TAG"
+
+      - name: 🧾 Generate and Publish Changelog
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Install GitHub CLI
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install gh -y
+          
+          # Generate changelog
+          node scripts/generateChangelog.js
+          
+          # Generate transparency page
+          node scripts/generateTransparencyPage.js
+          
+          # Get the latest tag
+          TAG=$(git describe --tags --abbrev=0)
+          
+          # Create GitHub release with changelog
+          if [ -f "audit/changelog.md" ]; then
+            CHANGELOG=$(cat audit/changelog.md)
+            gh release create "$TAG" \
+              --title "IDIOT Audit Release - $TAG" \
+              --notes "$CHANGELOG" \
+              audit/vesting_verification_log.md \
+              docs/transparency/index.html \
+              docs/transparency/api.json \
+              || echo "Release already exists or failed. Continuing..."
+          else
+            echo "⚠️ Changelog file not found, creating basic release"
+            gh release create "$TAG" \
+              --title "IDIOT Audit Release - $TAG" \
+              --notes "Automated audit verification release - $TAG" \
+              audit/vesting_verification_log.md \
+              docs/transparency/index.html \
+              docs/transparency/api.json \
+              || echo "Release already exists or failed. Continuing..."
+          fi
+
+      - name: 📢 Announce Release (Discord + Slack)
+        if: success()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          MESSAGE="✅ *New Audit Release Published!* - $TAG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"$MESSAGE\"}" $DISCORD_WEBHOOK_URL || true
+          curl -X POST -H "Content-Type: application/json" -d "{\"text\": \"$MESSAGE\"}" $SLACK_WEBHOOK_URL || true
