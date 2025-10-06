@@ -184,6 +184,29 @@
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-10px); }
     }
+    
+    /* Spinning Coin Animation */
+    @keyframes spin {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    
+    /* Continuous spinning for chatbot coin */
+    @keyframes continuousSpin {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    
+    /* Fast spinning on hover */
+    @keyframes fastSpin {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    
+    /* Chatbot coin hover effect */
+    #chatbot-toggle:hover img {
+      animation: fastSpin 0.5s linear infinite;
+    }
     *{box-sizing:border-box}
     html,body{margin:0; padding:0; background:var(--bg); color:var(--txt); font:18px/1.6 Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit; text-decoration:none}
@@ -1996,7 +2019,7 @@
       </div>
     </div>
     <button id="chatbot-toggle" style="width: 60px; height: 60px; border-radius: 50%; background: transparent; border: none; color: #000; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; padding: 0;">
-      <img src="assets/img/idiot_coin_1.png" alt="IDIOT Bot" width="40" height="40" style="border-radius: 50%; object-fit: cover;" />
+      <img src="assets/img/idiot_coin_1.png" alt="IDIOT Bot" width="40" height="40" style="border-radius: 50%; object-fit: cover; animation: continuousSpin 3s linear infinite; transform-style: preserve-3d;" />
     </button>
   </div>
 
@@ -2112,6 +2135,14 @@ Think of it as a "fast lane" for Ethereum transactions! 🚀`,
         // Toggle chatbot
         document.getElementById('chatbot-toggle').addEventListener('click', () => {
           const window = document.getElementById('chatbot-window');
+          const coin = document.querySelector('#chatbot-toggle img');
+          
+          // Add click spin effect
+          coin.style.animation = 'none';
+          setTimeout(() => {
+            coin.style.animation = 'continuousSpin 3s linear infinite';
+          }, 10);
+          
           window.style.display = window.style.display === 'none' ? 'block' : 'none';
         });
 
