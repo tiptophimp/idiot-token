@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>IDIOT Token — ROMO over FOMO (Live on Base)</title>
-  <meta name="description" content="IDIOT Token — a high‑volatility, community‑driven meme asset on Base. Buy, chart, read the roadmap, and join the community." />
+  <meta name="description" content="IDIOT Token — a high‑volatility, community‑driven meme asset on Base. IDIOT Token Staking now available with 1:1 and 3:1 bonus pools. Buy, chart, stake, and join the community." />
   <meta name="robots" content="index,follow">
-  <meta name="keywords" content="IDIOT token, Base chain, meme token, cryptocurrency, DeFi, Uniswap, DexScreener, liquidity pool, zero tax, Base blockchain, crypto trading, meme coin, community token" />
+  <meta name="keywords" content="IDIOT token, Base chain, meme token, cryptocurrency, DeFi, Uniswap, DexScreener, liquidity pool, zero tax, Base blockchain, crypto trading, meme coin, community token, staking, bonus pools, 1:1 bonus, 3:1 bonus" />
   <meta name="author" content="IDIOT Token Team" />
   <meta name="theme-color" content="#b3ff00" />
   <link rel="canonical" href="https://stupidiots.com/" />
@@ -17,13 +17,21 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "IDIOT Token",
-    "description": "A community-driven meme token on Base blockchain with zero tax and transparent tokenomics",
+    "description": "A community-driven meme token on Base blockchain with zero tax and transparent tokenomics. IDIOT Token Staking now available with 1:1 and 3:1 bonus pools.",
     "url": "https://stupidiots.com",
     "logo": "https://stupidiots.com/assets/img/logo.png",
-    "image": "https://stupidiots.com/assets/img/logo.png",
+    "image": "https://stupidiots.com/assets/img/og-image.png",
     "sameAs": [
-      "https://discord.gg/ATujqJtm3Q"
-    ]
+      "https://discord.gg/ATujqJtm3Q",
+      "https://x.com/Stup_IDIOT_s"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "name": "IDIOT Token Staking",
+      "description": "2-MONTH POOL: 1:1 BONUS • 6-MONTH POOL: 3:1 BONUS",
+      "url": "https://stupidiots.com",
+      "availability": "https://schema.org/InStock"
+    }
   }
   </script>
   
@@ -52,7 +60,6 @@
   <!-- Additional Open Graph tags -->
   <meta property="og:site_name" content="IDIOT Token" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image:alt" content="IDIOT Token - Official Site" />
   
   <!-- Favicons -->
   <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
@@ -75,7 +82,7 @@
   <link rel="preload" href="assets/img/idiot-token-staking-ad.png" as="image" fetchpriority="high" />
   <!-- IDIOT Coin Official Logo - Placement 3: Preload -->
   <link rel="preload" href="assets/img/idiot-coin-official-logo.png" as="image" />
-  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" defer></script>
   
   <!-- Contract Address Configuration -->
   <script>
@@ -791,7 +798,7 @@
              onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'"
              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)'">
           <img src="assets/img/novalex-ai-robot.png" alt="NOVALEX AI Robot with Smart Contract" 
-               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" />
+               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" loading="lazy" />
           <h3 style="color: var(--brand); font-size: 1.4rem; margin-bottom: 15px; font-weight: 600;">NOVALEX AI</h3>
           <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
             Advanced AI technology meets blockchain innovation. Smart contracts, secure transactions, and intelligent automation.
@@ -807,7 +814,7 @@
              onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'"
              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)'">
           <img src="assets/img/three-stooges-comedy.png" alt="Three Stooges Comedy Chaos" 
-               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" />
+               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" loading="lazy" />
           <h3 style="color: var(--brand); font-size: 1.4rem; margin-bottom: 15px; font-weight: 600;">Comedy Chaos</h3>
           <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
             Sometimes the best strategy is to embrace the chaos. Three stooges, three lessons, infinite laughs.
@@ -823,7 +830,7 @@
              onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'"
              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)'">
           <img src="assets/img/idiot-on-base-hero.png" alt="IDIOT Token on Base Blockchain" 
-               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" />
+               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" loading="lazy" />
           <h3 style="color: var(--brand); font-size: 1.4rem; margin-bottom: 15px; font-weight: 600;">IDIOT on Base</h3>
           <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
             Live on Base blockchain. Smart about dumb fun. Get your IDIOT tokens and join the revolution.
@@ -1984,7 +1991,7 @@
           <img src="assets/img/coin-1.png" alt="IDIOT Token Coin - Click to Buy" width="50" height="50" style="border-radius: 50%; box-shadow: 0 0 20px rgba(179, 255, 0, 0.4); transition: all 0.3s ease; cursor: pointer;" />
         </a>
         <!-- IDIOT Coin Official Logo - Placement 4: Footer Logo -->
-        <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="40" height="40" style="margin-left: 15px; filter: drop-shadow(0 0 10px rgba(179, 255, 0, 0.6));" />
+        <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="40" height="40" style="margin-left: 15px; filter: drop-shadow(0 0 10px rgba(179, 255, 0, 0.6));" loading="lazy" />
         <span class="muted" style="font-size: 1.1rem; line-height: 1.5;">© <span id="y"></span> IDIOT. All mistakes reserved. • Made with questionable financial decisions • Not financial advice (obviously)</span>
         <a id="downloadTicker32" href="assets/img/idiot-coin-32x32-lime-fixed.svg" download="idiot-coin-32x32-lime-fixed.svg" class="muted" style="font-size: 1.0rem; text-decoration: none; padding: 6px 10px; background: var(--panel-2); border-radius: 8px; transition: all 0.3s ease;">Download 32x32 Ticker SVG</a>
       </div>
