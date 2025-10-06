@@ -117,6 +117,27 @@
       const contractDisplays = document.querySelectorAll('#contract-display, .contract-address, [data-contract-address]');
       contractDisplays.forEach(element => {
         element.textContent = contractAddress;
+        
+        // Make clickable if not already
+        if (!element.onclick) {
+          element.style.cursor = 'pointer';
+          element.style.padding = '4px 8px';
+          element.style.borderRadius = '4px';
+          element.style.background = 'rgba(179, 255, 0, 0.1)';
+          element.style.border = '1px solid rgba(179, 255, 0, 0.3)';
+          element.style.transition = 'all 0.3s ease';
+          element.title = 'Click to copy contract address';
+          
+          element.addEventListener('click', () => copyContractAddress(element));
+          element.addEventListener('mouseover', () => {
+            element.style.background = 'rgba(179, 255, 0, 0.2)';
+            element.style.border = '1px solid rgba(179, 255, 0, 0.5)';
+          });
+          element.addEventListener('mouseout', () => {
+            element.style.background = 'rgba(179, 255, 0, 0.1)';
+            element.style.border = '1px solid rgba(179, 255, 0, 0.3)';
+          });
+        }
       });
       
       // Update iframe sources
@@ -1613,7 +1634,7 @@
             
             <div style="background: var(--panel-2); padding: 20px; border-radius: 8px; border-left: 4px solid var(--ok);">
               <h4 style="color: var(--ok); margin-bottom: 10px;">✅ Contract Address</h4>
-              <p class="mono" id="contract-display" style="color: var(--brand); font-size: 0.9rem; margin: 0; word-break: break-all;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+              <p class="mono" id="contract-display" style="color: var(--brand); font-size: 0.9rem; margin: 0; word-break: break-all; cursor: pointer; padding: 8px; border-radius: 6px; background: rgba(179, 255, 0, 0.1); border: 1px solid rgba(179, 255, 0, 0.3); transition: all 0.3s ease;" onclick="copyContractAddress(this)" onmouseover="this.style.background='rgba(179, 255, 0, 0.2)'; this.style.border='1px solid rgba(179, 255, 0, 0.5)'" onmouseout="this.style.background='rgba(179, 255, 0, 0.1)'; this.style.border='1px solid rgba(179, 255, 0, 0.3)'" title="Click to copy contract address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
               <p style="color: var(--muted); font-size: 0.8rem; margin: 10px 0 0;">Always verify this matches before trading</p>
               <!-- IDIOT Coin Official Logo - Placement 6: Contract Address Section -->
               <div style="text-align: center; margin-top: 15px;">
@@ -1661,7 +1682,7 @@
           <div>
             <h4 style="color: #ff6666; margin-bottom: 10px;">✅ Always Verify Contract Address</h4>
             <p style="color: var(--muted); margin: 0 0 10px; line-height: 1.6;">Double-check the contract address matches exactly:</p>
-            <p class="mono contract-address" style="color: var(--brand); margin: 0; font-size: 0.9rem; word-break: break-all; background: rgba(179, 255, 0, 0.1); padding: 8px; border-radius: 6px; border: 1px solid rgba(179, 255, 0, 0.3);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+            <p class="mono contract-address" style="color: var(--brand); margin: 0; font-size: 0.9rem; word-break: break-all; background: rgba(179, 255, 0, 0.1); padding: 8px; border-radius: 6px; border: 1px solid rgba(179, 255, 0, 0.3); cursor: pointer; transition: all 0.3s ease;" onclick="copyContractAddress(this)" onmouseover="this.style.background='rgba(179, 255, 0, 0.2)'; this.style.border='1px solid rgba(179, 255, 0, 0.5)'" onmouseout="this.style.background='rgba(179, 255, 0, 0.1)'; this.style.border='1px solid rgba(179, 255, 0, 0.3)'" title="Click to copy contract address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
           </div>
           <div>
             <h4 style="color: #ff6666; margin-bottom: 10px;">💰 Start Small</h4>
@@ -1776,7 +1797,7 @@
         <div style="margin-top: 25px; padding: 15px; background: var(--panel-2); border-radius: 8px; border-left: 4px solid var(--brand);">
           <p style="margin: 0; color: var(--muted); font-size: 0.9rem;">
             <strong>Note:</strong> Runs entirely on Base network. Contract address: 
-            <span class="mono contract-address" style="color: var(--brand);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>
+            <span class="mono contract-address" style="color: var(--brand); cursor: pointer; padding: 4px 8px; border-radius: 4px; background: rgba(179, 255, 0, 0.1); border: 1px solid rgba(179, 255, 0, 0.3); transition: all 0.3s ease;" onclick="copyContractAddress(this)" onmouseover="this.style.background='rgba(179, 255, 0, 0.2)'; this.style.border='1px solid rgba(179, 255, 0, 0.5)'" onmouseout="this.style.background='rgba(179, 255, 0, 0.1)'; this.style.border='1px solid rgba(179, 255, 0, 0.3)'" title="Click to copy contract address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>
           </p>
         </div>
       </div>
@@ -2083,7 +2104,7 @@ You can sell anytime for equal value as Ethereum! 💰`,
             'contract': {
               keywords: ['contract', 'address', 'ca', 'contract address', 'token address'],
               answer: `**IDIOT Token Contract Address:**
-\`0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1\`
+\`<span onclick="copyContractAddress(this)" style="cursor: pointer; color: var(--brand); text-decoration: underline;" title="Click to copy">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>\`
 
 **Always verify this matches before trading!** ✅
 
@@ -2394,6 +2415,59 @@ What would you like to know? 😊`);
     const CONTRACT = window.IDIOT_CONTRACT_ADDRESS; // ✅ IDIOT Token Contract Address
     const ca = document.getElementById('ca');
     ca.textContent = CONTRACT;
+    
+    // Enhanced copy function for contract addresses
+    window.copyContractAddress = function(element) {
+      const contractAddress = window.IDIOT_CONTRACT_ADDRESS;
+      
+      // Try to copy to clipboard
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(contractAddress).then(() => {
+          showCopyFeedback(element, 'Contract address copied!');
+        }).catch(() => {
+          fallbackCopy(contractAddress, element);
+        });
+      } else {
+        fallbackCopy(contractAddress, element);
+      }
+    };
+    
+    // Fallback copy method
+    function fallbackCopy(text, element) {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        showCopyFeedback(element, 'Contract address copied!');
+      } catch (err) {
+        showCopyFeedback(element, 'Copy failed - please copy manually: ' + text);
+      }
+      
+      document.body.removeChild(textArea);
+    }
+    
+    // Show copy feedback
+    function showCopyFeedback(element, message) {
+      const originalText = element.textContent;
+      const originalStyle = element.style.background;
+      
+      element.textContent = message;
+      element.style.background = 'rgba(0, 255, 0, 0.2)';
+      element.style.border = '1px solid rgba(0, 255, 0, 0.5)';
+      
+      setTimeout(() => {
+        element.textContent = originalText;
+        element.style.background = originalStyle;
+        element.style.border = '1px solid rgba(179, 255, 0, 0.3)';
+      }, 2000);
+    }
     
     // Copy contract button functionality
     document.getElementById('copyContract').addEventListener('click', async ()=>{
