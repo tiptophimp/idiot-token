@@ -68,8 +68,96 @@
   <!-- Preloads -->
   <link rel="preload" href="assets/img/logo.png?v=20250119" as="image" />
   <link rel="preload" href="assets/img/coin-1.png" as="image" />
-  <link rel="preload" href="ChatGPT Image Sep 28, 2025, 04_50_50 PM.png" as="image" fetchpriority="high" />
+  <link rel="preload" href="assets/img/hero-banner.png" as="image" fetchpriority="high" />
   <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+  
+  <!-- Contract Address Configuration -->
+  <script>
+    // Centralized contract address - update this single location to change everywhere
+    window.IDIOT_CONTRACT_ADDRESS = '0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1';
+    
+    // Helper function to get contract address
+    window.getContractAddress = function() {
+      return window.IDIOT_CONTRACT_ADDRESS;
+    };
+    
+    // Helper function to get Uniswap URL
+    window.getUniswapUrl = function() {
+      return `https://app.uniswap.org/swap?outputCurrency=${window.IDIOT_CONTRACT_ADDRESS}&chain=base`;
+    };
+    
+    // Helper function to get DexScreener URL
+    window.getDexScreenerUrl = function() {
+      return `https://dexscreener.com/base/${window.IDIOT_CONTRACT_ADDRESS}`;
+    };
+    
+    // Helper function to get BaseScan URL
+    window.getBaseScanUrl = function() {
+      return `https://basescan.org/token/${window.IDIOT_CONTRACT_ADDRESS}`;
+    };
+    
+    // Function to update all contract address displays
+    window.updateContractDisplays = function() {
+      const contractAddress = window.IDIOT_CONTRACT_ADDRESS;
+      
+      // Update all contract display elements
+      const contractDisplays = document.querySelectorAll('#contract-display, .contract-address, [data-contract-address]');
+      contractDisplays.forEach(element => {
+        element.textContent = contractAddress;
+      });
+      
+      // Update iframe sources
+      const dexscreenerIframe = document.getElementById('dexscreener-iframe');
+      if (dexscreenerIframe) {
+        dexscreenerIframe.src = `${getDexScreenerUrl()}?embed=1&theme=dark`;
+      }
+      
+      const uniswapIframe = document.getElementById('uniswap-iframe');
+      if (uniswapIframe) {
+        uniswapIframe.src = `${getUniswapUrl()}&embed=1`;
+      }
+      
+      // Update all href attributes that contain contract addresses
+      const links = document.querySelectorAll('a[href*="0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1"]');
+      links.forEach(link => {
+        if (link.href.includes('uniswap.org')) {
+          link.href = getUniswapUrl();
+        } else if (link.href.includes('dexscreener.com')) {
+          link.href = getDexScreenerUrl();
+        } else if (link.href.includes('basescan.org')) {
+          link.href = getBaseScanUrl();
+        }
+      });
+    };
+    
+    // Function to update all dynamic links
+    window.updateDynamicLinks = function() {
+      // Update buy link placeholder
+      const buyLinkPlaceholder = document.getElementById('buy-link-placeholder');
+      if (buyLinkPlaceholder) {
+        buyLinkPlaceholder.textContent = getUniswapUrl();
+      }
+      
+      // Update chatbot links
+      const chatbotLinks = document.querySelectorAll('a[href="#"]');
+      chatbotLinks.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        if (text.includes('basescan') || text.includes('explorer')) {
+          link.href = getBaseScanUrl();
+        } else if (text.includes('dexscreener') || text.includes('chart')) {
+          link.href = getDexScreenerUrl();
+        } else if (text.includes('uniswap') || text.includes('buy')) {
+          link.href = getUniswapUrl();
+        }
+      });
+    };
+    
+    // Initialize contract displays when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      updateContractDisplays();
+      updateDynamicLinks();
+    });
+  </script>
   
   <!-- Google Analytics (Replace with your tracking ID) -->
   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
@@ -103,7 +191,7 @@
     .nav a{padding:8px 12px; border-radius:12px; font-size: 0.907rem; font-weight: 600; color: var(--brand); background: rgba(8,10,12,0.65); border: 1px solid #1e2630; transition: all 0.3s ease; white-space:nowrap}
     .nav a:hover{background:#0f141a; color: var(--brand-2); border-color:#2a3540; transform: translateY(-2px)}
     .nav .logo{flex-shrink:0}
-    .hero{position:relative; overflow:hidden; min-height:455px; margin-top:88px; background:url('ChatGPT Image Sep 28, 2025, 04_50_50 PM.png') center/contain no-repeat, radial-gradient(1200px 600px at 20% -10%, #1b2430 0%, transparent 60%),
+    .hero{position:relative; overflow:hidden; min-height:455px; margin-top:88px; background:url('assets/img/hero-banner.png') center/contain no-repeat, radial-gradient(1200px 600px at 20% -10%, #1b2430 0%, transparent 60%),
                            radial-gradient(1200px 600px at 100% 10%, #19261a 0%, transparent 60%),
                            linear-gradient(180deg, #0b0d0f 0%, #0a0c0e 100%);}
     .hero{background-size: clamp(315px, 52.5vw, 788px), auto, auto, auto; background-position: center top, center, center, center;}
@@ -542,11 +630,11 @@
           <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center">
             <a class="btn" href="https://discord.gg/ATujqJtm3Q" target="_blank" rel="noopener" style="text-decoration:none">Join Discord</a>
             <a class="btn alt" href="https://x.com/Stup_IDIOT_s" target="_blank" rel="noopener" style="text-decoration:none">Follow X</a>
-            <a class="btn ghost" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="text-decoration:none">Buy on Uniswap</a>
-            <a class="btn ghost" href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="text-decoration:none">View on BaseScan</a>
+            <a class="btn ghost" href="javascript:void(0)" onclick="window.open(getUniswapUrl(), '_blank')" rel="noopener" style="text-decoration:none">Buy on Uniswap</a>
+            <a class="btn ghost" href="javascript:void(0)" onclick="window.open(getBaseScanUrl(), '_blank')" rel="noopener" style="text-decoration:none">View on BaseScan</a>
           </div>
           <div style="margin-top:10px; font-size:0.95rem; color:var(--muted); text-align:center">
-            Contract: <span class="mono" style="color:var(--brand);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>
+            Contract: <span class="mono" style="color:var(--brand);" id="contract-display">Loading...</span>
           </div>
         </div>
       </div>
@@ -557,7 +645,7 @@
   <section style="padding: 30px 0; background: var(--bg); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
     <div class="wrap" style="max-width: 900px; margin: 0 auto; text-align: center;">
       <p style="font-size: 1.4rem; text-align: center; color: var(--brand); font-weight: bold; margin: 0;">
-        Contract: <span id="ca" class="mono" style="font-size: 1.4rem; color: var(--brand); cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: all 0.3s ease; border: 2px solid transparent; background: rgba(179, 255, 0, 0.1);" title="Click to copy contract address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span> 
+        Contract: <span id="ca" class="mono contract-address" style="font-size: 1.4rem; color: var(--brand); cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: all 0.3s ease; border: 2px solid transparent; background: rgba(179, 255, 0, 0.1);" title="Click to copy contract address">Loading...</span> 
         <span style="color: var(--ok); font-size: 20px; margin-left: 8px;">✅ LIVE</span>
       </p>
     </div>
@@ -573,6 +661,65 @@
     </div>
   </section>
 
+  <!-- ===== PROMOTIONAL IMAGES ===== -->
+  <section style="padding: 60px 0; background: var(--bg); border-bottom: 1px solid #121820;">
+    <div class="wrap" style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      <h2 style="color: var(--brand); font-size: clamp(24px, 3vw, 32px); margin-bottom: 40px; font-weight: 700;">
+        IDIOT Token: Smart About Dumb Fun
+      </h2>
+      
+      <!-- Image Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+        
+        <!-- NOVALEX AI Robot -->
+        <div style="background: var(--panel-2); border-radius: 20px; padding: 30px; border: 1px solid #1e2630; box-shadow: var(--shadow); transition: all 0.3s ease;" 
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)'">
+          <img src="assets/img/novalex-ai-robot.png" alt="NOVALEX AI Robot with Smart Contract" 
+               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" />
+          <h3 style="color: var(--brand); font-size: 1.4rem; margin-bottom: 15px; font-weight: 600;">NOVALEX AI</h3>
+          <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
+            Advanced AI technology meets blockchain innovation. Smart contracts, secure transactions, and intelligent automation.
+          </p>
+        </div>
+
+        <!-- Three Stooges Comedy -->
+        <div style="background: var(--panel-2); border-radius: 20px; padding: 30px; border: 1px solid #1e2630; box-shadow: var(--shadow); transition: all 0.3s ease;" 
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)'">
+          <img src="assets/img/three-stooges-comedy.png" alt="Three Stooges Comedy Chaos" 
+               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" />
+          <h3 style="color: var(--brand); font-size: 1.4rem; margin-bottom: 15px; font-weight: 600;">Comedy Chaos</h3>
+          <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
+            Sometimes the best strategy is to embrace the chaos. Three stooges, three lessons, infinite laughs.
+          </p>
+        </div>
+
+        <!-- IDIOT on Base Hero -->
+        <div style="background: var(--panel-2); border-radius: 20px; padding: 30px; border: 1px solid #1e2630; box-shadow: var(--shadow); transition: all 0.3s ease;" 
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'"
+             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)'">
+          <img src="assets/img/idiot-on-base-hero.png" alt="IDIOT Token on Base Blockchain" 
+               style="width: 100%; max-width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; filter: drop-shadow(0 8px 16px rgba(179, 255, 0, 0.2));" />
+          <h3 style="color: var(--brand); font-size: 1.4rem; margin-bottom: 15px; font-weight: 600;">IDIOT on Base</h3>
+          <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
+            Live on Base blockchain. Smart about dumb fun. Get your IDIOT tokens and join the revolution.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Call to Action -->
+      <div style="text-align: center; margin-top: 30px;">
+        <a href="#trade" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-size: 1.1rem; transition: all 0.3s ease;"
+           onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.background='var(--brand-2)'"
+           onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.background='var(--brand)'">
+          🚀 Get Started with IDIOT
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== TRADE WIDGETS (Chart + Buy) ===== -->
   <section style="padding: 60px 0; background: var(--bg); border-top: 1px solid #121820; border-bottom: 1px solid #121820;">
     <div class="wrap" style="max-width: 1100px; margin: 0 auto;">
@@ -583,19 +730,19 @@
         🚀 <strong>LIVE ON BASE</strong> • Zero Tax • Community Driven • 100% Transparent
       </div>
       <div class="cta" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 0 0 22px 0;">
-        <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold;">👉 Swap IDIOT</a>
-        <a class="btn ghost" href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Open Chart</a>
+        <a class="btn" href="javascript:void(0)" onclick="window.open(getUniswapUrl(), '_blank')" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold;">👉 Swap IDIOT</a>
+        <a class="btn ghost" href="javascript:void(0)" onclick="window.open(getDexScreenerUrl(), '_blank')" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Open Chart</a>
         <button class="btn alt" id="copyContract" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Copy Contract</button>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: stretch;">
         <!-- Live Chart -->
         <div style="width: 100%; aspect-ratio: 16/10; border:2px solid #1a2330; border-radius:18px; overflow:hidden; background:#0c1116; min-height: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
-          <iframe title="DexScreener" src="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1?embed=1&theme=dark" style="width:100%; height:100%; border:0; display:block;"></iframe>
+          <iframe title="DexScreener" id="dexscreener-iframe" src="" style="width:100%; height:100%; border:0; display:block;"></iframe>
         </div>
         
         <!-- Buy Widget -->
         <div style="width: 100%; border:2px solid #1a2330; border-radius:18px; overflow:hidden; background:#0c1116; min-height: 420px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
-          <iframe title="Uniswap" src="https://app.uniswap.org/#/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base&embed=1" style="width:100%; height:520px; border:0; display:block; background:#0c1116;"></iframe>
+          <iframe title="Uniswap" id="uniswap-iframe" src="" style="width:100%; height:520px; border:0; display:block; background:#0c1116;"></iframe>
         </div>
       </div>
     </div>
@@ -781,7 +928,7 @@
                   <li>Import IDIOT Token with contract address</li>
                   <li>Practice sending/receiving a small amount</li>
                 </ol>
-                <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Start Trading →</a>
+                <a href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Start Trading →</a>
               </div>
             </div>
 
@@ -799,7 +946,7 @@
                   <li>Review transaction details and gas fees</li>
                   <li>Confirm transaction in MetaMask</li>
                 </ol>
-                <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Buy Now →</a>
+                <a href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">Buy Now →</a>
               </div>
             </div>
 
@@ -918,7 +1065,7 @@
                 </ul>
                 <h4 style="color: var(--brand-2); margin: 15px 0 10px 0;">⏳ Timeframes</h4>
                 <p style="margin-bottom: 15px;">1m (fast), 1h (balanced), 1d (big picture). Beginners → use 1h or 1d.</p>
-                <a href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">View Chart →</a>
+                <a href="#" onclick="this.href=getDexScreenerUrl(); return true;" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">View Chart →</a>
               </div>
             </div>
 
@@ -928,6 +1075,9 @@
                 <span class="guide-icon" style="font-size: 1.2rem; transition: transform 0.3s ease;">+</span>
               </button>
               <div class="guide-content" style="padding: 0 15px 15px; color: var(--muted); line-height: 1.6; display: none;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                  <img src="assets/img/security-shield.png" alt="Security Shield" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(179, 255, 0, 0.3));" />
+                </div>
                 <p style="margin-bottom: 15px;">Essential security practices to protect your crypto assets.</p>
                 <ul style="padding-left: 20px; margin-bottom: 15px;">
                   <li>Never share your seed phrase with anyone</li>
@@ -974,7 +1124,7 @@
                   <li>Gas optimization techniques</li>
                   <li>Contract verification methods</li>
                 </ul>
-                <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">View Contract →</a>
+                <a href="#" onclick="this.href=getBaseScanUrl(); return true;" target="_blank" rel="noopener" style="display: inline-block; background: var(--brand); color: #000; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">View Contract →</a>
               </div>
             </div>
 
@@ -1317,19 +1467,19 @@
           <div class="panel alt" style="padding: 30px;">
             <div style="margin-bottom: 25px;">
               <h4 style="color: var(--brand-2); margin-bottom: 15px;">🚀 Buy IDIOT (Recommended)</h4>
-              <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" style="display: block; text-align: center; margin-bottom: 20px; font-size: 1.2rem; padding: 15px;">👉 Buy IDIOT on Uniswap</a>
+              <a class="btn" href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" style="display: block; text-align: center; margin-bottom: 20px; font-size: 1.2rem; padding: 15px;">👉 Buy IDIOT on Uniswap</a>
               <p style="color: var(--muted); font-size: 0.9rem; margin: 0;">This link automatically sets up the trade for you</p>
             </div>
             
             <div style="margin-bottom: 25px;">
               <h4 style="color: var(--brand-2); margin-bottom: 15px;">📊 Track Price & Volume</h4>
-              <a class="btn ghost" href="https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="display: block; text-align: center; margin-bottom: 10px;">DexScreener Chart</a>
-              <a class="btn ghost" href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="display: block; text-align: center;">BaseScan Explorer</a>
+              <a class="btn ghost" href="#" onclick="this.href=getDexScreenerUrl(); return true;" target="_blank" style="display: block; text-align: center; margin-bottom: 10px;">DexScreener Chart</a>
+              <a class="btn ghost" href="#" onclick="this.href=getBaseScanUrl(); return true;" target="_blank" style="display: block; text-align: center;">BaseScan Explorer</a>
             </div>
             
             <div style="background: var(--panel-2); padding: 20px; border-radius: 8px; border-left: 4px solid var(--ok);">
               <h4 style="color: var(--ok); margin-bottom: 10px;">✅ Contract Address</h4>
-              <p class="mono" style="color: var(--brand); font-size: 0.9rem; margin: 0; word-break: break-all;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+              <p class="mono" id="contract-display" style="color: var(--brand); font-size: 0.9rem; margin: 0; word-break: break-all;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
               <p style="color: var(--muted); font-size: 0.8rem; margin: 10px 0 0;">Always verify this matches before trading</p>
             </div>
           </div>
@@ -1373,7 +1523,7 @@
           <div>
             <h4 style="color: #ff6666; margin-bottom: 10px;">✅ Always Verify Contract Address</h4>
             <p style="color: var(--muted); margin: 0 0 10px; line-height: 1.6;">Double-check the contract address matches exactly:</p>
-            <p class="mono" style="color: var(--brand); margin: 0; font-size: 0.9rem; word-break: break-all; background: rgba(179, 255, 0, 0.1); padding: 8px; border-radius: 6px; border: 1px solid rgba(179, 255, 0, 0.3);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+            <p class="mono contract-address" style="color: var(--brand); margin: 0; font-size: 0.9rem; word-break: break-all; background: rgba(179, 255, 0, 0.1); padding: 8px; border-radius: 6px; border: 1px solid rgba(179, 255, 0, 0.3);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
           </div>
           <div>
             <h4 style="color: #ff6666; margin-bottom: 10px;">💰 Start Small</h4>
@@ -1465,7 +1615,7 @@
         </p>
         
         <div style="background: linear-gradient(45deg, var(--brand), var(--brand-2)); padding: 20px; border-radius: 12px; margin: 25px 0; color: #000; font-weight: bold;">
-          <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="color: #000; text-decoration: none; font-size: 1.2rem;">
+          <a href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener" style="color: #000; text-decoration: none; font-size: 1.2rem;">
             🚀 Open Uniswap Trade Link
           </a>
         </div>
@@ -1488,7 +1638,7 @@
         <div style="margin-top: 25px; padding: 15px; background: var(--panel-2); border-radius: 8px; border-left: 4px solid var(--brand);">
           <p style="margin: 0; color: var(--muted); font-size: 0.9rem;">
             <strong>Note:</strong> Runs entirely on Base network. Contract address: 
-            <span class="mono" style="color: var(--brand);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>
+            <span class="mono contract-address" style="color: var(--brand);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</span>
           </p>
         </div>
       </div>
@@ -1686,7 +1836,7 @@
           <a href="https://discord.gg/ATujqJtm3Q" target="_blank" rel="noopener"><img src="assets/img/idiot-logo-icon_64.png" width="18" height="18" alt="Discord"/>Discord</a>
         </div>
         <div style="text-align: center;">
-          <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener">Buy $IDIOT</a>
+          <a class="btn" href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener">Buy $IDIOT</a>
         </div>
       </div>
     </div>
@@ -1695,7 +1845,7 @@
   <footer style="padding: 60px 0; border-top: 2px solid #121820; background: linear-gradient(135deg, #0f141a 0%, #1a2330 100%);">
     <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap">
       <div style="display:flex; align-items:center; gap:15px">
-        <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener" style="text-decoration: none;">
+        <a href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener" style="text-decoration: none;">
           <img src="assets/img/coin-1.png" alt="IDIOT Token Coin - Click to Buy" width="50" height="50" style="border-radius: 50%; box-shadow: 0 0 20px rgba(179, 255, 0, 0.4); transition: all 0.3s ease; cursor: pointer;" />
         </a>
         <span class="muted" style="font-size: 1.1rem; line-height: 1.5;">© <span id="y"></span> IDIOT. All mistakes reserved. • Made with questionable financial decisions • Not financial advice (obviously)</span>
@@ -1768,10 +1918,10 @@
 1. **Install a wallet** (MetaMask or Rabby)
 2. **Add Base network** to your wallet
 3. **Get ETH on Base** (buy on Coinbase and withdraw to Base)
-4. **Use our Uniswap link**: https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base
+4. **Use our Uniswap link**: <span id="buy-link-placeholder">Loading...</span>
 
 The link automatically sets up the trade for you! 🚀`,
-              links: ['https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base']
+              links: ['#']
             },
             'sell': {
               keywords: ['sell', 'how to sell', 'cash out', 'convert back'],
@@ -1784,7 +1934,7 @@ The link automatically sets up the trade for you! 🚀`,
 5. **Click Swap** and confirm in wallet
 
 You can sell anytime for equal value as Ethereum! 💰`,
-              links: ['https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base']
+              links: ['#']
             },
             'contract': {
               keywords: ['contract', 'address', 'ca', 'contract address', 'token address'],
@@ -1794,9 +1944,9 @@ You can sell anytime for equal value as Ethereum! 💰`,
 **Always verify this matches before trading!** ✅
 
 **Links:**
-• [BaseScan Explorer](https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1)
-• [DexScreener Chart](https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1)`,
-              links: ['https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1', 'https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1']
+• [BaseScan Explorer](#)
+• [DexScreener Chart](#)`,
+              links: ['#', '#']
             },
             'base': {
               keywords: ['base', 'base network', 'what is base', 'base blockchain'],
@@ -1827,13 +1977,13 @@ Think of it as a "fast lane" for Ethereum transactions! 🚀`,
               keywords: ['price', 'value', 'worth', 'cost', 'chart', 'trading'],
               answer: `**IDIOT Token Price & Trading:**
 
-📊 **Live Chart**: [DexScreener](https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1)
+📊 **Live Chart**: [DexScreener](#)
 📈 **Volume & Stats**: Check the chart above
 💱 **Trading Pair**: IDIOT/ETH on Base network
 🔄 **Liquidity**: Provided by community
 
 **Note:** Price changes constantly based on supply and demand! 📊`,
-              links: ['https://dexscreener.com/base/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1']
+              links: ['#']
             },
             'team': {
               keywords: ['team', 'who made', 'creator', 'developer', 'founder'],
@@ -2003,7 +2153,7 @@ What would you like to know? 😊`);
     }
 
     // Live Token Data Configuration
-    const CONTRACT_ADDRESS = "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1";
+    const CONTRACT_ADDRESS = window.IDIOT_CONTRACT_ADDRESS;
     const POOL_ADDRESS = "0x763c9ab550dc0dabd32f40131481bf4ba4d8c1ea";
     const RPC_URL = "https://mainnet.base.org";
 
@@ -2089,7 +2239,7 @@ What would you like to know? 😊`);
     document.getElementById('y').textContent = new Date().getFullYear();
     
     // Copy contract with enhanced feedback
-    const CONTRACT = '0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1'; // ✅ IDIOT Token Contract Address
+    const CONTRACT = window.IDIOT_CONTRACT_ADDRESS; // ✅ IDIOT Token Contract Address
     const ca = document.getElementById('ca');
     ca.textContent = CONTRACT;
     
