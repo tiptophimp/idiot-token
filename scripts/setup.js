@@ -1,6 +1,6 @@
 // scripts/setup.js - One-time setup script for IDIOT verification system
-const fs = require("fs");
-const { execSync } = require("child_process");
+import fs from "fs";
+import { execSync } from "child_process";
 
 console.log("🚀 Setting up IDIOT Token Verification System...\n");
 
@@ -17,8 +17,8 @@ if (!fs.existsSync(".env")) {
 
 // Check if dependencies are installed
 try {
-  require("node-fetch");
-  require("ipfs-http-client");
+  await import("node-fetch");
+  await import("ipfs-http-client");
   console.log("✅ Dependencies already installed");
 } catch (e) {
   console.log("📦 Installing dependencies...");
@@ -54,7 +54,8 @@ if (!fs.existsSync("audit")) {
 }
 
 // Test environment variables
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 const requiredVars = ["PRIVATE_KEY", "BASESCAN_API_KEY"];
 const missingVars = requiredVars.filter(varName => !process.env[varName] || process.env[varName].includes("YOUR_"));
 

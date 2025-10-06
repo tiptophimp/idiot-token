@@ -1,7 +1,9 @@
 // scripts/ci-setup.js - CI/CD setup and validation script
-require("dotenv").config();
-const fs = require("fs");
-const { execSync } = require("child_process");
+import dotenv from "dotenv";
+import fs from "fs";
+import { execSync } from "child_process";
+
+dotenv.config();
 
 console.log("🚀 IDIOT Contract Verification CI/CD Setup");
 console.log("==========================================\n");

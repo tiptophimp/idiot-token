@@ -1,8 +1,11 @@
 // scripts/healthCheck.js - Comprehensive system health check
-require("dotenv").config();
-const { ethers } = require("hardhat");
-const fetch = require("node-fetch");
-const fs = require("fs");
+import dotenv from "dotenv";
+import pkg from "hardhat";
+import fetch from "node-fetch";
+import fs from "fs";
+
+const { ethers } = pkg;
+dotenv.config();
 
 const contracts = [
   {
@@ -107,7 +110,7 @@ async function checkIPFS() {
   console.log("=============");
   
   try {
-    const { create } = require('ipfs-http-client');
+    const { create } = await import('ipfs-http-client');
     const ipfs = create({ url: 'https://ipfs.infura.io:5001/api/v0' });
     
     // Test IPFS connection
@@ -199,7 +202,7 @@ async function checkDependencies() {
   
   for (const dep of requiredDeps) {
     try {
-      require(dep);
+      await import(dep);
       console.log(`✅ ${dep}: Installed`);
     } catch (error) {
       console.log(`❌ ${dep}: Missing`);

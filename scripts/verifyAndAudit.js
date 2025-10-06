@@ -1,8 +1,11 @@
 // scripts/verifyAndAudit.js
-require("dotenv").config();
-const { run, ethers } = require("hardhat");
-const { execSync } = require("child_process");
-const fs = require("fs");
+import dotenv from "dotenv";
+import pkg from "hardhat";
+import { execSync } from "child_process";
+import fs from "fs";
+
+const { run, ethers } = pkg;
+dotenv.config();
 
 const rpc = "https://mainnet.base.org";
 const auditFile = "./audit/vesting_verification_log.md";
