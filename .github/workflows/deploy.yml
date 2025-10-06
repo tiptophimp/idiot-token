@@ -25,8 +25,11 @@ jobs:
 
       - name: Create deployment package
         run: |
-          # Use the cleaned deployment files
-          if [ -d "cleaned_deployment" ]; then
+          # Use 10_MAIN_SITE as the primary source
+          if [ -d "10_MAIN_SITE" ]; then
+            cd 10_MAIN_SITE
+            zip -r ../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
+          elif [ -d "cleaned_deployment" ]; then
             cd cleaned_deployment
             zip -r ../deploy-package.zip . -x "*.git*" "*.DS_Store" "Thumbs.db"
           elif [ -d "01_LIVE_SITE/main_site" ]; then
@@ -50,7 +53,7 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/hostinger_key
+                                                                                                                                                                  echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/hostinger_key
           chmod 600 ~/.ssh/hostinger_key
           ssh-keyscan -H -p 65002 ${{ secrets.HOSTINGER_SSH_HOST }} >> ~/.ssh/known_hosts
           # Test SSH connection
