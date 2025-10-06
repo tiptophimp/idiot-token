@@ -234,8 +234,8 @@
     .nav a:hover{background:#0f141a; color: var(--brand-2); border-color:#2a3540; transform: translateY(-2px)}
     .nav .logo{flex-shrink:0}
     .hero{position:relative; overflow:hidden; min-height:455px; margin-top:88px; background:url('assets/img/fomo-romo-chart-coins.png') center/cover no-repeat, radial-gradient(1200px 600px at 20% -10%, #1b2430 0%, transparent 60%),
-                               radial-gradient(1200px 600px at 100% 10%, #19261a 0%, transparent 60%),
-                               linear-gradient(180deg, #0b0d0f 0%, #0a0c0e 100%);}
+                           radial-gradient(1200px 600px at 100% 10%, #19261a 0%, transparent 60%),
+                           linear-gradient(180deg, #0b0d0f 0%, #0a0c0e 100%);}
     .hero{background-size: clamp(315px, 52.5vw, 788px), auto, auto, auto; background-position: center top, center, center, center;}
     .hero .content{padding:100px 0 68px 0}
     .kicker{margin:10px 0 18px}
@@ -685,7 +685,7 @@
           <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center">
             <a class="btn" href="https://discord.gg/ATujqJtm3Q" target="_blank" rel="noopener" style="text-decoration:none">Join Discord</a>
             <a class="btn alt" href="https://x.com/Stup_IDIOT_s" target="_blank" rel="noopener" style="text-decoration:none">Follow X</a>
-            <a class="btn ghost" href="javascript:void(0)" onclick="window.open(getUniswapUrl(), '_blank')" rel="noopener" style="text-decoration:none">Buy on Uniswap</a>
+            <a class="btn ghost" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" onclick="window.open(this.href, '_blank'); return false;" target="_blank" rel="noopener" style="text-decoration:none">Buy on Uniswap</a>
             <a class="btn ghost" href="javascript:void(0)" onclick="window.open(getBaseScanUrl(), '_blank')" rel="noopener" style="text-decoration:none">View on BaseScan</a>
           </div>
           <div style="margin-top:10px; font-size:0.95rem; color:var(--muted); text-align:center">
@@ -864,7 +864,7 @@
         🚀 <strong>LIVE ON BASE</strong> • Zero Tax • Community Driven • 100% Transparent
       </div>
       <div class="cta" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 0 0 22px 0;">
-        <a class="btn" href="javascript:void(0)" onclick="window.open(getUniswapUrl(), '_blank')" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold;">👉 Swap IDIOT</a>
+        <a class="btn" href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" onclick="window.open(this.href, '_blank'); return false;" target="_blank" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold;">👉 Swap IDIOT</a>
         <a class="btn ghost" href="javascript:void(0)" onclick="window.open(getDexScreenerUrl(), '_blank')" rel="noopener" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Open Chart</a>
         <button class="btn alt" id="copyContract" style="background: var(--brand); color: #000; font-weight: bold; border: 2px solid var(--brand);">Copy Contract</button>
       </div>
