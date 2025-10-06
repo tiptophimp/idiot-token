@@ -29,10 +29,14 @@
   
   <!-- Token Logo for Base Network Verification -->
   <link rel="icon" type="image/svg+xml" href="https://stupidiots.com/assets/img/idiot-coin-32x32-lime-fixed.svg" sizes="32x32">
+  <!-- IDIOT Coin Official Logo - Placement 1: Favicon Alternative -->
+  <link rel="icon" type="image/png" href="assets/img/idiot-coin-official-logo.png" sizes="32x32">
   
   <meta property="og:title" content="IDIOT Token — Official Site" />
   <meta property="og:description" content="The most honest meme token on Base. No promises, no moon missions, just pure unadulterated chaos." />
   <meta property="og:image" content="https://stupidiots.com/assets/img/og-image.png" />
+  <!-- IDIOT Coin Official Logo - Placement 2: Open Graph Image -->
+  <meta property="og:image:alt" content="IDIOT Token - Official Logo with Horse-Drawn Cart" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://stupidiots.com" />
@@ -69,6 +73,8 @@
   <link rel="preload" href="assets/img/logo.png?v=20250119" as="image" />
   <link rel="preload" href="assets/img/coin-1.png" as="image" />
   <link rel="preload" href="assets/img/hero-banner.png" as="image" fetchpriority="high" />
+  <!-- IDIOT Coin Official Logo - Placement 3: Preload -->
+  <link rel="preload" href="assets/img/idiot-coin-official-logo.png" as="image" />
   <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
   
   <!-- Contract Address Configuration -->
@@ -171,6 +177,12 @@
     :root{
       --bg:#0b0d0f; --panel:#12161b; --panel-2:#0e1318; --txt:#e6edf3; --muted:#a7b0bb; --brand:#b3ff00; --brand-2:#ffd24d; --danger:#ff5577; --ok:#30e0a1;
       --br:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    
+    /* IDIOT Coin Official Logo Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
     *{box-sizing:border-box}
     html,body{margin:0; padding:0; background:var(--bg); color:var(--txt); font:18px/1.6 Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
@@ -748,6 +760,10 @@
           <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
             Advanced AI technology meets blockchain innovation. Smart contracts, secure transactions, and intelligent automation.
           </p>
+          <!-- IDIOT Coin Official Logo - Placement 8: NOVALEX AI Card -->
+          <div style="text-align: center; margin-top: 15px;">
+            <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="25" height="25" style="filter: drop-shadow(0 0 6px rgba(179, 255, 0, 0.5));" />
+          </div>
         </div>
 
         <!-- Three Stooges Comedy -->
@@ -760,6 +776,10 @@
           <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
             Sometimes the best strategy is to embrace the chaos. Three stooges, three lessons, infinite laughs.
           </p>
+          <!-- IDIOT Coin Official Logo - Placement 9: Three Stooges Card -->
+          <div style="text-align: center; margin-top: 15px;">
+            <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="25" height="25" style="filter: drop-shadow(0 0 6px rgba(179, 255, 0, 0.5));" />
+          </div>
         </div>
 
         <!-- IDIOT on Base Hero -->
@@ -772,6 +792,10 @@
           <p style="color: var(--muted); line-height: 1.6; margin: 0; font-size: 1rem;">
             Live on Base blockchain. Smart about dumb fun. Get your IDIOT tokens and join the revolution.
           </p>
+          <!-- IDIOT Coin Official Logo - Placement 10: IDIOT on Base Card -->
+          <div style="text-align: center; margin-top: 15px;">
+            <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="25" height="25" style="filter: drop-shadow(0 0 6px rgba(179, 255, 0, 0.5));" />
+          </div>
         </div>
 
       </div>
@@ -1548,6 +1572,10 @@
               <h4 style="color: var(--ok); margin-bottom: 10px;">✅ Contract Address</h4>
               <p class="mono" id="contract-display" style="color: var(--brand); font-size: 0.9rem; margin: 0; word-break: break-all;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
               <p style="color: var(--muted); font-size: 0.8rem; margin: 10px 0 0;">Always verify this matches before trading</p>
+              <!-- IDIOT Coin Official Logo - Placement 6: Contract Address Section -->
+              <div style="text-align: center; margin-top: 15px;">
+                <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="30" height="30" style="filter: drop-shadow(0 0 8px rgba(179, 255, 0, 0.6));" />
+              </div>
             </div>
           </div>
         </div>
@@ -1904,6 +1932,10 @@
         </div>
         <div style="text-align: center;">
           <a class="btn" href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener">Buy $IDIOT</a>
+          <!-- IDIOT Coin Official Logo - Placement 7: Call to Action Section -->
+          <div style="margin-top: 20px;">
+            <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="50" height="50" style="filter: drop-shadow(0 0 15px rgba(179, 255, 0, 0.7));" />
+          </div>
         </div>
       </div>
     </div>
@@ -1915,6 +1947,8 @@
         <a href="#" onclick="this.href=getUniswapUrl(); return true;" target="_blank" rel="noopener" style="text-decoration: none;">
           <img src="assets/img/coin-1.png" alt="IDIOT Token Coin - Click to Buy" width="50" height="50" style="border-radius: 50%; box-shadow: 0 0 20px rgba(179, 255, 0, 0.4); transition: all 0.3s ease; cursor: pointer;" />
         </a>
+        <!-- IDIOT Coin Official Logo - Placement 4: Footer Logo -->
+        <img src="assets/img/idiot-coin-official-logo.png" alt="IDIOT Token Official Logo" width="40" height="40" style="margin-left: 15px; filter: drop-shadow(0 0 10px rgba(179, 255, 0, 0.6));" />
         <span class="muted" style="font-size: 1.1rem; line-height: 1.5;">© <span id="y"></span> IDIOT. All mistakes reserved. • Made with questionable financial decisions • Not financial advice (obviously)</span>
         <a id="downloadTicker32" href="assets/img/idiot-coin-32x32-lime-fixed.svg" download="idiot-coin-32x32-lime-fixed.svg" class="muted" style="font-size: 1.0rem; text-decoration: none; padding: 6px 10px; background: var(--panel-2); border-radius: 8px; transition: all 0.3s ease;">Download 32x32 Ticker SVG</a>
       </div>
