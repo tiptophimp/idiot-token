@@ -58,7 +58,12 @@ jobs:
 
       - name: Deploy via SFTP/SSH
         run: |
-          rsync -avz --delete -e "ssh -p 65002 -i ~/.ssh/hostinger_key" ./deploy-files/ ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:/home/u939125353/domains/stupidiots.com/public_html/
+          # Install rsync if not available
+          sudo apt-get update && sudo apt-get install -y rsync
+          # Deploy files
+          rsync -avz --delete -e "ssh -p 65002 -i ~/.ssh/hostinger_key -o StrictHostKeyChecking=no" ./deploy-files/ ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:/home/u939125353/domains/stupidiots.com/public_html/
+          # Verify deployment
+          ssh -p 65002 -i ~/.ssh/hostinger_key -o StrictHostKeyChecking=no ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }} "ls -la /home/u939125353/domains/stupidiots.com/public_html/index.html"
 
       - name: Upload deployment package as artifact
         uses: actions/upload-artifact@v4
