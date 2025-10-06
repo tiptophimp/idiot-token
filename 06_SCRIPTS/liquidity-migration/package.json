@@ -1,22 +1,28 @@
 {
-  "name": "idiot-liquidity-migration",
+  "name": "idiot-token-finalization",
   "version": "1.0.0",
-  "description": "Liquidity migration scripts for IDIOT Token from V2 to V3",
-  "main": "index.js",
+  "description": "Comprehensive vesting and liquidity finalization for IDIOT Token on Base",
+  "main": "finalizeVestingAndLiquidity.js",
   "scripts": {
-    "remove-v2": "npx hardhat run removeV2Liquidity.js --network base",
-    "add-v3": "npx hardhat run addV3Liquidity.js --network base",
-    "migrate": "npm run remove-v2 && npm run add-v3"
+    "finalize": "npx hardhat run finalizeVestingAndLiquidity.js --network base",
+    "test": "npx hardhat test",
+    "verify": "npx hardhat verify --network base"
   },
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.9.0",
+  "keywords": ["idiot", "token", "vesting", "liquidity", "base", "uniswap"],
+  "author": "Novalex AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
     "@uniswap/v2-core": "^1.0.1",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "@uniswap/v3-core": "^1.0.1",
     "@uniswap/v3-periphery": "^1.4.4",
-    "hardhat": "^2.17.0"
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.1"
   },
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+  "dependencies": {
+    "ethers": "^5.7.2"
   }
 }
