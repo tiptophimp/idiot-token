@@ -193,14 +193,17 @@
     });
   </script>
   
-  <!-- Google Analytics (Replace with your tracking ID) -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'GA_TRACKING_ID');
-  </script> -->
+    gtag('config', 'G-XXXXXXXXXX', {
+      'page_title': 'IDIOT Token - Official Website',
+      'page_location': window.location.href
+    });
+  </script>
   <style>
     :root{
       --bg:#0b0d0f; --panel:#12161b; --panel-2:#0e1318; --txt:#e6edf3; --muted:#a7b0bb; --brand:#b3ff00; --brand-2:#ffd24d; --danger:#ff5577; --ok:#30e0a1;
