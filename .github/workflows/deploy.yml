@@ -53,6 +53,8 @@ jobs:
           echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/hostinger_key
           chmod 600 ~/.ssh/hostinger_key
           ssh-keyscan -H -p 65002 ${{ secrets.HOSTINGER_SSH_HOST }} >> ~/.ssh/known_hosts
+          # Test SSH connection
+          ssh -o StrictHostKeyChecking=no -p 65002 -i ~/.ssh/hostinger_key ${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }} "echo 'SSH connection test successful'"
 
       - name: Deploy via SFTP/SSH
         run: |
