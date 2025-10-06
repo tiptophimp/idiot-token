@@ -1,9 +1,12 @@
 // scripts/verifyAuditNotify.js
-require("dotenv").config();
-const { run, ethers } = require("hardhat");
-const { execSync } = require("child_process");
-const fs = require("fs");
-const fetch = require("node-fetch");
+import dotenv from "dotenv";
+import pkg from "hardhat";
+import { execSync } from "child_process";
+import fs from "fs";
+import fetch from "node-fetch";
+
+const { run, ethers } = pkg;
+dotenv.config();
 
 const rpc = "https://mainnet.base.org";
 const auditFile = "./audit/vesting_verification_log.md";
@@ -177,7 +180,7 @@ async function getOwner(address) {
 
 async function uploadAuditToIPFS() {
   try {
-    const { create } = require('ipfs-http-client');
+    const { create } = await import('ipfs-http-client');
     const ipfs = create({ url: 'https://ipfs.infura.io:5001/api/v0' });
     
     if (!fs.existsSync(auditFile)) {
