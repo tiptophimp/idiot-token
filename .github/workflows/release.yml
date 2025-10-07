@@ -18,22 +18,15 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: 'npm' }
       - run: npm ci
-      - name: Install Foundry (pinned)
+      - name: Install Foundry
         run: |
           curl -L https://foundry.paradigm.xyz | bash
-          source $HOME/.bashrc
-          foundryup -v stable
+          export PATH="$PATH:$HOME/.foundry/bin"
           echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+          foundryup -v stable
           cast --version
         env:
           FOUNDRY_VERSION: stable
-        continue-on-error: true
-
-      - name: Install Foundry (fallback)
-        if: failure()
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: stable
       - run: npx hardhat compile
       - name: Generate SBOM
         run: |
