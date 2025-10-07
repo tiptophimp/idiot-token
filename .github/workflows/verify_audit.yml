@@ -36,6 +36,12 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           echo "Environment variables initialized."
+          
+      - name: 🧪 Test API Key
+        env:
+          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+        run: |
+          node scripts/test-github-api.js
 
       - name: 🔍 Verify and Audit Contracts
         env:
