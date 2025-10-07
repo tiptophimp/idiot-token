@@ -9,6 +9,11 @@ permissions:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+env:
+  ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   build-test-verify:
     runs-on: ubuntu-latest
@@ -48,8 +53,53 @@ jobs:
         run: |
           $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_chainId
           $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_blockNumber
+
+      - name: Chaos test (RPC failover)
+        continue-on-error: true
+        env:
+          RPC_URL_ALCHEMY: ${{ secrets.RPC_URL_ALCHEMY }}
+        run: |
+          export RPC_URL="$RPC_URL_ALCHEMY"
+          $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_blockNumber
       - run: npx hardhat compile
       - run: npx hardhat test --network hardhat
+      - name: Security audit
+        run: |
+          npm audit --omit=dev
+          if [ $? -ne 0 ]; then
+            echo "Security audit failed - high severity vulnerabilities found"
+            exit 1
+          fi
+      - name: Generate SBOM
+        run: |
+          npm install @cyclonedx/cyclonedx-npm --no-save
+          npx @cyclonedx/cyclonedx-npm --output-file sbom.json
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit
+          path: audit/
+          retention-days: 180
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+          retention-days: 180
       - name: Verify vesting (Base)
         if: ${{ github.ref == 'refs/heads/main' }}
         run: npx hardhat run scripts/verifyAndAudit.js --network base
+
+      - name: Discord notification (success)
+        if: ${{ secrets.DISCORD_WEBHOOK_URL != '' }}
+        run: |
+          curl -H 'Content-Type: application/json' \
+            -d "{\"content\":\"✅ CI workflow succeeded: $GITHUB_RUN_NUMBER - $GITHUB_SHA\"}" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Slack notification (success)
+        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' \
+            -d "{\"text\":\"✅ CI workflow succeeded: $GITHUB_RUN_NUMBER - $GITHUB_SHA\"}" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}

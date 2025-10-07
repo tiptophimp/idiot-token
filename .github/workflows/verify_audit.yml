@@ -5,6 +5,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+env:
+  ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   verify-audit:
     runs-on: ubuntu-latest
@@ -84,11 +90,24 @@ jobs:
         run: |
           npx hardhat run scripts/verifyOnly.js --network base
 
+      - name: Generate SBOM
+        run: |
+          npm install @cyclonedx/cyclonedx-npm --no-save
+          npx @cyclonedx/cyclonedx-npm --output-file sbom.json
+
       - name: ☁️ Upload Audit Artifact
         uses: actions/upload-artifact@v4
         with:
           name: audit-log
           path: audit/vesting_verification_log.md
+          retention-days: 180
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+          retention-days: 180
 
       - name: 🧩 Preserve Historical Snapshot
         run: |

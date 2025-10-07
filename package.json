@@ -8,7 +8,10 @@
     "verify": "npx hardhat run scripts/verifyAndAudit.js --network base",
     "verify:test": "npx hardhat run scripts/verifyAndAudit.js --network baseSepolia",
     "compile": "npx hardhat compile",
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "audit": "npm audit --omit=dev",
+    "audit:fix": "npm audit fix --omit=dev",
+    "sbom": "npx @cyclonedx/cyclonedx-npm --output-file sbom.json"
   },
   "keywords": [
     "idiot",
@@ -20,6 +23,13 @@
   ],
   "author": "IDIOT Team",
   "license": "MIT",
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "overrides": {
+    "ethers": "6.12.1",
+    "@nomicfoundation/hardhat-toolbox": "4.0.0"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.0",
