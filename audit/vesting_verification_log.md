@@ -1,17 +1,17 @@
 # IDIOT Vesting Wallet Verification Audit Log
-
-**Generated:** 2025-10-07T16:51:02.715Z
-**Network:** Base Mainnet  
-**Purpose:** Verification of vesting wallet token balances and ownership  
-
-## Wallet Verification Status
-
-| Pool | Wallet Address | Type | IDIOT Balance | Expected | Owner SAFE | Status |
-|------|----------------|------|---------------|----------|------------|--------|
-| Reserve | `0x6AD03686ab6c3bA2c77992995E4879c62dE88996` | Contract | 100000000.0 IDIOT | 100000000.0 IDIOT | `0xTR_SAFE` | ✅ Verified |
-| Treasury | `0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee` | Contract | 50643000.0 IDIOT | 50643000.0 IDIOT | `0xTR_SAFE` | ✅ Verified |
-| Team | `0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee` | Contract | 50643000.0 IDIOT | 50643000.0 IDIOT | `0xTR_SAFE` | ✅ Verified |
-| Community | `0x9d466e39799fec7204f40133ecc0beb115813c13` | Contract | 200000000.0 IDIOT | 200000000.0 IDIOT | `0xOPS_SAFE` | ✅ Verified |
+    
+    **Generated:** 2025-10-07T20:24:27.661Z  
+    **Network:** Base Mainnet  
+    **Purpose:** Verification of vesting wallet token balances and ownership  
+    
+    ## Wallet Verification Status
+    
+    | Pool | Wallet Address | Type | IDIOT Balance | Expected | Owner SAFE | Status |
+    |------|----------------|------|---------------|----------|------------|--------|
+    | Reserve | `0x6AD03686ab6c3bA2c77992995E4879c62dE88996` | EOA | N/A IDIOT | 100000000.0 IDIOT | `0xTR_SAFE` | ❌ Failed |
+| Treasury | `0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee` | EOA | N/A IDIOT | 50643000.0 IDIOT | `0xTR_SAFE` | ❌ Failed |
+| Team | `0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee` | EOA | N/A IDIOT | 50643000.0 IDIOT | `0xTR_SAFE` | ❌ Failed |
+| Community | `0x9d466e39799fec7204f40133ecc0beb115813c13` | EOA | N/A IDIOT | 200000000.0 IDIOT | `0xOPS_SAFE` | ❌ Failed |
 
 ## Verification Instructions
 

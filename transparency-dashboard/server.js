@@ -5,8 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const cron = require('node-cron');
-const { timeUtils } = require('../scripts/utils/timeUtils.js');
-const { timeSync } = require('../scripts/timeSync.js');
+const { nowUtcMs, isoNow, unixNow, syncTime, getChainTime, getStatus } = require('../scripts/utils/time.js');
 require('dotenv').config();
 
 const app = express();
@@ -141,9 +140,63 @@ async function fetchVestingWallets() {
   return wallets;
 }
 
-// Calculate vesting progress
-function calculateVestingProgress(startTimestamp, durationSeconds) {
-  return timeUtils.vestingProgress(startTimestamp, durationSeconds);
+// Calculate vesting progress using chain time for accuracy
+async function calculateVestingProgress(startTimestamp, durationSeconds, provider) {
+  try {
+    // Use chain time for protocol logic accuracy
+    const chainTime = await getChainTime(provider);
+    const now = Math.floor(chainTime / 1000); // Convert to seconds
+    const elapsed = Math.max(0, now - startTimestamp);
+    const progress = Math.min(100, (elapsed / durationSeconds) * 100);
+    const remaining = Math.max(0, durationSeconds - elapsed);
+    
+    return {
+      progress: Math.round(progress * 100) / 100,
+      elapsed: {
+        total: elapsed,
+        days: Math.floor(elapsed / 86400),
+        hours: Math.floor((elapsed % 86400) / 3600),
+        minutes: Math.floor((elapsed % 3600) / 60),
+        seconds: elapsed % 60,
+        formatted: `${Math.floor(elapsed / 86400)}d ${Math.floor((elapsed % 86400) / 3600)}h ${Math.floor((elapsed % 3600) / 60)}m`
+      },
+      remaining: {
+        total: remaining,
+        days: Math.floor(remaining / 86400),
+        hours: Math.floor((remaining % 86400) / 3600),
+        minutes: Math.floor((remaining % 3600) / 60),
+        seconds: remaining % 60,
+        formatted: `${Math.floor(remaining / 86400)}d ${Math.floor((remaining % 86400) / 3600)}h ${Math.floor((remaining % 3600) / 60)}m`
+      },
+      startDate: new Date(startTimestamp * 1000).toISOString(),
+      endDate: new Date((startTimestamp + durationSeconds) * 1000).toISOString(),
+      isActive: now >= startTimestamp && now < (startTimestamp + durationSeconds),
+      isCompleted: now >= (startTimestamp + durationSeconds),
+      isPending: now < startTimestamp,
+      chainTime: chainTime,
+      wallClockTime: nowUtcMs()
+    };
+  } catch (error) {
+    console.error('Error calculating vesting progress:', error);
+    // Fallback to wall clock time
+    const now = unixNow();
+    const elapsed = Math.max(0, now - startTimestamp);
+    const progress = Math.min(100, (elapsed / durationSeconds) * 100);
+    const remaining = Math.max(0, durationSeconds - elapsed);
+    
+    return {
+      progress: Math.round(progress * 100) / 100,
+      elapsed: { total: elapsed, days: Math.floor(elapsed / 86400), hours: Math.floor((elapsed % 86400) / 3600), minutes: Math.floor((elapsed % 3600) / 60), seconds: elapsed % 60, formatted: `${Math.floor(elapsed / 86400)}d ${Math.floor((elapsed % 86400) / 3600)}h ${Math.floor((elapsed % 3600) / 60)}m` },
+      remaining: { total: remaining, days: Math.floor(remaining / 86400), hours: Math.floor((remaining % 86400) / 3600), minutes: Math.floor((remaining % 3600) / 60), seconds: remaining % 60, formatted: `${Math.floor(remaining / 86400)}d ${Math.floor((remaining % 86400) / 3600)}h ${Math.floor((remaining % 3600) / 60)}m` },
+      startDate: new Date(startTimestamp * 1000).toISOString(),
+      endDate: new Date((startTimestamp + durationSeconds) * 1000).toISOString(),
+      isActive: now >= startTimestamp && now < (startTimestamp + durationSeconds),
+      isCompleted: now >= (startTimestamp + durationSeconds),
+      isPending: now < startTimestamp,
+      chainTime: nowUtcMs(),
+      wallClockTime: nowUtcMs()
+    };
+  }
 }
 
 // Check contract verification status on BaseScan
@@ -189,7 +242,7 @@ async function updateDashboardData() {
     dashboardData = {
       tokenInfo: tokenInfo || {},
       vestingWallets,
-      lastUpdated: timeUtils.now(),
+      lastUpdated: isoNow(),
       verificationStatus: {
         tokenContract: tokenVerification
       }
@@ -304,18 +357,23 @@ cron.schedule('*/5 * * * *', () => {
 updateDashboardData();
 
 // Start time synchronization
-timeSync.startSync(60000); // Sync every minute
+syncTime().then(() => {
+  console.log(`⏰ Time sync completed`);
+}).catch(error => {
+  console.warn(`⏰ Time sync failed: ${error.message}`);
+});
 
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 IDIOT Transparency Dashboard running on port ${PORT}`);
   console.log(`📊 Dashboard: http://localhost:${PORT}`);
   console.log(`🔗 API: http://localhost:${PORT}/api/dashboard`);
-  console.log(`⏰ Started: ${timeUtils.now()}`);
+  console.log(`⏰ Started: ${isoNow()}`);
   
   // Show time sync status
-  const timeStatus = timeSync.getStatus();
-  console.log(`⏰ Time Sync: ${timeStatus.isTimeAccurate() ? '✅ Accurate' : '⚠️ Drift detected'}`);
+  const timeStatus = getStatus();
+  console.log(`⏰ Time Sync: ${timeStatus.circuitBreakerOpen ? '⚠️ Circuit breaker open' : '✅ Active'}`);
+  console.log(`📊 Offset: ${timeStatus.offsetMs}ms, Drift alerts: ${timeStatus.driftAlerts}`);
 });
 
 module.exports = app;

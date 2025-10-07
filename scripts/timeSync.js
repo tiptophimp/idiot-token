@@ -146,7 +146,8 @@ class TimeSync {
       isDriftExcessive: Math.abs(this.timeDrift) > this.maxDrift,
       isSyncing: this.syncInterval !== null,
       correctedTime: this.getCorrectedISO(),
-      systemTime: timeUtils.now()
+      systemTime: timeUtils.now(),
+      isTimeAccurate: this.isTimeAccurate()
     };
   }
 
