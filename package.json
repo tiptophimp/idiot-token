@@ -16,7 +16,8 @@
     "time:validate": "node scripts/validateTime.js",
     "time:hardened": "node -e \"import('./scripts/utils/time.js').then(t => { console.log('Hardened time:', t.isoNow()); console.log('Status:', t.getStatus()); })\"",
     "time:test": "node scripts/tests/timeHardening.test.js",
-    "persist:probe": "node -e \"const {auditPath}=require('./scripts/utils/paths.cjs');const fs=require('fs');fs.writeFileSync(auditPath('_probe.txt'),'ok\\n',{flag:'a'});console.log('wrote',auditPath('_probe.txt'))\""
+    "persist:probe": "node -e \"const {auditPath}=require('./scripts/utils/paths.cjs');const fs=require('fs');fs.writeFileSync(auditPath('_probe.txt'),'ok\\n',{flag:'a'});console.log('wrote',auditPath('_probe.txt'))\"",
+    "test:v2api": "node scripts/test_etherscan_v2.cjs"
   },
   "keywords": [
     "idiot",
