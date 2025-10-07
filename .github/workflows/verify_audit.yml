@@ -42,7 +42,10 @@ jobs:
 
       - name: 🔐 Load Environment Variables
         env:
-          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY }}
+          RPC_URL_ALCHEMY: ${{ secrets.RPC_URL_ALCHEMY }}
+          RPC_URL_INFURA: ${{ secrets.RPC_URL_INFURA }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
@@ -50,13 +53,16 @@ jobs:
           
       - name: 🧪 Test API Key
         env:
-          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
         run: |
           node scripts/test-github-api.js
 
       - name: 🔍 Verify and Audit Contracts
         env:
           ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY }}
+          RPC_URL_ALCHEMY: ${{ secrets.RPC_URL_ALCHEMY }}
+          RPC_URL_INFURA: ${{ secrets.RPC_URL_INFURA }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |

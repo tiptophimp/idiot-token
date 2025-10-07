@@ -1,0 +1,39 @@
+name: ci
+on:
+  push: { branches: [main] }
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-test-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: production
+    permissions:
+      contents: read
+    env:
+      ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}   # or secrets.ETHERSCAN_API_KEY
+      RPC_URL_PRIMARY:  ${{ secrets.RPC_URL_PRIMARY }}
+      RPC_URL_ALCHEMY:  ${{ secrets.RPC_URL_ALCHEMY }}
+      RPC_URL_INFURA:   ${{ secrets.RPC_URL_INFURA }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: 'npm' }
+      - run: npm ci
+      - name: Install Foundry
+        run: |
+          curl -L https://foundry.paradigm.xyz | bash
+          echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+          foundryup
+          cast --version
+      - run: npx hardhat compile
+      - run: npx hardhat test --network hardhat
+      - name: Verify vesting (Base)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: npx hardhat run scripts/verifyAndAudit.js --network base
