@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const cron = require('node-cron');
 const { nowUtcMs, isoNow, unixNow, syncTime, getChainTime, getStatus } = require('../scripts/utils/time.js');
+const { auditPath, logsPath, writeFileSync, appendFileSync } = require('../scripts/utils/paths');
 require('dotenv').config();
 
 const app = express();

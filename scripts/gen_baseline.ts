@@ -1,5 +1,6 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { auditPath } from "./utils/paths.js";
 import pkg from "hardhat";
 const { ethers } = pkg;
 
@@ -133,8 +134,7 @@ ${posLines.join("\n")}
 
 `;
 
-  mkdirSync("audit", { recursive: true });
-  const out = join("audit", "BASELINE.md");
+      const out = auditPath("BASELINE.md");
   writeFileSync(out, md);
   console.log(`Wrote ${out}`);
 }
