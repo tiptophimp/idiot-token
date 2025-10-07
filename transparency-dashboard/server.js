@@ -6,8 +6,11 @@ const helmet = require('helmet');
 const compression = require('compression');
 const cron = require('node-cron');
 const { nowUtcMs, isoNow, unixNow, syncTime, getChainTime, getStatus } = require('../scripts/utils/time.js');
-const { auditPath, logsPath, writeFileSync, appendFileSync } = require('../scripts/utils/paths');
+const { auditPath, logPath, dataPath, ROOT } = require('../scripts/utils/paths.cjs');
 require('dotenv').config();
+
+// Persistence guard
+console.log("[persist] root:", ROOT);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
