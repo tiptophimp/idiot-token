@@ -36,26 +36,12 @@ jobs:
           npx hardhat compile
 
       - name: 🔨 Install Foundry
-        run: |
-          curl -L https://foundry.paradigm.xyz | bash
-          source ~/.bashrc
-          export PATH="$PATH:$HOME/.foundry/bin"
-          echo "$HOME/.foundry/bin" >> $GITHUB_PATH
-          foundryup -v stable
-          # Verify installation
-          cast --version
-          forge --version
-        env:
-          FOUNDRY_VERSION: stable
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
 
       - name: 🔧 Verify Foundry Installation
-        run: |
-          export PATH="$PATH:$HOME/.foundry/bin"
-          which foundryup
-          which cast
-          which forge
-          cast --version
-          forge --version
+        run: cast --version && forge --version
 
       - name: 🔍 RPC health check
         env:
