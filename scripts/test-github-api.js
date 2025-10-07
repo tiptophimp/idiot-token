@@ -5,11 +5,11 @@ async function testAPI() {
   console.log("🧪 Testing BaseScan API in GitHub Actions");
   console.log("==========================================\n");
 
-  const apiKey = process.env.BASESCAN_API_KEY;
+  const apiKey = process.env.ETHERSCAN_API_KEY;
   
   if (!apiKey) {
-    console.log("❌ BASESCAN_API_KEY not found");
-    console.log("💡 Add BASESCAN_API_KEY to GitHub Secrets");
+    console.log("❌ ETHERSCAN_API_KEY not found");
+    console.log("💡 Add ETHERSCAN_API_KEY to GitHub Secrets");
     process.exit(1);
   }
 
