@@ -11,7 +11,9 @@
     "test": "npx hardhat test",
     "audit": "npm audit --omit=dev",
     "audit:fix": "npm audit fix --omit=dev",
-    "sbom": "npx @cyclonedx/cyclonedx-npm --output-file sbom.json"
+    "sbom": "npx @cyclonedx/cyclonedx-npm --output-file sbom.json",
+    "time:sync": "node scripts/timeSync.js",
+    "time:validate": "node scripts/validateTime.js"
   },
   "keywords": [
     "idiot",

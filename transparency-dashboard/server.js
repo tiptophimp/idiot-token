@@ -5,6 +5,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const cron = require('node-cron');
+const { timeUtils } = require('../scripts/utils/timeUtils.js');
+const { timeSync } = require('../scripts/timeSync.js');
 require('dotenv').config();
 
 const app = express();
@@ -141,17 +143,7 @@ async function fetchVestingWallets() {
 
 // Calculate vesting progress
 function calculateVestingProgress(startTimestamp, durationSeconds) {
-  const now = Math.floor(Date.now() / 1000);
-  const elapsed = Math.max(0, now - startTimestamp);
-  const progress = Math.min(100, (elapsed / durationSeconds) * 100);
-  
-  return {
-    percentage: Math.round(progress * 100) / 100,
-    elapsed: elapsed,
-    remaining: Math.max(0, durationSeconds - elapsed),
-    startDate: new Date(startTimestamp * 1000).toISOString(),
-    endDate: new Date((startTimestamp + durationSeconds) * 1000).toISOString()
-  };
+  return timeUtils.vestingProgress(startTimestamp, durationSeconds);
 }
 
 // Check contract verification status on BaseScan
@@ -197,7 +189,7 @@ async function updateDashboardData() {
     dashboardData = {
       tokenInfo: tokenInfo || {},
       vestingWallets,
-      lastUpdated: new Date().toISOString(),
+      lastUpdated: timeUtils.now(),
       verificationStatus: {
         tokenContract: tokenVerification
       }
@@ -311,11 +303,19 @@ cron.schedule('*/5 * * * *', () => {
 // Initial data load
 updateDashboardData();
 
+// Start time synchronization
+timeSync.startSync(60000); // Sync every minute
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 IDIOT Transparency Dashboard running on port ${PORT}`);
   console.log(`📊 Dashboard: http://localhost:${PORT}`);
   console.log(`🔗 API: http://localhost:${PORT}/api/dashboard`);
+  console.log(`⏰ Started: ${timeUtils.now()}`);
+  
+  // Show time sync status
+  const timeStatus = timeSync.getStatus();
+  console.log(`⏰ Time Sync: ${timeStatus.isTimeAccurate() ? '✅ Accurate' : '⚠️ Drift detected'}`);
 });
 
 module.exports = app;
