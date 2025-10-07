@@ -230,6 +230,8 @@ app.get('/api/verification-status', (req, res) => {
 app.get('/api/pool', async (req, res) => {
   try {
     const poolAddress = '0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea';
+    const wethUsdcPool = '0x4c6A554D69A8bC4C2B765A30b27e8a569B9e4D27'; // WETH/USDC 0.3%
+    
     const poolContract = new ethers.Contract(
       poolAddress,
       [
@@ -241,6 +243,12 @@ app.get('/api/pool', async (req, res) => {
       ],
       provider
     );
+
+    const wethUsdcContract = new ethers.Contract(
+      wethUsdcPool,
+      ["function slot0() view returns (uint160,int24,uint16,uint16,uint16,uint8,bool)"],
+      provider
+    );
     
     const [sqrt, tick, observationIndex, observationCardinality, observationCardinalityNext, feeProtocol, unlocked] = await poolContract.slot0();
     const liq = await poolContract.liquidity();
@@ -248,8 +256,15 @@ app.get('/api/pool', async (req, res) => {
     const t1 = await poolContract.token1();
     const fee = await poolContract.fee();
     
-    // Calculate price from sqrtPriceX96
-    const price = (Number(sqrt) / 2**96) ** 2;
+    // Get WETH/USDC price for IDIOT/USD calculation
+    const [wethUsdcSqrt] = await wethUsdcContract.slot0();
+    const wethUsdcPrice = (Number(wethUsdcSqrt) / 2**96) ** 2;
+    
+    // Calculate IDIOT/WETH price
+    const idiotWethPrice = (Number(sqrt) / 2**96) ** 2;
+    
+    // Calculate IDIOT/USD price
+    const idiotUsdPrice = idiotWethPrice * wethUsdcPrice;
     
     res.json({
       pool: poolAddress,
@@ -259,7 +274,9 @@ app.get('/api/pool', async (req, res) => {
       token0: t0,
       token1: t1,
       fee: Number(fee),
-      price: price.toString(),
+      price: idiotWethPrice.toString(),
+      priceUsd: idiotUsdPrice.toString(),
+      wethUsdPrice: wethUsdcPrice.toString(),
       unlocked,
       observationIndex: Number(observationIndex),
       observationCardinality: Number(observationCardinality),
