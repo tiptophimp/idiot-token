@@ -34,9 +34,11 @@ jobs:
       - name: Install Foundry (pinned)
         run: |
           curl -L https://foundry.paradigm.xyz | bash
-          $HOME/.foundry/bin/foundryup -v stable
-          $HOME/.foundry/bin/cast --version
-          $HOME/.foundry/bin/forge --version
+          source $HOME/.bashrc
+          foundryup -v stable
+          echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+          cast --version
+          forge --version
         env:
           FOUNDRY_VERSION: stable
         continue-on-error: true
@@ -51,8 +53,8 @@ jobs:
         env:
           RPC_URL: ${{ secrets.RPC_URL_PRIMARY }}
         run: |
-          $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_chainId
-          $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_blockNumber
+          cast rpc --rpc-url "$RPC_URL" eth_chainId
+          cast rpc --rpc-url "$RPC_URL" eth_blockNumber
 
       - name: Chaos test (RPC failover)
         continue-on-error: true
@@ -60,7 +62,7 @@ jobs:
           RPC_URL_ALCHEMY: ${{ secrets.RPC_URL_ALCHEMY }}
         run: |
           export RPC_URL="$RPC_URL_ALCHEMY"
-          $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_blockNumber
+          cast rpc --rpc-url "$RPC_URL" eth_blockNumber
       - run: npx hardhat compile
       - run: npx hardhat test --network hardhat
       - name: Security audit
