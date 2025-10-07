@@ -60,7 +60,12 @@ const VESTING_WALLETS = [
 ];
 
 // Initialize provider
-const provider = new ethers.JsonRpcProvider(RPC_URL);
+const provider = new ethers.JsonRpcProvider(RPC_URL, undefined, {
+  polling: true,
+  pollingInterval: 4000,
+  batchMaxCount: 1, // Reduce batch size to avoid rate limits
+  batchMaxDelay: 1000 // Add delay between requests
+});
 const tokenContract = new ethers.Contract(
   IDIOT_TOKEN_ADDRESS,
   [
@@ -111,7 +116,24 @@ async function fetchVestingWallets() {
   
   for (const wallet of VESTING_WALLETS) {
     try {
-      const balance = await tokenContract.balanceOf(wallet.address);
+      // Add retry logic for rate limiting
+      let balance;
+      let retries = 3;
+      while (retries > 0) {
+        try {
+          balance = await tokenContract.balanceOf(wallet.address);
+          break;
+        } catch (error) {
+          if (error.message.includes('rate limit') && retries > 1) {
+            console.log(`Rate limit hit for ${wallet.name}, retrying in 2s...`);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            retries--;
+          } else {
+            throw error;
+          }
+        }
+      }
+      
       const balanceFormatted = ethers.formatEther(balance);
       const expectedFormatted = ethers.formatEther(wallet.expectedBalance);
       
@@ -275,7 +297,7 @@ app.get('/api/verification-status', (req, res) => {
 app.get('/api/pool', async (req, res) => {
   try {
     const poolAddress = '0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea';
-    const wethUsdcPool = '0x4c6A554D69A8bC4C2B765A30b27e8a569B9e4D27'; // WETH/USDC 0.3%
+        const wethUsdcPool = '0x4C6a554d69a8BC4c2b765a30b27E8a569b9E4d27'; // WETH/USDC 0.3%
     
     const poolContract = new ethers.Contract(
       poolAddress,
