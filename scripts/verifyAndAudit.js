@@ -4,7 +4,7 @@ import pkg from "hardhat";
 import { execSync } from "child_process";
 import fs from "fs";
 import { nowUtcMs, isoNow, unixNow, syncTime, getChainTime, getStatus } from "./utils/time.js";
-import { auditPath, writeFileSync, appendFileSync } from "./utils/paths.js";
+const { auditPath } = require("./utils/paths.cjs");
 
 const { run, ethers } = pkg;
 dotenv.config();
@@ -147,7 +147,7 @@ async function main() {
     |------|----------------|------|---------------|----------|------------|--------|
     `;
 
-      writeFileSync(auditFile, header);
+      fs.writeFileSync(auditFile, header);
 
   let successCount = 0;
   for (const wallet of vestingWallets) {
@@ -164,7 +164,7 @@ async function main() {
 
     const line = `| ${wallet.name} | \`${wallet.address}\` | ${result.isContract ? 'Contract' : 'EOA'} | ${balanceFormatted} IDIOT | ${expectedFormatted} IDIOT | \`${wallet.safe}\` | ${status} |\n`;
 
-        appendFileSync(auditFile, line);
+        fs.appendFileSync(auditFile, line);
     console.log(`🧾 Logged: ${wallet.name} -> ${balanceFormatted} IDIOT`);
     
     if (result.success) successCount++;
@@ -204,7 +204,7 @@ All vesting wallets hold the correct token balances and are properly secured by 
 *This audit log serves as proof of IDIOT token distribution to vesting wallets on Base mainnet.*
 `;
 
-      appendFileSync(auditFile, footer);
+      fs.appendFileSync(auditFile, footer);
 
   console.log(`\n✅ Complete: Vesting wallet audit written to ${auditFile}`);
   console.log(`📊 Summary:`);

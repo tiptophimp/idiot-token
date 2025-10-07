@@ -1,6 +1,6 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { auditPath } from "./utils/paths.js";
+const { auditPath } = require("./utils/paths.cjs");
 import pkg from "hardhat";
 const { ethers } = pkg;
 
