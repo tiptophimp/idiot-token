@@ -1,0 +1,30 @@
+# Global ownership
+* @tiptophimp
+
+# Critical security and infrastructure files
+/.github/workflows/ @tiptophimp
+/.github/ @tiptophimp
+/scripts/ @tiptophimp
+/audit/ @tiptophimp
+SECURITY.md @tiptophimp
+package.json @tiptophimp
+package-lock.json @tiptophimp
+
+# Contract verification and audit scripts
+/scripts/verifyAndAudit.js @tiptophimp
+/scripts/verifyOnly.js @tiptophimp
+/scripts/verify_custody.ts @tiptophimp
+/scripts/lock_approvals.ts @tiptophimp
+/scripts/range_monitor.ts @tiptophimp
+
+# Uniswap V3 integration
+/scripts/uniswapV3_*.ts @tiptophimp
+/scripts/recenter_liquidity.ts @tiptophimp
+/scripts/cron_collect_fees.ts @tiptophimp
+
+# Dashboard and transparency
+/transparency-dashboard/ @tiptophimp
+
+# Configuration files
+hardhat.config.cjs @tiptophimp
+tsconfig.json @tiptophimp
