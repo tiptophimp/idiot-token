@@ -105,10 +105,13 @@ jobs:
           sudo apt install gh -y
           
           # Generate changelog
-          node scripts/generateChangelog.js
+          node scripts/generateChangelog.js || echo "Changelog generation failed, continuing..."
           
           # Generate transparency page
-          node scripts/generateTransparencyPage.js
+          node scripts/generateTransparencyPage.js || echo "Transparency page generation failed, continuing..."
+          
+          # Ensure transparency directory exists for release
+          mkdir -p docs/transparency
           
           # Get the latest tag
           TAG=$(git describe --tags --abbrev=0)
@@ -116,22 +119,39 @@ jobs:
           # Create GitHub release with changelog
           if [ -f "audit/changelog.md" ]; then
             CHANGELOG=$(cat audit/changelog.md)
-            gh release create "$TAG" \
-              --title "IDIOT Audit Release - $TAG" \
-              --notes "$CHANGELOG" \
-              audit/vesting_verification_log.md \
-              docs/transparency/index.html \
-              docs/transparency/api.json \
-              || echo "Release already exists or failed. Continuing..."
+            # Only include transparency files if they exist
+            if [ -f "docs/transparency/index.html" ] && [ -f "docs/transparency/api.json" ]; then
+              gh release create "$TAG" \
+                --title "IDIOT Audit Release - $TAG" \
+                --notes "$CHANGELOG" \
+                audit/vesting_verification_log.md \
+                docs/transparency/index.html \
+                docs/transparency/api.json \
+                || echo "Release already exists or failed. Continuing..."
+            else
+              gh release create "$TAG" \
+                --title "IDIOT Audit Release - $TAG" \
+                --notes "$CHANGELOG" \
+                audit/vesting_verification_log.md \
+                || echo "Release already exists or failed. Continuing..."
+            fi
           else
             echo "⚠️ Changelog file not found, creating basic release"
-            gh release create "$TAG" \
-              --title "IDIOT Audit Release - $TAG" \
-              --notes "Automated audit verification release - $TAG" \
-              audit/vesting_verification_log.md \
-              docs/transparency/index.html \
-              docs/transparency/api.json \
-              || echo "Release already exists or failed. Continuing..."
+            if [ -f "docs/transparency/index.html" ] && [ -f "docs/transparency/api.json" ]; then
+              gh release create "$TAG" \
+                --title "IDIOT Audit Release - $TAG" \
+                --notes "Automated audit verification release - $TAG" \
+                audit/vesting_verification_log.md \
+                docs/transparency/index.html \
+                docs/transparency/api.json \
+                || echo "Release already exists or failed. Continuing..."
+            else
+              gh release create "$TAG" \
+                --title "IDIOT Audit Release - $TAG" \
+                --notes "Automated audit verification release - $TAG" \
+                audit/vesting_verification_log.md \
+                || echo "Release already exists or failed. Continuing..."
+            fi
           fi
 
       - name: 📢 Announce Release (Discord + Slack)
