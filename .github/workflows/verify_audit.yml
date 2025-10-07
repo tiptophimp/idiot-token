@@ -33,8 +33,12 @@ jobs:
         run: |
           curl -L https://foundry.paradigm.xyz | bash
           export PATH="$PATH:$HOME/.foundry/bin"
-          foundryup
           echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+          # Install foundry tools directly
+          $HOME/.foundry/bin/foundryup
+          # Verify installation
+          cast --version
+          forge --version
 
       - name: 🔐 Load Environment Variables
         env:
