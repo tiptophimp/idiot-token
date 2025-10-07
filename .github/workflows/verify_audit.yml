@@ -29,6 +29,13 @@ jobs:
           npm ci
           npx hardhat compile
 
+      - name: 🔨 Install Foundry
+        run: |
+          curl -L https://foundry.paradigm.xyz | bash
+          export PATH="$PATH:$HOME/.foundry/bin"
+          foundryup
+          echo "$HOME/.foundry/bin" >> $GITHUB_PATH
+
       - name: 🔐 Load Environment Variables
         env:
           BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
@@ -45,7 +52,7 @@ jobs:
 
       - name: 🔍 Verify and Audit Contracts
         env:
-          BASESCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
@@ -80,7 +87,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add audit/
           git commit -m "chore(audit): update verification logs $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || echo "No changes to commit."
-          git pull --rebase origin main
+          git stash || echo "No stash needed"
+          git pull --rebase origin main || git pull origin main
+          git stash pop || echo "No stash to pop"
           git push origin main
 
       - name: 🏷️ Tag and Release Audit Version

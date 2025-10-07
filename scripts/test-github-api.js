@@ -1,5 +1,5 @@
 // scripts/test-github-api.js - Test API key in GitHub Actions
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
 async function testAPI() {
   console.log("🧪 Testing BaseScan API in GitHub Actions");
