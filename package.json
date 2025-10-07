@@ -29,5 +29,9 @@
     "ipfs-http-client": "^60.0.1",
     "js-yaml": "^4.1.0",
     "node-fetch": "^2.7.0"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-ledger": "^1.2.0",
+    "@openzeppelin/contracts": "^5.0.2"
   }
 }
