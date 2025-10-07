@@ -43,7 +43,36 @@ jobs:
         env:
           RPC_URL: ${{ secrets.RPC_URL_PRIMARY }}
         run: |
+          echo "Testing RPC connectivity..."
+          if [ -z "$RPC_URL" ]; then
+            echo "❌ RPC_URL_PRIMARY secret not set"
+            echo "Please set RPC_URL_PRIMARY secret in repository settings"
+            exit 1
+          fi
+          
+          echo "Testing RPC: $RPC_URL"
+          
+          # Test RPC with curl first (more reliable than cast)
+          response=$(curl -s -X POST "$RPC_URL" \
+            -H "Content-Type: application/json" \
+            -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
+            --max-time 30 \
+            --retry 3 \
+            --retry-delay 2)
+          
+          if echo "$response" | grep -q '"result"'; then
+            block_number=$(echo "$response" | jq -r '.result' 2>/dev/null || echo "unknown")
+            echo "✅ RPC health check passed"
+            echo "Block number: $block_number"
+          else
+            echo "❌ RPC health check failed"
+            echo "Response: $response"
+            exit 1
+          fi
+          
+          # Also test with cast for additional verification
           export PATH="$PATH:$HOME/.foundry/bin"
+          echo "Testing with cast..."
           cast rpc --rpc-url "$RPC_URL" eth_chainId
           cast rpc --rpc-url "$RPC_URL" eth_blockNumber
 
