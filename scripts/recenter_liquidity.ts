@@ -32,6 +32,7 @@ async function main() {
   if (!SAFE_RECIPIENT || !POSITION_ID) throw new Error("Set SAFE_RECIPIENT and POSITION_ID");
 
   const [signer] = await ethers.getSigners();
+  if (!signer) throw new Error("No signer available - connect Ledger or set private key");
   const me = await signer.getAddress();
 
   const nfpm = new ethers.Contract(NFPM, NFPM_ABI, signer);
