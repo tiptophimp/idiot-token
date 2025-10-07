@@ -1,6 +1,6 @@
 // scripts/ipfsVerify.js - IPFS CID verification and integrity check
-import fs from "fs";
-import { create } from "ipfs-http-client";
+const fs = require("fs");
+const { create } = require("ipfs-http-client");
 
 const auditFilePath = "./audit/vesting_verification_log.md";
 // Use Infura IPFS with authentication if available
@@ -64,7 +64,7 @@ async function verifyIPFSIntegrity() {
     console.log(`\n💾 CID saved to: ${cidFile}`);
 
     // Additional verification - check file content hash
-    const crypto = await import("crypto");
+    const crypto = require("crypto");
     const fileHash = crypto.createHash("sha256").update(file).digest("hex");
     console.log(`🔐 File SHA256: ${fileHash}`);
 

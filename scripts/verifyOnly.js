@@ -1,11 +1,10 @@
 // scripts/verifyOnly.js - Contract verification without private key
-import dotenv from "dotenv";
-import pkg from "hardhat";
-import { execSync } from "child_process";
-import fs from "fs";
+require("dotenv").config();
+const pkg = require("hardhat");
+const { execSync } = require("child_process");
+const fs = require("fs");
 
 const { run, ethers } = pkg;
-dotenv.config();
 
 const rpc = "https://mainnet.base.org";
 const auditFile = "./audit/vesting_verification_log.md";
