@@ -1,8 +1,7 @@
-import pkg from "hardhat";
-const { ethers } = pkg;
+const { ethers } = require("hardhat");
 
 const NFPM = process.env.NFPM ?? "0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1";
-const SAFE_RECIPIENT = process.env.SAFE_RECIPIENT!;       // required
+const SAFE_RECIPIENT = process.env.SAFE_RECIPIENT;       // required
 const POSITION_IDS = (process.env.POSITION_IDS ?? "").split(",").map(s=>s.trim()).filter(Boolean);
 
 const ABI = [
@@ -26,7 +25,7 @@ async function main() {
       });
       const r = await tx.wait();
       console.log(`Collected fees for #${id} tx=${r?.hash}`);
-    } catch (e:any) {
+    } catch (e) {
       console.error(`#${id} failed:`, e.message ?? e);
     }
   }
