@@ -13,7 +13,9 @@
     "audit:fix": "npm audit fix --omit=dev",
     "sbom": "npx @cyclonedx/cyclonedx-npm --output-file sbom.json",
     "time:sync": "node scripts/timeSync.js",
-    "time:validate": "node scripts/validateTime.js"
+    "time:validate": "node scripts/validateTime.js",
+    "time:hardened": "node -e \"import('./scripts/utils/time.js').then(t => { console.log('Hardened time:', t.isoNow()); console.log('Status:', t.getStatus()); })\"",
+    "time:test": "node scripts/tests/timeHardening.test.js"
   },
   "keywords": [
     "idiot",

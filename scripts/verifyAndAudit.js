@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 import pkg from "hardhat";
 import { execSync } from "child_process";
 import fs from "fs";
-import { timeUtils } from "./utils/timeUtils.js";
-import { timeSync } from "./timeSync.js";
+import { nowUtcMs, isoNow, unixNow, syncTime, getChainTime, getStatus } from "./utils/time.js";
 
 const { run, ethers } = pkg;
 dotenv.config();
@@ -119,25 +118,27 @@ async function getOwner(address) {
 
 async function main() {
   // Start time synchronization
-  timeSync.startSync(60000); // Sync every minute
+  await syncTime();
   
   console.log("=== IDIOT Token Vesting Wallet Verification & Audit ===");
-  console.log(`📅 Timestamp: ${timeUtils.now()}`);
+  console.log(`📅 Timestamp: ${isoNow()}`);
   console.log(`🌐 Network: Base Mainnet (${rpc})`);
   console.log(`🪙 IDIOT Token: ${IDIOT_TOKEN_ADDRESS}`);
   
   // Show time sync status
-  const timeStatus = timeSync.getStatus();
-  console.log(`⏰ Time Sync: ${timeStatus.isTimeAccurate() ? '✅ Accurate' : '⚠️ Drift detected'}`);
+  const timeStatus = getStatus();
+  console.log(`⏰ Time Sync: ${timeStatus.circuitBreakerOpen ? '⚠️ Circuit breaker open' : '✅ Active'}`);
+  console.log(`📊 Offset: ${timeStatus.offsetMs}ms, Drift alerts: ${timeStatus.driftAlerts}`);
   
   if (!fs.existsSync("./audit")) fs.mkdirSync("./audit");
   
   // Initialize audit file
   const header = `# IDIOT Vesting Wallet Verification Audit Log
     
-    **Generated:** ${timeUtils.now()}  
+    **Generated:** ${isoNow()}  
     **Network:** Base Mainnet  
     **Purpose:** Verification of vesting wallet token balances and ownership  
+    **Time Sync:** ${timeStatus.circuitBreakerOpen ? 'Circuit breaker open' : 'Active'} (offset: ${timeStatus.offsetMs}ms)
     
     ## Wallet Verification Status
     
@@ -153,7 +154,7 @@ async function main() {
 
     const codeHash = getCodeHash(wallet.address);
     const owner = await getOwner(wallet.address);
-        const startDate = timeUtils.format(wallet.start, 'short');
+        const startDate = new Date(wallet.start * 1000).toISOString().split('T')[0];
     const durationMonths = Math.floor(wallet.duration / 86400 / 30);
     const baseScanUrl = `https://basescan.org/address/${wallet.address}`;
     const balanceFormatted = result.balance ? ethers.formatEther(result.balance) : "N/A";

@@ -229,21 +229,6 @@ class TimeUtils {
 // Create singleton instance
 const timeUtils = new TimeUtils();
 
-// Export both class and instance
-module.exports = {
-  TimeUtils,
-  timeUtils,
-  // Convenience functions
-  now: () => timeUtils.now(),
-  unix: () => timeUtils.unix(),
-  format: (timestamp, format) => timeUtils.format(timestamp, format),
-  timeRemaining: (futureTimestamp) => timeUtils.timeRemaining(futureTimestamp),
-  timeElapsed: (pastTimestamp) => timeUtils.timeElapsed(pastTimestamp),
-  vestingProgress: (startTimestamp, durationSeconds) => timeUtils.vestingProgress(startTimestamp, durationSeconds),
-  logTimestamp: () => timeUtils.logTimestamp(),
-  isValid: (timestamp) => timeUtils.isValid(timestamp)
-};
-
 // For ES modules
 export { TimeUtils, timeUtils };
 export default timeUtils;
