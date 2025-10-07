@@ -256,14 +256,24 @@
                     <p class="text-xs text-gray-500">${parseFloat(poolData.price).toFixed(8)} IDIOT/WETH</p>
                 </div>
                     
-                    <div class="bg-purple-50 rounded-lg p-4">
-                        <div class="flex items-center mb-2">
-                            <i class="fas fa-water text-purple-600 mr-2"></i>
-                            <h3 class="text-lg font-semibold text-gray-900">Liquidity</h3>
-                        </div>
-                        <p class="text-xl font-bold text-purple-600">${formatNumber(ethers.formatUnits(poolData.liquidity, 18))}</p>
-                        <p class="text-sm text-gray-600">Total Liquidity</p>
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-coins text-purple-600 mr-2"></i>
+                        <h3 class="text-lg font-semibold text-gray-900">Token Reserves</h3>
                     </div>
+                    <p class="text-lg font-bold text-purple-600">${formatNumber(ethers.formatUnits(poolData.token0Reserve || '0', 18))} WETH</p>
+                    <p class="text-lg font-bold text-purple-600">${formatNumber(ethers.formatUnits(poolData.token1Reserve || '0', 18))} IDIOT</p>
+                    <p class="text-sm text-gray-600">Pool Reserves</p>
+                </div>
+                
+                <div class="bg-indigo-50 rounded-lg p-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-chart-bar text-indigo-600 mr-2"></i>
+                        <h3 class="text-lg font-semibold text-gray-900">TVL</h3>
+                    </div>
+                    <p class="text-xl font-bold text-indigo-600">$${formatNumber(poolData.tvl || '0')}</p>
+                    <p class="text-sm text-gray-600">Total Value Locked</p>
+                </div>
                     
                     <div class="bg-orange-50 rounded-lg p-4">
                         <div class="flex items-center mb-2">

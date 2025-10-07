@@ -311,6 +311,24 @@ app.get('/api/pool', async (req, res) => {
     // Calculate IDIOT/USD price
     const idiotUsdPrice = idiotWethPrice * wethUsdcPrice;
     
+    // Calculate token reserves from liquidity and price
+    const sqrtPrice = Number(sqrt);
+    const liquidity = Number(liq);
+    
+    // For Uniswap V3, we need to calculate reserves based on current tick
+    // This is a simplified calculation - in production you'd want to use a quoter
+    const price = sqrtPrice / (2**96);
+    const priceSquared = price * price;
+    
+    // Approximate reserves (this is simplified - real calculation requires tick math)
+    const token0Reserve = liquidity / Math.sqrt(priceSquared);
+    const token1Reserve = liquidity * Math.sqrt(priceSquared);
+    
+    // Calculate TVL in USD
+    const token0ValueUsd = token0Reserve * wethUsdcPrice; // WETH value in USD
+    const token1ValueUsd = token1Reserve * idiotUsdPrice; // IDIOT value in USD
+    const tvl = token0ValueUsd + token1ValueUsd;
+    
     res.json({
       pool: poolAddress,
       sqrtPriceX96: sqrt.toString(),
@@ -322,6 +340,9 @@ app.get('/api/pool', async (req, res) => {
       price: idiotWethPrice.toString(),
       priceUsd: idiotUsdPrice.toString(),
       wethUsdPrice: wethUsdcPrice.toString(),
+      token0Reserve: Math.floor(token0Reserve).toString(),
+      token1Reserve: Math.floor(token1Reserve).toString(),
+      tvl: tvl.toFixed(2),
       unlocked,
       observationIndex: Number(observationIndex),
       observationCardinality: Number(observationCardinality),
