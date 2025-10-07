@@ -334,13 +334,85 @@ app.get('/api/pool', async (req, res) => {
   }
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    lastUpdated: dashboardData.lastUpdated,
-    uptime: process.uptime()
-  });
+// Comprehensive health check endpoint for monitoring
+app.get('/api/health', async (req, res) => {
+  try {
+    const health = {
+      status: 'healthy',
+      timestamp: isoNow(),
+      uptime: process.uptime(),
+      checks: {}
+    };
+
+    // Check RPC connectivity
+    try {
+      const block = await provider.getBlock('latest');
+      health.checks.rpc = {
+        status: 'healthy',
+        blockNumber: block.number,
+        timestamp: block.timestamp
+      };
+    } catch (error) {
+      health.checks.rpc = {
+        status: 'unhealthy',
+        error: error.message
+      };
+      health.status = 'degraded';
+    }
+
+    // Check pool liquidity
+    if (dashboardData.poolInfo && dashboardData.poolInfo.liquidity) {
+      const liquidity = BigInt(dashboardData.poolInfo.liquidity);
+      health.checks.liquidity = {
+        status: liquidity > 0n ? 'healthy' : 'critical',
+        value: dashboardData.poolInfo.liquidity,
+        alert: liquidity === 0n ? 'Liquidity is zero!' : null
+      };
+      if (liquidity === 0n) health.status = 'critical';
+    }
+
+    // Check tick drift
+    if (dashboardData.poolInfo && dashboardData.poolInfo.tick) {
+      const tick = dashboardData.poolInfo.tick;
+      const tickDrift = Math.abs(tick);
+      health.checks.tickDrift = {
+        status: tickDrift < 600 ? 'healthy' : 'warning',
+        value: tick,
+        drift: tickDrift,
+        alert: tickDrift > 600 ? `Tick drift ${tickDrift} > 600` : null
+      };
+      if (tickDrift > 600) health.status = 'degraded';
+    }
+
+    // Check time sync
+    const timeStatus = getStatus();
+    health.checks.timeSync = {
+      status: timeStatus.circuitBreakerOpen ? 'unhealthy' : 'healthy',
+      offsetMs: timeStatus.offsetMs,
+      driftAlerts: timeStatus.driftAlerts,
+      failureRate: timeStatus.failureRate
+    };
+    if (timeStatus.circuitBreakerOpen) health.status = 'degraded';
+
+    // Check vesting wallet balances
+    if (dashboardData.vestingWallets && dashboardData.vestingWallets.length > 0) {
+      const verifiedWallets = dashboardData.vestingWallets.filter(w => w.status === 'Verified').length;
+      health.checks.vestingWallets = {
+        status: verifiedWallets === dashboardData.vestingWallets.length ? 'healthy' : 'warning',
+        verified: verifiedWallets,
+        total: dashboardData.vestingWallets.length,
+        alert: verifiedWallets < dashboardData.vestingWallets.length ? 'Some vesting wallets not verified' : null
+      };
+    }
+
+    res.status(health.status === 'critical' ? 503 : health.status === 'degraded' ? 200 : 200).json(health);
+  } catch (error) {
+    res.status(500).json({
+      status: 'unhealthy',
+      timestamp: isoNow(),
+      error: error.message
+    });
+  }
 });
 
 // Serve main dashboard
