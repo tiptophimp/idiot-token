@@ -29,16 +29,32 @@ jobs:
           npm ci
           npx hardhat compile
 
-      - name: 🔨 Install Foundry
+      - name: 🔨 Install Foundry (pinned)
         run: |
           curl -L https://foundry.paradigm.xyz | bash
           export PATH="$PATH:$HOME/.foundry/bin"
           echo "$HOME/.foundry/bin" >> $GITHUB_PATH
-          # Install foundry tools directly
-          $HOME/.foundry/bin/foundryup
+          # Install foundry tools with pinned version
+          $HOME/.foundry/bin/foundryup -v stable
           # Verify installation
-          cast --version
-          forge --version
+          $HOME/.foundry/bin/cast --version
+          $HOME/.foundry/bin/forge --version
+        env:
+          FOUNDRY_VERSION: stable
+        continue-on-error: true
+
+      - name: 🔨 Install Foundry (fallback)
+        if: failure()
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: 🔍 RPC health check
+        env:
+          RPC_URL: ${{ secrets.RPC_URL_PRIMARY }}
+        run: |
+          $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_chainId
+          $HOME/.foundry/bin/cast rpc --rpc-url "$RPC_URL" eth_blockNumber
 
       - name: 🔐 Load Environment Variables
         env:
