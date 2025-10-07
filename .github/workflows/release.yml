@@ -12,6 +12,20 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 20, cache: 'npm' }
       - run: npm ci
+      - name: Install Foundry (pinned)
+        run: |
+          curl -L https://foundry.paradigm.xyz | bash
+          $HOME/.foundry/bin/foundryup -v stable
+          $HOME/.foundry/bin/cast --version
+        env:
+          FOUNDRY_VERSION: stable
+        continue-on-error: true
+
+      - name: Install Foundry (fallback)
+        if: failure()
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
       - run: npx hardhat compile
       - run: tar -czf audit_artifacts.tgz audit/ || true
       - uses: softprops/action-gh-release@v2
