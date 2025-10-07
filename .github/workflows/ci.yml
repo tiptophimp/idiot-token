@@ -22,7 +22,7 @@ jobs:
     permissions:
       contents: read
     env:
-      ETHERSCAN_API_KEY: ${{ secrets.BASESCAN_API_KEY }}   # or secrets.ETHERSCAN_API_KEY
+      ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
       RPC_URL_PRIMARY:  ${{ secrets.RPC_URL_PRIMARY }}
       RPC_URL_ALCHEMY:  ${{ secrets.RPC_URL_ALCHEMY }}
       RPC_URL_INFURA:   ${{ secrets.RPC_URL_INFURA }}
