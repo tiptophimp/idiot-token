@@ -1,248 +1,32 @@
-name: IDIOT Contract Verification • Transparency • Release Automation
+name: Verify and Audit
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-defaults:
-  run:
-    shell: bash
-env:
-  ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
-  verify-audit:
+  verify:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      actions: write
-      pull-requests: write
-
+    
     steps:
-      - name: 🧾 Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required for tagging and pushing commits
-
-      - name: ⚙️ Setup Node.js
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: 📦 Install Dependencies
-        run: |
-          npm ci
-          npx hardhat compile
-
-      - name: 🔨 Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: stable
-
-      - name: 🔧 Verify Foundry Installation
-        run: cast --version && forge --version
-
-      - name: 🔍 RPC health check
-        env:
-          RPC_URL: ${{ secrets.RPC_URL_PRIMARY }}
-        run: |
-          echo "Testing RPC connectivity..."
-          if [ -z "$RPC_URL" ]; then
-            echo "❌ RPC_URL_PRIMARY secret not set"
-            echo "Please set RPC_URL_PRIMARY secret in repository settings"
-            echo "Valid options:"
-            echo "  - https://mainnet.base.org (free)"
-            echo "  - https://base-mainnet.g.alchemy.com/v2/YOUR_KEY (Alchemy)"
-            echo "  - https://base-mainnet.infura.io/v3/YOUR_KEY (Infura)"
-            exit 1
-          fi
+          cache: 'npm'
           
-          echo "Testing RPC: $RPC_URL"
-          
-          # Test RPC with curl first (more reliable than cast)
-          response=$(curl -s -X POST "$RPC_URL" \
-            -H "Content-Type: application/json" \
-            -d '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
-            --max-time 30 \
-            --retry 3 \
-            --retry-delay 2)
-          
-          if echo "$response" | grep -q '"result"'; then
-            block_number=$(echo "$response" | jq -r '.result' 2>/dev/null || echo "unknown")
-            echo "✅ RPC health check passed"
-            echo "Block number: $block_number"
-          else
-            echo "❌ RPC health check failed"
-            echo "Response: $response"
-            echo ""
-            echo "Troubleshooting steps:"
-            echo "1. Verify RPC_URL_PRIMARY secret is set correctly"
-            echo "2. Test the RPC URL manually: curl -X POST '$RPC_URL' -H 'Content-Type: application/json' -d '{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}'"
-            echo "3. Try a different RPC provider (Alchemy, Infura, QuickNode)"
-            echo "4. Check if the RPC endpoint is accessible from GitHub Actions runners"
-            exit 1
-          fi
-          
-          # Also test with cast for additional verification
-          export PATH="$PATH:$HOME/.foundry/bin"
-          echo "Testing with cast..."
-          cast rpc --rpc-url "$RPC_URL" eth_chainId
-          cast rpc --rpc-url "$RPC_URL" eth_blockNumber
-
-      - name: 🔐 Load Environment Variables
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Compile
+        run: npx hardhat compile
+        
+      - name: Verify contracts
         env:
           ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY }}
-          RPC_URL_ALCHEMY: ${{ secrets.RPC_URL_ALCHEMY }}
-          RPC_URL_INFURA: ${{ secrets.RPC_URL_INFURA }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          echo "Environment variables initialized."
-          
-      - name: 🧪 Test API Key
-        env:
-          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-        run: |
-          echo "✅ API Key test skipped - using fallback RPC"
-
-      - name: 🔍 Verify and Audit Contracts
-        env:
-          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY }}
-          RPC_URL_ALCHEMY: ${{ secrets.RPC_URL_ALCHEMY }}
-          RPC_URL_INFURA: ${{ secrets.RPC_URL_INFURA }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          npx hardhat run scripts/verifyOnly.cjs --network base
-
-      - name: Generate SBOM
-        run: |
-          npm install @cyclonedx/cyclonedx-npm --no-save
-          npx @cyclonedx/cyclonedx-npm --output-file sbom.json
-
-      - name: ☁️ Upload Audit Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: audit-log
-          path: audit/vesting_verification_log.md
-          retention-days: 180
-
-      - name: Upload SBOM
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom
-          path: sbom.json
-          retention-days: 180
-
-      - name: 🧩 Preserve Historical Snapshot
-        run: |
-          mkdir -p audit/history
-          cp audit/vesting_verification_log.md audit/history/vesting_verification_log_$(date -u +'%Y%m%d_%H%M').md
-
-      - name: 🪣 Upload Audit to IPFS (Optional)
-        if: success()
-        env:
-          IPFS_PROJECT_ID: ${{ secrets.IPFS_PROJECT_ID }}
-          IPFS_PROJECT_SECRET: ${{ secrets.IPFS_PROJECT_SECRET }}
-        run: |
-          npm install ipfs-http-client
-          node scripts/ipfsVerify.js || echo "IPFS upload skipped or failed, continuing..."
-
-      - name: 🪪 Commit and Push Updated Audit Logs
-        if: false  # Disabled to prevent exit code 128 errors
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add audit/
-          git commit -m "chore(audit): update verification logs $(date -u +'%Y-%m-%d %H:%M:%S UTC')" || echo "No changes to commit."
-          git stash || echo "No stash needed"
-          git pull --rebase origin main || git pull origin main
-          git stash pop || echo "No stash to pop"
-          git push origin main
-
-      - name: 🏷️ Tag and Release Audit Version
-        if: false  # Disabled to prevent exit code 128 errors
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG="audit-v$(date -u +'%Y.%m.%d-%H%M')"
-          git tag -a "$TAG" -m "Automated audit verification release - $TAG"
-          git push origin "$TAG"
-          echo "✅ Created tag $TAG"
-
-      - name: 🧾 Generate and Publish Changelog
-        if: false  # Disabled to prevent exit code 128 errors
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Install GitHub CLI
-          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-          sudo apt update
-          sudo apt install gh -y
-          
-          # Generate changelog
-          node scripts/generateChangelog.js || echo "Changelog generation failed, continuing..."
-          
-          # Generate transparency page
-          node scripts/generateTransparencyPage.js || echo "Transparency page generation failed, continuing..."
-          
-          # Ensure transparency directory exists for release
-          mkdir -p docs/transparency
-          
-          # Get the latest tag
-          TAG=$(git describe --tags --abbrev=0)
-          
-          # Create GitHub release with changelog
-          if [ -f "audit/changelog.md" ]; then
-            CHANGELOG=$(cat audit/changelog.md)
-            # Only include transparency files if they exist
-            if [ -f "docs/transparency/index.html" ] && [ -f "docs/transparency/api.json" ]; then
-              gh release create "$TAG" \
-                --title "IDIOT Audit Release - $TAG" \
-                --notes "$CHANGELOG" \
-                audit/vesting_verification_log.md \
-                docs/transparency/index.html \
-                docs/transparency/api.json \
-                || echo "Release already exists or failed. Continuing..."
-            else
-              gh release create "$TAG" \
-                --title "IDIOT Audit Release - $TAG" \
-                --notes "$CHANGELOG" \
-                audit/vesting_verification_log.md \
-                || echo "Release already exists or failed. Continuing..."
-            fi
-          else
-            echo "⚠️ Changelog file not found, creating basic release"
-            if [ -f "docs/transparency/index.html" ] && [ -f "docs/transparency/api.json" ]; then
-              gh release create "$TAG" \
-                --title "IDIOT Audit Release - $TAG" \
-                --notes "Automated audit verification release - $TAG" \
-                audit/vesting_verification_log.md \
-                docs/transparency/index.html \
-                docs/transparency/api.json \
-                || echo "Release already exists or failed. Continuing..."
-            else
-              gh release create "$TAG" \
-                --title "IDIOT Audit Release - $TAG" \
-                --notes "Automated audit verification release - $TAG" \
-                audit/vesting_verification_log.md \
-                || echo "Release already exists or failed. Continuing..."
-            fi
-          fi
-
-      - name: 📢 Announce Release (Discord + Slack)
-        if: success()
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: |
-          TAG=$(git describe --tags --abbrev=0)
-          MESSAGE="✅ *New Audit Release Published!* - $TAG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"$MESSAGE\"}" $DISCORD_WEBHOOK_URL || true
-          curl -X POST -H "Content-Type: application/json" -d "{\"text\": \"$MESSAGE\"}" $SLACK_WEBHOOK_URL || true
+          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY || 'https://mainnet.base.org' }}
+        run: npx hardhat run scripts/verifyAndAudit.cjs --network base

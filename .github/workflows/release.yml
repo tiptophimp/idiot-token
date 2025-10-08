@@ -1,47 +1,32 @@
-name: release
+name: Release
+
 on:
   push:
     tags: ['v*']
-permissions:
-  contents: write
-defaults:
-  run:
-    shell: bash
-env:
-  ACTIONS_RUNTIME_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20', cache: 'npm' }
-      - run: npm ci
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: stable
 
-      - name: Verify Foundry Installation
-        run: cast --version && forge --version
-      - run: npx hardhat compile
-      - name: Generate SBOM
-        run: |
-          npm install @cyclonedx/cyclonedx-npm --no-save
-          npx @cyclonedx/cyclonedx-npm --output-file sbom.json
-      - run: tar -czf audit_artifacts.tgz audit/ || true
-      - name: Upload audit artifacts
-        uses: actions/upload-artifact@v4
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          name: audit
-          path: audit/
-          retention-days: 180
-      - name: Upload SBOM
-        uses: actions/upload-artifact@v4
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Compile
+        run: npx hardhat compile
+        
+      - name: Create release
+        uses: softprops/action-gh-release@v1
         with:
-          name: sbom
-          path: sbom.json
-          retention-days: 180
-      - uses: softprops/action-gh-release@v2
-        with: { files: audit_artifacts.tgz }
+          files: |
+            audit/*.md
+            sbom.json
