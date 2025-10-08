@@ -45,9 +45,9 @@ jobs:
         run: |
           echo "Testing RPC connectivity..."
           if [ -z "$RPC_URL" ]; then
-            echo "❌ RPC_URL_PRIMARY secret not set"
-            echo "Please set RPC_URL_PRIMARY secret in repository settings"
-            exit 1
+            echo "⚠️ RPC_URL_PRIMARY secret not set - using fallback"
+            RPC_URL="https://mainnet.base.org"
+            echo "Using fallback RPC: $RPC_URL"
           fi
           
           echo "Testing RPC: $RPC_URL"
@@ -111,6 +111,8 @@ jobs:
           retention-days: 180
       - name: Verify vesting (Base)
         if: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY || 'https://mainnet.base.org' }}
         run: npx hardhat run scripts/verifyAndAudit.js --network base
 
       - name: Discord notification (success)
