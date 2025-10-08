@@ -1,53 +1,30 @@
 {
-  "name": "idiot-vesting-verification",
+  "name": "idiot-token-website",
   "version": "1.0.0",
-  "description": "IDIOT Token Vesting Contract Verification on Base",
-  "type": "module",
-  "main": "scripts/verifyAndAudit.js",
+  "description": "IDIOT Token Official Website - Professional meme token on Base",
+  "main": "server.js",
   "scripts": {
-    "verify": "npx hardhat run scripts/verifyAndAudit.js --network base",
-    "verify:test": "npx hardhat run scripts/verifyAndAudit.js --network baseSepolia",
-    "compile": "npx hardhat compile",
-    "test": "npx hardhat test",
-    "audit": "npm audit --omit=dev",
-    "audit:fix": "npm audit fix --omit=dev",
-    "sbom": "npx @cyclonedx/cyclonedx-npm --output-file sbom.json",
-    "time:sync": "node scripts/timeSync.js",
-    "time:validate": "node scripts/validateTime.js",
-    "time:hardened": "node -e \"import('./scripts/utils/time.js').then(t => { console.log('Hardened time:', t.isoNow()); console.log('Status:', t.getStatus()); })\"",
-    "time:test": "node scripts/tests/timeHardening.test.js",
-    "persist:probe": "node -e \"const {auditPath}=require('./scripts/utils/paths.cjs');const fs=require('fs');fs.writeFileSync(auditPath('_probe.txt'),'ok\\n',{flag:'a'});console.log('wrote',auditPath('_probe.txt'))\"",
-    "test:v2api": "node scripts/test_etherscan_v2.cjs"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Static site - no build needed'",
+    "update-time": "node scripts/update_official_time.cjs"
   },
   "keywords": [
-    "idiot",
-    "token",
-    "vesting",
-    "verification",
-    "base",
-    "ethereum"
+    "idiot-token",
+    "base-blockchain",
+    "meme-token",
+    "defi",
+    "cryptocurrency"
   ],
-  "author": "IDIOT Team",
+  "author": "IDIOT Token Team",
   "license": "MIT",
-  "engines": {
-    "node": ">=20 <21"
-  },
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.14",
-    "@types/node": "^24.7.0",
-    "dotenv": "^16.3.1",
-    "ethers": "^6.14.0",
-    "hardhat": "^2.19.0",
-    "ipfs-http-client": "^60.0.1",
-    "js-yaml": "^4.1.0",
-    "node-fetch": "^2.7.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  },
   "dependencies": {
-    "@nomicfoundation/hardhat-ledger": "^1.2.0",
-    "@openzeppelin/contracts": "^5.0.2",
-    "pinata": "^2.5.1"
+    "express": "^4.18.2",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
