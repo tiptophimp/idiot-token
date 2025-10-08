@@ -1,5 +1,5 @@
 // scripts/test-github-api.js - Test API key in GitHub Actions
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 async function testAPI() {
   console.log("🧪 Testing BaseScan API in GitHub Actions");
@@ -15,9 +15,9 @@ async function testAPI() {
 
   console.log(`✅ API Key found: ${apiKey.substring(0, 8)}...`);
 
-  // Test API with a simple request
+  // Test API with a simple request using Etherscan V2 API
   const testAddress = "0x6AD03686ab6c3bA2c77992995E4879c62dE88996";
-  const url = `https://api.basescan.org/api?module=contract&action=getsourcecode&address=${testAddress}&apikey=${apiKey}`;
+  const url = `https://api.etherscan.io/v2/api?chainid=8453&module=contract&action=getsourcecode&address=${testAddress}&apikey=${apiKey}`;
 
   try {
     console.log("🔍 Testing API connection...");
@@ -36,7 +36,7 @@ async function testAPI() {
       
       if (data.message.includes("Invalid API Key")) {
         console.log("💡 Your API key is invalid");
-        console.log("💡 Get a new key from: https://basescan.org/apis");
+        console.log("💡 Get a new key from: https://etherscan.io/apis");
       } else if (data.message.includes("Max rate limit")) {
         console.log("💡 Rate limit exceeded - wait and try again");
       } else {
