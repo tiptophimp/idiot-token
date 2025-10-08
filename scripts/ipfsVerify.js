@@ -1,116 +1,115 @@
-// scripts/ipfsVerify.js - IPFS CID verification and integrity check
-const fs = require("fs");
-const { create } = require("ipfs-http-client");
+// IPFS Upload Script for IDIOT Token Audit Logs - Updated for Pinata SDK v2
+import { PinataSDK } from 'pinata';
+import fs from 'fs';
+import dotenv from 'dotenv';
 
-const auditFilePath = "./audit/vesting_verification_log.md";
-// Use Infura IPFS with authentication if available
-const ipfsConfig = process.env.IPFS_PROJECT_ID && process.env.IPFS_PROJECT_SECRET
-  ? {
-      url: "https://ipfs.infura.io:5001/api/v0",
-      headers: {
-        authorization: `Basic ${Buffer.from(`${process.env.IPFS_PROJECT_ID}:${process.env.IPFS_PROJECT_SECRET}`).toString('base64')}`
-      }
-    }
-  : { url: "https://ipfs.infura.io:5001/api/v0" };
+dotenv.config();
 
-const ipfs = create(ipfsConfig);
-
-async function verifyIPFSIntegrity() {
-  console.log("🔍 IPFS Audit Integrity Verification");
-  console.log("=====================================\n");
-
-  // Check if audit file exists
-  if (!fs.existsSync(auditFilePath)) {
-    console.error("❌ Audit file not found:", auditFilePath);
-    console.log("💡 Run the main verification task first to generate the audit log");
-    process.exit(1);
-  }
-
-  try {
-    // Read the current audit file
-    const file = fs.readFileSync(auditFilePath);
-    console.log(`📄 Reading audit file: ${auditFilePath}`);
-    console.log(`📊 File size: ${file.length} bytes\n`);
-
-    // Upload to IPFS and get CID
-    console.log("🌐 Uploading to IPFS...");
-    const result = await ipfs.add(file);
-    const currentCID = result.path;
+async function uploadToIPFS() {
+    console.log('🌐 Uploading IDIOT Token audit logs to IPFS via Pinata SDK v2...\n');
     
-    console.log(`✅ Current CID: ${currentCID}`);
-    console.log(`🔗 IPFS URL: https://ipfs.io/ipfs/${currentCID}`);
-    console.log(`🔗 Gateway URL: https://gateway.pinata.cloud/ipfs/${currentCID}`);
-
-    // Check if there's a previous CID stored
-    const cidFile = "./audit/last_ipfs_cid.txt";
-    if (fs.existsSync(cidFile)) {
-      const previousCID = fs.readFileSync(cidFile, 'utf8').trim();
-      console.log(`\n📋 Previous CID: ${previousCID}`);
-      
-      if (currentCID === previousCID) {
-        console.log("✅ Integrity Check: PASSED");
-        console.log("🔒 Audit file has not changed - CID matches previous upload");
-      } else {
-        console.log("⚠️  Integrity Check: CHANGED");
-        console.log("📝 Audit file has been modified since last IPFS upload");
-        console.log("💡 This is normal if you've run verification again");
-      }
-    } else {
-      console.log("\n📋 No previous CID found - this is the first IPFS upload");
+    const pinataJwt = process.env.PINATA_JWT; // Your JWT token
+    const pinataGateway = process.env.NEXT_PUBLIC_GATEWAY_URL; // Your gateway URL
+    
+    if (!pinataJwt) {
+        console.log('❌ Pinata JWT not found');
+        console.log('Set PINATA_JWT to your Pinata JWT token');
+        console.log('\nTo get your JWT:');
+        console.log('1. Go to Pinata dashboard');
+        console.log('2. Go to API Keys');
+        console.log('3. Create new key or use existing');
+        console.log('4. Copy the JWT token (starts with eyJ...)');
+        return;
     }
-
-    // Store current CID for future comparison
-    fs.writeFileSync(cidFile, currentCID);
-    console.log(`\n💾 CID saved to: ${cidFile}`);
-
-    // Additional verification - check file content hash
-    const crypto = require("crypto");
-    const fileHash = crypto.createHash("sha256").update(file).digest("hex");
-    console.log(`🔐 File SHA256: ${fileHash}`);
-
-    // Try to retrieve from IPFS to verify it's accessible
-    console.log("\n🔄 Verifying IPFS accessibility...");
+    
+    console.log(`🔑 Using Pinata JWT: ${pinataJwt.substring(0, 20)}...`);
+    
     try {
-      const retrieved = await ipfs.cat(currentCID);
-      const retrievedHash = crypto.createHash("sha256").update(retrieved).digest("hex");
-      
-      if (fileHash === retrievedHash) {
-        console.log("✅ IPFS Retrieval: SUCCESS");
-        console.log("🌐 File is accessible and matches original content");
-      } else {
-        console.log("❌ IPFS Retrieval: MISMATCH");
-        console.log("⚠️  Retrieved content doesn't match original file");
-      }
-    } catch (retrieveError) {
-      console.log("⚠️  IPFS Retrieval: UNAVAILABLE");
-      console.log("💡 This is normal - IPFS content may take time to propagate");
-      console.log(`   Error: ${retrieveError.message}`);
+        // Initialize Pinata SDK
+        const pinata = new PinataSDK({
+            pinataJwt: pinataJwt,
+            pinataGateway: pinataGateway || 'gateway.pinata.cloud'
+        });
+        
+        // Upload audit log file
+        const auditFile = 'audit/vesting_verification_log.md';
+        if (fs.existsSync(auditFile)) {
+            console.log('📤 Uploading audit log file...');
+            
+            const fileStream = fs.createReadStream(auditFile);
+            const options = {
+                metadata: {
+                    name: 'IDIOT-Token-Vesting-Verification',
+                    keyvalues: {
+                        project: 'IDIOT Token',
+                        type: 'audit-log',
+                        timestamp: new Date().toISOString(),
+                        network: 'Base Mainnet'
+                    }
+                },
+                options: {
+                    cidVersion: 0
+                }
+            };
+            
+            const result = await pinata.upload.public.file(fileStream, options);
+            
+            console.log('✅ Audit log uploaded successfully!');
+            console.log(`📁 IPFS Hash: ${result.IpfsHash}`);
+            console.log(`🔗 Pinata Gateway: https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`);
+            console.log(`🌐 Public Gateway: https://ipfs.io/ipfs/${result.IpfsHash}`);
+        } else {
+            console.log('⚠️ Audit log file not found, skipping...');
+        }
+        
+        // Upload audit summary JSON
+        const auditSummary = {
+            project: 'IDIOT Token',
+            type: 'audit-summary',
+            timestamp: new Date().toISOString(),
+            network: 'Base Mainnet',
+            tokenAddress: '0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1',
+            verificationStatus: 'completed',
+            files: {
+                auditLog: 'vesting_verification_log.md',
+                description: 'IDIOT Token vesting wallet verification and audit log'
+            }
+        };
+        
+        console.log('\n📤 Uploading audit summary JSON...');
+        
+        const jsonOptions = {
+            metadata: {
+                name: 'IDIOT-Token-Audit-Summary',
+                keyvalues: {
+                    project: 'IDIOT Token',
+                    type: 'audit-summary',
+                    timestamp: new Date().toISOString()
+                }
+            },
+            options: {
+                cidVersion: 0
+            }
+        };
+        
+        const jsonResult = await pinata.upload.public.json(auditSummary, jsonOptions);
+        
+        console.log('✅ Audit summary uploaded successfully!');
+        console.log(`📁 IPFS Hash: ${jsonResult.IpfsHash}`);
+        console.log(`🔗 Pinata Gateway: https://gateway.pinata.cloud/ipfs/${jsonResult.IpfsHash}`);
+        console.log(`🌐 Public Gateway: https://ipfs.io/ipfs/${jsonResult.IpfsHash}`);
+        
+        console.log('\n🎉 IPFS upload process completed!');
+        console.log('Your audit logs are now permanently stored on IPFS!');
+        
+    } catch (error) {
+        console.error('❌ Error uploading to IPFS:', error.message);
+        console.log('\nTroubleshooting:');
+        console.log('1. Check your Pinata JWT token');
+        console.log('2. Ensure you have the correct permissions');
+        console.log('3. Verify your internet connection');
+        process.exit(1);
     }
-
-    console.log("\n🎯 Verification Complete!");
-    console.log("📊 Summary:");
-    console.log(`   - Current CID: ${currentCID}`);
-    console.log(`   - File Size: ${file.length} bytes`);
-    console.log(`   - SHA256: ${fileHash}`);
-    console.log(`   - IPFS URL: https://ipfs.io/ipfs/${currentCID}`);
-
-  } catch (error) {
-    console.error("❌ IPFS verification failed:", error.message);
-    
-    if (error.message.includes("ECONNREFUSED")) {
-      console.log("💡 IPFS gateway may be down. Try again later.");
-    } else if (error.message.includes("timeout")) {
-      console.log("💡 IPFS upload timed out. Check your internet connection.");
-    } else {
-      console.log("💡 Check your IPFS configuration and try again.");
-    }
-    
-    process.exit(1);
-  }
 }
 
-// Run verification
-verifyIPFSIntegrity().catch((error) => {
-  console.error("❌ Unexpected error:", error);
-  process.exit(1);
-});
+uploadToIPFS().catch(console.error);

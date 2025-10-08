@@ -1,1 +1,0 @@
-Please save your shield image as 'security-shield.png' in the 10_MAIN_SITE/assets/img/ directory

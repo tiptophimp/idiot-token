@@ -1,5 +1,0 @@
-{
-  "ping": "ok",
-  "ts": "${{ github.sha }}"
-}
-
