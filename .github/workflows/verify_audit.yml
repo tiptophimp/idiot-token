@@ -116,7 +116,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          npx hardhat run scripts/verifyOnly.js --network base
+          npx hardhat run scripts/verifyOnly.cjs --network base
 
       - name: Generate SBOM
         run: |

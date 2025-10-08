@@ -113,7 +113,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         env:
           RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY || 'https://mainnet.base.org' }}
-        run: npx hardhat run scripts/verifyAndAudit.js --network base
+        run: npx hardhat run scripts/verifyAndAudit.cjs --network base
 
       - name: Discord notification (success)
         if: ${{ secrets.DISCORD_WEBHOOK_URL != '' }}
