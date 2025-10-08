@@ -1,0 +1,15 @@
+Pipeline Test File
+==================
+
+This file tests the Hostinger auto-deployment pipeline.
+
+Test Details:
+- Created: 2025-01-19
+- Purpose: Verify Git → Hostinger auto-deployment
+- Repository: git@github.com:tiptophimp/idiot-token.git
+- Branch: main
+- Install Path: Interconnectivity_Verify
+
+If you can see this file, the pipeline is working! 🎉
+
+Timestamp: $(date)
