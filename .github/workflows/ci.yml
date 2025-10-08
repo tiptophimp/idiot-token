@@ -116,14 +116,14 @@ jobs:
         run: npx hardhat run scripts/verifyAndAudit.cjs --network base
 
       - name: Discord notification (success)
-        if: ${{ secrets.DISCORD_WEBHOOK_URL != '' }}
+        if: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H 'Content-Type: application/json' \
             -d "{\"content\":\"✅ CI workflow succeeded: $GITHUB_RUN_NUMBER - $GITHUB_SHA\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Slack notification (success)
-        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
+        if: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-Type: application/json' \
             -d "{\"text\":\"✅ CI workflow succeeded: $GITHUB_RUN_NUMBER - $GITHUB_SHA\"}" \
