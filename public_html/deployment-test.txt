@@ -1,0 +1,10 @@
+Deployment Test - $(date)
+========================
+
+This file tests the Hostinger deployment pipeline.
+
+Status: Testing after disabling conflicting GitHub Actions workflows
+Repository: git@github.com:tiptophimp/idiot-token.git
+Branch: main
+
+If you see this file, deployment is working! 🚀
