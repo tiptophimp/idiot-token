@@ -1,4 +1,4 @@
-name: Deploy to Hostinger
+name: Deploy Website to Hostinger
 
 on:
   push:
@@ -13,20 +13,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Build website
+    - name: Prepare website files
       run: |
-        echo "Building website for Hostinger deployment..."
-        # Copy public_html files to dist
+        echo "Preparing website files for Hostinger deployment..."
+        # Copy public_html files to dist directory
         mkdir -p dist
         cp -r public_html/* dist/
+        echo "Website files prepared successfully"
         
     - name: Deploy to Hostinger
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -42,3 +35,11 @@ jobs:
           **/node_modules/**
           **/.env
           **/.env.*
+          **/contracts/**
+          **/artifacts/**
+          **/cache/**
+          **/scripts/**
+          **/test/**
+          **/hardhat.config.*
+          **/package.json
+          **/package-lock.json
