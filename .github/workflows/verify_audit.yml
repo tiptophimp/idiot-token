@@ -28,5 +28,10 @@ jobs:
       - name: Verify contracts
         env:
           ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY || 'https://mainnet.base.org' }}
-        run: npx hardhat run scripts/verifyAndAudit.cjs --network base
+          RPC_URL_PRIMARY: ${{ secrets.RPC_URL_PRIMARY }}
+        run: |
+          if [ -z "$RPC_URL_PRIMARY" ]; then
+            echo "RPC_URL_PRIMARY not set, using fallback https://mainnet.base.org"
+            export RPC_URL_PRIMARY="https://mainnet.base.org"
+          fi
+          npx hardhat run scripts/verifyAndAudit.cjs --network base
