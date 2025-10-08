@@ -1,6 +1,0 @@
-r!dZuXG3ohvr2F2D
-
-
-ServerPath=ftp://ftp.stupidiots.com/public_html/
-Username=u939125353.srv855356hstgrcloud
-Password=r!dZuXG3ohvr2F2D
