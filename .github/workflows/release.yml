@@ -1,8 +1,10 @@
 name: Release
 
 on:
-  push:
-    tags: ['v*']
+  # Disabled for website project - only run on manual trigger
+  # push:
+  #   tags: ['v*']
+  workflow_dispatch:
 
 jobs:
   release:

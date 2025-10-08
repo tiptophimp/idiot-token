@@ -1,8 +1,9 @@
 name: Verify and Audit
 
 on:
-  push:
-    branches: [main]
+  # Disabled for website project - only run on manual trigger
+  # push:
+  #   branches: [main]
   workflow_dispatch:
 
 jobs:
