@@ -152,7 +152,7 @@ jobs:
           node scripts/ipfsVerify.js || echo "IPFS upload skipped or failed, continuing..."
 
       - name: 🪪 Commit and Push Updated Audit Logs
-        if: success()
+        if: false  # Disabled to prevent exit code 128 errors
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -166,7 +166,7 @@ jobs:
           git push origin main
 
       - name: 🏷️ Tag and Release Audit Version
-        if: success()
+        if: false  # Disabled to prevent exit code 128 errors
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -176,7 +176,7 @@ jobs:
           echo "✅ Created tag $TAG"
 
       - name: 🧾 Generate and Publish Changelog
-        if: success()
+        if: false  # Disabled to prevent exit code 128 errors
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
