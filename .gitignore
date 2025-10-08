@@ -4,74 +4,33 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Archives
-*.zip
-*.gz
-*.7z
-*.rar
-*.tar
-*.tar.gz
-05_ARCHIVES/**
-
-# Design files
-*.psd
-*.ai
-*.sketch
-*.fig
-
-# System files
-*.lnk
-*.log
-.DS_Store
-Thumbs.db
-desktop.ini
-**/.DS_Store
-**/Thumbs.db
-
 # Environment variables
 .env
-.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-**/.env
-
-# Security files
-*.key
-*.pem
-*.p12
-*.cert
-*.keystore
-*.jks
-*.p8
-*.mobileprovision
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
 
 # Build outputs
 dist/
 build/
 out/
 
+# IDE files
+.vscode/
+.cursor/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
 # Temporary files
 *.tmp
 *.temp
-*.bak
-*.backup
-
-# Project specific
-_public_html.zip
-assets/img/Community.lnk
-main_site_*.zip
-
-# Large media files (optional - uncomment if needed)
-# *.mp4
-# *.mov
-# *.avi
-# *.mkv

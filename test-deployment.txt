@@ -1,7 +1,0 @@
-Test deployment file - created on 2025-01-19
-This file is used to test the Hostinger auto-deployment pipeline.
-
-Pipeline test timestamp: $(date)
-Repository: git@github.com:tiptophimp/idiot-token.git
-Branch: main
-Install Path: Interconnectivity_Verify

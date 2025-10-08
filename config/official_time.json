@@ -1,5 +1,0 @@
-{
-  "lastVerifiedAt": "2025-10-08T17:25:04.713Z",
-  "lastVerifiedHumanReadable": "Wed, 08 Oct 2025 17:25:04 GMT",
-  "note": "Source: container system clock (UTC). Refresh with `node scripts/update_official_time.cjs`."
-}
