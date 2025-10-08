@@ -1,0 +1,31 @@
+name: Deploy Website to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub authentication
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+          echo "${{ secrets.GITHUB_PAT }}" > token.txt
+          git remote set-url origin https://github-actions:${{ secrets.GITHUB_PAT }}@github.com/tiptophimp/idiot-token.git
+
+      - name: Deploy 10_MAIN_SITE to Hostinger
+        env:
+          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
+          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+        run: |
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          rsync -avz --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" 10_MAIN_SITE/ ${SSH_USER}@${SSH_HOST}:/home/u939125353/domains/stupidiots.com/public_html/
+          rm private_key.pem
+          rm token.txt
