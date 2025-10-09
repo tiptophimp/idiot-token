@@ -33,3 +33,4 @@ On push to `main`, the workflow syncs `public_html/` to `DO_TARGET_DIR` with `--
 ## License
 
 See LICENSE file for details.
+# Test deployment trigger
