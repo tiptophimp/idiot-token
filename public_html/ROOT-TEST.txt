@@ -1,0 +1,13 @@
+ROOT DEPLOYMENT TEST
+===================
+
+This file tests deployment to ROOT public_html directory.
+
+Status: Testing after Interconnectivity_Verify deletion
+Target: /public_html/ (root directory)
+Domain: stupidiots.com
+
+If you see this file at https://stupidiots.com/ROOT-TEST.txt
+then the root deployment is working! 🎉
+
+Timestamp: $(date)
