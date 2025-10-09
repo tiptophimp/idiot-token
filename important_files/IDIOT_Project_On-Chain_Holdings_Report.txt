@@ -1,0 +1,84 @@
+IDIOT Project — On‑Chain Holdings Report
+As of: 2025-10-06 13:06:34 (America/New_York)
+
+Scope: IDIOT Project only (no Fusion235 data). Networks: Base Mainnet.
+
+1) Wallets
+
+• Ledger Cold Wallet 1 (Primary Vault)
+  Address: 0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e
+  Balances (Base):
+    - IDIOT: 248,396,494.45941 (~$117,909.43)
+    - ETH: 0.07731 (~$354.07)
+  Notes: Owner of Uniswap V3 LP Position #3887185 (IDIOT/WETH 0.3%).
+
+• Ledger Cold Wallet 2 (Secondary Vault)
+  Address: 0xB4EB7C7040c887d576a2e0Cdf60901A3087f5389
+  Balances (Base):
+    - Purpose: backup reserve. Current balances not consolidated in this report.
+
+• LP-HOT Wallet
+  Address: 0xAC95d0B5603C7212a690bd089BAD472473496374
+  Balances (Base):
+    - IDIOT: 150,000,000 (~$71,229.58)
+    - ETH: 0.01232 (~$56.45)
+    - WETH: 0.00043 (~$1.97)
+  Notes: Funded initial LP mint for position #3887185.
+
+• OPS-HOT Wallet
+  Address: 0x721d2adcCf634f4185edE152ee98cA836CF22EA6
+  Balances (Base):
+    - IDIOT: 249,970,000 (~$118,738.98)
+    - ETH: 0.00833 (~$38.27)
+  Notes: Operational wallet for transactions, community, and marketing.
+
+2) Token & Core Contracts (Base)
+
+• IDIOT Token (ERC-20)
+  Address: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1
+
+• WETH (Wrapped Ether)
+  Address: 0x4200000000000000000000000000000000000006
+
+• Uniswap V3 Nonfungible Position Manager (LP NFT contract)
+  Address: 0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1
+
+3) Liquidity Positions (Uniswap V3 on Base)
+
+• Position #3887185 — ACTIVE
+  Owner: 0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e (Ledger Cold 1)
+  Pair: IDIOT / WETH
+  Fee Tier: 0.3%
+  Tick Range: -887220 to 887220 (full-range)
+  Liquidity: 324,048,569,951,682,407,338 (units)
+  Unclaimed Fees (last check): 0.000009258932998248 WETH (~$0.04)
+
+• Position #4004831 — INACTIVE (not an owned asset)
+  Owner: 0x723407Bb7a4F0d257422471FDa285F2565baDECE
+  Pair: 0x3E12b9d6A4D12cd9b4a6d613872d0Eb32f68b380 / 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+  Fee Tier: 0.3%
+  Status: Liquidity 0; Tokens owed 0.
+
+4) Safes (Gnosis Safe / Multi‑sig)
+
+• TR‑SAFE (Treasury/Reserves)
+  Address: 0x9901b910333A17C8B3b75560BafcE6a893abCD5E
+  Config: 3 of 4 threshold
+
+• OPS‑SAFE (Community/Marketing)
+  Address: 0x024BE9B76E993A6414D8680F5A3992d17ED37383
+  Config: 2 of 4 threshold
+
+5) Timelock Contracts (Base)
+
+• Reserve Timelock: 0x6AD03686ab6c3bA2c77992995E4879c62dE88996 — Beneficiary: TR‑SAFE — Maturity: 2028 Q4
+• Treasury Timelock: 0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee — Beneficiary: TR‑SAFE — Maturity: 2028 Q2
+• Team Timelock: 0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee — Beneficiary: TR‑SAFE — Maturity: 2029 Q4
+• Community Timelock: 0x9d466e39799fec7204f40133ecc0beb115813c13 — Beneficiary: OPS‑SAFE — Maturity: 2027 Q4
+
+6) Notes & Controls
+
+• The LP NFT #3887185 is the controlling key for the active liquidity deposited in Uniswap V3. Assets are custodied by the position manager contract until withdrawn by the NFT owner.
+• Ensure OPS‑HOT and LP‑HOT wallets maintain adequate ETH buffer on Base for gas.
+• #4004831 is not an IDIOT/WETH position and is not owned by project wallets; ignore for treasury reporting.
+• This report omits Fusion235 data per instruction.
