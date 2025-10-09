@@ -1,0 +1,57 @@
+name: Deploy to DigitalOcean Droplet
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare SSH key (supports *_CURSOR secrets)
+        env:
+          DO_SSH_KEY_CURSOR: ${{ secrets.DO_SSH_KEY_CURSOR }}
+          DO_SSH_KEY: ${{ secrets.DO_SSH_KEY }}
+        run: |
+          KEY_CONTENT="${DO_SSH_KEY_CURSOR:-$DO_SSH_KEY}"
+          if [ -z "$KEY_CONTENT" ]; then
+            echo "ERROR: Missing DO_SSH_KEY or DO_SSH_KEY_CURSOR secret" >&2
+            exit 1
+          fi
+          echo "$KEY_CONTENT" > private_key.pem
+          chmod 600 private_key.pem
+
+      - name: Rsync public_html to Droplet (supports *_CURSOR secrets)
+        env:
+          DO_SSH_USER_CURSOR: ${{ secrets.DO_SSH_USER_CURSOR }}
+          DO_SSH_HOST_CURSOR: ${{ secrets.DO_SSH_HOST_CURSOR }}
+          DO_TARGET_DIR_CURSOR: ${{ secrets.DO_TARGET_DIR_CURSOR }}
+          DO_SSH_USER: ${{ secrets.DO_SSH_USER }}
+          DO_SSH_HOST: ${{ secrets.DO_SSH_HOST }}
+          DO_TARGET_DIR: ${{ secrets.DO_TARGET_DIR }}
+        run: |
+          SSH_USER="${DO_SSH_USER_CURSOR:-$DO_SSH_USER}"
+          SSH_HOST="${DO_SSH_HOST_CURSOR:-$DO_SSH_HOST}"
+          TARGET_DIR="${DO_TARGET_DIR_CURSOR:-$DO_TARGET_DIR}"
+
+          if [ -z "$SSH_USER" ] || [ -z "$SSH_HOST" ]; then
+            echo "ERROR: Missing DO_SSH_USER/DO_SSH_USER_CURSOR or DO_SSH_HOST/DO_SSH_HOST_CURSOR secrets" >&2
+            exit 1
+          fi
+
+          if [ -z "$TARGET_DIR" ]; then
+            TARGET_DIR="/var/www/stupidiots.com/public_html"
+          fi
+
+          rsync -avz --delete \
+            -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" \
+            public_html/ ${SSH_USER}@${SSH_HOST}:$TARGET_DIR/
+
+      - name: Clean up
+        if: always()
+        run: |
+          shred -u private_key.pem
