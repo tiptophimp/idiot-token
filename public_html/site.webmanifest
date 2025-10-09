@@ -1,0 +1,29 @@
+{
+  "name": "IDIOT Token",
+  "short_name": "IDIOT",
+  "description": "IDIOT Token — ROMO over FOMO (Live on Base)",
+  "icons": [
+    {
+      "src": "assets/img/idiot-coin-32x32-lime-fixed.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/img/idiot-coin-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#b3ff00",
+  "background_color": "#0b0d0f",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
