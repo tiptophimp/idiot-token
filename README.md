@@ -21,3 +21,4 @@ This website is deployed to Hostinger via Git auto-deployment.
 ## License
 
 See LICENSE file for details.
+# Test deployment trigger
