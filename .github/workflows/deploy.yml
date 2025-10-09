@@ -1,32 +1,34 @@
-name: Deploy Website to Hostinger
+name: Auto Deploy to DigitalOcean
 
 on:
-  # Disabled - using Hostinger native Git auto-deployment instead
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Deploy to Droplet
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout latest code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configure GitHub authentication
+      - name: Configure SSH
         run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "github-actions"
-          echo "${{ secrets.GITHUB_PAT }}" > token.txt
-          git remote set-url origin https://github-actions:${{ secrets.GITHUB_PAT }}@github.com/tiptophimp/idiot-token.git
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DO_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 31.97.13.9 >> ~/.ssh/known_hosts
 
-      - name: Deploy 10_MAIN_SITE to Hostinger
+      - name: Deploy application
         env:
-          SSH_USER: ${{ secrets.HOSTINGER_SSH_USER }}
-          SSH_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
+          HOST: 31.97.13.9
         run: |
-          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          rsync -avz --delete -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" 10_MAIN_SITE/ ${SSH_USER}@${SSH_HOST}:/home/u939125353/domains/stupidiots.com/public_html/
-          rm private_key.pem
-          rm token.txt
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no root@$HOST "
+            cd /root/idiot-token &&
+            git fetch origin main &&
+            git reset --hard origin/main &&
+            npm ci --omit=dev &&
+            pm2 restart idiot-token || pm2 start npm --name idiot-token -- run start
+          "
