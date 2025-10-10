@@ -1,0 +1,58 @@
+name: Debug Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check if secrets exist
+      run: |
+        echo "Checking secrets..."
+        if [ -z "${{ secrets.IDIOT_SSH_PRIVATE_KEY }}" ]; then
+          echo "❌ IDIOT_SSH_PRIVATE_KEY is EMPTY or NOT SET"
+          exit 1
+        else
+          echo "✅ IDIOT_SSH_PRIVATE_KEY is set (length: ${#SSH_KEY})"
+        fi
+        
+        if [ -z "${{ secrets.SERVER_IP }}" ]; then
+          echo "❌ SERVER_IP is EMPTY or NOT SET"
+          exit 1
+        else
+          echo "✅ SERVER_IP is set: ${{ secrets.SERVER_IP }}"
+        fi
+        
+        if [ -z "${{ secrets.SERVER_USER }}" ]; then
+          echo "❌ SERVER_USER is EMPTY or NOT SET"
+          exit 1
+        else
+          echo "✅ SERVER_USER is set: ${{ secrets.SERVER_USER }}"
+        fi
+      env:
+        SSH_KEY: ${{ secrets.IDIOT_SSH_PRIVATE_KEY }}
+        
+    - name: Test SSH key format
+      run: |
+        echo "Testing SSH key format..."
+        echo "${{ secrets.IDIOT_SSH_PRIVATE_KEY }}" | head -n 1
+        echo "${{ secrets.IDIOT_SSH_PRIVATE_KEY }}" | tail -n 1
+        
+    - name: Test SSH connection
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.IDIOT_SSH_PRIVATE_KEY }}
+        
+    - name: Try connecting to server
+      env:
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+      run: |
+        echo "Attempting SSH connection to $SERVER_USER@$SERVER_IP..."
+        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SERVER_USER@$SERVER_IP "echo 'Connection successful!'; uname -a"
+
