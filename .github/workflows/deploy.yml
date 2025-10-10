@@ -13,12 +13,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Debug - Check secrets
+    - name: Verify secrets are set
       run: |
-        echo "🔍 Checking if secrets are configured..."
         if [ -z "${{ secrets.IDIOT_SSH_PRIVATE_KEY }}" ]; then
           echo "❌ ERROR: IDIOT_SSH_PRIVATE_KEY secret is not set!"
-          echo "Please add it in GitHub: Settings > Secrets and variables > Actions > New repository secret"
           exit 1
         fi
         if [ -z "${{ secrets.SERVER_IP }}" ]; then
@@ -31,19 +29,19 @@ jobs:
         fi
         echo "✅ All secrets are configured!"
         
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.IDIOT_SSH_PRIVATE_KEY }}
-        
-    - name: Deploy to server
-      env:
-        SERVER_IP: ${{ secrets.SERVER_IP }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
+    - name: Setup SSH key
       run: |
-        echo "🚀 Starting deployment to $SERVER_USER@$SERVER_IP..."
+        mkdir -p ~/.ssh
+        echo "${{ secrets.IDIOT_SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         
-        # Create deployment package (exclude sensitive files)
+    - name: Test SSH connection
+      run: |
+        ssh -i ~/.ssh/deploy_key -o ConnectTimeout=10 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo 'SSH connection successful!'"
+        
+    - name: Create deployment package
+      run: |
         echo "📦 Creating deployment package..."
         tar -czf deployment.tar.gz \
           --exclude='.git' \
@@ -56,56 +54,56 @@ jobs:
           --exclude='*.xlsx' \
           --exclude='audit-log.zip' \
           .
+        echo "✅ Package created: $(ls -lh deployment.tar.gz)"
         
+    - name: Upload to server
+      run: |
         echo "📤 Uploading to server..."
-        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null deployment.tar.gz ${SERVER_USER}@${SERVER_IP}:/tmp/
+        scp -i ~/.ssh/deploy_key -o ConnectTimeout=10 deployment.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/tmp/
+        echo "✅ Upload complete!"
         
-        echo "🔧 Extracting and configuring on server..."
-        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${SERVER_USER}@${SERVER_IP} << 'EOF'
-          # Backup current website
+    - name: Deploy on server
+      run: |
+        echo "🔧 Deploying on server..."
+        ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'ENDSSH'
+          set -e
+          
+          # Backup
           if [ -d "/var/www/html" ]; then
             echo "💾 Creating backup..."
-            sudo cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S)
+            sudo cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null || true
           fi
           
-          # Extract new files
+          # Extract
           echo "📂 Extracting files..."
           cd /var/www/html
           sudo tar -xzf /tmp/deployment.tar.gz
           
-          # Create missing directories
+          # Setup directories
           echo "📁 Creating directories..."
           sudo mkdir -p /var/www/html/assets/docs/
           sudo mkdir -p /var/www/html/docs/
           
-          # Copy whitepaper if exists
-          if [ -f "/var/www/html/docs/IDIOT_Whitepaper.pdf" ]; then
-            echo "📄 Copying whitepaper..."
-            sudo cp /var/www/html/docs/IDIOT_Whitepaper.pdf /var/www/html/assets/docs/IDIOT_Whitepaper_v11.pdf
-          fi
-          
-          # Set proper permissions
+          # Set permissions
           echo "🔒 Setting permissions..."
           sudo chown -R www-data:www-data /var/www/html
           sudo chmod -R 755 /var/www/html
           sudo find /var/www/html -type f -exec chmod 644 {} \;
           
-          # Clean up
-          rm /tmp/deployment.tar.gz
+          # Cleanup
+          rm -f /tmp/deployment.tar.gz
           
-          echo "✅ Deployment completed successfully!"
-        EOF
+          echo "✅ Deployment complete!"
+        ENDSSH
         
-        # Clean up local files
-        rm deployment.tar.gz
-        echo "🎉 All done!"
+    - name: Cleanup
+      run: rm -f deployment.tar.gz
         
-    - name: Verify deployment
+    - name: Deployment successful
       run: |
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "🎉 DEPLOYMENT SUCCESSFUL!"
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "🌐 Website: https://stupidiots.com"
         echo "📊 Contract: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1"
-        echo "🔗 GitHub: https://github.com/tiptophimp/idiot-token"
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
