@@ -1,0 +1,76 @@
+name: Deploy IDIOT Token Website
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.IDIOT_SSH_PRIVATE_KEY }}
+        
+    - name: Deploy to server
+      env:
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_USER: ${{ secrets.SERVER_USER }}
+      run: |
+        echo "🚀 Starting deployment..."
+        
+        # Create deployment package (exclude sensitive files)
+        tar -czf deployment.tar.gz \
+          --exclude='.git' \
+          --exclude='*.log' \
+          --exclude='node_modules' \
+          --exclude='secure' \
+          --exclude='*.pem' \
+          --exclude='*password*' \
+          .
+        
+        # Upload to server
+        scp -o StrictHostKeyChecking=no deployment.tar.gz ${SERVER_USER}@${SERVER_IP}:/tmp/
+        
+        # Deploy on server
+        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << 'EOF'
+          # Backup current website
+          if [ -d "/var/www/html" ]; then
+            cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S)
+          fi
+          
+          # Extract new files
+          cd /var/www/html
+          tar -xzf /tmp/deployment.tar.gz
+          
+          # Create missing directories
+          mkdir -p /var/www/html/assets/docs/
+          
+          # Copy whitepaper if exists
+          if [ -f "/var/www/html/docs/IDIOT_Whitepaper.pdf" ]; then
+            cp /var/www/html/docs/IDIOT_Whitepaper.pdf /var/www/html/assets/docs/IDIOT_Whitepaper_v11.pdf
+          fi
+          
+          # Set proper permissions
+          chmod -R 755 /var/www/html
+          find /var/www/html -type f -exec chmod 644 {} \;
+          
+          # Clean up
+          rm /tmp/deployment.tar.gz
+          
+          echo "✅ Deployment completed successfully!"
+        EOF
+        
+        # Clean up local files
+        rm deployment.tar.gz
+        
+    - name: Verify deployment
+      run: |
+        echo "🌐 Website: https://stupidiots.com"
+        echo "✅ Deployment completed successfully!"

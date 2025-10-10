@@ -1,0 +1,25 @@
+Transaction Type,Transaction Hash,Timestamp,Router/Contract,Action,Token A (WETH),Token B (IDIOT),USD Value (at time),Gas Fee (ETH),Notes
+Liquidity Injection,0x482ce9f0a21e7b245d17d564deeabf354019cebef93c97785a706ebc81cffad2,Sep-28-2025 20:00:43 UTC,Uniswap V3: Nonfungible Position Manager,Multicall - Add Liquidity,0.040000000000000000,364298.393838900011353445,$173.16,0.000001014639995464,LP recipient: 0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea
+Liquidity Injection,0xe1a257a5dd5b775427b9ad5475d3c7a70924431cb6a81549963df3dbe4e6fcb4,Sep-28-2025 04:27:31 UTC,Uniswap V4: Universal Router,Execute - Add Liquidity,0.001086310997749446,10025.000000000000000000,$4.82,0.00000046025454781,LP recipient: 0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea; Side outputs: 25 IDIOT to 0x5d64D14D, 10000 IDIOT refund to wallet
+Liquidity Adjustment,0xb363fb5676be8b71e0cdb492fd26ade41866efbf3d037f4fae0952ccecbaa38b,Sep-27-2025 14:59:31 UTC,Uniswap V4: Universal Router,Execute - Rebalance/Adjustment,0.002000000000000000,-19340.212125384329571712,$8.65,0.000000644321069067,IDIOT removed from LP, WETH added to LP, 19291.86 IDIOT returned to wallet, 48.35 IDIOT side output
+,,,,,,,,,
+TOTALS SUMMARY,,,,,,,,,
+Total WETH Added to LP,0.041086310997749446,,,,$186.63,,,Sum of actual LP injections only
+Total IDIOT Added to LP,374323.393838900011353445,,,,$186.63,,,Sum of actual LP injections only
+Total Gas Fees,0.000002119202611362,,,,$0.009171,,,Sum of all three transactions
+,,,,,,,,,
+RECONCILIATION NOTES,,,,,,,,,
+Why totals may appear "double",,,,,,,,,
+Router-side ETH movements,0.043113468772693182,,,,$186.63,,,If counting router wrap amounts instead of LP destination amounts
+Difference,0.002027157774943736,,,,$0.00,,,Router wrap vs actual LP add difference
+,,,,,,,,,
+POOL INFORMATION,,,,,,,,,
+Pool Address,0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea,,,,,,,Uniswap V3 Position Manager NFT
+Pool Type,IDIOT-WETH,,,,,,,Token pair
+Network,Base,,,,,,,Layer 2
+,,,,,,,,,
+PARTICIPATION SUMMARY,,,,,,,,,
+Number of LP Injections,2,,,,,,,Confirmed liquidity additions
+Total Participants,1,,,,,,,Single wallet (0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e)
+Total Value Added,$186.63,,,,,,,USD value of liquidity provided
+Average Injection Size,$93.32,,,,,,,Average per injection

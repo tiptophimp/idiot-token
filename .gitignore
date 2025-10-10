@@ -1,0 +1,102 @@
+# IDIOT Token - Secure Git Ignore
+
+# ============================================
+# SECURITY - NEVER COMMIT THESE
+# ============================================
+
+# SSH Keys & Credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*private*
+*password*
+*credential*
+*secret*
+secure/
+
+# Wallet & Safe Files
+*safe*.json
+*wallet*
+*keys.txt
+
+# Financial Data
+*audit*
+*ledger*
+*treasury*
+*holdings*
+*transfer*
+
+# ============================================
+# SYSTEM FILES
+# ============================================
+
+# Windows
+Thumbs.db
+desktop.ini
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+# ============================================
+# DEVELOPMENT
+# ============================================
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# Logs
+*.log
+*.tmp
+*.temp
+logs/
+temp/
+tmp/
+
+# Node.js (if used)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build & Deployment
+dist/
+build/
+*.zip
+*.tar.gz
+deployment/
+
+# Environment
+.env
+.env.local
+.env.production
+.env.staging
+
+# Backup Files
+*.backup
+*.bak
+*backup*
+
+# ============================================
+# PROJECT SPECIFIC (if needed)
+# ============================================
+
+# Sensitive Excel/CSV files with real data
+# holdings_snapshot*.csv
+# IDIOT_Treasury*.csv
+
+# Keep documentation and templates
+!IDIOT_Complete_Tokenomics_Reference.csv
+!IDIOT_Funding_Plan.csv
