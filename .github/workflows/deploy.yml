@@ -13,6 +13,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Debug - Check secrets
+      run: |
+        echo "🔍 Checking if secrets are configured..."
+        if [ -z "${{ secrets.IDIOT_SSH_PRIVATE_KEY }}" ]; then
+          echo "❌ ERROR: IDIOT_SSH_PRIVATE_KEY secret is not set!"
+          echo "Please add it in GitHub: Settings > Secrets and variables > Actions > New repository secret"
+          exit 1
+        fi
+        if [ -z "${{ secrets.SERVER_IP }}" ]; then
+          echo "❌ ERROR: SERVER_IP secret is not set!"
+          exit 1
+        fi
+        if [ -z "${{ secrets.SERVER_USER }}" ]; then
+          echo "❌ ERROR: SERVER_USER secret is not set!"
+          exit 1
+        fi
+        echo "✅ All secrets are configured!"
+        
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.9.0
       with:
@@ -23,9 +41,10 @@ jobs:
         SERVER_IP: ${{ secrets.SERVER_IP }}
         SERVER_USER: ${{ secrets.SERVER_USER }}
       run: |
-        echo "🚀 Starting deployment..."
+        echo "🚀 Starting deployment to $SERVER_USER@$SERVER_IP..."
         
         # Create deployment package (exclude sensitive files)
+        echo "📦 Creating deployment package..."
         tar -czf deployment.tar.gz \
           --exclude='.git' \
           --exclude='*.log' \
@@ -33,33 +52,43 @@ jobs:
           --exclude='secure' \
           --exclude='*.pem' \
           --exclude='*password*' \
+          --exclude='*.csv' \
+          --exclude='*.xlsx' \
+          --exclude='audit-log.zip' \
           .
         
-        # Upload to server
-        scp -o StrictHostKeyChecking=no deployment.tar.gz ${SERVER_USER}@${SERVER_IP}:/tmp/
+        echo "📤 Uploading to server..."
+        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null deployment.tar.gz ${SERVER_USER}@${SERVER_IP}:/tmp/
         
-        # Deploy on server
-        ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} << 'EOF'
+        echo "🔧 Extracting and configuring on server..."
+        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${SERVER_USER}@${SERVER_IP} << 'EOF'
           # Backup current website
           if [ -d "/var/www/html" ]; then
-            cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S)
+            echo "💾 Creating backup..."
+            sudo cp -r /var/www/html /var/www/html.backup.$(date +%Y%m%d_%H%M%S)
           fi
           
           # Extract new files
+          echo "📂 Extracting files..."
           cd /var/www/html
-          tar -xzf /tmp/deployment.tar.gz
+          sudo tar -xzf /tmp/deployment.tar.gz
           
           # Create missing directories
-          mkdir -p /var/www/html/assets/docs/
+          echo "📁 Creating directories..."
+          sudo mkdir -p /var/www/html/assets/docs/
+          sudo mkdir -p /var/www/html/docs/
           
           # Copy whitepaper if exists
           if [ -f "/var/www/html/docs/IDIOT_Whitepaper.pdf" ]; then
-            cp /var/www/html/docs/IDIOT_Whitepaper.pdf /var/www/html/assets/docs/IDIOT_Whitepaper_v11.pdf
+            echo "📄 Copying whitepaper..."
+            sudo cp /var/www/html/docs/IDIOT_Whitepaper.pdf /var/www/html/assets/docs/IDIOT_Whitepaper_v11.pdf
           fi
           
           # Set proper permissions
-          chmod -R 755 /var/www/html
-          find /var/www/html -type f -exec chmod 644 {} \;
+          echo "🔒 Setting permissions..."
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
+          sudo find /var/www/html -type f -exec chmod 644 {} \;
           
           # Clean up
           rm /tmp/deployment.tar.gz
@@ -69,8 +98,14 @@ jobs:
         
         # Clean up local files
         rm deployment.tar.gz
+        echo "🎉 All done!"
         
     - name: Verify deployment
       run: |
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "🎉 DEPLOYMENT SUCCESSFUL!"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "🌐 Website: https://stupidiots.com"
-        echo "✅ Deployment completed successfully!"
+        echo "📊 Contract: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1"
+        echo "🔗 GitHub: https://github.com/tiptophimp/idiot-token"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
