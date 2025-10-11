@@ -49,17 +49,34 @@ We've updated from complex vesting plans to realistic, transparent tokenomics. T
 
 ## 🚀 Deployment
 
-Automated deployment via GitHub Actions on push to `master` branch.
+### **Automated Deployment (Active! ✅)**
 
-### Required GitHub Secrets:
-- `IDIOT_SSH_PRIVATE_KEY` - SSH private key for server access
-- `SERVER_IP` - Server IP address
-- `SERVER_USER` - Server username
+Website automatically deploys when you push to `master`:
 
-### Manual Deployment:
-- **Bash (Linux/Git Bash):** `./deploy.sh`
-- **PowerShell (Windows):** `powershell.exe -ExecutionPolicy Bypass -File deploy-local.ps1`
-- **Batch (Windows):** `deploy-simple.bat`
+```bash
+git add .
+git commit -m "Your changes"
+git push origin master
+```
+
+Deployment takes ~30 seconds. Check status: https://github.com/tiptophimp/idiot-token/actions
+
+### **Manual Deployment (Backup)**
+
+If you need to deploy without pushing to GitHub:
+
+```bash
+# Windows
+DEPLOY.bat
+
+# Or PowerShell
+.\deploy-now.ps1
+```
+
+### **GitHub Secrets (Configured):**
+- ✅ `IDIOT_SSH_PRIVATE_KEY` - SSH private key for server access
+- ✅ `SERVER_IP` - Server IP address  
+- ✅ `SERVER_USER` - Server username
 
 ---
 

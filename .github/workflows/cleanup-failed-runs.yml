@@ -1,0 +1,80 @@
+name: Delete All Failed Runs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+      
+    steps:
+    - name: Delete all failed workflow runs
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const owner = context.repo.owner;
+          const repo = context.repo.repo;
+          
+          console.log(`🗑️ Deleting all failed workflow runs from ${owner}/${repo}...`);
+          
+          // Get all workflows
+          const workflows = await github.rest.actions.listRepoWorkflows({
+            owner,
+            repo,
+          });
+          
+          let totalDeleted = 0;
+          
+          // For each workflow
+          for (const workflow of workflows.data.workflows) {
+            console.log(`\n📋 Checking workflow: ${workflow.name} (ID: ${workflow.id})`);
+            
+            let page = 1;
+            let hasMore = true;
+            
+            while (hasMore) {
+              // Get failed runs for this workflow
+              const runs = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: workflow.id,
+                status: 'failure',
+                per_page: 100,
+                page: page
+              });
+              
+              if (runs.data.workflow_runs.length === 0) {
+                hasMore = false;
+                break;
+              }
+              
+              // Delete each failed run
+              for (const run of runs.data.workflow_runs) {
+                try {
+                  await github.rest.actions.deleteWorkflowRun({
+                    owner,
+                    repo,
+                    run_id: run.id,
+                  });
+                  totalDeleted++;
+                  console.log(`  ✅ Deleted run #${run.run_number} (${run.created_at})`);
+                } catch (error) {
+                  console.log(`  ⚠️ Could not delete run #${run.run_number}: ${error.message}`);
+                }
+              }
+              
+              page++;
+              
+              // Rate limit protection
+              await new Promise(resolve => setTimeout(resolve, 100));
+            }
+          }
+          
+          console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+          console.log(`🎉 CLEANUP COMPLETE!`);
+          console.log(`🗑️ Total failed runs deleted: ${totalDeleted}`);
+          console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+
