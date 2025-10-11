@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - IDIOT Token</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .social-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .social-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .social-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .social-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .leaderboard {
+            margin: 2rem 0;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 1rem 0;
+            transition: all 0.3s;
+        }
+        
+        .leaderboard-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .rank {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            min-width: 60px;
+        }
+        
+        .rank.gold { color: #FFD700; }
+        .rank.silver { color: #C0C0C0; }
+        .rank.bronze { color: #CD7F32; }
+        
+        .contributor-info {
+            flex: 1;
+            margin: 0 1rem;
+        }
+        
+        .contributor-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .contributor-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .points {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .activity-feed {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-time {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .nav {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .nav a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .nav a:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👥 IDIOT Community</h1>
+        <p style="font-size: 1.2rem;">Join the smartest idiots in crypto</p>
+    </div>
+    
+    <div class="container">
+        <!-- Community Stats -->
+        <div class="section">
+            <h2>📊 Community Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Members</div>
+                    <div class="stat-number">2,500+</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Discord Members</div>
+                    <div class="stat-number">1,200</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Twitter Followers</div>
+                    <div class="stat-number">3,500</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Telegram Members</div>
+                    <div class="stat-number">800</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Join Our Communities -->
+        <div class="section">
+            <h2>🌐 Join Our Communities</h2>
+            <div class="social-grid">
+                <div class="social-card">
+                    <div class="social-icon">🐦</div>
+                    <h3>Twitter</h3>
+                    <p>Follow for updates, memes, and announcements</p>
+                    <a href="https://twitter.com/idiottoken" class="social-btn" target="_blank">Follow @idiottoken</a>
+                </div>
+                
+                <div class="social-card">
+                    <div class="social-icon">💬</div>
+                    <h3>Telegram</h3>
+                    <p>Join our main chat for discussions and support</p>
+                    <a href="https://t.me/idiottoken" class="social-btn" target="_blank">Join Telegram</a>
+                </div>
+                
+                <div class="social-card">
+                    <div class="social-icon">🎮</div>
+                    <h3>Discord</h3>
+                    <p>Community hub with events, quests, and roles</p>
+                    <a href="https://discord.gg/idiottoken" class="social-btn" target="_blank">Join Discord</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Top Contributors -->
+        <div class="section">
+            <h2>🏆 Top Contributors</h2>
+            <p style="margin-bottom: 1.5rem; color: #666;">Our most active community members this month</p>
+            
+            <div class="leaderboard">
+                <div class="leaderboard-item">
+                    <div class="rank gold">🥇</div>
+                    <div class="contributor-info">
+                        <div class="contributor-name">CryptoWhale420</div>
+                        <div class="contributor-desc">Created 50+ memes, active in Discord</div>
+                    </div>
+                    <div class="points">2,500 pts</div>
+                </div>
+                
+                <div class="leaderboard-item">
+                    <div class="rank silver">🥈</div>
+                    <div class="contributor-info">
+                        <div class="contributor-name">DeFiDegen</div>
+                        <div class="contributor-desc">LP provider, community support</div>
+                    </div>
+                    <div class="points">2,100 pts</div>
+                </div>
+                
+                <div class="leaderboard-item">
+                    <div class="rank bronze">🥉</div>
+                    <div class="contributor-info">
+                        <div class="contributor-name">MemeQueen</div>
+                        <div class="contributor-desc">Top engagement, viral tweets</div>
+                    </div>
+                    <div class="points">1,800 pts</div>
+                </div>
+                
+                <div class="leaderboard-item">
+                    <div class="rank">4</div>
+                    <div class="contributor-info">
+                        <div class="contributor-name">BaseBuilder</div>
+                        <div class="contributor-desc">Technical guides, documentation</div>
+                    </div>
+                    <div class="points">1,500 pts</div>
+                </div>
+                
+                <div class="leaderboard-item">
+                    <div class="rank">5</div>
+                    <div class="contributor-info">
+                        <div class="contributor-name">TokenTrader</div>
+                        <div class="contributor-desc">Trading analysis, market insights</div>
+                    </div>
+                    <div class="points">1,200 pts</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="section">
+            <h2>📣 Recent Activity</h2>
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <div class="activity-icon">🎨</div>
+                    <div class="activity-content">
+                        <strong>New meme contest announced!</strong>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">💎</div>
+                    <div class="activity-content">
+                        <strong>LP rewards distributed to 50 holders</strong>
+                        <div class="activity-time">5 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">🎉</div>
+                    <div class="activity-content">
+                        <strong>Reached 2,500 community members!</strong>
+                        <div class="activity-time">1 day ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📊</div>
+                    <div class="activity-content">
+                        <strong>Weekly transparency report published</strong>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">🚀</div>
+                    <div class="activity-content">
+                        <strong>New partnership announced on Twitter</strong>
+                        <div class="activity-time">3 days ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Earn -->
+        <div class="section">
+            <h2>💰 How to Earn Rewards</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 0.5rem;">📱 Social Engagement</h3>
+                    <p>Like, retweet, and engage with official posts</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Up to 500 IDIOT/week</p>
+                </div>
+                
+                <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 0.5rem;">🎨 Create Content</h3>
+                    <p>Make memes, videos, or articles about IDIOT</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Up to 5,000 IDIOT/piece</p>
+                </div>
+                
+                <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 0.5rem;">💎 Provide Liquidity</h3>
+                    <p>Add liquidity on Uniswap V3</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Weekly LP rewards</p>
+                </div>
+                
+                <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 10px;">
+                    <h3 style="color: #667eea; margin-bottom: 0.5rem;">👥 Referrals</h3>
+                    <p>Invite friends to join the community</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">250 IDIOT per referral</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <a href="/">Back to Home</a>
+            <a href="/airdrop/">Claim Airdrop</a>
+            <a href="/media/">Media Kit</a>
+        </div>
+    </div>
+</body>
+</html>
