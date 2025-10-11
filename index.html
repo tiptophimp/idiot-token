@@ -1218,6 +1218,36 @@
         </div>
     </section>
 
+    <!-- Newsletter Section -->
+    <section style="padding: 80px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto; color: white;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">📬 Stay Updated</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Get the latest news, airdrops, and exclusive updates delivered to your inbox</p>
+            
+            <form id="newsletterForm" style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+                <input 
+                    type="email" 
+                    id="newsletterEmail" 
+                    placeholder="your@email.com" 
+                    required
+                    style="flex: 1; min-width: 250px; padding: 15px 20px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; font-size: 1rem; outline: none;"
+                />
+                <button 
+                    type="submit" 
+                    style="padding: 15px 40px; background: white; color: #667eea; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s; white-space: nowrap;"
+                    onmouseover="this.style.transform='scale(1.05)'"
+                    onmouseout="this.style.transform='scale(1)'"
+                >
+                    Subscribe 🚀
+                </button>
+            </form>
+            
+            <div id="newsletterStatus" style="margin-top: 1rem; font-size: 0.9rem; display: none;"></div>
+            
+            <p style="margin-top: 2rem; font-size: 0.85rem; opacity: 0.7;">We respect your privacy. Unsubscribe anytime. No spam, ever.</p>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
@@ -1294,6 +1324,46 @@
         function toggleFaq(element) {
             element.classList.toggle('open');
         }
+        
+        // Newsletter Form
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value;
+            const status = document.getElementById('newsletterStatus');
+            
+            // Simple client-side validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                status.style.display = 'block';
+                status.style.color = '#ff6b6b';
+                status.textContent = '❌ Please enter a valid email address';
+                return;
+            }
+            
+            // Store email locally (in a real implementation, this would call an API)
+            const emails = JSON.parse(localStorage.getItem('newsletterEmails') || '[]');
+            
+            if (emails.includes(email)) {
+                status.style.display = 'block';
+                status.style.color = '#ffd93d';
+                status.textContent = '⚠️ You\'re already subscribed!';
+            } else {
+                emails.push(email);
+                localStorage.setItem('newsletterEmails', JSON.stringify(emails));
+                
+                status.style.display = 'block';
+                status.style.color = '#6bcf7f';
+                status.textContent = '✅ Success! You\'ve been added to our newsletter. Welcome to the community!';
+                
+                // Clear the input
+                document.getElementById('newsletterEmail').value = '';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        });
         
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
