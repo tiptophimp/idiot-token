@@ -67,8 +67,11 @@ jobs:
     - name: Create deployment package
       run: |
         echo "📦 Creating deployment package..."
+        
+        # Create package in /tmp to avoid tar including itself
         tar -czf /tmp/deployment.tar.gz \
           --exclude='.git' \
+          --exclude='.github' \
           --exclude='*.log' \
           --exclude='node_modules' \
           --exclude='secure' \
@@ -76,7 +79,10 @@ jobs:
           --exclude='*password*' \
           --exclude='*.csv' \
           --exclude='*.xlsx' \
+          --exclude='*.xls' \
           --exclude='audit-log.zip' \
+          --exclude='*.tar.gz' \
+          --exclude-vcs \
           .
         
         mv /tmp/deployment.tar.gz ./deployment.tar.gz
