@@ -1,3 +1,0 @@
-Testing GitHub Actions automated deployment with SSH keys.
-Timestamp: 2025-10-10
-Status: SSH keys configured and ready!
