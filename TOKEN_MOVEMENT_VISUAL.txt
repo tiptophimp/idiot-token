@@ -1,0 +1,177 @@
+═══════════════════════════════════════════════════════════════════
+                     IDIOT TOKEN MOVEMENT PLAN
+                         Visual Overview
+═══════════════════════════════════════════════════════════════════
+
+📍 CURRENT STATE (Oct 6, 2025)
+─────────────────────────────────────────────────────────────────
+
+┌─────────────────────┐
+│  Ledger Cold 1      │  248,396,494 IDIOT (24.8%)
+│  0xf123...2a5e      │  + Owns LP NFT #3887185
+└─────────────────────┘
+
+┌─────────────────────┐
+│  OPS-HOT            │  249,970,000 IDIOT (25.0%)
+│  0x721d...2EA6      │  Operations wallet
+└─────────────────────┘
+
+┌─────────────────────┐
+│  LP-HOT             │  150,000,000 IDIOT (15.0%)
+│  0xAC95...6374      │  Liquidity operations
+└─────────────────────┘
+
+┌─────────────────────┐
+│  Multisig 1         │  200,000,000 IDIOT (20.0%)
+│  0x9D46...3c13      │  Gnosis Safe
+└─────────────────────┘
+
+┌─────────────────────┐
+│  Multisig 2         │   50,643,000 IDIOT (5.1%)
+│  0x5817...A8eE      │  Custom multisig
+└─────────────────────┘
+
+┌─────────────────────┐
+│  Multisig 3         │            0 IDIOT (0%)
+│  0x0B33...Db4b      │  Gnosis Safe (EMPTY)
+└─────────────────────┘
+
+┌─────────────────────┐
+│  Multisig 4         │  100,000,000 IDIOT (10.0%)
+│  0x6AD0...8996      │  Gnosis Safe
+└─────────────────────┘
+
+┌─────────────────────┐
+│  LP Position #3887  │  ~374,323 IDIOT (0.04%)
+│  Pool: IDIOT/WETH   │  Active trading
+└─────────────────────┘
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 TARGET STATE (After Movement)
+─────────────────────────────────────────────────────────────────
+
+       ┌────────────────────────────────────┐
+       │         OPTION A (RECOMMENDED)      │
+       │    Use Existing Multisigs          │
+       └────────────────────────────────────┘
+
+                 ⬇️  MOVE 248M  ⬇️
+
+┌─────────────────────┐              ┌─────────────────────┐
+│  Ledger Cold 1      │ ─────────────▶│  Multisig 3         │
+│  0xf123...2a5e      │   248M IDIOT │  (RESERVE)          │
+│  ❌ 248M IDIOT      │              │  ✅ 448M IDIOT      │
+│  ✅ Keeps LP NFT    │              │  44.8% of supply    │
+└─────────────────────┘              └─────────────────────┘
+
+┌─────────────────────┐              ┌─────────────────────┐
+│  OPS-HOT            │ ─────────────▶│  Multisig 1         │
+│  0x721d...2EA6      │   ALREADY    │  (COMMUNITY)        │
+│  ❌ 250M → 50M      │   200M IN!   │  ✅ 200M IDIOT      │
+│  ✅ 50M operations  │              │  20% of supply      │
+└─────────────────────┘              └─────────────────────┘
+
+┌─────────────────────┐              ┌─────────────────────┐
+│  LP-HOT             │              │  Multisig 4         │
+│  0xAC95...6374      │   NO MOVE    │  (TEAM)             │
+│  ✅ 150M IDIOT      │   NEEDED     │  ✅ 100M IDIOT      │
+│  15% liquidity fund │              │  10% of supply      │
+└─────────────────────┘              └─────────────────────┘
+
+                                     ┌─────────────────────┐
+                                     │  Multisig 2         │
+                      NO MOVE        │  (TREASURY)         │
+                      NEEDED         │  ✅ 50.6M IDIOT     │
+                                     │  5.1% of supply     │
+                                     └─────────────────────┘
+
+═══════════════════════════════════════════════════════════════════
+
+📊 FINAL ALLOCATION
+─────────────────────────────────────────────────────────────────
+
+    🏦 Multisig 3 (Reserve)     448,396,494 IDIOT  ████████████████████████████████████████▒▒▒▒ 44.8%
+    👥 Multisig 1 (Community)   200,000,000 IDIOT  ████████████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ 20.0%
+    💧 LP-HOT (Liquidity)       150,000,000 IDIOT  ███████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ 15.0%
+    👨‍💻 Multisig 4 (Team)         100,000,000 IDIOT  ██████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ 10.0%
+    💼 Multisig 2 (Treasury)     50,643,000 IDIOT  █████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒  5.1%
+    🔥 OPS-HOT (Operations)      49,970,000 IDIOT  █████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒  5.0%
+    💎 LP Position (Trading)        374,323 IDIOT  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒  0.04%
+                                ─────────────────
+                    TOTAL:    1,000,000,000 IDIOT  ████████████████████████████████████████ 100%
+
+═══════════════════════════════════════════════════════════════════
+
+✅ OPTION A: USE EXISTING MULTISIGS
+─────────────────────────────────────────────────────────────────
+
+PROS:
+  ✅ Ready to execute TODAY
+  ✅ No smart contract development needed
+  ✅ No audit costs
+  ✅ Already secure (multisigs)
+  ✅ Flexible distribution schedule
+  ✅ Full control
+  ✅ Transparent (all on-chain)
+
+CONS:
+  ❌ Manual distribution (you execute on schedule)
+  ❌ Requires trust (but you control everything anyway)
+
+═══════════════════════════════════════════════════════════════════
+
+❌ OPTION B: DEPLOY NEW TIMELOCK CONTRACTS
+─────────────────────────────────────────────────────────────────
+
+PROS:
+  ✅ Automated unlocks
+  ✅ "Provably fair" to community
+
+CONS:
+  ❌ Requires Solidity development
+  ❌ Requires security audit ($5K-$20K)
+  ❌ Requires gas fees for deployment
+  ❌ 2-4 weeks delay
+  ❌ Inflexible (can't adapt to market)
+  ❌ Overkill for 0 external holders
+
+═══════════════════════════════════════════════════════════════════
+
+🚀 RECOMMENDED: OPTION A
+─────────────────────────────────────────────────────────────────
+
+WHY?
+  • You have ZERO external holders (only 3K to friends)
+  • You control ALL wallets and multisigs
+  • Community can verify manual distributions just as easily
+  • Launch ready TODAY vs 2-4 weeks delay
+  • Flexibility to adapt to market conditions
+  • Lower costs
+
+═══════════════════════════════════════════════════════════════════
+
+📝 NEXT STEPS
+─────────────────────────────────────────────────────────────────
+
+1. READ:     ASSET_MOVEMENT_SUMMARY.md (this summary)
+2. READ:     IDIOT_Token_Movement_Plan.md (full details)
+3. CHECK:    .\CHECK_BALANCES_WEB.ps1 (verify balances)
+4. DECIDE:   Option A or Option B
+5. EXECUTE:  Transfer commands (if Option A)
+6. UPDATE:   Documentation after transfers
+7. ANNOUNCE: Transparency report to community
+
+═══════════════════════════════════════════════════════════════════
+
+💬 YOUR DECISION?
+─────────────────────────────────────────────────────────────────
+
+Reply with:
+  • "Option A" - Use existing multisigs (FAST ⚡)
+  • "Option B" - Deploy timelock contracts (SLOW 🐌)
+  • "Show me balances first" - Verify current state
+  • "I have questions about [X]" - Ask anything
+
+═══════════════════════════════════════════════════════════════════
+
