@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDIOT Token Governance | DAO Voting</title>
+    <meta name="description" content="Participate in IDIOT Token governance. Vote on proposals and shape the future of the project.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .proposal-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+        }
+
+        .proposal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .proposal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .proposal-status {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #10b981;
+        }
+
+        .status-passed {
+            background: #3b82f6;
+        }
+
+        .status-pending {
+            background: #f59e0b;
+        }
+
+        .proposal-desc {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .voting-results {
+            margin-bottom: 20px;
+        }
+
+        .vote-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .vote-label {
+            font-weight: bold;
+        }
+
+        .vote-bar {
+            flex: 1;
+            margin: 0 15px;
+            height: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .vote-fill {
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .vote-for {
+            background: #10b981;
+        }
+
+        .vote-against {
+            background: #ef4444;
+        }
+
+        .vote-percentage {
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .vote-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .vote-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .vote-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .vote-btn.for {
+            background: #10b981;
+            color: white;
+        }
+
+        .vote-btn.against {
+            background: #ef4444;
+            color: white;
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 40px;
+        }
+
+        .create-proposal-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 18px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .create-proposal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proposal-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <header>
+            <h1>🗳️ IDIOT Governance</h1>
+            <p class="subtitle">Community-driven decision making</p>
+            <div class="status-badge">🔮 Preview Mode</div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Active Proposals</div>
+                <div class="stat-value">2</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Voters</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Voting Power</div>
+                <div class="stat-value">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Passed Proposals</div>
+                <div class="stat-value">0</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2 style="margin-bottom: 15px;">📋 How Governance Works</h2>
+            <p style="line-height: 1.8; opacity: 0.9; margin-bottom: 15px;">
+                IDIOT Token governance gives the community direct control over key decisions. Here's how it works:
+            </p>
+            <ul style="line-height: 2; opacity: 0.9; margin-left: 20px;">
+                <li><strong>Voting Power:</strong> 1 IDIOT = 1 vote. Your voting power is proportional to your holdings.</li>
+                <li><strong>Proposal Threshold:</strong> Need 1M IDIOT to create a proposal (prevents spam).</li>
+                <li><strong>Voting Period:</strong> Each proposal has a 7-day voting period.</li>
+                <li><strong>Quorum:</strong> 10% of total supply must participate for a vote to be valid.</li>
+                <li><strong>Execution:</strong> Passed proposals are executed by the multisig after a 2-day timelock.</li>
+            </ul>
+        </div>
+
+        <h2 style="margin-bottom: 20px; font-size: 2rem;">📑 Active Proposals</h2>
+
+        <div class="proposal-card">
+            <div class="proposal-header">
+                <div class="proposal-title">IIP-001: Increase Community Rewards by 10%</div>
+                <div class="proposal-status status-active">🟢 Active</div>
+            </div>
+            <div class="proposal-desc">
+                Proposal to increase weekly community rewards from 2.4M to 2.64M IDIOT tokens for the next quarter. This would accelerate community growth and engagement. Funds would come from the reserve allocation.
+            </div>
+            <div class="voting-results">
+                <div class="vote-option">
+                    <span class="vote-label">👍 For</span>
+                    <div class="vote-bar">
+                        <div class="vote-fill vote-for" style="width: 75%;"></div>
+                    </div>
+                    <span class="vote-percentage">75%</span>
+                </div>
+                <div class="vote-option">
+                    <span class="vote-label">👎 Against</span>
+                    <div class="vote-bar">
+                        <div class="vote-fill vote-against" style="width: 25%;"></div>
+                    </div>
+                    <span class="vote-percentage">25%</span>
+                </div>
+            </div>
+            <div style="opacity: 0.7; font-size: 0.9rem; margin-bottom: 15px;">
+                0 votes cast | Ends in 5 days
+            </div>
+            <div class="vote-buttons">
+                <button class="vote-btn for" onclick="alert('Connect wallet to vote!')">
+                    👍 Vote For
+                </button>
+                <button class="vote-btn against" onclick="alert('Connect wallet to vote!')">
+                    👎 Vote Against
+                </button>
+            </div>
+        </div>
+
+        <div class="proposal-card">
+            <div class="proposal-header">
+                <div class="proposal-title">IIP-002: Add Liquidity to New DEX</div>
+                <div class="proposal-status status-active">🟢 Active</div>
+            </div>
+            <div class="proposal-desc">
+                Proposal to allocate 50M IDIOT tokens to create a liquidity pool on Aerodrome (Base's leading DEX). This would increase accessibility and reduce reliance on a single exchange.
+            </div>
+            <div class="voting-results">
+                <div class="vote-option">
+                    <span class="vote-label">👍 For</span>
+                    <div class="vote-bar">
+                        <div class="vote-fill vote-for" style="width: 60%;"></div>
+                    </div>
+                    <span class="vote-percentage">60%</span>
+                </div>
+                <div class="vote-option">
+                    <span class="vote-label">👎 Against</span>
+                    <div class="vote-bar">
+                        <div class="vote-fill vote-against" style="width: 40%;"></div>
+                    </div>
+                    <span class="vote-percentage">40%</span>
+                </div>
+            </div>
+            <div style="opacity: 0.7; font-size: 0.9rem; margin-bottom: 15px;">
+                0 votes cast | Ends in 3 days
+            </div>
+            <div class="vote-buttons">
+                <button class="vote-btn for" onclick="alert('Connect wallet to vote!')">
+                    👍 Vote For
+                </button>
+                <button class="vote-btn against" onclick="alert('Connect wallet to vote!')">
+                    👎 Vote Against
+                </button>
+            </div>
+        </div>
+
+        <h2 style="margin: 40px 0 20px; font-size: 2rem;">✅ Past Proposals</h2>
+
+        <div class="proposal-card">
+            <div class="proposal-header">
+                <div class="proposal-title">IIP-000: Establish Governance Framework</div>
+                <div class="proposal-status status-passed">✅ Passed</div>
+            </div>
+            <div class="proposal-desc">
+                Initial proposal to establish the governance framework, voting rules, and proposal process. This was approved by the founding team to kickstart community governance.
+            </div>
+            <div class="voting-results">
+                <div class="vote-option">
+                    <span class="vote-label">👍 For</span>
+                    <div class="vote-bar">
+                        <div class="vote-fill vote-for" style="width: 100%;"></div>
+                    </div>
+                    <span class="vote-percentage">100%</span>
+                </div>
+            </div>
+            <div style="opacity: 0.7; font-size: 0.9rem;">
+                Passed on Oct 8, 2025 | 798.6M votes
+            </div>
+        </div>
+
+        <a href="#" class="create-proposal-btn" onclick="alert('Connect wallet and hold 1M+ IDIOT to create proposals!'); return false;">
+            📝 Create New Proposal
+        </a>
+
+        <div class="info-box">
+            <h2 style="margin-bottom: 15px;">🚀 Governance Roadmap</h2>
+            <p style="line-height: 1.8; opacity: 0.9;">
+                <strong>Phase 1 (Current):</strong> Preview mode - Community can see how governance will work<br><br>
+                <strong>Phase 2 (Q1 2026):</strong> Snapshot voting integration - Off-chain voting to test the waters<br><br>
+                <strong>Phase 3 (Q2 2026):</strong> On-chain governance launch - Full DAO with executable proposals<br><br>
+                <strong>Phase 4 (Q3 2026):</strong> Progressive decentralization - Multisig transition to community control
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Future: Add wallet connection and real voting functionality
+        console.log('Governance preview mode - Full functionality coming soon!');
+    </script>
+</body>
+</html>
+
