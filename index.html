@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDIOT Token - Smart About Dumb Fun | Base Mainnet</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="IDIOT Token on Base - A community-first meme token with honest tokenomics. Zero taxes, transparent allocation, and real utility.">
+    <meta name="keywords" content="IDIOT token, Base blockchain, meme coin, cryptocurrency, DeFi, zero tax token">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="IDIOT Token - Smart About Dumb Fun">
+    <meta property="og:description" content="Community-first meme token on Base with honest tokenomics and zero taxes">
+    <meta property="og:image" content="assets/img/og-image.png">
+    <meta property="og:url" content="https://stupidiots.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IDIOT Token - Smart About Dumb Fun">
+    <meta name="twitter:description" content="Community-first meme token on Base with honest tokenomics">
+    <meta name="twitter:image" content="assets/img/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="assets/img/logo.png?v=20250119" as="image">
+    <link rel="preload" href="assets/img/coin-1.png" as="image">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #1A659E;
+            --dark: #1C1C1C;
+            --light: #F7F7F7;
+            --success: #2ECC71;
+            --warning: #F39C12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('ChatGPT Image Sep 28, 2025, 04_50_50 PM.png') center/cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            max-width: 200px;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #ff8555;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--dark);
+        }
+        
+        /* Contract Address */
+        .contract-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        
+        .contract-address {
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+        
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section:nth-child(even) {
+            background: white;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--secondary);
+        }
+        
+        /* Tokenomics Grid */
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .token-card {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .token-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .token-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .token-card .percentage {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .token-card .amount {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Airdrop Section */
+        .airdrop-box {
+            background: linear-gradient(135deg, var(--primary), var(--warning));
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .airdrop-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        /* Roadmap */
+        .roadmap {
+            position: relative;
+        }
+        
+        .roadmap-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .roadmap-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .roadmap-item.completed {
+            border-left-color: var(--success);
+        }
+        
+        .roadmap-item.completed h3 {
+            color: var(--success);
+        }
+        
+        /* FAQ */
+        .faq-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
+            <h1>IDIOT TOKEN</h1>
+            <p class="tagline">Smart About Dumb Fun 🧠</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Community-First Meme Token on Base Mainnet</p>
+            
+            <div class="cta-buttons">
+                <a href="https://app.uniswap.org/explore/pools/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" class="btn btn-primary" target="_blank">Buy on Uniswap</a>
+                <a href="/airdrop/" class="btn btn-secondary">Claim Airdrop</a>
+                <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" class="btn btn-secondary" target="_blank">View Contract</a>
+            </div>
+            
+            <div class="contract-box">
+                <p><strong>Contract Address (Base):</strong></p>
+                <div class="contract-address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>What is IDIOT Token?</h2>
+        <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto 3rem;">
+            IDIOT Token is a community-first meme token on Base Mainnet with <strong>honest tokenomics</strong>, 
+            <strong>zero taxes</strong>, and a commitment to transparency. We're smart about having dumb fun.
+        </p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🚫</div>
+                <h3>Zero Taxes</h3>
+                <p>0% buy / 0% sell fees. Permanently. No hidden taxes, ever.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Transparent</h3>
+                <p>All allocations public and verifiable on-chain. No hidden wallets.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">👥</div>
+                <h3>Community First</h3>
+                <p>25% of supply dedicated to community rewards and airdrops.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛡️</div>
+                <h3>Multisig Control</h3>
+                <p>Treasury controlled by multisig wallets for security.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💧</div>
+                <h3>Growing Liquidity</h3>
+                <p>Gradual liquidity additions based on trading volume.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>No BS</h3>
+                <p>Honest about what we have. No fake promises.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics">
+        <h2>Tokenomics</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem;">
+            <strong>Total Supply:</strong> 1,000,000,000 IDIOT (Fixed - No Minting)<br>
+            <strong>Network:</strong> Base Mainnet (Chain ID: 8453)
+        </p>
+        
+        <div class="tokenomics-grid">
+            <div class="token-card">
+                <h3>💰 Project Treasury</h3>
+                <div class="percentage">65%</div>
+                <div class="amount">650M IDIOT</div>
+                <p style="margin-top: 1rem; opacity: 0.9;">Multisig controlled (3-of-4). Used for liquidity, development, and operations.</p>
+            </div>
+            
+            <div class="token-card">
+                <h3>🎁 Community Fund</h3>
+                <div class="percentage">25%</div>
+                <div class="amount">250M IDIOT</div>
+                <p style="margin-top: 1rem; opacity: 0.9;">Dedicated to airdrops, rewards, and community incentives.</p>
+            </div>
+            
+            <div class="token-card">
+                <h3>💧 Active Liquidity</h3>
+                <div class="percentage">10%</div>
+                <div class="amount">100M IDIOT</div>
+                <p style="margin-top: 1rem; opacity: 0.9;">Growing Uniswap V3 pool. Target: 150M over 12 months.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <h3 style="color: var(--secondary); margin-bottom: 1rem;">Key Addresses</h3>
+            <p><strong>Treasury Safe (3-of-4):</strong> <code style="background: #eee; padding: 0.5rem; border-radius: 5px; font-size: 0.9rem;">0x9901b910333A17C8B3b75560BafcE6a893abCD5E</code></p>
+            <p style="margin-top: 0.5rem;"><strong>Ops Safe (2-of-4):</strong> <code style="background: #eee; padding: 0.5rem; border-radius: 5px; font-size: 0.9rem;">0x024BE9B76E993A6414D8680F5A3992d17ED37383</code></p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">All addresses verifiable on BaseScan</p>
+        </div>
+    </section>
+
+    <!-- Airdrop Section -->
+    <section id="airdrop">
+        <h2>Idiocracy Airdrop</h2>
+        
+        <div class="airdrop-box">
+            <h3 style="font-size: 2rem; margin-bottom: 1rem;">250,000,000 IDIOT for the Community</h3>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Rewarding active participants, liquidity providers, and content creators</p>
+            
+            <div class="airdrop-buttons">
+                <a href="/airdrop/" class="btn btn-primary" style="background: white; color: var(--primary);">Claim Portal</a>
+                <a href="/airdrop/idiocracy" class="btn btn-secondary">View Rules</a>
+                <a href="/airdrop/idiocracy-1.json" class="btn btn-secondary" target="_blank">Proofs</a>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem;">
+            <h3 style="text-align: center; margin-bottom: 2rem;">How to Earn</h3>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">💎</div>
+                    <h3>LP Incentives</h3>
+                    <p>Rewards for providing liquidity on Uniswap V3</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Content Creation</h3>
+                    <p>Bounties for memes, videos, and creative content</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Community Engagement</h3>
+                    <p>Active participation in Discord, Twitter, and Telegram</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #fff3cd; border-radius: 10px;">
+                <p><strong>⚠️ Anti-Sybil Protection:</strong> 1M IDIOT cap per wallet per campaign</p>
+                <p style="margin-top: 0.5rem;"><strong>📅 Claim Window:</strong> 14 days after snapshot</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap">
+        <h2>Roadmap</h2>
+        
+        <div class="roadmap-item completed">
+            <h3>✅ Phase 1: Foundation (Q4 2025)</h3>
+            <ul>
+                <li>✅ Token deployed on Base</li>
+                <li>✅ Initial liquidity added</li>
+                <li>✅ Website launched</li>
+                <li>✅ Community channels established</li>
+                <li>🔄 First airdrop campaign (in progress)</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-item">
+            <h3>📋 Phase 2: Growth (Q1-Q2 2026)</h3>
+            <ul>
+                <li>Expand liquidity to 50M tokens</li>
+                <li>Regular community distributions</li>
+                <li>Partnership announcements</li>
+                <li>Marketing campaigns</li>
+                <li>Community contests and rewards</li>
+                <li>CEX listings exploration</li>
+            </ul>
+        </div>
+        
+        <div class="roadmap-item">
+            <h3>📋 Phase 3: Maturity (Q3-Q4 2026)</h3>
+            <ul>
+                <li>Target: 150M tokens in liquidity</li>
+                <li>Established community base</li>
+                <li>Regular transparency reports</li>
+                <li>Potential governance implementation</li>
+                <li>Long-term sustainability planning</li>
+                <li>Ecosystem partnerships</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">What makes IDIOT Token different?</div>
+            <p>We're honest about our tokenomics. No fake vesting, no locked liquidity claims, no hidden team allocations. Just transparent, community-first distribution with flexible management.</p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Are there any taxes?</div>
+            <p>Zero. 0% buy, 0% sell. Permanently. No hidden fees.</p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">How can I buy IDIOT?</div>
+            <p>Trade on Uniswap V3 on Base network. Add Base to your wallet, get some ETH, then swap for IDIOT at <a href="https://app.uniswap.org/explore/pools/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="color: var(--primary);">our pool</a>.</p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Is the contract verified?</div>
+            <p>Yes! View on BaseScan: <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="color: var(--primary);">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</a></p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Who controls the treasury?</div>
+            <p>Multisig wallets with multiple signatures required. Treasury Safe requires 3-of-4 signatures, Ops Safe requires 2-of-4. All addresses are public and verifiable.</p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">How do I claim the airdrop?</div>
+            <p>Visit our <a href="/airdrop/" style="color: var(--primary);">claim portal</a>, connect your wallet, and claim if you're eligible. Check <a href="/airdrop/idiocracy" style="color: var(--primary);">the rules</a> for eligibility criteria.</p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What's the total supply?</div>
+            <p>1,000,000,000 IDIOT (1 billion). Fixed supply, no minting function.</p>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Why "IDIOT"?</div>
+            <p>Because we're smart about dumb fun. We don't take ourselves too seriously, but we take transparency and community seriously. ROMO over FOMO.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
+        
+        <div class="social-links">
+            <a href="https://twitter.com/idiottoken" target="_blank" class="social-link" title="Twitter">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+            <a href="https://t.me/idiottoken" target="_blank" class="social-link" title="Telegram">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            </a>
+            <a href="https://discord.gg/idiottoken" target="_blank" class="social-link" title="Discord">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            </a>
+            <a href="https://github.com/tiptophimp/idiot-token" target="_blank" class="social-link" title="GitHub">
+                <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </a>
+        </div>
+        
+        <p>&copy; 2025 IDIOT Token. Built on Base Mainnet.</p>
+        <p style="margin-top: 1rem; opacity: 0.7;">Smart about dumb fun. Community-first. Zero BS.</p>
+        
+        <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.6;">
+            <p>Contract: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+            <p>Network: Base (Chain ID: 8453)</p>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
