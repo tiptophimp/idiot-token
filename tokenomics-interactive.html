@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tokenomics - IDIOT Token</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        #pieChart {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-box.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .stat-tokens {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        
+        .allocation-details {
+            margin-top: 2rem;
+        }
+        
+        .allocation-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .allocation-item h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 1s ease-out;
+        }
+        
+        .calculator {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-top: 2rem;
+        }
+        
+        .calc-input-group {
+            margin: 1.5rem 0;
+        }
+        
+        .calc-input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+        
+        .calc-input-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .calc-input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .calc-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .calc-result h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calc-result .result-value {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .distribution-timeline {
+            margin-top: 2rem;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #667eea;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 20px;
+            bottom: -30px;
+            width: 2px;
+            background: #667eea;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💎 Interactive Tokenomics</h1>
+            <p style="font-size: 1.3rem;">Explore IDIOT Token distribution in real-time</p>
+        </div>
+        
+        <div class="main-content">
+            <!-- Pie Chart -->
+            <div class="card">
+                <h2>📊 Token Distribution</h2>
+                <canvas id="pieChart"></canvas>
+                
+                <div class="stats-grid">
+                    <div class="stat-box" onclick="highlightSegment(0)">
+                        <div class="stat-label">Project Treasury</div>
+                        <div class="stat-value">65%</div>
+                        <div class="stat-tokens">650M IDIOT</div>
+                    </div>
+                    
+                    <div class="stat-box" onclick="highlightSegment(1)">
+                        <div class="stat-label">Community Fund</div>
+                        <div class="stat-value">25%</div>
+                        <div class="stat-tokens">250M IDIOT</div>
+                    </div>
+                    
+                    <div class="stat-box" onclick="highlightSegment(2)">
+                        <div class="stat-label">Active Liquidity</div>
+                        <div class="stat-value">10%</div>
+                        <div class="stat-tokens">100M IDIOT</div>
+                    </div>
+                    
+                    <div class="stat-box" onclick="highlightSegment(3)">
+                        <div class="stat-label">Total Supply</div>
+                        <div class="stat-value">100%</div>
+                        <div class="stat-tokens">1B IDIOT</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Allocation Details -->
+            <div class="card">
+                <h2>📈 Allocation Details</h2>
+                
+                <div class="allocation-item">
+                    <h3>💰 Project Treasury (65%)</h3>
+                    <p><strong>650,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Multisig 3-of-4 control for liquidity, development, and operations</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%">65%</div>
+                    </div>
+                </div>
+                
+                <div class="allocation-item">
+                    <h3>🎁 Community Fund (25%)</h3>
+                    <p><strong>250,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Multisig 2-of-4 for airdrops, rewards, and community incentives</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%">25%</div>
+                    </div>
+                </div>
+                
+                <div class="allocation-item">
+                    <h3>💧 Active Liquidity (10%)</h3>
+                    <p><strong>~100,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Uniswap V3 pool, growing to 150M over 12 months</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10%">10%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Token Calculator -->
+        <div class="calculator">
+            <h2 style="color: #667eea; margin-bottom: 2rem;">🧮 Token Value Calculator</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <div class="calc-input-group">
+                        <label>IDIOT Amount</label>
+                        <input type="number" id="tokenAmount" placeholder="Enter IDIOT amount" value="1000000" oninput="calculateValue()">
+                    </div>
+                    
+                    <div class="calc-input-group">
+                        <label>Current Price (USD)</label>
+                        <input type="number" id="tokenPrice" placeholder="Price per token" value="0.00094" step="0.000001" oninput="calculateValue()">
+                    </div>
+                    
+                    <button class="btn" onclick="calculateValue()">Calculate Value</button>
+                </div>
+                
+                <div class="calc-result">
+                    <h3>Estimated Value</h3>
+                    <div class="result-value" id="resultValue">$940.00</div>
+                    <p style="margin-top: 1rem; opacity: 0.9;">Based on current market price</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Distribution Timeline -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>📅 Distribution Timeline</h2>
+            <p style="color: #666; margin-bottom: 2rem;">Community fund distribution over 104 weeks</p>
+            
+            <div class="distribution-timeline">
+                <div class="timeline-item">
+                    <h3 style="color: #667eea;">Week 1-26 (Q1-Q2 2026)</h3>
+                    <p><strong>62.5M IDIOT</strong> distributed</p>
+                    <p style="color: #666;">Early adopter rewards, LP incentives, content creation</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 style="color: #667eea;">Week 27-52 (Q3-Q4 2026)</h3>
+                    <p><strong>62.5M IDIOT</strong> distributed</p>
+                    <p style="color: #666;">Sustained community engagement, partnerships</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 style="color: #667eea;">Week 53-78 (Q1-Q2 2027)</h3>
+                    <p><strong>62.5M IDIOT</strong> distributed</p>
+                    <p style="color: #666;">Ecosystem growth, governance participation</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3 style="color: #667eea;">Week 79-104 (Q3-Q4 2027)</h3>
+                    <p><strong>62.5M IDIOT</strong> distributed</p>
+                    <p style="color: #666;">Long-term sustainability, community initiatives</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/" class="btn">Back to Home</a>
+            <a href="/about.html" class="btn">Learn More</a>
+            <a href="/airdrop/" class="btn">Claim Airdrop</a>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Chart.js Pie Chart
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        let myChart;
+        
+        function initChart() {
+            const data = {
+                labels: ['Project Treasury (65%)', 'Community Fund (25%)', 'Active Liquidity (10%)'],
+                datasets: [{
+                    data: [650000000, 250000000, 100000000],
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(118, 75, 162, 0.8)',
+                        'rgba(79, 172, 254, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(102, 126, 234, 1)',
+                        'rgba(118, 75, 162, 1)',
+                        'rgba(79, 172, 254, 1)'
+                    ],
+                    borderWidth: 3
+                }]
+            };
+            
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return context.label + ': ' + value.toLocaleString() + ' IDIOT (' + percentage + '%)';
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 2000
+                    }
+                }
+            };
+            
+            myChart = new Chart(ctx, config);
+        }
+        
+        function highlightSegment(index) {
+            if (!myChart) return;
+            
+            // Reset all stat boxes
+            document.querySelectorAll('.stat-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // Highlight selected box
+            if (index < 3) {
+                document.querySelectorAll('.stat-box')[index].classList.add('active');
+            }
+            
+            // Update chart to highlight segment
+            const meta = myChart.getDatasetMeta(0);
+            meta.data.forEach((element, i) => {
+                element.options.borderWidth = (i === index) ? 10 : 3;
+            });
+            
+            myChart.update();
+        }
+        
+        function calculateValue() {
+            const amount = parseFloat(document.getElementById('tokenAmount').value) || 0;
+            const price = parseFloat(document.getElementById('tokenPrice').value) || 0;
+            const value = amount * price;
+            
+            document.getElementById('resultValue').textContent = '$' + value.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', function() {
+            initChart();
+            calculateValue();
+        });
+    </script>
+</body>
+</html>
