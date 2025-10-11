@@ -20,12 +20,21 @@ secure/
 *wallet*
 *keys.txt
 
-# Financial Data
-*audit*
-*ledger*
-*treasury*
-*holdings*
-*transfer*
+# Financial Data (exclude raw sensitive data, allow docs)
+*audit-log*
+*ledger*.txt
+*holdings_snapshot*
+Book*.xlsx
+IDIOT_Treasury_Master*.csv
+IDIOT_Treasury_Master*.xlsx
+*TOKEN_FINAL_TRANSFER_BATCH.txt
+
+# Allow important documentation
+!TOKEN_TRANSFERS_COMPLETE_REPORT.md
+!TRANSPARENCY_REPORT*.md
+!TRANSFER_INSTRUCTIONS*.md
+!TRANSFER_QUICK_REFERENCE.txt
+!TRANSFER_COMMANDS.sh
 
 # ============================================
 # SYSTEM FILES

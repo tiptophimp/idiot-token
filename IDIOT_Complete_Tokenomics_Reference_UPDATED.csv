@@ -1,0 +1,42 @@
+Category,Item,Value,Details,Start_Date,Last_Updated,Owner/Controller,Notes
+TOKENOMICS,Total_Supply,1000000000,IDIOT tokens,10/1/2025,10/11/2025,Contract,1 billion total supply
+TOKENOMICS,Taxes,0/0,Zero tax permanently,10/1/2025,10/11/2025,Contract,No buy/sell taxes
+TOKENOMICS,Chain,Base,Base Mainnet (Chain ID 8453),10/1/2025,10/11/2025,,Ethereum Layer 2
+TOKENOMICS,Contract,0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1,IDIOT Token contract,10/1/2025,10/11/2025,,Verified on BaseScan
+ALLOCATION,Community,400000000,40.00% - Rewards/Airdrops,10/1/2025,10/11/2025,Multisig 1,Manual distribution
+ALLOCATION,Reserve,248000000,24.80% - Long-term reserve,10/1/2025,10/11/2025,Multisig 3,Manual distribution
+ALLOCATION,LP_HOT,150000000,15.00% - Future liquidity,10/1/2025,10/11/2025,LP-HOT Wallet,Available for LP
+ALLOCATION,Team,100000000,10.00% - Contributors,10/1/2025,10/11/2025,Multisig 4,Manual distribution
+ALLOCATION,Treasury,50643000,5.06% - Operations,10/1/2025,10/11/2025,Multisig 2,Manual distribution
+ALLOCATION,OPS_HOT,49970000,5.00% - Active operations,10/1/2025,10/11/2025,OPS-HOT Wallet,Active use
+ALLOCATION,Active_LP,1560000,0.16% - Trading liquidity,10/1/2025,10/11/2025,Uniswap V3,In pool
+ALLOCATION,Ledger_Cold_2,0,0.00% - LP NFT holder,10/1/2025,10/11/2025,Ledger Cold 2,Holds LP NFT only
+ALLOCATION,Ledger_Cold_1,0.46,0.00% - Evacuated,10/1/2025,10/11/2025,Ledger Cold 1,Dust remaining
+VESTING,Community,Manual,Planned gradual release,10/1/2025,10/11/2025,Multisig 1,No automated timelock
+VESTING,Reserve,Manual,Planned gradual release,10/1/2025,10/11/2025,Multisig 3,No automated timelock
+VESTING,Team,Manual,Planned gradual release,10/1/2025,10/11/2025,Multisig 4,No automated timelock
+VESTING,Treasury,Manual,Planned gradual release,10/1/2025,10/11/2025,Multisig 2,No automated timelock
+MULTISIG,Community_Multisig,0x9D466E39799FeC7204f40133EcC0BeB115813c13,Multisig 1 - Gnosis Safe,10/1/2025,10/11/2025,User controlled,400M IDIOT
+MULTISIG,Treasury_Multisig,0x5817DcCb35cd3A67520E5BDa1Ebc413cf097A8eE,Multisig 2 - Custom,10/1/2025,10/11/2025,User controlled,50.6M IDIOT
+MULTISIG,Reserve_Multisig,0x0B333e3bf4435D9DD622c5E037Cd50fB1ACBDb4b,Multisig 3 - Gnosis Safe,10/1/2025,10/11/2025,User controlled,248M IDIOT
+MULTISIG,Team_Multisig,0x6AD03686ab6c3bA2c77992995E4879c62dE88996,Multisig 4 - Gnosis Safe,10/1/2025,10/11/2025,User controlled,100M IDIOT
+WALLET,Ledger_Cold_1,0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e,Evacuated - To be reset,10/1/2025,10/11/2025,,~0.46 IDIOT dust
+WALLET,Ledger_Cold_2,0xB4EB7C7040c887d576a2e0Cdf60901A3087f5389,LP NFT Holder,10/1/2025,10/11/2025,,Holds LP NFT #3887185
+WALLET,LP_HOT,0xAC95d0B5603C7212a690bd089BAD472473496374,Liquidity Reserve,10/1/2025,10/11/2025,,150M IDIOT available
+WALLET,OPS_HOT,0x721d2adcCf634f4185edE152ee98cA836CF22EA6,Operations Wallet,10/1/2025,10/11/2025,,49.97M IDIOT
+CONTRACT,IDIOT_Token,0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1,Main token contract,10/1/2025,10/11/2025,,Zero tax ERC-20
+CONTRACT,NFPM,0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1,Uniswap V3 Position Manager,10/1/2025,10/11/2025,,LP NFT manager
+CONTRACT,WETH,0x4200000000000000000000000000000000000006,Wrapped ETH on Base,10/1/2025,10/11/2025,,Base native WETH
+TRANSFERS,LP_NFT_Transfer,0x5caa7de17beadb9ea4bfedf47e95f0f754ab3d6a1ec898c4c4299156ba8afd71,Ledger 1 to Ledger 2,10/11/2025,10/11/2025,,LP NFT #3887185
+TRANSFERS,Reserve_Transfer,0x29d27b0d0b878243749e5be6a3161113897ee8e925fa2b8256f515c80a4239bf,248M IDIOT to Multisig 3,10/11/2025,10/11/2025,,From Ledger Cold 1
+TRANSFERS,Community_Transfer,0xc0a1246642ecde1f001342cf53967981ff27a32981947e31b2647e3c77eaeffa,200M IDIOT to Multisig 1,10/11/2025,10/11/2025,,From OPS-HOT
+LP,Uniswap_V3_Pair,IDIOT/WETH,0.3% fee tier,10/1/2025,10/11/2025,,Full-range position
+LP,Position_ID,3887185,Uniswap V3 NFT,10/1/2025,10/11/2025,Ledger Cold 2,LP position NFT
+LP,Active_Liquidity,1560000,IDIOT tokens in pool,10/1/2025,10/11/2025,Uniswap V3,~0.16% of supply
+LP,Available_Liquidity,150000000,IDIOT tokens ready to add,10/1/2025,10/11/2025,LP-HOT,~15% of supply
+LP,Fee_Tier,0.30%,Uniswap V3 fee,10/1/2025,10/11/2025,,Standard fee tier
+SECURITY,Multisig_Control,YES,All major allocations in multisigs,10/11/2025,10/11/2025,,User is sole signer
+SECURITY,No_Timelocks,CONFIRMED,No automated vesting contracts,10/11/2025,10/11/2025,,Manual distribution only
+SECURITY,LP_NFT_Secured,YES,LP NFT on hardware wallet,10/11/2025,10/11/2025,Ledger Cold 2,Secure storage
+SECURITY,Ledger_1_Evacuated,YES,Ready for seed phrase reset,10/11/2025,10/11/2025,,All assets moved
+
