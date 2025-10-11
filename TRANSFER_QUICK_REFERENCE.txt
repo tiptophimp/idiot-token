@@ -1,0 +1,148 @@
+═══════════════════════════════════════════════════════════════════
+              IDIOT TOKEN - TRANSFER QUICK REFERENCE
+                       Option A Execution
+═══════════════════════════════════════════════════════════════════
+
+🎯 GOAL: Move tokens to align with realistic multisig allocation
+
+✅ WEBSITE: Deployed with accurate distribution info
+✅ STATUS: Ready to execute transfers
+
+═══════════════════════════════════════════════════════════════════
+📝 TRANSFER #1: TEST (DO THIS FIRST!)
+═══════════════════════════════════════════════════════════════════
+
+Amount:     1,000 IDIOT (1000000000000000000000 wei)
+From:       Ledger Cold 1
+            0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e
+
+To:         Reserve Multisig (Multisig 3)
+            0x0B333e3bf4435D9DD622c5E037Cd50fB1ACBDb4b
+
+Purpose:    Verify everything works before big transfer
+
+═══════════════════════════════════════════════════════════════════
+📝 TRANSFER #2: MAIN (Ledger → Reserve)
+═══════════════════════════════════════════════════════════════════
+
+Amount:     248,396,494 IDIOT (248396494000000000000000000 wei)
+From:       Ledger Cold 1
+            0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e
+
+To:         Reserve Multisig (Multisig 3)
+            0x0B333e3bf4435D9DD622c5E037Cd50fB1ACBDb4b
+
+Purpose:    Move reserve allocation to multisig
+
+═══════════════════════════════════════════════════════════════════
+📝 TRANSFER #3: MAIN (OPS-HOT → Community)
+═══════════════════════════════════════════════════════════════════
+
+Amount:     200,000,000 IDIOT (200000000000000000000000000 wei)
+From:       OPS-HOT
+            0x721d2adcCf634f4185edE152ee98cA836CF22EA6
+
+To:         Community Multisig (Multisig 1)
+            0x9D466E39799FeC7204f40133EcC0BeB115813c13
+
+Purpose:    Move community allocation to multisig
+
+═══════════════════════════════════════════════════════════════════
+✅ FINAL ALLOCATION (After Transfers)
+═══════════════════════════════════════════════════════════════════
+
+Reserve (Multisig 3):     ~448,397,494 IDIOT (44.8%)
+Community (Multisig 1):    400,000,000 IDIOT (40.0%)
+LP-HOT (Liquidity):        150,000,000 IDIOT (15.0%)
+Team (Multisig 4):         100,000,000 IDIOT (10.0%)
+Treasury (Multisig 2):      50,643,000 IDIOT (5.1%)
+OPS-HOT (Operations):       49,970,000 IDIOT (5.0%)
+LP Position (Trading):         374,323 IDIOT (0.04%)
+                         ─────────────────────────
+TOTAL:                  ~1,000,000,000 IDIOT ✅
+
+═══════════════════════════════════════════════════════════════════
+🔐 USING METAMASK (EASIEST METHOD)
+═══════════════════════════════════════════════════════════════════
+
+1. Go to: https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1#writeContract
+
+2. Click "Connect to Web3"
+
+3. Select correct wallet in MetaMask
+
+4. Scroll to "6. transfer"
+
+5. Fill in:
+   - recipient: [address from above]
+   - amount: [wei amount from above]
+
+6. Click "Write"
+
+7. Confirm in MetaMask
+
+8. Save transaction hash!
+
+═══════════════════════════════════════════════════════════════════
+⚠️ CRITICAL REMINDERS
+═══════════════════════════════════════════════════════════════════
+
+✅ DO:
+  - Send TEST transaction first (1,000 IDIOT)
+  - Verify test before sending main amounts
+  - Triple-check addresses
+  - Save all transaction hashes
+  - Have ETH on Base for gas (~$0.50 per tx)
+  - Use Copy/Paste for addresses (never type)
+
+❌ DON'T:
+  - Send large amounts without testing first
+  - Type addresses manually (always copy/paste)
+  - Proceed if test fails
+  - Forget to save transaction hashes
+  - Use Ethereum L1 (must be Base Mainnet!)
+
+═══════════════════════════════════════════════════════════════════
+📊 VERIFICATION LINKS
+═══════════════════════════════════════════════════════════════════
+
+Token Contract:
+https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1
+
+Reserve Multisig (Target for Transfer #1 & #2):
+https://basescan.org/address/0x0B333e3bf4435D9DD622c5E037Cd50fB1ACBDb4b
+
+Community Multisig (Target for Transfer #3):
+https://basescan.org/address/0x9D466E39799FeC7204f40133EcC0BeB115813c13
+
+Your Ledger Cold 1 (Source for Transfer #1 & #2):
+https://basescan.org/address/0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e
+
+Your OPS-HOT (Source for Transfer #3):
+https://basescan.org/address/0x721d2adcCf634f4185edE152ee98cA836CF22EA6
+
+═══════════════════════════════════════════════════════════════════
+📝 TRANSACTION HASH LOG
+═══════════════════════════════════════════════════════════════════
+
+Test Transfer:
+TX Hash: 0x_________________________________________________
+Status:  ✅ / ❌
+Date:    _______________
+
+Transfer #1 (Ledger → Reserve, 248M IDIOT):
+TX Hash: 0x_________________________________________________
+Status:  ✅ / ❌
+Date:    _______________
+
+Transfer #2 (OPS-HOT → Community, 200M IDIOT):
+TX Hash: 0x_________________________________________________
+Status:  ✅ / ❌
+Date:    _______________
+
+═══════════════════════════════════════════════════════════════════
+
+📖 FULL INSTRUCTIONS: See TRANSFER_INSTRUCTIONS_OPTION_A.md
+
+═══════════════════════════════════════════════════════════════════
+
