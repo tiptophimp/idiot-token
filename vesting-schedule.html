@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vesting Schedule - IDIOT Token</title>
+    <title>Distribution Schedule - IDIOT Token</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <meta name="description" content="Complete vesting schedule and token unlock timeline for IDIOT Token">
+    <meta name="description" content="Token distribution schedule and allocation details for IDIOT Token">
     
     <style>
         * {
@@ -95,7 +95,7 @@
             margin-bottom: 5px;
         }
         
-        .vesting-section {
+        .allocation-section {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 30px;
@@ -104,18 +104,16 @@
             margin-bottom: 30px;
         }
         
-        .vesting-section h2 {
+        .allocation-section h2 {
             font-size: 2em;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-align: center;
         }
         
-        .vesting-details {
+        .allocation-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            gap: 20px;
             margin-top: 20px;
         }
         
@@ -123,13 +121,14 @@
             background: rgba(0, 0, 0, 0.2);
             padding: 15px;
             border-radius: 10px;
+            text-align: center;
         }
         
         .detail-item strong {
             display: block;
             opacity: 0.7;
             font-size: 0.9em;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
         
         .detail-item span {
@@ -139,64 +138,34 @@
         
         .timeline {
             margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow-x: auto;
+        }
+        
+        .timeline h4 {
+            margin-bottom: 15px;
+            opacity: 0.9;
         }
         
         .timeline-visual {
-            min-width: 800px;
-            height: 60px;
             background: rgba(0, 0, 0, 0.3);
+            height: 60px;
             border-radius: 30px;
             position: relative;
-            margin: 20px 0;
+            overflow: hidden;
+            margin-bottom: 10px;
         }
         
         .timeline-bar {
             position: absolute;
             height: 100%;
-            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9em;
             font-weight: bold;
-            transition: all 0.3s;
+            font-size: 0.9em;
         }
         
-        .timeline-bar:hover {
-            transform: scale(1.05);
-            z-index: 10;
-        }
-        
-        .cliff {
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255, 0, 0, 0.3),
-                rgba(255, 0, 0, 0.3) 10px,
-                rgba(255, 0, 0, 0.5) 10px,
-                rgba(255, 0, 0, 0.5) 20px
-            );
-        }
-        
-        .vesting {
-            background: linear-gradient(90deg, rgba(0, 255, 0, 0.3), rgba(0, 255, 0, 0.6));
-        }
-        
-        .locked {
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255, 165, 0, 0.3),
-                rgba(255, 165, 0, 0.3) 10px,
-                rgba(255, 165, 0, 0.5) 10px,
-                rgba(255, 165, 0, 0.5) 20px
-            );
-        }
-        
-        .emissions {
-            background: linear-gradient(90deg, rgba(0, 191, 255, 0.4), rgba(0, 191, 255, 0.7));
+        .distribution {
+            background: linear-gradient(90deg, #10b981, #059669);
         }
         
         .timeline-labels {
@@ -204,548 +173,389 @@
             justify-content: space-between;
             margin-top: 10px;
             font-size: 0.9em;
-        }
-        
-        .allocation-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .allocation-item {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid;
-        }
-        
-        .allocation-item.reserve { border-color: #3b82f6; }
-        .allocation-item.community { border-color: #10b981; }
-        .allocation-item.liquidity { border-color: #f59e0b; }
-        .allocation-item.team { border-color: #8b5cf6; }
-        .allocation-item.treasury { border-color: #ef4444; }
-        
-        .allocation-item h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        
-        .allocation-amount {
-            font-size: 2em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .allocation-percent {
-            font-size: 1.2em;
             opacity: 0.8;
         }
         
-        .unlock-calendar {
+        .allocation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             margin-top: 30px;
         }
         
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .calendar-table th,
-        .calendar-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .calendar-table th {
-            background: rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-        }
-        
-        .calendar-table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #10b981, #3b82f6);
-            transition: width 1s ease;
-        }
-        
-        .cta-section {
-            text-align: center;
-            margin-top: 50px;
-            padding: 40px;
+        .allocation-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            padding: 25px;
+            border-radius: 15px;
             border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .allocation-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .percentage {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .amount {
+            text-align: center;
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            line-height: 1.6;
         }
         
         .cta-button {
             display: inline-block;
             padding: 15px 40px;
             margin: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
             text-decoration: none;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 1.1em;
             transition: all 0.3s;
             border: 2px solid rgba(255, 255, 255, 0.3);
         }
         
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            opacity: 0.8;
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .allocation-breakdown { grid-template-columns: 1fr; }
-            .timeline { overflow-x: scroll; }
+            h1 {
+                font-size: 2em;
+            }
+            
+            .summary-cards, .allocation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .transparency-note {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .transparency-note strong {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .multisig-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🗓️ IDIOT Token Vesting Schedule</h1>
-            <p class="subtitle">Complete Token Unlock Timeline & Allocation Details</p>
+            <h1>📊 IDIOT Token Distribution</h1>
+            <p class="subtitle">Transparent Allocation & Multisig Management</p>
             <div class="nav-links">
                 <a href="/">Home</a>
-                <a href="/tokenomics-interactive.html">Tokenomics</a>
-                <a href="/airdrop/">Airdrop</a>
-                <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank">Contract</a>
+                <a href="/whitepaper.html">Whitepaper</a>
+                <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank">View Contract</a>
             </div>
         </header>
         
+        <!-- SUMMARY CARDS -->
         <div class="summary-cards">
             <div class="summary-card">
                 <h3>Total Supply</h3>
-                <div class="big-number">1B</div>
+                <div class="big-number">1 Billion</div>
                 <p>IDIOT Tokens</p>
             </div>
             <div class="summary-card">
-                <h3>Initial Circulating</h3>
-                <div class="big-number">15.2%</div>
-                <p>152M Tokens</p>
+                <h3>Allocations</h3>
+                <div class="big-number">5</div>
+                <p>Major Categories</p>
             </div>
             <div class="summary-card">
-                <h3>Vesting Period</h3>
-                <div class="big-number">4 Years</div>
-                <p>Until Oct 2029</p>
+                <h3>Multisigs</h3>
+                <div class="big-number">4</div>
+                <p>Secure Contracts</p>
             </div>
             <div class="summary-card">
-                <h3>Longest Cliff</h3>
-                <div class="big-number">12 Months</div>
-                <p>Team Allocation</p>
+                <h3>Transparency</h3>
+                <div class="big-number">100%</div>
+                <p>On-Chain Verified</p>
             </div>
         </div>
         
-        <!-- RESERVE ALLOCATION -->
-        <div class="vesting-section">
-            <h2>🏦 Reserve Allocation</h2>
-            <div class="allocation-breakdown">
-                <div class="allocation-item reserve">
-                    <h3>Reserve Treasury</h3>
-                    <div class="allocation-amount">449.36M</div>
-                    <div class="allocation-percent">44.94% of Total Supply</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="vesting-details">
-                <div class="detail-item">
-                    <strong>Cliff Period</strong>
-                    <span>6 Months</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Vesting Period</strong>
-                    <span>30 Months</span>
-                </div>
-                <div class="detail-item">
-                    <strong>First Unlock</strong>
-                    <span>Apr 1, 2026</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Final Unlock</strong>
-                    <span>Oct 1, 2028</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Monthly Unlock</strong>
-                    <span>~14.98M</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Controller</strong>
-                    <span>TR-SAFE (3/4)</span>
-                </div>
-            </div>
-            <div class="timeline">
-                <h4>Reserve Timeline</h4>
-                <div class="timeline-visual">
-                    <div class="timeline-bar cliff" style="left: 0%; width: 16.7%;"></div>
-                    <div class="timeline-bar vesting" style="left: 16.7%; width: 83.3%;">Vesting 30 months</div>
-                </div>
-                <div class="timeline-labels">
-                    <span>Oct 2025</span>
-                    <span>Apr 2026</span>
-                    <span>Oct 2028</span>
-                </div>
-            </div>
+        <!-- TRANSPARENCY NOTE -->
+        <div class="transparency-note">
+            <strong>🔍 100% Transparent & Verifiable</strong>
+            <p>All tokens are held in multisig contracts. Every distribution is visible on-chain.</p>
+            <p>Community can verify compliance at any time via BaseScan.</p>
         </div>
         
-        <!-- COMMUNITY ALLOCATION -->
-        <div class="vesting-section">
-            <h2>🎁 Community Distribution</h2>
-            <div class="allocation-breakdown">
-                <div class="allocation-item community">
-                    <h3>Community Fund</h3>
-                    <div class="allocation-amount">250M</div>
-                    <div class="allocation-percent">25.00% of Total Supply</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+        <!-- ALLOCATION BREAKDOWN -->
+        <div class="allocation-grid">
+            
+            <!-- RESERVE -->
+            <div class="allocation-card">
+                <h3>🏦 Reserve</h3>
+                <div class="percentage">44.8%</div>
+                <div class="amount">448,396,494 IDIOT</div>
+                <div class="allocation-details">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span>Multisig</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Purpose</strong>
+                        <span>Long-term</span>
                     </div>
                 </div>
-            </div>
-            <div class="vesting-details">
-                <div class="detail-item">
-                    <strong>Distribution Method</strong>
-                    <span>Weekly Emissions</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Duration</strong>
-                    <span>104 Weeks</span>
-                </div>
-                <div class="detail-item">
-                    <strong>First Distribution</strong>
-                    <span>Oct 7, 2025</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Final Distribution</strong>
-                    <span>Oct 6, 2027</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Weekly Amount</strong>
-                    <span>2.40M</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Controller</strong>
-                    <span>OPS-SAFE (2/4)</span>
+                <div class="description">
+                    <p><strong>Purpose:</strong> Long-term strategic reserve for future development, partnerships, and ecosystem growth.</p>
+                    <p style="margin-top: 10px;"><strong>Distribution:</strong> Distributed gradually over 36 months starting April 2026, managed through multisig governance.</p>
+                    <div class="multisig-badge">🔐 Gnosis Safe Multisig</div>
                 </div>
             </div>
             
-            <div style="margin-top: 30px; padding: 20px; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
-                <h4 style="margin-bottom: 15px;">Community Breakdown:</h4>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 8px;">
-                        <strong>LP Holder Rewards</strong>
-                        <div style="font-size: 1.5em; font-weight: bold; margin-top: 5px;">175M</div>
-                        <div style="opacity: 0.8;">70% of Community</div>
+            <!-- COMMUNITY -->
+            <div class="allocation-card">
+                <h3>👥 Community</h3>
+                <div class="percentage">20.0%</div>
+                <div class="amount">200,000,000 IDIOT</div>
+                <div class="allocation-details">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span>Multisig</span>
                     </div>
-                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 8px;">
-                        <strong>Quests & Campaigns</strong>
-                        <div style="font-size: 1.5em; font-weight: bold; margin-top: 5px;">50M</div>
-                        <div style="opacity: 0.8;">20% of Community</div>
+                    <div class="detail-item">
+                        <strong>Purpose</strong>
+                        <span>Rewards</span>
                     </div>
-                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 8px;">
-                        <strong>Grants & Bounties</strong>
-                        <div style="font-size: 1.5em; font-weight: bold; margin-top: 5px;">17.5M</div>
-                        <div style="opacity: 0.8;">7% of Community</div>
-                    </div>
-                    <div style="background: rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 8px;">
-                        <strong>Safety Reserve</strong>
-                        <div style="font-size: 1.5em; font-weight: bold; margin-top: 5px;">7.5M</div>
-                        <div style="opacity: 0.8;">3% of Community</div>
-                    </div>
+                </div>
+                <div class="description">
+                    <p><strong>Purpose:</strong> Community rewards, airdrops, LP holder incentives, and engagement campaigns.</p>
+                    <p style="margin-top: 10px;"><strong>Distribution:</strong> Weekly distributions over 104 weeks (2 years), approximately 1.92M per week.</p>
+                    <div class="multisig-badge">🔐 Gnosis Safe Multisig</div>
                 </div>
             </div>
             
-            <div class="timeline">
-                <h4>Community Emissions Timeline</h4>
-                <div class="timeline-visual">
-                    <div class="timeline-bar emissions" style="left: 0%; width: 100%;">Weekly Emissions - 104 Weeks</div>
-                </div>
-                <div class="timeline-labels">
-                    <span>Oct 7, 2025</span>
-                    <span>Oct 6, 2027</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- LIQUIDITY ALLOCATION -->
-        <div class="vesting-section">
-            <h2>💧 DEX Liquidity</h2>
-            <div class="allocation-breakdown">
-                <div class="allocation-item liquidity">
-                    <h3>Uniswap V3 LP</h3>
-                    <div class="allocation-amount">150M</div>
-                    <div class="allocation-percent">15.00% of Total Supply</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+            <!-- LIQUIDITY -->
+            <div class="allocation-card">
+                <h3>💧 DEX Liquidity</h3>
+                <div class="percentage">15.0%</div>
+                <div class="amount">150,000,000 IDIOT</div>
+                <div class="allocation-details">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span>Active LP</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Location</strong>
+                        <span>Uniswap V3</span>
                     </div>
                 </div>
-            </div>
-            <div class="vesting-details">
-                <div class="detail-item">
-                    <strong>Lock Type</strong>
-                    <span>LP NFT Lock</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Lock Duration</strong>
-                    <span>24 Months</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Lock Start</strong>
-                    <span>Oct 1, 2025</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Unlock Date</strong>
-                    <span>Oct 1, 2027</span>
-                </div>
-                <div class="detail-item">
-                    <strong>NFT Position</strong>
-                    <span>#3887185</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Fee Tier</strong>
-                    <span>0.3%</span>
+                <div class="description">
+                    <p><strong>Purpose:</strong> Provide trading liquidity on Uniswap V3 (IDIOT/WETH pair, 0.3% fee tier).</p>
+                    <p style="margin-top: 10px;"><strong>Management:</strong> LP position managed through dedicated wallet. Liquidity maintained for 24 months minimum.</p>
+                    <div class="multisig-badge">📍 LP NFT #3887185</div>
                 </div>
             </div>
-            <div class="timeline">
-                <h4>LP Lock Timeline</h4>
-                <div class="timeline-visual">
-                    <div class="timeline-bar locked" style="left: 0%; width: 100%;">🔒 LOCKED 24 MONTHS 🔒</div>
-                </div>
-                <div class="timeline-labels">
-                    <span>Oct 1, 2025</span>
-                    <span>Oct 1, 2027</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- TEAM ALLOCATION -->
-        <div class="vesting-section">
-            <h2>👥 Team & Contributors</h2>
-            <div class="allocation-breakdown">
-                <div class="allocation-item team">
-                    <h3>Team Allocation</h3>
-                    <div class="allocation-amount">100M</div>
-                    <div class="allocation-percent">10.00% of Total Supply</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+            
+            <!-- TEAM -->
+            <div class="allocation-card">
+                <h3>👨‍💻 Team</h3>
+                <div class="percentage">10.0%</div>
+                <div class="amount">100,000,000 IDIOT</div>
+                <div class="allocation-details">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span>Multisig</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Purpose</strong>
+                        <span>Contributors</span>
                     </div>
                 </div>
-            </div>
-            <div class="vesting-details">
-                <div class="detail-item">
-                    <strong>Cliff Period</strong>
-                    <span>12 Months 🔥</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Vesting Period</strong>
-                    <span>36 Months</span>
-                </div>
-                <div class="detail-item">
-                    <strong>First Unlock</strong>
-                    <span>Oct 1, 2026</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Final Unlock</strong>
-                    <span>Oct 1, 2029</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Monthly Unlock</strong>
-                    <span>~2.78M</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Controller</strong>
-                    <span>TR-SAFE (3/4)</span>
+                <div class="description">
+                    <p><strong>Purpose:</strong> Team compensation and contributor rewards.</p>
+                    <p style="margin-top: 10px;"><strong>Distribution:</strong> Gradual distribution over 48 months starting October 2026, ensuring long-term team alignment.</p>
+                    <div class="multisig-badge">🔐 Gnosis Safe Multisig</div>
                 </div>
             </div>
-            <div class="timeline">
-                <h4>Team Vesting Timeline</h4>
-                <div class="timeline-visual">
-                    <div class="timeline-bar cliff" style="left: 0%; width: 25%;">12m CLIFF</div>
-                    <div class="timeline-bar vesting" style="left: 25%; width: 75%;">Vesting 36 months</div>
-                </div>
-                <div class="timeline-labels">
-                    <span>Oct 2025</span>
-                    <span>Oct 2026</span>
-                    <span>Oct 2029</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- TREASURY ALLOCATION -->
-        <div class="vesting-section">
-            <h2>🏛️ Treasury & Operations</h2>
-            <div class="allocation-breakdown">
-                <div class="allocation-item treasury">
-                    <h3>Treasury/Ops Fund</h3>
-                    <div class="allocation-amount">50.64M</div>
-                    <div class="allocation-percent">5.06% of Total Supply</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+            
+            <!-- TREASURY -->
+            <div class="allocation-card">
+                <h3>💼 Treasury</h3>
+                <div class="percentage">5.1%</div>
+                <div class="amount">50,643,000 IDIOT</div>
+                <div class="allocation-details">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span>Multisig</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Purpose</strong>
+                        <span>Operations</span>
                     </div>
                 </div>
-            </div>
-            <div class="vesting-details">
-                <div class="detail-item">
-                    <strong>Cliff Period</strong>
-                    <span>6 Months</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Vesting Period</strong>
-                    <span>24 Months</span>
-                </div>
-                <div class="detail-item">
-                    <strong>First Unlock</strong>
-                    <span>Apr 1, 2026</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Final Unlock</strong>
-                    <span>Apr 1, 2028</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Monthly Unlock</strong>
-                    <span>~2.11M</span>
-                </div>
-                <div class="detail-item">
-                    <strong>Controller</strong>
-                    <span>TR-SAFE (3/4)</span>
+                <div class="description">
+                    <p><strong>Purpose:</strong> Operational expenses, marketing, partnerships, and day-to-day project needs.</p>
+                    <p style="margin-top: 10px;"><strong>Distribution:</strong> Distributed over 30 months starting April 2026 as needed for project operations.</p>
+                    <div class="multisig-badge">🔐 Custom Multisig</div>
                 </div>
             </div>
-            <div class="timeline">
-                <h4>Treasury Timeline</h4>
-                <div class="timeline-visual">
-                    <div class="timeline-bar cliff" style="left: 0%; width: 20%;"></div>
-                    <div class="timeline-bar vesting" style="left: 20%; width: 80%;">Vesting 24 months</div>
+            
+            <!-- OPERATIONS (ACTIVE) -->
+            <div class="allocation-card">
+                <h3>🚀 Active Operations</h3>
+                <div class="percentage">5.0%</div>
+                <div class="amount">~50,000,000 IDIOT</div>
+                <div class="allocation-details">
+                    <div class="detail-item">
+                        <strong>Status</strong>
+                        <span>Active</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Purpose</strong>
+                        <span>Immediate Use</span>
+                    </div>
                 </div>
-                <div class="timeline-labels">
-                    <span>Oct 2025</span>
-                    <span>Apr 2026</span>
-                    <span>Apr 2028</span>
+                <div class="description">
+                    <p><strong>Purpose:</strong> Operational float for immediate needs, test distributions, and rapid response to opportunities.</p>
+                    <p style="margin-top: 10px;"><strong>Management:</strong> Hot wallet for day-to-day operations, regularly replenished from treasury multisig as needed.</p>
+                    <div class="multisig-badge">⚡ Operations Wallet</div>
                 </div>
             </div>
         </div>
         
-        <!-- UNLOCK CALENDAR -->
-        <div class="vesting-section">
-            <h2>📅 Major Unlock Events</h2>
-            <div class="unlock-calendar">
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Event</th>
-                            <th>Category</th>
-                            <th>Amount Unlocking</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Oct 7, 2025</td>
-                            <td>First Community Emission</td>
-                            <td>Community</td>
-                            <td>2.40M IDIOT</td>
-                        </tr>
-                        <tr>
-                            <td>Apr 1, 2026</td>
-                            <td>Reserve Cliff Ends</td>
-                            <td>Reserve</td>
-                            <td>14.98M IDIOT/month begins</td>
-                        </tr>
-                        <tr>
-                            <td>Apr 1, 2026</td>
-                            <td>Treasury Cliff Ends</td>
-                            <td>Treasury</td>
-                            <td>2.11M IDIOT/month begins</td>
-                        </tr>
-                        <tr>
-                            <td>Oct 1, 2026</td>
-                            <td>Team Cliff Ends (1 YEAR!)</td>
-                            <td>Team</td>
-                            <td>2.78M IDIOT/month begins</td>
-                        </tr>
-                        <tr>
-                            <td>Oct 6, 2027</td>
-                            <td>Community Emissions End</td>
-                            <td>Community</td>
-                            <td>Final 2.40M IDIOT</td>
-                        </tr>
-                        <tr>
-                            <td>Oct 1, 2027</td>
-                            <td>LP Lock Expires</td>
-                            <td>Liquidity</td>
-                            <td>150M IDIOT unlocked</td>
-                        </tr>
-                        <tr>
-                            <td>Apr 1, 2028</td>
-                            <td>Treasury Fully Vested</td>
-                            <td>Treasury</td>
-                            <td>Final unlock</td>
-                        </tr>
-                        <tr>
-                            <td>Oct 1, 2028</td>
-                            <td>Reserve Fully Vested</td>
-                            <td>Reserve</td>
-                            <td>Final unlock</td>
-                        </tr>
-                        <tr>
-                            <td>Oct 1, 2029</td>
-                            <td>Team Fully Vested</td>
-                            <td>Team</td>
-                            <td>Final unlock - 100% distribution complete</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div class="cta-section">
-            <h2>🚀 Ready to Join the Idiots?</h2>
-            <p style="font-size: 1.2em; margin: 20px 0; opacity: 0.9;">
-                Transparent vesting. Community-first. Zero tax. Join us!
+        <!-- MULTISIG GOVERNANCE -->
+        <div class="allocation-section">
+            <h2>🔐 Multisig Governance</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.1em;">
+                All major token allocations are secured in multisignature contracts, requiring multiple approvals for any transaction.
             </p>
-            <a href="/airdrop/" class="cta-button">Claim Airdrop</a>
-            <a href="https://app.uniswap.org" class="cta-button" target="_blank">Buy on Uniswap</a>
-            <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" class="cta-button" target="_blank">View Contract</a>
+            
+            <div class="allocation-details">
+                <div class="detail-item">
+                    <strong>Reserve Multisig</strong>
+                    <span>Gnosis Safe</span>
+                    <p style="font-size: 0.8em; margin-top: 5px;">448M IDIOT</p>
+                </div>
+                <div class="detail-item">
+                    <strong>Community Multisig</strong>
+                    <span>Gnosis Safe</span>
+                    <p style="font-size: 0.8em; margin-top: 5px;">200M IDIOT</p>
+                </div>
+                <div class="detail-item">
+                    <strong>Team Multisig</strong>
+                    <span>Gnosis Safe</span>
+                    <p style="font-size: 0.8em; margin-top: 5px;">100M IDIOT</p>
+                </div>
+                <div class="detail-item">
+                    <strong>Treasury Multisig</strong>
+                    <span>Custom</span>
+                    <p style="font-size: 0.8em; margin-top: 5px;">50.6M IDIOT</p>
+                </div>
+            </div>
+            
+            <div class="transparency-note" style="margin-top: 30px;">
+                <strong>✅ How to Verify</strong>
+                <p>Visit <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" style="color: #10b981;">BaseScan</a> to see real-time token distribution.</p>
+                <p style="margin-top: 10px;">All multisig transactions are publicly visible and can be tracked by anyone.</p>
+            </div>
         </div>
-    </div>
-    
-    <script>
-        // Animate progress bars on load
-        window.addEventListener('load', () => {
-            const progressBars = document.querySelectorAll('.progress-fill');
-            setTimeout(() => {
-                // Calculate actual progress based on current date
-                const launchDate = new Date('2025-10-01');
-                const now = new Date();
-                const daysSinceLaunch = Math.max(0, (now - launchDate) / (1000 * 60 * 60 * 24));
+        
+        <!-- DISTRIBUTION TIMELINE -->
+        <div class="allocation-section">
+            <h2>📅 Distribution Timeline</h2>
+            
+            <div class="timeline">
+                <h4>Planned Distribution Schedule</h4>
+                <p style="opacity: 0.8; margin-bottom: 20px;">Distribution schedule is managed through multisig governance, ensuring flexibility and community accountability.</p>
                 
-                // All allocations start at 0% for now (before launch)
-                progressBars.forEach(bar => {
-                    bar.style.width = '0%';
-                });
-            }, 100);
-        });
-    </script>
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h4>📊 Key Milestones</h4>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px;">
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Oct 2025:</strong> Community distributions begin (weekly)
+                        </li>
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Apr 2026:</strong> Reserve & Treasury distributions begin
+                        </li>
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Oct 2026:</strong> Team distributions begin
+                        </li>
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Oct 2027:</strong> Community distributions complete, LP liquidity available
+                        </li>
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Apr 2028:</strong> Treasury fully distributed
+                        </li>
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Oct 2028:</strong> Reserve fully distributed
+                        </li>
+                        <li style="padding: 10px; margin: 5px 0; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                            <strong>Oct 2029:</strong> Team fully distributed - All allocations complete
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA BUTTONS -->
+        <div style="text-align: center; margin: 50px 0;">
+            <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" class="cta-button" target="_blank">
+                📊 View Live Distribution
+            </a>
+            <a href="/whitepaper.html" class="cta-button">
+                📄 Read Whitepaper
+            </a>
+            <a href="/" class="cta-button">
+                🏠 Back to Home
+            </a>
+        </div>
+        
+        <footer>
+            <p>IDIOT Token - Transparent, Community-Driven, Meme-Powered</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                All token movements are publicly verifiable on Base blockchain.<br>
+                Contract: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1
+            </p>
+            <p style="margin-top: 20px;">
+                <a href="/legal/disclaimer.html" style="color: rgba(255,255,255,0.7); margin: 0 10px;">Disclaimer</a>
+                <a href="/legal/privacy.html" style="color: rgba(255,255,255,0.7); margin: 0 10px;">Privacy</a>
+                <a href="/legal/terms.html" style="color: rgba(255,255,255,0.7); margin: 0 10px;">Terms</a>
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
-
