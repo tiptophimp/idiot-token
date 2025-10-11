@@ -67,7 +67,7 @@ jobs:
     - name: Create deployment package
       run: |
         echo "📦 Creating deployment package..."
-        tar -czf deployment.tar.gz \
+        tar -czf /tmp/deployment.tar.gz \
           --exclude='.git' \
           --exclude='*.log' \
           --exclude='node_modules' \
@@ -77,9 +77,9 @@ jobs:
           --exclude='*.csv' \
           --exclude='*.xlsx' \
           --exclude='audit-log.zip' \
-          --exclude='deployment.tar.gz' \
           .
         
+        mv /tmp/deployment.tar.gz ./deployment.tar.gz
         SIZE=$(du -h deployment.tar.gz | cut -f1)
         echo "✅ Package created: $SIZE"
         
