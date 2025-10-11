@@ -1,0 +1,213 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║                    🚀 IDIOT TOKEN ALLOCATION 🚀                          ║
+║                                                                          ║
+║                    Total Supply: 1,000,000,000 IDIOT                    ║
+║                    Network: Base (Chain ID: 8453)                       ║
+║                    Contract: 0xC29E...98dE1                             ║
+║                    Taxes: 0% / 0% (Zero Forever!)                       ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                          TOKEN DISTRIBUTION                              │
+└──────────────────────────────────────────────────────────────────────────┘
+
+    🏦 RESERVE                                             449,357,000 IDIOT
+    ████████████████████████████████████████████▉             (44.94%)
+    
+    🎁 COMMUNITY                                           250,000,000 IDIOT
+    █████████████████████████                                 (25.00%)
+    
+    💧 DEX LIQUIDITY                                       150,000,000 IDIOT
+    ███████████████                                           (15.00%)
+    
+    👥 TEAM                                                100,000,000 IDIOT
+    ██████████                                                (10.00%)
+    
+    🏛️ TREASURY/OPS                                        50,643,000 IDIOT
+    █████                                                      (5.06%)
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                          VESTING SCHEDULES                               │
+└──────────────────────────────────────────────────────────────────────────┘
+
+🏦 RESERVE (449.36M IDIOT)
+   ├─ Cliff:        6 months (Oct 1, 2025 → Apr 1, 2026)
+   ├─ Vesting:      30 months (Apr 1, 2026 → Oct 1, 2028)
+   ├─ Monthly:      ~14,978,567 IDIOT
+   ├─ Controller:   TR-SAFE (3-of-4 multisig)
+   └─ Purpose:      Long-term treasury, strategic initiatives
+
+🎁 COMMUNITY (250M IDIOT)
+   ├─ Distribution: Weekly emissions
+   ├─ Duration:     104 weeks (Oct 7, 2025 → Oct 6, 2027)
+   ├─ Weekly:       2,403,846 IDIOT
+   ├─ Controller:   OPS-SAFE (2-of-4 multisig)
+   ├─ Breakdown:
+   │   ├─ 70% LP Holder Rewards      (175M IDIOT)
+   │   ├─ 20% Quests & Campaigns     (50M IDIOT)
+   │   ├─  7% Grants & Bounties      (17.5M IDIOT)
+   │   └─  3% Safety Reserve         (7.5M IDIOT)
+   └─ First Distribution: THIS WEEK! (Oct 7, 2025)
+
+💧 DEX LIQUIDITY (150M IDIOT)
+   ├─ Platform:     Uniswap V3 on Base
+   ├─ Pair:         IDIOT/WETH (0.3% fee tier)
+   ├─ Position:     LP NFT #3887185
+   ├─ Lock Period:  24 months (Oct 1, 2025 → Oct 1, 2027)
+   ├─ Controller:   LP-HOT wallet
+   └─ Purpose:      Trading liquidity (prevents rug pulls!)
+
+👥 TEAM (100M IDIOT)
+   ├─ Cliff:        12 months 🔥 (Oct 1, 2025 → Oct 1, 2026)
+   ├─ Vesting:      36 months (Oct 1, 2026 → Oct 1, 2029)
+   ├─ Monthly:      ~2,777,778 IDIOT
+   ├─ Controller:   TR-SAFE (3-of-4 multisig)
+   └─ Purpose:      Team compensation & contributor rewards
+
+🏛️ TREASURY/OPS (50.64M IDIOT)
+   ├─ Cliff:        6 months (Oct 1, 2025 → Apr 1, 2026)
+   ├─ Vesting:      24 months (Apr 1, 2026 → Apr 1, 2028)
+   ├─ Monthly:      ~2,110,125 IDIOT
+   ├─ Controller:   TR-SAFE (3-of-4 multisig)
+   └─ Purpose:      Operations, marketing, development
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                      CIRCULATING SUPPLY TIMELINE                         │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Oct 2025  ████░░░░░░░░░░░░░░░░   152.4M  (15.2%)  ← LAUNCH
+Q1 2026   █████░░░░░░░░░░░░░░░   181.2M  (18.1%)
+Apr 2026  ██████░░░░░░░░░░░░░░   226.7M  (22.7%)  ← Reserve/Treasury cliff ends
+Oct 2026  ██████████░░░░░░░░░░   384.6M  (38.5%)  ← Team cliff ends
+Q1 2027   ████████████░░░░░░░░   474.1M  (47.4%)
+Oct 2027  ██████████████████░░   709.2M  (70.9%)  ← Community emissions end + LP unlock
+Apr 2028  ████████████████████   827.8M  (82.8%)  ← Treasury fully vested
+Oct 2028  ███████████████████░   963.5M  (96.4%)  ← Reserve fully vested
+Oct 2029  ████████████████████   999.6M (100.0%)  ← Team fully vested (COMPLETE!)
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        MULTISIG WALLET DETAILS                           │
+└──────────────────────────────────────────────────────────────────────────┘
+
+🏦 TREASURY SAFE (TR-SAFE)
+   Address:     0x9901b910333A17C8B3b75560BafcE6a893abCD5E
+   Type:        Gnosis Safe
+   Threshold:   3-of-4 signatures required
+   Controls:    Reserve (449M) + Team (100M) + Treasury (50M) = 599M IDIOT
+   
+   Owners:
+   1. 0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e (Ledger Cold 1)
+   2. 0xB4EB7C7040c887d576a2e0Cdf60901A3087f5389 (Ledger Cold 2)
+   3. 0xAC95d0B5603C7212a690bd089BAD472473496374 (LP-HOT)
+   4. 0x721d2adcCf634f4185edE152ee98cA836CF22EA6 (OPS-HOT)
+
+🎁 OPERATIONS SAFE (OPS-SAFE)
+   Address:     0x024BE9B76E993A6414D8680F5A3992d17ED37383
+   Type:        Gnosis Safe
+   Threshold:   2-of-4 signatures required
+   Controls:    Community (250M) IDIOT
+   
+   Owners: (Same as TR-SAFE)
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                      MAJOR UNLOCK EVENTS CALENDAR                        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+📅 Oct 7, 2025    🎁 First Community Emission (2.4M IDIOT/week starts)
+📅 Apr 1, 2026    🏦 Reserve Cliff Ends (14.98M IDIOT/month unlocking)
+📅 Apr 1, 2026    🏛️ Treasury Cliff Ends (2.11M IDIOT/month unlocking)
+📅 Oct 1, 2026    👥 Team Cliff Ends (2.78M IDIOT/month unlocking) 🔥
+📅 Oct 6, 2027    🎁 Community Emissions Complete (250M distributed)
+📅 Oct 1, 2027    💧 LP Lock Expires (150M IDIOT available)
+📅 Apr 1, 2028    🏛️ Treasury Fully Vested (Complete)
+📅 Oct 1, 2028    🏦 Reserve Fully Vested (Complete)
+📅 Oct 1, 2029    👥 Team Fully Vested (100% COMPLETE!) 🎉
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    COMMUNITY DISTRIBUTION SCHEDULE                       │
+└──────────────────────────────────────────────────────────────────────────┘
+
+Weekly Schedule (Starting Oct 7, 2025):
+┌─────────────┬────────────────────┬──────────────────┬────────────────┐
+│ Day         │ Event              │ Time             │ Action         │
+├─────────────┼────────────────────┼──────────────────┼────────────────┤
+│ Tuesday     │ Snapshot Taken     │ 00:00 UTC        │ LP balances    │
+│ Thursday    │ Claims Open        │ 00:00 UTC (48h)  │ Users claim    │
+│ Next Monday │ Claim Window Ends  │ 00:00 UTC (14d)  │ Rollover       │
+└─────────────┴────────────────────┴──────────────────┴────────────────┘
+
+Distribution Rules:
+✅ Weekly amount: 2,403,846 IDIOT
+✅ Claim window: 14 days
+✅ Per-wallet cap: 1,000,000 IDIOT per epoch (anti-sybil)
+✅ Unclaimed tokens: Rolled into next distribution
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        KEY METRICS & LINKS                               │
+└──────────────────────────────────────────────────────────────────────────┘
+
+📊 TOKEN METRICS
+   Total Supply:        1,000,000,000 IDIOT (fixed, no minting)
+   Network:             Base (Chain ID: 8453)
+   Token Type:          ERC-20
+   Decimals:            18
+   Taxes:               0% buy / 0% sell (permanently)
+   Initial Circulating: 152M (15.2%)
+   Year 1 Circulating:  ~385M (38.5%)
+   Full Unlock:         October 2029 (4 years)
+
+🔗 ESSENTIAL LINKS
+   Token Contract:      https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1
+   Treasury Safe:       https://basescan.org/address/0x9901b910333A17C8B3b75560BafcE6a893abCD5E
+   Ops Safe:            https://basescan.org/address/0x024BE9B76E993A6414D8680F5A3992d17ED37383
+   Uniswap Pool:        https://app.uniswap.org/explore/pools/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea
+   LP NFT #3887185:     https://basescan.org/nft/0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1/3887185
+
+🌐 WEBSITE
+   Homepage:            https://stupidiots.com
+   Tokenomics:          https://stupidiots.com/tokenomics-interactive.html
+   Vesting Schedule:    https://stupidiots.com/vesting-schedule.html
+   Airdrop Portal:      https://stupidiots.com/airdrop/
+   Meme Generator:      https://stupidiots.com/meme-generator/
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                              KEY MESSAGES                                │
+└──────────────────────────────────────────────────────────────────────────┘
+
+🎯 TAGLINE
+   "Smart About Dumb Fun — Zero Tax, 100% Community-Driven Meme Token"
+
+✨ KEY DIFFERENTIATORS
+   ✅ Zero Taxes Forever (0% buy / 0% sell)
+   ✅ 25% to Community (250M tokens over 2 years)
+   ✅ All Wallets are Multisigs (transparent & secure)
+   ✅ Team: 12-Month Cliff + 36-Month Vesting (committed!)
+   ✅ LP Locked 24 Months (no rug pulls!)
+   ✅ Base Network (fast & cheap)
+   ✅ Fair Launch (no pre-sale, no team dump)
+
+💬 PHILOSOPHY
+   "IDIOT Token is honest, transparent, flexible, and community-first.
+    We're not promising the moon — we're building something fun together."
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║                     🚀 YOU ARE READY TO LAUNCH! 🚀                       ║
+║                                                                          ║
+║               All Documentation Complete ✅                              ║
+║               Website Production-Ready ✅                                ║
+║               Contracts Deployed & Verified ✅                           ║
+║               Multisigs Configured ✅                                    ║
+║               Vesting Schedules Set ✅                                   ║
+║               Marketing Materials Ready ✅                               ║
+║                                                                          ║
+║                  TIME TO GET PEOPLE TRADING! 💎                          ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+Document Generated: October 11, 2025
+Status: LAUNCH READY
+Next Step: Set up social media → Announce → LAUNCH! 🚀
+
