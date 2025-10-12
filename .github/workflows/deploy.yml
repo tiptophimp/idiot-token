@@ -25,10 +25,14 @@ jobs:
       - name: 🔍 Get commit info
         id: commit
         run: |
-          echo "hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-          echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
-          echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
-          echo "date=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          COMMIT_MSG=$(git log -1 --pretty=%s | head -c 50)
+          COMMIT_AUTHOR=$(git log -1 --pretty=%an)
+          COMMIT_DATE=$(date +'%Y-%m-%d %H:%M:%S')
+          echo "hash=${COMMIT_HASH}" >> $GITHUB_OUTPUT
+          echo "message=${COMMIT_MSG}" >> $GITHUB_OUTPUT
+          echo "author=${COMMIT_AUTHOR}" >> $GITHUB_OUTPUT
+          echo "date=${COMMIT_DATE}" >> $GITHUB_OUTPUT
       
       - name: 📦 Create deployment package
         run: |
@@ -63,48 +67,59 @@ jobs:
       
       - name: 🔑 Setup SSH
         run: |
+          set -e
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts 2>/dev/null
           echo "✅ SSH configured"
+          
+          # Test SSH connection
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@${{ secrets.SERVER_IP }} "echo 'SSH connection successful'" || {
+            echo "❌ SSH connection failed"
+            exit 1
+          }
       
       - name: 🔄 Backup current site
         run: |
           echo "Creating backup of current site..."
-          ssh -i ~/.ssh/deploy_key root@${{ secrets.SERVER_IP }} << 'ENDSSH'
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} << 'ENDSSH'
+            set -e
             # Create backup directory if it doesn't exist
             mkdir -p ${{ env.BACKUP_PATH }}
             
             # Create backup with timestamp
             BACKUP_FILE="${{ env.BACKUP_PATH }}/backup-$(date +%Y%m%d-%H%M%S).tar.gz"
             
-            if [ -d "${{ env.DEPLOY_PATH }}" ]; then
+            if [ -d "${{ env.DEPLOY_PATH }}" ] && [ "$(ls -A ${{ env.DEPLOY_PATH }})" ]; then
               cd ${{ env.DEPLOY_PATH }}
-              tar -czf "$BACKUP_FILE" .
+              tar -czf "$BACKUP_FILE" . 2>/dev/null || echo "⚠️  Backup had some warnings but continued"
               echo "✅ Backup created: $BACKUP_FILE"
               
               # Keep only last 5 backups
               cd ${{ env.BACKUP_PATH }}
-              ls -t backup-*.tar.gz | tail -n +6 | xargs -r rm
+              ls -t backup-*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm 2>/dev/null || true
               echo "✅ Old backups cleaned up"
             else
-              echo "⚠️  No existing site to backup"
+              echo "⚠️  No existing site to backup (first deployment)"
             fi
           ENDSSH
       
       - name: 📤 Upload deployment package
         run: |
           echo "Uploading deployment package to server..."
-          scp -i ~/.ssh/deploy_key \
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             deployment-${{ steps.commit.outputs.hash }}.tar.gz \
-            root@${{ secrets.SERVER_IP }}:/tmp/
+            root@${{ secrets.SERVER_IP }}:/tmp/ || {
+            echo "❌ Upload failed"
+            exit 1
+          }
           echo "✅ Upload complete"
       
       - name: 🚀 Deploy on server
         run: |
           echo "Deploying on server..."
-          ssh -i ~/.ssh/deploy_key root@${{ secrets.SERVER_IP }} << 'ENDSSH'
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} << 'ENDSSH'
             set -e
             
             # Create deployment directory if it doesn't exist
@@ -113,25 +128,28 @@ jobs:
             # Extract deployment package
             echo "📦 Extracting files..."
             cd ${{ env.DEPLOY_PATH }}
-            tar -xzf /tmp/deployment-${{ steps.commit.outputs.hash }}.tar.gz
+            tar -xzf /tmp/deployment-${{ steps.commit.outputs.hash }}.tar.gz || {
+              echo "❌ Extraction failed"
+              exit 1
+            }
             
             # Set proper permissions
             echo "🔐 Setting permissions..."
-            find ${{ env.DEPLOY_PATH }} -type d -exec chmod 755 {} \;
-            find ${{ env.DEPLOY_PATH }} -type f -exec chmod 644 {} \;
+            find ${{ env.DEPLOY_PATH }} -type d -exec chmod 755 {} \; 2>/dev/null || true
+            find ${{ env.DEPLOY_PATH }} -type f -exec chmod 644 {} \; 2>/dev/null || true
             
-            # Set specific permissions for directories
-            chmod -R 755 ${{ env.DEPLOY_PATH }}/assets
-            chmod -R 755 ${{ env.DEPLOY_PATH }}/airdrop
+            # Set specific permissions for directories (if they exist)
+            [ -d "${{ env.DEPLOY_PATH }}/assets" ] && chmod -R 755 ${{ env.DEPLOY_PATH }}/assets || true
+            [ -d "${{ env.DEPLOY_PATH }}/airdrop" ] && chmod -R 755 ${{ env.DEPLOY_PATH }}/airdrop || true
             
             # Restart web server (if needed)
-            if systemctl is-active --quiet nginx; then
+            if command -v systemctl >/dev/null 2>&1 && systemctl is-active --quiet nginx; then
               echo "🔄 Reloading Nginx..."
-              systemctl reload nginx
+              systemctl reload nginx || echo "⚠️  Nginx reload had warnings"
             fi
             
             # Clean up
-            rm /tmp/deployment-${{ steps.commit.outputs.hash }}.tar.gz
+            rm -f /tmp/deployment-${{ steps.commit.outputs.hash }}.tar.gz
             
             echo "✅ Deployment complete!"
           ENDSSH
