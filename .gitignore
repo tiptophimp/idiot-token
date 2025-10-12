@@ -20,6 +20,12 @@ secure/
 .github/github-actions-deploy-key
 !.github/github-actions-deploy-key.pub
 
+# Discord Bot Data
+idiot_points.db
+idiot_points.db-journal
+*.db
+*.db-journal
+
 # Wallet & Safe Files
 *safe*.json
 *wallet*

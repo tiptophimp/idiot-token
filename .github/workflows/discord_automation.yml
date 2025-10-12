@@ -1,0 +1,41 @@
+name: Discord Automation
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    - cron: '15 0 * * 0' # Every Sunday 00:15 UTC
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  automate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run reward tracker
+        run: python scripts/idiot_rewards.py
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GUILD_ID: ${{ secrets.GUILD_ID }}
+
+      - name: Run payout automation
+        if: github.event_name == 'schedule'
+        run: python scripts/idiot_payouts.py
+        env:
+          BASE_RPC: ${{ secrets.BASE_RPC }}
+          PAYOUT_PRIVATE_KEY: ${{ secrets.PAYOUT_PRIVATE_KEY }}
+          TOKEN_ADDRESS: ${{ secrets.TOKEN_ADDRESS }}
+          POINTS_PER_TOKEN: "2.5"
+          MIN_PAYOUT: "5"
+
