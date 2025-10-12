@@ -42,8 +42,7 @@ def db():
     c.execute("""
     CREATE TABLE IF NOT EXISTS wallets (
         user_id TEXT PRIMARY KEY,
-        wallet TEXT,
-        updated_at INTEGER
+        wallet TEXT
     )
     """)
     return c
@@ -77,7 +76,7 @@ def top(scope, n=10):
 ### ---------- WALLET MANAGEMENT ---------- ###
 def set_wallet(user_id, wallet):
     c = db()
-    c.execute("INSERT INTO wallets(user_id, wallet, updated_at) VALUES(?,?,?) ON CONFLICT(user_id) DO UPDATE SET wallet=excluded.wallet, updated_at=excluded.updated_at", (user_id, wallet, int(time.time())))
+    c.execute("INSERT INTO wallets(user_id, wallet) VALUES(?,?) ON CONFLICT(user_id) DO UPDATE SET wallet=excluded.wallet", (user_id, wallet))
     c.commit()
     c.close()
 
@@ -117,8 +116,6 @@ async def on_message(msg):
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if user.bot:
-        return
     if reaction.count == 5:
         add_points(str(reaction.message.author.id), 10, "popular_post")
 
@@ -152,38 +149,16 @@ async def wallet(interaction: discord.Interaction, action: app_commands.Choice[s
     uid = str(interaction.user.id)
     if action.value == "set":
         if not address or not address.startswith("0x") or len(address) != 42:
-            await interaction.response.send_message("❌ Invalid wallet address. Must start with 0x and be 42 chars long.", ephemeral=True)
+            await interaction.response.send_message("❌ Invalid wallet address. Must start with 0x and be 42 chars long.")
             return
         set_wallet(uid, address)
-        await interaction.response.send_message(f"✅ Wallet address saved: `{address}`", ephemeral=True)
+        await interaction.response.send_message(f"✅ Wallet address saved: `{address}`")
     elif action.value == "view":
         wallet = get_wallet(uid)
         if wallet:
-            await interaction.response.send_message(f"💼 Your registered wallet: `{wallet}`", ephemeral=True)
+            await interaction.response.send_message(f"💼 Your registered wallet: `{wallet}`")
         else:
-            await interaction.response.send_message("❌ No wallet found. Use `/wallet set <address>` to register.", ephemeral=True)
-
-
-@bot.tree.command(name="points", description="Check your current point balance.")
-async def points(interaction: discord.Interaction):
-    uid = str(interaction.user.id)
-    c = db()
-    cur = c.execute("SELECT total, weekly, monthly, yearly FROM points WHERE user_id=?", (uid,))
-    row = cur.fetchone()
-    c.close()
-    
-    if row:
-        total, weekly, monthly, yearly = row
-        await interaction.response.send_message(
-            f"📊 **Your Points**\n"
-            f"• Weekly: {weekly}\n"
-            f"• Monthly: {monthly}\n"
-            f"• Yearly: {yearly}\n"
-            f"• All-Time: {total}",
-            ephemeral=True
-        )
-    else:
-        await interaction.response.send_message("You don't have any points yet. Start participating!", ephemeral=True)
+            await interaction.response.send_message("❌ No wallet found. Use `/wallet set <address>` to register.")
 
 
 ### ---------- AUTOMATED RESETS ---------- ###
@@ -194,7 +169,6 @@ async def weekly_reset():
         c.execute("UPDATE points SET weekly=0")
         c.commit()
         c.close()
-        print("🔄 Weekly points reset completed")
 
 
 @tasks.loop(hours=24)
@@ -204,7 +178,6 @@ async def monthly_reset():
         c.execute("UPDATE points SET monthly=0")
         c.commit()
         c.close()
-        print("🔄 Monthly points reset completed")
 
 
 @tasks.loop(hours=24)
@@ -214,7 +187,6 @@ async def yearly_reset():
         c.execute("UPDATE points SET yearly=0")
         c.commit()
         c.close()
-        print("🔄 Yearly points reset completed")
 
 
 bot.run(TOKEN)

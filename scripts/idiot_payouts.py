@@ -15,7 +15,7 @@ POINTS_PER_TOKEN = Decimal(os.getenv("POINTS_PER_TOKEN", "2.5"))
 MIN_PAYOUT = Decimal(os.getenv("MIN_PAYOUT", "5"))
 GAS_LIMIT = int(os.getenv("GAS_LIMIT", "120000"))
 DB_PATH = "idiot_points.db"
-LOG_FILE = "payout_transactions.csv"
+LOG_FILE = "payout_history.csv"
 
 ERC20_ABI = [
     {
@@ -49,39 +49,23 @@ def fetch_snapshot():
 
 
 def reset_after_payout():
-    """Reset weekly/monthly counters after successful payout."""
+    """Optional: clear points after payout (keep running totals)."""
     c = sqlite3.connect(DB_PATH)
     c.execute("UPDATE points SET weekly = 0")
     c.execute("UPDATE points SET monthly = 0")
     c.commit()
     c.close()
-    print("🔄 Points counters reset")
 
 
-### ---------- CSV LOGGING ---------- ###
-def init_csv_log():
-    """Initialize CSV log file with headers if it doesn't exist."""
-    try:
-        with open(LOG_FILE, 'x', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(['timestamp', 'discord_id', 'wallet_address', 'tokens_sent', 'points_used', 'tx_hash', 'status'])
-    except FileExistsError:
-        pass  # File already exists
-
-
-def log_transaction(discord_id, wallet, tokens, points, tx_hash, status='success'):
-    """Append transaction to CSV log."""
+### ---------- TRANSACTION LOGGING ---------- ###
+def log_transaction(user_id, wallet, tokens, tx_hash):
+    """Log payout to CSV for audit trail."""
+    file_exists = os.path.isfile(LOG_FILE)
     with open(LOG_FILE, 'a', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow([
-            datetime.now().isoformat(),
-            discord_id,
-            wallet,
-            str(tokens),
-            points,
-            tx_hash,
-            status
-        ])
+        if not file_exists:
+            writer.writerow(['Timestamp', 'User ID', 'Wallet', 'Tokens', 'TX Hash'])
+        writer.writerow([datetime.now().isoformat(), user_id, wallet, str(tokens), tx_hash])
 
 
 ### ---------- PAYOUT ENGINE ---------- ###
@@ -91,33 +75,19 @@ def main():
         return
         
     print("🔄 Starting IDIOT token payouts...")
-    print(f"📊 Conversion rate: {POINTS_PER_TOKEN} points per token")
-    print(f"💰 Minimum payout: {MIN_PAYOUT} tokens\n")
-    
-    init_csv_log()
     rows = fetch_snapshot()
     nonce = w3.eth.get_transaction_count(acct.address)
     sent = 0
-    skipped = 0
-    failed = 0
 
     for uid, total_pts, wallet in rows:
-        # Validate wallet
         if not wallet or not wallet.startswith("0x") or len(wallet) != 42:
-            print(f"⚠️  Skipping {uid}: no valid wallet registered")
-            log_transaction(uid, wallet or "N/A", 0, total_pts, "N/A", "no_wallet")
-            skipped += 1
+            print(f"⚠️  Skipping {uid}: no valid wallet registered.")
             continue
 
-        # Calculate tokens
         tokens = (Decimal(total_pts) / POINTS_PER_TOKEN).quantize(Decimal("1.000000"))
         if tokens < MIN_PAYOUT:
-            print(f"⚠️  Skipping {uid}: {tokens} tokens < minimum {MIN_PAYOUT}")
-            log_transaction(uid, wallet, tokens, total_pts, "N/A", "below_minimum")
-            skipped += 1
             continue
 
-        # Execute transaction
         try:
             tx = token.functions.transfer(
                 Web3.to_checksum_address(wallet), 
@@ -128,7 +98,7 @@ def main():
                 "gas": GAS_LIMIT,
                 "maxFeePerGas": w3.to_wei("0.2", "gwei"),
                 "maxPriorityFeePerGas": w3.to_wei("0.05", "gwei"),
-                "chainId": 8453,  # Base network
+                "chainId": 8453,  # Base network chain ID
             })
 
             signed = acct.sign_transaction(tx)
@@ -136,26 +106,14 @@ def main():
             tx_hash = txh.hex()
             
             print(f"✅ Sent {tokens} IDIOT → {wallet} | TX: {tx_hash}")
-            log_transaction(uid, wallet, tokens, total_pts, tx_hash, "success")
+            log_transaction(uid, wallet, tokens, tx_hash)
             
             nonce += 1
             sent += 1
-            
         except Exception as e:
             print(f"❌ Failed to send to {wallet}: {e}")
-            log_transaction(uid, wallet, tokens, total_pts, "N/A", f"error: {str(e)[:50]}")
-            failed += 1
 
-    # Summary
-    print(f"\n{'='*60}")
-    print(f"📊 PAYOUT SUMMARY")
-    print(f"{'='*60}")
-    print(f"✅ Successful: {sent}")
-    print(f"⚠️  Skipped: {skipped}")
-    print(f"❌ Failed: {failed}")
-    print(f"📁 Log saved to: {LOG_FILE}")
-    print(f"{'='*60}\n")
-    
+    print(f"🎯 Completed {sent} total payouts.")
     if sent > 0:
         reset_after_payout()
 
@@ -164,6 +122,4 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print(f"❌ Critical error during payout: {e}")
-        import traceback
-        traceback.print_exc()
+        print("❌ Error during payout:", e)

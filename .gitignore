@@ -25,6 +25,7 @@ idiot_points.db
 idiot_points.db-journal
 *.db
 *.db-journal
+payout_history.csv
 payout_transactions.csv
 discord.log
 
