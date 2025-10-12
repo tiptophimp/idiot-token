@@ -15,6 +15,11 @@
 *secret*
 secure/
 
+# GitHub Actions Deploy Keys (NEVER COMMIT)
+.github/*-deploy-key
+.github/github-actions-deploy-key
+!.github/github-actions-deploy-key.pub
+
 # Wallet & Safe Files
 *safe*.json
 *wallet*
