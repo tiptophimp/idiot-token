@@ -25,6 +25,8 @@ idiot_points.db
 idiot_points.db-journal
 *.db
 *.db-journal
+payout_transactions.csv
+discord.log
 
 # Wallet & Safe Files
 *safe*.json

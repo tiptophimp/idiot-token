@@ -2,14 +2,15 @@ import os
 import sqlite3
 import time
 import discord
+from discord import app_commands
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 GUILD_ID = int(os.getenv("GUILD_ID", "0"))
-
 DB = "idiot_points.db"
+
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -17,6 +18,7 @@ intents.guilds = True
 intents.reactions = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+### ---------- DATABASE SETUP ---------- ###
 def db():
     c = sqlite3.connect(DB)
     c.execute("""
@@ -37,8 +39,17 @@ def db():
         ts INTEGER
     )
     """)
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS wallets (
+        user_id TEXT PRIMARY KEY,
+        wallet TEXT,
+        updated_at INTEGER
+    )
+    """)
     return c
 
+
+### ---------- POINT MANAGEMENT ---------- ###
 def add_points(uid, pts, kind):
     c = db()
     c.execute("INSERT INTO actions(user_id, kind, pts, ts) VALUES(?,?,?,?)", (uid, kind, pts, int(time.time())))
@@ -54,6 +65,7 @@ def add_points(uid, pts, kind):
     c.commit()
     c.close()
 
+
 def top(scope, n=10):
     c = db()
     cur = c.execute(f"SELECT user_id, {scope} FROM points ORDER BY {scope} DESC LIMIT ?", (n,))
@@ -61,12 +73,36 @@ def top(scope, n=10):
     c.close()
     return rows
 
+
+### ---------- WALLET MANAGEMENT ---------- ###
+def set_wallet(user_id, wallet):
+    c = db()
+    c.execute("INSERT INTO wallets(user_id, wallet, updated_at) VALUES(?,?,?) ON CONFLICT(user_id) DO UPDATE SET wallet=excluded.wallet, updated_at=excluded.updated_at", (user_id, wallet, int(time.time())))
+    c.commit()
+    c.close()
+
+def get_wallet(user_id):
+    c = db()
+    cur = c.execute("SELECT wallet FROM wallets WHERE user_id=?", (user_id,))
+    row = cur.fetchone()
+    c.close()
+    return row[0] if row else None
+
+
+### ---------- EVENTS ---------- ###
 @bot.event
 async def on_ready():
-    print(f"Connected as {bot.user}")
+    print(f"✅ Connected as {bot.user}")
+    try:
+        synced = await bot.tree.sync(guild=discord.Object(id=GUILD_ID))
+        print(f"Synced {len(synced)} slash commands.")
+    except Exception as e:
+        print("Sync error:", e)
+
     weekly_reset.start()
     monthly_reset.start()
     yearly_reset.start()
+
 
 @bot.event
 async def on_message(msg):
@@ -78,24 +114,79 @@ async def on_message(msg):
         add_points(str(msg.author.id), 2, "message_activity")
     await bot.process_commands(msg)
 
+
 @bot.event
 async def on_reaction_add(reaction, user):
+    if user.bot:
+        return
     if reaction.count == 5:
         add_points(str(reaction.message.author.id), 10, "popular_post")
 
-@bot.command()
-async def leaderboard(ctx, scope="weekly"):
-    if scope not in ("weekly", "monthly", "yearly", "total"):
-        await ctx.reply("Use: !leaderboard weekly|monthly|yearly|total")
-        return
-    rows = top(scope)
+
+### ---------- COMMANDS ---------- ###
+@bot.tree.command(name="leaderboard", description="Show leaderboard for weekly, monthly, yearly, or total points.")
+@app_commands.describe(scope="Choose ranking scope")
+@app_commands.choices(scope=[
+    app_commands.Choice(name="weekly", value="weekly"),
+    app_commands.Choice(name="monthly", value="monthly"),
+    app_commands.Choice(name="yearly", value="yearly"),
+    app_commands.Choice(name="total", value="total"),
+])
+async def leaderboard(interaction: discord.Interaction, scope: app_commands.Choice[str]):
+    rows = top(scope.value)
     lines = []
     for i, (uid, pts) in enumerate(rows, 1):
-        member = ctx.guild.get_member(int(uid))
+        member = interaction.guild.get_member(int(uid))
         name = member.display_name if member else uid
         lines.append(f"{i}. {name} — {pts}")
-    await ctx.reply(f"🏆 **{scope.title()} Leaderboard**\n" + "\n".join(lines))
+    await interaction.response.send_message(f"🏆 **{scope.value.title()} Leaderboard**\n" + "\n".join(lines))
 
+
+@bot.tree.command(name="wallet", description="Set or check your wallet address.")
+@app_commands.describe(action="Choose set or view", address="Your wallet address (if setting)")
+@app_commands.choices(action=[
+    app_commands.Choice(name="set", value="set"),
+    app_commands.Choice(name="view", value="view"),
+])
+async def wallet(interaction: discord.Interaction, action: app_commands.Choice[str], address: str = None):
+    uid = str(interaction.user.id)
+    if action.value == "set":
+        if not address or not address.startswith("0x") or len(address) != 42:
+            await interaction.response.send_message("❌ Invalid wallet address. Must start with 0x and be 42 chars long.", ephemeral=True)
+            return
+        set_wallet(uid, address)
+        await interaction.response.send_message(f"✅ Wallet address saved: `{address}`", ephemeral=True)
+    elif action.value == "view":
+        wallet = get_wallet(uid)
+        if wallet:
+            await interaction.response.send_message(f"💼 Your registered wallet: `{wallet}`", ephemeral=True)
+        else:
+            await interaction.response.send_message("❌ No wallet found. Use `/wallet set <address>` to register.", ephemeral=True)
+
+
+@bot.tree.command(name="points", description="Check your current point balance.")
+async def points(interaction: discord.Interaction):
+    uid = str(interaction.user.id)
+    c = db()
+    cur = c.execute("SELECT total, weekly, monthly, yearly FROM points WHERE user_id=?", (uid,))
+    row = cur.fetchone()
+    c.close()
+    
+    if row:
+        total, weekly, monthly, yearly = row
+        await interaction.response.send_message(
+            f"📊 **Your Points**\n"
+            f"• Weekly: {weekly}\n"
+            f"• Monthly: {monthly}\n"
+            f"• Yearly: {yearly}\n"
+            f"• All-Time: {total}",
+            ephemeral=True
+        )
+    else:
+        await interaction.response.send_message("You don't have any points yet. Start participating!", ephemeral=True)
+
+
+### ---------- AUTOMATED RESETS ---------- ###
 @tasks.loop(hours=24)
 async def weekly_reset():
     if time.gmtime().tm_wday == 6:  # Sunday
@@ -103,6 +194,8 @@ async def weekly_reset():
         c.execute("UPDATE points SET weekly=0")
         c.commit()
         c.close()
+        print("🔄 Weekly points reset completed")
+
 
 @tasks.loop(hours=24)
 async def monthly_reset():
@@ -111,6 +204,8 @@ async def monthly_reset():
         c.execute("UPDATE points SET monthly=0")
         c.commit()
         c.close()
+        print("🔄 Monthly points reset completed")
+
 
 @tasks.loop(hours=24)
 async def yearly_reset():
@@ -119,6 +214,7 @@ async def yearly_reset():
         c.execute("UPDATE points SET yearly=0")
         c.commit()
         c.close()
+        print("🔄 Yearly points reset completed")
+
 
 bot.run(TOKEN)
-
