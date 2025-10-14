@@ -23,7 +23,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Validate rewards secrets
+        id: rewards
+        run: |
+          if [ -n "${{ secrets.DISCORD_BOT_TOKEN }}" ] && [ -n "${{ secrets.GUILD_ID }}" ]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          else
+            echo "run=false" >> $GITHUB_OUTPUT
+            echo "Skipping rewards: missing DISCORD_BOT_TOKEN or GUILD_ID"
+          fi
+
       - name: Run reward tracker
+        if: steps.rewards.outputs.run == 'true'
         run: python scripts/idiot_rewards.py
         env:
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
