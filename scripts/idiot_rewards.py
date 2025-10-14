@@ -1,4 +1,5 @@
 import os
+import sys
 import sqlite3
 import time
 import discord
@@ -8,7 +9,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-GUILD_ID = int(os.getenv("GUILD_ID", "0"))
+_guild_env = os.getenv("GUILD_ID", "").strip()
+try:
+    GUILD_ID = int(_guild_env) if _guild_env else 0
+except ValueError:
+    print("Invalid GUILD_ID; expected integer. Skipping run.")
+    sys.exit(0)
+
+if not TOKEN or not GUILD_ID:
+    print("Missing DISCORD_BOT_TOKEN or GUILD_ID; skipping automation run.")
+    sys.exit(0)
 DB = "idiot_points.db"
 
 intents = discord.Intents.default()

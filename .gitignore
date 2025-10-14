@@ -122,4 +122,12 @@ deployment/
 
 # Keep documentation and templates
 !IDIOT_Complete_Tokenomics_Reference.csv
-!IDIOT_Funding_Plan.csv
+!IDIOT_Funding_Plan.csvexcramitor-deploy-key
+excramitor-deploy-key.pub
+excramitor-new/
+stupidiots-website-clean/
+*.msix
+*.zip
+*.tar.gz
+secure/
+.env
