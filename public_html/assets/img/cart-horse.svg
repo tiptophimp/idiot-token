@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#b3ff00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Horse -->
+  <path d="M8 40 L14 40 L18 48 M14 40 L18 34 L24 34 L28 40 L34 40"/>
+  <circle cx="20" cy="28" r="4"/>
+  <path d="M18 30 L14 26 M22 26 L26 24"/>
+  <path d="M24 34 L26 46 M20 34 L18 46"/>
+  <path d="M14 26 C10 28, 10 34, 12 36"/>
+
+  <!-- Tow bar from cart to horse -->
+  <path d="M34 40 L42 36" />
+
+  <!-- Cart body -->
+  <path d="M42 36 L58 36 L60 40 L40 40 Z"/>
+
+  <!-- Wheels -->
+  <circle cx="46" cy="44" r="6"/>
+  <circle cx="56" cy="44" r="6"/>
+  <path d="M46 38 L46 50 M40 44 L52 44"/>
+  <path d="M56 38 L56 50 M50 44 L62 44"/>
+</svg>
