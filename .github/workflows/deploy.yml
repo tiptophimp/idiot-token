@@ -1,3 +1,48 @@
+name: Deploy to Droplet
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SSH_USER: ${{ secrets.SSH_USER }}        # e.g. root or deploy
+      SSH_HOST: ${{ secrets.SSH_HOST }}        # e.g. 68.183.149.106
+      REMOTE_DIR: ${{ secrets.REMOTE_DIR }}    # e.g. /var/www/stupidiots.com/public_html
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install rsync and ssh-client
+        run: sudo apt-get update && sudo apt-get install -y rsync openssh-client
+
+      - name: Start ssh-agent and add private key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Validate inputs
+        run: |
+          test -n "$SSH_USER" && test -n "$SSH_HOST" && test -n "$REMOTE_DIR"
+          test -d public_html
+
+      - name: Rsync public_html to server
+        run: |
+          rsync -az --delete public_html/ "$SSH_USER@$SSH_HOST:$REMOTE_DIR/"
+
+      - name: Reload Nginx (requires sudo or root)
+        run: |
+          ssh "$SSH_USER@$SSH_HOST" 'nginx -t || sudo nginx -t'
+          ssh "$SSH_USER@$SSH_HOST" 'systemctl reload nginx || sudo systemctl reload nginx'
+
 name: 🚀 Deploy to stupidiots.com
 
 on:
