@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Stupidiots — Staging Deploy (manual)
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Deploy to Droplet
+name: Stupidiots — Production Deploy (manual)
 
 on:
   workflow_dispatch:

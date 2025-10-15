@@ -1,4 +1,4 @@
-name: Auto Rerun Failed Workflows
+name: Stupidiots — Auto Rerun Failed Workflows
 
 on:
   workflow_run:

@@ -1,4 +1,4 @@
-name: Cancel Stuck Workflow Runs
+name: Stupidiots — Cancel Stuck Workflow Runs
 
 on:
   schedule:

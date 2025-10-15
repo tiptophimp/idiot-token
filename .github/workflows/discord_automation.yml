@@ -1,4 +1,4 @@
-name: Discord Automation
+name: Stupidiots — Discord Automation (manual)
 
 on:
   workflow_dispatch:  # Manual only
