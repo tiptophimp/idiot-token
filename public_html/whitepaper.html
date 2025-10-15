@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitepaper - IDIOT Token</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <meta name="description" content="IDIOT Token Whitepaper - Complete technical documentation, tokenomics, and roadmap">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            line-height: 1.8;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .version {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .nav-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .nav-links a, .download-btn {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+        }
+        
+        .nav-links a:hover, .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            color: #1C1C1C;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .content h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .content h2:first-child {
+            margin-top: 0;
+        }
+        
+        .content h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .content h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+        }
+        
+        .content ul, .content ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        .content li {
+            margin-bottom: 8px;
+        }
+        
+        .key-facts {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .key-facts strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .distribution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .distribution-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid;
+        }
+        
+        .distribution-card.treasury { border-color: #3b82f6; }
+        .distribution-card.community { border-color: #10b981; }
+        .distribution-card.liquidity { border-color: #f59e0b; }
+        
+        .distribution-card h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .distribution-card .amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        
+        .check-list {
+            list-style: none;
+            margin-left: 0 !important;
+        }
+        
+        .check-list li:before {
+            content: "✅ ";
+            margin-right: 10px;
+        }
+        
+        .x-list {
+            list-style: none;
+            margin-left: 0 !important;
+        }
+        
+        .x-list li:before {
+            content: "❌ ";
+            margin-right: 10px;
+        }
+        
+        .roadmap {
+            margin: 20px 0;
+        }
+        
+        .roadmap-phase {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .roadmap-phase h4 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        .roadmap-phase ul {
+            margin-left: 20px;
+        }
+        
+        .risk-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        
+        .risk-box h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+        
+        .disclaimer {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            color: #721c24;
+        }
+        
+        .disclaimer strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .contract-address {
+            background: #1C1C1C;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 15px 0;
+            font-size: 0.95em;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-box .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .stat-box .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        .toc ul {
+            margin-left: 20px;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+            display: inline-block;
+            max-width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .content { padding: 25px 15px; }
+            .content h2 { font-size: 1.5em; }
+            .distribution-grid { grid-template-columns: 1fr; }
+            .contract-address { 
+                font-size: 0.75em; 
+                padding: 10px;
+            }
+            code {
+                font-size: 0.75em;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 IDIOT Token Whitepaper</h1>
+            <p class="version">Version 2.0 (Realistic) | October 2025</p>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/tokenomics-interactive.html">Tokenomics</a>
+                <a href="/vesting-schedule.html">Vesting</a>
+                <a href="/airdrop/">Airdrop</a>
+                <button class="download-btn" onclick="window.print()">📥 Download PDF</button>
+            </div>
+        </header>
+        
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#executive-summary">Executive Summary</a></li>
+                    <li><a href="#token-distribution">Token Distribution</a></li>
+                    <li><a href="#what-we-dont-have">What We DON'T Have</a></li>
+                    <li><a href="#governance">Governance Model</a></li>
+                    <li><a href="#community">Community Distribution Plan</a></li>
+                    <li><a href="#liquidity">Liquidity Strategy</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#risks">Risk Factors</a></li>
+                    <li><a href="#philosophy">Philosophy</a></li>
+                    <li><a href="#contact">Contact & Resources</a></li>
+                </ul>
+            </div>
+            
+            <!-- Executive Summary -->
+            <h2 id="executive-summary">Executive Summary</h2>
+            <p>IDIOT Token is a community-first meme token on Base Mainnet featuring honest tokenomics, zero taxes, and transparent governance. We're smart about dumb fun - prioritizing genuine community engagement over complex promises.</p>
+            
+            <div class="key-facts">
+                <strong>Key Facts:</strong>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Total Supply:</strong> 1,000,000,000 IDIOT (fixed, no minting)</li>
+                    <li><strong>Taxes:</strong> 0% buy / 0% sell (permanent)</li>
+                    <li><strong>Network:</strong> Base Mainnet (Chain ID: 8453)</li>
+                    <li><strong>Governance:</strong> Multisig wallets (3-of-4 Treasury, 2-of-4 Ops)</li>
+                </ul>
+            </div>
+            
+            <p><strong>Contract Address:</strong></p>
+            <div class="contract-address">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</div>
+            
+            <!-- Token Distribution -->
+            <h2 id="token-distribution">Token Distribution</h2>
+            
+            <div class="distribution-grid">
+                <div class="distribution-card treasury">
+                    <h4>🏦 Project Treasury</h4>
+                    <div class="amount">650M IDIOT</div>
+                    <p><strong>65% of Supply</strong></p>
+                    <p>Multisig: 3-of-4 threshold</p>
+                    <p>Purpose: Liquidity, development, operations</p>
+                </div>
+                
+                <div class="distribution-card community">
+                    <h4>🎁 Community Fund</h4>
+                    <div class="amount">250M IDIOT</div>
+                    <p><strong>25% of Supply</strong></p>
+                    <p>Multisig: 2-of-4 threshold</p>
+                    <p>Purpose: Airdrops, rewards, incentives</p>
+                </div>
+                
+                <div class="distribution-card liquidity">
+                    <h4>💧 Active Liquidity</h4>
+                    <div class="amount">100M IDIOT</div>
+                    <p><strong>10% of Supply</strong></p>
+                    <p>Platform: Uniswap V3 on Base</p>
+                    <p>Strategy: Gradual growth to 150M</p>
+                </div>
+            </div>
+            
+            <h3>1. Project Treasury (65% - 650M IDIOT)</h3>
+            <ul>
+                <li><strong>Address:</strong> <code>0x9901b910333A17C8B3b75560BafcE6a893abCD5E</code></li>
+                <li><strong>Control:</strong> 3-of-4 multisig</li>
+                <li><strong>Purpose:</strong> Liquidity provision, development funding, operational expenses</li>
+                <li><strong>Transparency:</strong> All movements verifiable on BaseScan</li>
+            </ul>
+            
+            <h3>2. Community Fund (25% - 250M IDIOT)</h3>
+            <ul>
+                <li><strong>Address:</strong> <code>0x024BE9B76E993A6414D8680F5A3992d17ED37383</code></li>
+                <li><strong>Control:</strong> 2-of-4 multisig</li>
+                <li><strong>Purpose:</strong> Airdrops, rewards, community incentives</li>
+                <li><strong>Distribution:</strong> Weekly campaigns over 104 weeks (target)</li>
+            </ul>
+            
+            <h3>3. Active Liquidity (10% - 100M IDIOT)</h3>
+            <ul>
+                <li><strong>Platform:</strong> Uniswap V3 on Base</li>
+                <li><strong>Pair:</strong> IDIOT/WETH (0.3% fee tier)</li>
+                <li><strong>Strategy:</strong> Gradual additions from 10M → 150M over 12 months</li>
+                <li><strong>Management:</strong> Flexible based on trading volume</li>
+            </ul>
+            
+            <!-- What We Don't Have -->
+            <h2 id="what-we-dont-have">What We DON'T Have (And Why That's OK)</h2>
+            
+            <h3>No Automated Vesting Contracts</h3>
+            <ul>
+                <li>Tokens controlled by multisig, not complex vesting contracts</li>
+                <li>Allows flexibility to respond to community needs</li>
+                <li>More transparent than opaque vesting schemes</li>
+                <li>Simpler = fewer points of failure</li>
+            </ul>
+            
+            <h3>No Locked Liquidity</h3>
+            <ul>
+                <li>Liquidity managed actively, not locked</li>
+                <li>Can adjust pool parameters as needed</li>
+                <li>Can rebalance based on market conditions</li>
+                <li>All movements visible on-chain</li>
+            </ul>
+            
+            <h3>No Team Allocation</h3>
+            <ul>
+                <li>No separate team vesting schedule</li>
+                <li>Team compensated through transparent treasury</li>
+                <li>Aligned incentives with project success</li>
+                <li>No hidden pre-allocated tokens</li>
+            </ul>
+            
+            <!-- Governance -->
+            <h2 id="governance">Governance Model</h2>
+            
+            <h3>Treasury Safe (TR-SAFE)</h3>
+            <ul>
+                <li><strong>Threshold:</strong> 3-of-4 signatures required</li>
+                <li><strong>Purpose:</strong> Major treasury decisions</li>
+                <li><strong>Transparency:</strong> Signers verified on Gnosis Safe interface</li>
+            </ul>
+            
+            <h3>Operations Safe (OPS-SAFE)</h3>
+            <ul>
+                <li><strong>Threshold:</strong> 2-of-4 signatures required</li>
+                <li><strong>Purpose:</strong> Day-to-day operations</li>
+                <li><strong>Flexibility:</strong> Faster decision-making for routine tasks</li>
+            </ul>
+            
+            <h3>Transparency Mechanisms</h3>
+            <ul class="check-list">
+                <li>All multisig addresses public</li>
+                <li>All transactions on-chain</li>
+                <li>Monthly transparency reports</li>
+                <li>Community input on major decisions</li>
+            </ul>
+            
+            <!-- Community Distribution -->
+            <h2 id="community">Community Distribution Plan</h2>
+            
+            <h3>Idiocracy Airdrop (250M IDIOT)</h3>
+            
+            <p><strong>Distribution Breakdown:</strong></p>
+            <ul>
+                <li><strong>70% (175M):</strong> Liquidity Provider Rewards</li>
+                <li><strong>20% (50M):</strong> Community Engagement</li>
+                <li><strong>7% (17.5M):</strong> Quests & Campaigns</li>
+                <li><strong>3% (7.5M):</strong> Safety Reserve</li>
+            </ul>
+            
+            <p><strong>Timeline:</strong> 104 weeks (2 years target)</p>
+            
+            <p><strong>Anti-Sybil Protection:</strong></p>
+            <ul>
+                <li>1M IDIOT cap per wallet per epoch</li>
+                <li>Bot detection active</li>
+                <li>Quality engagement over quantity</li>
+                <li>14-day claim windows</li>
+            </ul>
+            
+            <!-- Liquidity Strategy -->
+            <h2 id="liquidity">Liquidity Strategy</h2>
+            
+            <h3>Phase 1: Foundation (Current)</h3>
+            <ul>
+                <li><strong>Initial:</strong> 10M IDIOT in Uniswap V3</li>
+                <li><strong>Price Discovery:</strong> Allow organic growth</li>
+                <li><strong>Fee Tier:</strong> 0.3% standard</li>
+            </ul>
+            
+            <h3>Phase 2: Growth (Q1-Q2 2026)</h3>
+            <ul>
+                <li><strong>Target:</strong> 50M IDIOT in liquidity</li>
+                <li><strong>Based on:</strong> Trading volume metrics</li>
+                <li><strong>Approach:</strong> Gradual additions, not dumps</li>
+            </ul>
+            
+            <h3>Phase 3: Maturity (Q3-Q4 2026)</h3>
+            <ul>
+                <li><strong>Target:</strong> 150M IDIOT in liquidity</li>
+                <li><strong>Sustainability:</strong> Established trading patterns</li>
+                <li><strong>Flexibility:</strong> Adjust based on market needs</li>
+            </ul>
+            
+            <!-- Technology -->
+            <h2 id="technology">Technology</h2>
+            
+            <h3>Smart Contract</h3>
+            <ul>
+                <li><strong>Type:</strong> Standard ERC-20</li>
+                <li><strong>Verification:</strong> Verified on BaseScan</li>
+                <li><strong>Audit:</strong> Self-audited (meme token standard)</li>
+                <li><strong>Features:</strong> No taxes, no blacklist, no pause function</li>
+            </ul>
+            
+            <h3>Network</h3>
+            <ul>
+                <li><strong>Blockchain:</strong> Base (Ethereum L2)</li>
+                <li><strong>Benefits:</strong> Low fees, fast transactions, Ethereum security</li>
+                <li><strong>Ecosystem:</strong> Growing DeFi and NFT community</li>
+            </ul>
+            
+            <!-- Roadmap -->
+            <h2 id="roadmap">Roadmap</h2>
+            
+            <div class="roadmap">
+                <div class="roadmap-phase">
+                    <h4>Q4 2025 - Foundation ✅</h4>
+                    <ul class="check-list">
+                        <li>Token deployed</li>
+                        <li>Initial liquidity added</li>
+                        <li>Website launched</li>
+                        <li>Community channels established</li>
+                    </ul>
+                    <ul>
+                        <li>First airdrop campaign (in progress)</li>
+                    </ul>
+                </div>
+                
+                <div class="roadmap-phase">
+                    <h4>Q1-Q2 2026 - Growth</h4>
+                    <ul>
+                        <li>Expand liquidity to 50M tokens</li>
+                        <li>Regular community distributions</li>
+                        <li>Partnership announcements</li>
+                        <li>Marketing campaigns</li>
+                        <li>CEX listings exploration</li>
+                    </ul>
+                </div>
+                
+                <div class="roadmap-phase">
+                    <h4>Q3-Q4 2026 - Maturity</h4>
+                    <ul>
+                        <li>Target: 150M tokens in liquidity</li>
+                        <li>Established community base</li>
+                        <li>Regular transparency reports</li>
+                        <li>Potential governance mechanisms</li>
+                        <li>Long-term sustainability</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Risk Factors -->
+            <h2 id="risks">Risk Factors</h2>
+            
+            <div class="risk-box">
+                <h4>⚠️ Centralization Risk</h4>
+                <p><strong>Reality:</strong> Multisig control = centralized decision-making</p>
+                <p><strong>Mitigation:</strong> Multiple signers, transparent operations, community input</p>
+                <p><strong>Future:</strong> Potential DAO governance if community demands</p>
+            </div>
+            
+            <div class="risk-box">
+                <h4>⚠️ Liquidity Risk</h4>
+                <p><strong>Reality:</strong> Not locked = can be withdrawn</p>
+                <p><strong>Mitigation:</strong> Multisig requirements, public commitment, reputation stake</p>
+                <p><strong>Monitoring:</strong> Community tracks all movements</p>
+            </div>
+            
+            <div class="risk-box">
+                <h4>⚠️ Market Risk</h4>
+                <p><strong>Reality:</strong> Meme token = high volatility</p>
+                <p><strong>Acceptance:</strong> We're honest about what we are</p>
+                <p><strong>Approach:</strong> Focus on community, not price</p>
+            </div>
+            
+            <!-- Philosophy -->
+            <h2 id="philosophy">Philosophy</h2>
+            
+            <h3>What IDIOT Token IS:</h3>
+            <ul class="check-list">
+                <li>Honest about tokenomics</li>
+                <li>Transparent about structure</li>
+                <li>Flexible to adapt</li>
+                <li>Community-focused</li>
+            </ul>
+            
+            <h3>What IDIOT Token is NOT:</h3>
+            <ul class="x-list">
+                <li>Pretending to be a serious DeFi protocol</li>
+                <li>Promising guaranteed returns</li>
+                <li>Claiming infrastructure we don't have</li>
+                <li>Overcomplicating for no reason</li>
+            </ul>
+            
+            <p style="font-size: 1.2em; font-weight: bold; text-align: center; margin: 30px 0; color: #667eea;">
+                We're smart about dumb fun. That means being honest, transparent, and building what the community actually wants.
+            </p>
+            
+            <!-- Contact -->
+            <h2 id="contact">Contact & Resources</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="label">Website</div>
+                    <div class="value"><a href="https://stupidiots.com" target="_blank" style="color: #667eea;">stupidiots.com</a></div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">Contract</div>
+                    <div class="value"><a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="color: #667eea;">BaseScan</a></div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">Trade</div>
+                    <div class="value"><a href="https://app.uniswap.org" target="_blank" style="color: #667eea;">Uniswap</a></div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">GitHub</div>
+                    <div class="value"><a href="https://github.com/tiptophimp/idiot-token" target="_blank" style="color: #667eea;">Source Code</a></div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; margin-top: 30px;">
+                <strong>Social Media:</strong><br>
+                Twitter: @idiottoken | Telegram: t.me/idiottoken | Discord: discord.gg/idiottoken
+            </p>
+            
+            <!-- Legal Disclaimer -->
+            <div class="disclaimer">
+                <strong>⚠️ Legal Disclaimer</strong>
+                <p>IDIOT Token is a utility/meme token with no intrinsic value. It is not an investment contract or security. No promises of profit are made. Participation is entirely at your own risk. This document is for informational purposes only and does not constitute financial, investment, or legal advice.</p>
+                <p><strong>Do your own research. Only invest what you can afford to lose.</strong></p>
+            </div>
+            
+            <p style="text-align: center; opacity: 0.7; margin-top: 30px;">
+                Last Updated: October 11, 2025 | Version: 2.0 (Realistic)
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+name: Auto Rerun Failed Workflows
+
+on:
+  workflow_run:
+    workflows: [ "Deploy to Droplet", "Deploy to Staging", "Discord Automation" ]
+    types: [ completed ]
+
+jobs:
+  rerun:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Rerun failed workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run_id = context.payload.workflow_run.id;
+            await github.rest.actions.reRunWorkflow({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id
+            });
+

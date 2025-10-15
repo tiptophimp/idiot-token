@@ -1,217 +1,65 @@
-name: 🚀 Deploy to stupidiots.com
+name: Deploy to Droplet
 
 on:
-  push:
-    branches:
-      - main
-      - master
-  workflow_dispatch:  # Allow manual trigger from GitHub UI
-
-env:
-  DEPLOY_PATH: /var/www/html
-  BACKUP_PATH: /var/www/backups
+  workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deploy to Digital Ocean
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 20
+    concurrency:
+      group: deploy-prod
+      cancel-in-progress: true
+    env:
+      SSH_USER: ${{ secrets.SSH_USER }}        # e.g. root or deploy
+      SSH_HOST: ${{ secrets.SSH_HOST }}        # e.g. 68.183.149.106
+      REMOTE_DIR: ${{ secrets.REMOTE_DIR }}    # e.g. /var/www/stupidiots.com/public_html
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      
-      - name: 🔍 Get commit info
-        id: commit
-        run: |
-          COMMIT_HASH=$(git rev-parse --short HEAD)
-          COMMIT_MSG=$(git log -1 --pretty=%s | head -c 50)
-          COMMIT_AUTHOR=$(git log -1 --pretty=%an)
-          COMMIT_DATE=$(date +'%Y-%m-%d %H:%M:%S')
-          echo "hash=${COMMIT_HASH}" >> $GITHUB_OUTPUT
-          echo "message=${COMMIT_MSG}" >> $GITHUB_OUTPUT
-          echo "author=${COMMIT_AUTHOR}" >> $GITHUB_OUTPUT
-          echo "date=${COMMIT_DATE}" >> $GITHUB_OUTPUT
-      
-      - name: 📦 Create deployment package
-        run: |
-          echo "Creating deployment package..."
-          
-          # Create deployment directory
-          mkdir -p deploy
-          
-          # Copy all necessary files (exclude unnecessary items)
-          rsync -av \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='node_modules' \
-            --exclude='*.log' \
-            --exclude='*.tmp' \
-            --exclude='secure/' \
-            --exclude='*.tar.gz' \
-            --exclude='*.zip' \
-            --exclude='python-manager-25.0.msix' \
-            --exclude='idiot_rebuild.py' \
-            --exclude='stupidiots-website-clean/' \
-            --exclude='DEPLOYMENT_FIX_GUIDE.md' \
-            ./ deploy/
-          
-          # Create tarball
-          cd deploy
-          tar -czf ../deployment-${{ steps.commit.outputs.hash }}.tar.gz .
-          cd ..
-          
-          echo "✅ Deployment package created: deployment-${{ steps.commit.outputs.hash }}.tar.gz"
-          ls -lh deployment-${{ steps.commit.outputs.hash }}.tar.gz
-      
-      - name: 🔑 Setup SSH
-        run: |
-          set -e
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts 2>/dev/null
-          echo "✅ SSH configured"
-          
-          # Test SSH connection
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@${{ secrets.SERVER_IP }} "echo 'SSH connection successful'" || {
-            echo "❌ SSH connection failed"
-            exit 1
-          }
-      
-      - name: 🔄 Backup current site
-        run: |
-          echo "Creating backup of current site..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            set -e
-            # Create backup directory if it doesn't exist
-            mkdir -p ${{ env.BACKUP_PATH }}
-            
-            # Create backup with timestamp
-            BACKUP_FILE="${{ env.BACKUP_PATH }}/backup-$(date +%Y%m%d-%H%M%S).tar.gz"
-            
-            if [ -d "${{ env.DEPLOY_PATH }}" ] && [ "$(ls -A ${{ env.DEPLOY_PATH }})" ]; then
-              cd ${{ env.DEPLOY_PATH }}
-              tar -czf "$BACKUP_FILE" . 2>/dev/null || echo "⚠️  Backup had some warnings but continued"
-              echo "✅ Backup created: $BACKUP_FILE"
-              
-              # Keep only last 5 backups
-              cd ${{ env.BACKUP_PATH }}
-              ls -t backup-*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm 2>/dev/null || true
-              echo "✅ Old backups cleaned up"
-            else
-              echo "⚠️  No existing site to backup (first deployment)"
-            fi
-          ENDSSH
-      
-      - name: 📤 Upload deployment package
-        run: |
-          echo "Uploading deployment package to server..."
-          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
-            deployment-${{ steps.commit.outputs.hash }}.tar.gz \
-            root@${{ secrets.SERVER_IP }}:/tmp/ || {
-            echo "❌ Upload failed"
-            exit 1
-          }
-          echo "✅ Upload complete"
-      
-      - name: 🚀 Deploy on server
-        run: |
-          echo "Deploying on server..."
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} << 'ENDSSH'
-            set -e
-            
-            # Create deployment directory if it doesn't exist
-            mkdir -p ${{ env.DEPLOY_PATH }}
-            
-            # Extract deployment package
-            echo "📦 Extracting files..."
-            cd ${{ env.DEPLOY_PATH }}
-            tar -xzf /tmp/deployment-${{ steps.commit.outputs.hash }}.tar.gz || {
-              echo "❌ Extraction failed"
-              exit 1
-            }
-            
-            # Set proper permissions
-            echo "🔐 Setting permissions..."
-            find ${{ env.DEPLOY_PATH }} -type d -exec chmod 755 {} \; 2>/dev/null || true
-            find ${{ env.DEPLOY_PATH }} -type f -exec chmod 644 {} \; 2>/dev/null || true
-            
-            # Set specific permissions for directories (if they exist)
-            [ -d "${{ env.DEPLOY_PATH }}/assets" ] && chmod -R 755 ${{ env.DEPLOY_PATH }}/assets || true
-            [ -d "${{ env.DEPLOY_PATH }}/airdrop" ] && chmod -R 755 ${{ env.DEPLOY_PATH }}/airdrop || true
-            
-            # Restart web server (if needed)
-            if command -v systemctl >/dev/null 2>&1 && systemctl is-active --quiet nginx; then
-              echo "🔄 Reloading Nginx..."
-              systemctl reload nginx || echo "⚠️  Nginx reload had warnings"
-            fi
-            
-            # Clean up
-            rm -f /tmp/deployment-${{ steps.commit.outputs.hash }}.tar.gz
-            
-            echo "✅ Deployment complete!"
-          ENDSSH
-      
-      - name: 🏥 Health check
-        run: |
-          echo "Running health checks..."
-          
-          # Wait a moment for server to settle
-          sleep 5
-          
-          # Check if main page loads
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://${{ secrets.SERVER_IP }})
-          
-          if [ "$HTTP_CODE" == "200" ]; then
-            echo "✅ Health check passed! Site is responding (HTTP $HTTP_CODE)"
-          else
-            echo "⚠️  Warning: Site returned HTTP $HTTP_CODE"
-            exit 1
-          fi
-          
-          # Check if critical files exist
-          echo "Checking critical resources..."
-          curl -f http://${{ secrets.SERVER_IP }}/assets/img/logo.png > /dev/null 2>&1 && echo "✅ Logo found" || echo "⚠️  Logo missing"
-          curl -f http://${{ secrets.SERVER_IP }}/airdrop/ > /dev/null 2>&1 && echo "✅ Airdrop page found" || echo "⚠️  Airdrop page missing"
-      
-      - name: 📊 Deployment summary
-        if: always()
-        run: |
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🎉 DEPLOYMENT SUMMARY"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "📝 Commit: ${{ steps.commit.outputs.hash }}"
-          echo "💬 Message: ${{ steps.commit.outputs.message }}"
-          echo "👤 Author: ${{ steps.commit.outputs.author }}"
-          echo "📅 Date: ${{ steps.commit.outputs.date }}"
-          echo "🌐 Website: https://stupidiots.com"
-          echo "🔗 IP: http://${{ secrets.SERVER_IP }}"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      
-      - name: 🧹 Cleanup
-        if: always()
-        run: |
-          rm -rf deploy/
-          rm -f deployment-*.tar.gz
-          rm -f ~/.ssh/deploy_key
 
-  notify:
-    name: Send notification
-    needs: deploy
-    runs-on: ubuntu-latest
-    if: always()
-    
-    steps:
-      - name: 📢 Deployment notification
+      - name: Install rsync and ssh-client
+        run: sudo apt-get update && sudo apt-get install -y rsync openssh-client
+
+      - name: Start ssh-agent and add private key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add host to known_hosts
         run: |
-          if [ "${{ needs.deploy.result }}" == "success" ]; then
-            echo "✅ Deployment succeeded!"
-            echo "🌐 stupidiots.com has been updated"
-          else
-            echo "❌ Deployment failed!"
-            echo "Check the logs above for details"
-            exit 1
-          fi
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Test SSH connectivity (fail fast)
+        run: |
+          ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'echo OK_PROD'
+
+      - name: Validate inputs
+        run: |
+          test -n "$SSH_USER" && test -n "$SSH_HOST" && test -n "$REMOTE_DIR"
+          test -d public_html
+
+      - name: Rsync public_html to server (fast-fail)
+        run: |
+          rsync -az --delete -e "ssh -o BatchMode=yes -o ConnectTimeout=30" public_html/ "$SSH_USER@$SSH_HOST:$REMOTE_DIR/"
+
+      - name: Create timestamped backup (remote)
+        run: |
+          ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" '
+            set -e
+            BK=/var/www/html.backup.$(date +%Y%m%d_%H%M%S)
+            [ -d /var/www/html ] && sudo cp -r /var/www/html "$BK" || true
+          '
+
+      - name: Reload Nginx (requires sudo or root)
+        run: |
+          ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'nginx -t || sudo nginx -t'
+          ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'systemctl reload nginx || sudo systemctl reload nginx'
+
+      - name: Health checks
+        run: |
+          curl -sI https://stupidiots.com/ | tee /dev/stderr | grep -q "200 OK"
+          curl -sI https://stupidiots.com/assets/img/logo.png | tee /dev/stderr | grep -q "200 OK"
+          curl -sI https://stupidiots.com/airdrop/idiocracy-1.json | tee /dev/stderr | grep -q "200 OK"
 
