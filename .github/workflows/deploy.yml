@@ -1,11 +1,6 @@
 name: Deploy to Droplet
 
 on:
-  push:
-    branches: [ main, master ]
-    paths:
-      - 'public_html/**'
-      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 jobs:

@@ -1,11 +1,7 @@
 name: Discord Automation
 
 on:
-  push:
-    branches: [ main, master, staging ]
-  schedule:
-    - cron: '15 0 * * 0' # Every Sunday 00:15 UTC
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:  # Manual only
 
 jobs:
   automate:
