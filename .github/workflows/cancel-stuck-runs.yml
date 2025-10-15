@@ -2,7 +2,7 @@ name: Cancel Stuck Workflow Runs
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # every 10 minutes
+    - cron: '*/1 * * * *' # every minute
   workflow_dispatch:
 
 jobs:
@@ -11,12 +11,16 @@ jobs:
     permissions:
       actions: write
       contents: read
+    timeout-minutes: 10
+    concurrency:
+      group: cancel-stuck-runs
+      cancel-in-progress: true
     steps:
       - name: Cancel in-progress runs older than 30 minutes
         uses: actions/github-script@v7
         with:
           script: |
-            const cutoffMinutes = 30;
+            const cutoffMinutes = 5;
             const { owner, repo } = context.repo;
             const now = new Date();
             const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
