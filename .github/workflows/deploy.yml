@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    concurrency:
+      group: deploy-prod
+      cancel-in-progress: true
     env:
       SSH_USER: ${{ secrets.SSH_USER }}        # e.g. root or deploy
       SSH_HOST: ${{ secrets.SSH_HOST }}        # e.g. 68.183.149.106

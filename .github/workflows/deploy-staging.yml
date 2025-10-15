@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    concurrency:
+      group: deploy-staging
+      cancel-in-progress: true
     env:
       SSH_USER: ${{ secrets.SSH_USER }}
       SSH_HOST: ${{ secrets.SSH_HOST }}

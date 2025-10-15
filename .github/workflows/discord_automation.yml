@@ -1,8 +1,6 @@
 name: Discord Automation
 
 on:
-  push:
-    branches: [ main, master ]
   schedule:
     - cron: '15 0 * * 0' # Every Sunday 00:15 UTC
   workflow_dispatch:  # Allow manual trigger
@@ -10,6 +8,10 @@ on:
 jobs:
   automate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: discord-automation
+      cancel-in-progress: true
 
     steps:
       - name: Checkout repo
