@@ -1,6 +1,8 @@
 name: Discord Automation
 
 on:
+  push:
+    branches: [ main, master, staging ]
   schedule:
     - cron: '15 0 * * 0' # Every Sunday 00:15 UTC
   workflow_dispatch:  # Allow manual trigger
@@ -35,7 +37,7 @@ jobs:
             echo "Skipping rewards: missing DISCORD_BOT_TOKEN or GUILD_ID"
           fi
 
-      - name: Run reward tracker
+      - name: Run reward tracker (guarded)
         if: steps.rewards.outputs.run == 'true'
         run: python scripts/idiot_rewards.py
         env:
