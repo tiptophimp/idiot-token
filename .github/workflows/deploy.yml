@@ -46,8 +46,22 @@ jobs:
         run: |
           rsync -az --delete -e "ssh -o BatchMode=yes -o ConnectTimeout=30" public_html/ "$SSH_USER@$SSH_HOST:$REMOTE_DIR/"
 
+      - name: Create timestamped backup (remote)
+        run: |
+          ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" '
+            set -e
+            BK=/var/www/html.backup.$(date +%Y%m%d_%H%M%S)
+            [ -d /var/www/html ] && sudo cp -r /var/www/html "$BK" || true
+          '
+
       - name: Reload Nginx (requires sudo or root)
         run: |
           ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'nginx -t || sudo nginx -t'
           ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'systemctl reload nginx || sudo systemctl reload nginx'
+
+      - name: Health checks
+        run: |
+          curl -sI https://stupidiots.com/ | tee /dev/stderr | grep -q "200 OK"
+          curl -sI https://stupidiots.com/assets/img/logo.png | tee /dev/stderr | grep -q "200 OK"
+          curl -sI https://stupidiots.com/airdrop/idiocracy-1.json | tee /dev/stderr | grep -q "200 OK"
 

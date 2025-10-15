@@ -50,3 +50,7 @@ jobs:
         run: |
           ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'nginx -t || sudo nginx -t'
           ssh -o BatchMode=yes -o ConnectTimeout=15 "$SSH_USER@$SSH_HOST" 'systemctl reload nginx || sudo systemctl reload nginx'
+
+      - name: Health checks (staging)
+        run: |
+          curl -sI https://stupidiots.com/staging/ | tee /dev/stderr | grep -q "200 OK"
