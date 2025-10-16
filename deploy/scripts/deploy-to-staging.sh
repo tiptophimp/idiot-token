@@ -80,8 +80,29 @@ fi
 # Create directory if it doesn't exist
 sudo mkdir -p "$REMOTE_DIR"
 
-# Clear old files
-sudo rm -rf "$REMOTE_DIR"/*
+# Clear old files (SAFE VERSION)
+if [ -d "$REMOTE_DIR" ]; then
+    echo "Clearing old files in $REMOTE_DIR..."
+    # Validate path contains expected content before clearing
+    if [ -f "$REMOTE_DIR/index.html" ] || [ -d "$REMOTE_DIR/assets" ]; then
+        echo "Found website files, proceeding with safe cleanup..."
+        # Only remove files, not the directory itself
+        sudo find "$REMOTE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+    else
+        echo "WARNING: Directory doesn't contain expected website files, skipping cleanup"
+        echo "Contents: $(ls -la "$REMOTE_DIR")"
+        read -p "Continue anyway? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            sudo find "$REMOTE_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+        else
+            echo "Aborted for safety"
+            exit 1
+        fi
+    fi
+else
+    echo "Directory $REMOTE_DIR does not exist, skipping cleanup"
+fi
 
 # Extract new files
 sudo tar -xzf "/tmp/$ARCHIVE" -C "$REMOTE_DIR"
