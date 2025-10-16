@@ -276,27 +276,33 @@
                 
                 <div class="stats-grid">
                     <div class="stat-box" onclick="highlightSegment(0)">
-                        <div class="stat-label">Project Treasury</div>
-                        <div class="stat-value">65%</div>
-                        <div class="stat-tokens">650M IDIOT</div>
+                        <div class="stat-label">Cold Treasury</div>
+                        <div class="stat-value">47%</div>
+                        <div class="stat-tokens">470M IDIOT</div>
                     </div>
                     
                     <div class="stat-box" onclick="highlightSegment(1)">
-                        <div class="stat-label">Community Fund</div>
+                        <div class="stat-label">Community & Airdrops</div>
                         <div class="stat-value">25%</div>
                         <div class="stat-tokens">250M IDIOT</div>
                     </div>
                     
                     <div class="stat-box" onclick="highlightSegment(2)">
-                        <div class="stat-label">Active Liquidity</div>
+                        <div class="stat-label">Liquidity Pool</div>
+                        <div class="stat-value">15%</div>
+                        <div class="stat-tokens">150M IDIOT</div>
+                    </div>
+                    
+                    <div class="stat-box" onclick="highlightSegment(3)">
+                        <div class="stat-label">Team Vesting</div>
                         <div class="stat-value">10%</div>
                         <div class="stat-tokens">100M IDIOT</div>
                     </div>
                     
-                    <div class="stat-box" onclick="highlightSegment(3)">
-                        <div class="stat-label">Total Supply</div>
-                        <div class="stat-value">100%</div>
-                        <div class="stat-tokens">1B IDIOT</div>
+                    <div class="stat-box" onclick="highlightSegment(4)">
+                        <div class="stat-label">Operations / Treasury</div>
+                        <div class="stat-value">3%</div>
+                        <div class="stat-tokens">30M IDIOT</div>
                     </div>
                 </div>
             </div>
@@ -306,29 +312,47 @@
                 <h2>📈 Allocation Details</h2>
                 
                 <div class="allocation-item">
-                    <h3>💰 Project Treasury (65%)</h3>
-                    <p><strong>650,000,000 IDIOT</strong></p>
-                    <p style="margin-top: 0.5rem; color: #666;">Multisig 3-of-4 control for liquidity, development, and operations</p>
+                    <h3>🏦 Cold Treasury (47%)</h3>
+                    <p><strong>470,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Ledger-controlled cold storage (multisig governance)</p>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 65%">65%</div>
+                        <div class="progress-fill" style="width: 47%">47%</div>
                     </div>
                 </div>
                 
                 <div class="allocation-item">
-                    <h3>🎁 Community Fund (25%)</h3>
+                    <h3>🎁 Community & Airdrops (25%)</h3>
                     <p><strong>250,000,000 IDIOT</strong></p>
-                    <p style="margin-top: 0.5rem; color: #666;">Multisig 2-of-4 for airdrops, rewards, and community incentives</p>
+                    <p style="margin-top: 0.5rem; color: #666;">Airdrops, rewards, and community incentives</p>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 25%">25%</div>
                     </div>
                 </div>
                 
                 <div class="allocation-item">
-                    <h3>💧 Active Liquidity (10%)</h3>
-                    <p><strong>~100,000,000 IDIOT</strong></p>
-                    <p style="margin-top: 0.5rem; color: #666;">Uniswap V3 pool, growing to 150M over 12 months</p>
+                    <h3>💧 Liquidity Pool (15%)</h3>
+                    <p><strong>150,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Uniswap V3 (IDIOT/WETH) liquidity management</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%">15%</div>
+                    </div>
+                </div>
+                
+                <div class="allocation-item">
+                    <h3>👨‍💻 Team Vesting (10%)</h3>
+                    <p><strong>100,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Team and contributors over time</p>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 10%">10%</div>
+                    </div>
+                </div>
+                
+                <div class="allocation-item">
+                    <h3>💼 Operations / Treasury (3%)</h3>
+                    <p><strong>30,000,000 IDIOT</strong></p>
+                    <p style="margin-top: 0.5rem; color: #666;">Operations and treasury management</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 3%">3%</div>
                     </div>
                 </div>
             </div>
@@ -407,18 +431,28 @@
         
         function initChart() {
             const data = {
-                labels: ['Project Treasury (65%)', 'Community Fund (25%)', 'Active Liquidity (10%)'],
+                labels: [
+                    'Cold Treasury (47%)',
+                    'Community & Airdrops (25%)',
+                    'Liquidity Pool (15%)',
+                    'Team Vesting (10%)',
+                    'Operations / Treasury (3%)'
+                ],
                 datasets: [{
-                    data: [650000000, 250000000, 100000000],
+                    data: [470000000, 250000000, 150000000, 100000000, 30000000],
                     backgroundColor: [
                         'rgba(102, 126, 234, 0.8)',
                         'rgba(118, 75, 162, 0.8)',
-                        'rgba(79, 172, 254, 0.8)'
+                        'rgba(79, 172, 254, 0.8)',
+                        'rgba(46, 204, 113, 0.8)',
+                        'rgba(241, 196, 15, 0.8)'
                     ],
                     borderColor: [
                         'rgba(102, 126, 234, 1)',
                         'rgba(118, 75, 162, 1)',
-                        'rgba(79, 172, 254, 1)'
+                        'rgba(79, 172, 254, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(241, 196, 15, 1)'
                     ],
                     borderWidth: 3
                 }]
@@ -472,8 +506,9 @@
             });
             
             // Highlight selected box
-            if (index < 3) {
-                document.querySelectorAll('.stat-box')[index].classList.add('active');
+            const boxes = document.querySelectorAll('.stat-box');
+            if (boxes[index]) {
+                boxes[index].classList.add('active');
             }
             
             // Update chart to highlight segment
