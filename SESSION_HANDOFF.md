@@ -14,7 +14,23 @@
 **Website:** stupidiots.com  
 **Contract Address:** 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1  
 **Network:** Base Mainnet (Chain ID: 8453)  
-**Server IP:** 68.183.149.106  
+**Server IP:** 68.183.149.106
+
+---
+
+## 💻 SYSTEM INFORMATION
+
+**Operating System:** Windows 10 (Build 26100)  
+**Shell:** Git Bash / PowerShell  
+**User:** Ernest  
+**Project Path:** `C:\idiot-project\`
+
+### ⚠️ CRITICAL: Command Syntax
+- **DO NOT use:** `bash`, `chmod`, `ls -la`, `rm`, `cp`, `cat`, etc.
+- **USE INSTEAD:** PowerShell commands or Git Bash when available
+- **For scripts:** Use `.ps1` (PowerShell) or `.bat` files, NOT `.sh` files
+- **For file operations:** Use PowerShell cmdlets or Git commands
+- **Path separator:** Backslash `\` (Windows) or forward slash `/` (works in most contexts)  
 
 ---
 

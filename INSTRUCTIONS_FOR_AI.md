@@ -14,15 +14,25 @@ This file contains:
 - What's in progress
 - What's blocking
 - What was completed last session
+- **Operating System and command syntax to use**
 - All critical context needed
 
-### 2. Summarize the Current State
+### 2. Check the System Information Section
+**CRITICAL:** Read the "SYSTEM INFORMATION" section to know:
+- What OS this is (Windows/Mac/Linux)
+- What commands work and what DON'T
+- Correct path separators
+- Available shells
+
+**This prevents using wrong commands (like `bash` on Windows without Git Bash).**
+
+### 3. Summarize the Current State
 Tell the user:
 - What we're currently working on
 - What the blockers are
 - What the next steps should be
 
-**DO NOT skip this step. Without it, you'll waste time asking questions that are already answered.**
+**DO NOT skip this step. Without it, you'll waste time asking questions that are already answered or using wrong commands.**
 
 ---
 

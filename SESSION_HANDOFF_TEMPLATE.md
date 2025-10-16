@@ -18,6 +18,25 @@
 
 ---
 
+## 💻 SYSTEM INFORMATION
+
+**Operating System:** [Windows / macOS / Linux]  
+**Shell:** [PowerShell / Bash / Zsh / etc.]  
+**User:** [Username]  
+**Project Path:** [Full path to project]
+
+### ⚠️ CRITICAL: Command Syntax
+- **Document OS-specific commands here**
+- **List what WORKS and what DOESN'T**
+- **Include correct syntax for this system**
+
+**Example for Windows:**
+- **DO NOT use:** `bash`, `chmod`, `ls -la`, `rm`, `cp`, etc.
+- **USE INSTEAD:** PowerShell commands or .bat files
+- **Path separator:** Backslash `\` or forward slash `/`
+
+---
+
 ## 🎯 CURRENT STATUS (UPDATE EVERY SESSION)
 
 ### What We're Working On RIGHT NOW
