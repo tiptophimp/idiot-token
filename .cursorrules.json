@@ -1,10 +1,10 @@
 {
   "version": 1,
   "project": "IDIOT Token",
-  "branch": "staging",
+  "branch": "main",
   "rules": [
     {
-      "path": "data/tokenomics.json",
+      "path": "public_html/data/tokenomics.json",
       "description": "Keep verified tokenomics aligned with BaseScan and audit data.",
       "sync": {
         "enabled": true,
@@ -30,7 +30,7 @@
       "commit": {
         "enabled": true,
         "message": "auto: sync verified tokenomics and audit data from BaseScan",
-        "branch": "staging",
+        "branch": "main",
         "push": true
       }
     }
