@@ -1,6 +1,8 @@
-name: Stupidiots — Staging Deploy (manual)
+name: Stupidiots — Staging Deploy
 
 on:
+  push:
+    branches: [staging]
   workflow_dispatch:
 
 jobs:
