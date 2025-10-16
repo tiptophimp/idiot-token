@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "project": "IDIOT Token",
+  "branch": "staging",
+  "rules": [
+    {
+      "path": "data/tokenomics.json",
+      "description": "Keep verified tokenomics aligned with BaseScan and audit data.",
+      "sync": {
+        "enabled": true,
+        "interval": "12h",
+        "source": "https://api.basescan.org/api?module=token&action=tokeninfo&contractaddress=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+        "fields": {
+          "totalSupply": "supply.total",
+          "decimals": "supply.decimals",
+          "contractAddress": "network.contract",
+          "name": "brand",
+          "symbol": "symbol"
+        }
+      },
+      "validate": {
+        "schema": true,
+        "immutable": [
+          "network.contract",
+          "symbol",
+          "supply.total",
+          "governance.safe.address"
+        ]
+      },
+      "commit": {
+        "enabled": true,
+        "message": "auto: sync verified tokenomics and audit data from BaseScan",
+        "branch": "staging",
+        "push": true
+      }
+    }
+  ],
+  "notifications": {
+    "onSync": true,
+    "channel": "local",
+    "alertText": "IDIOT tokenomics synced successfully with BaseScan data."
+  }
+}
+
