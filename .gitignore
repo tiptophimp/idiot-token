@@ -1,0 +1,65 @@
+# IDIOT Token Project - Git Ignore
+
+# Sensitive files
+deploy/ssh-keys/*
+*.pem
+*.key
+*.env
+.env.*
+secrets/
+
+# Backup files (too large for git)
+website/backups/*.tar.gz
+*.backup
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temp files
+tmp/
+temp/
+*.tmp
+
+# Node modules (if we add any JS tooling later)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Keep these directories but ignore contents
+website/backups/*
+!website/backups/.gitkeep
+
+# Local config overrides
+local.config
+*.local
+
+# SSH keys and credentials
+id_rsa*
+*.ppk
+known_hosts
+
