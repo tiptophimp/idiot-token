@@ -13,8 +13,8 @@ jobs:
       group: deploy-staging
       cancel-in-progress: true
     env:
-      SSH_USER: ${{ secrets.SSH_USER }}
-      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SERVER_USER }}
+      SSH_HOST: ${{ secrets.SERVER_IP }}
       REMOTE_DIR: /var/www/staging
     steps:
       - name: Checkout
@@ -26,7 +26,7 @@ jobs:
       - name: Start ssh-agent and add private key
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.IDIOT_SSH_PRIVATE_KEY }}
 
       - name: Add host to known_hosts
         run: |
