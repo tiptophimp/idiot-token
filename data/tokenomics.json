@@ -1,4 +1,4 @@
-{
+{ 
   "brand": "IDIOT",
   "symbol": "IDIOT",
   "network": {
@@ -56,4 +56,3 @@
     "integrityHash": "sha256-placeholder"
   }
 }
-

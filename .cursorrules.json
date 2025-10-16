@@ -1,22 +1,44 @@
-{
-  "version": 1,
-  "project": "IDIOT Token",
+{ 
+  "version": 1, 
+  "project": "IDIOT Token", 
   "branch": "staging",
   "rules": [
-    {
+    { 
       "path": "data/tokenomics.json",
-      "description": "Keep verified tokenomics aligned with BaseScan and audit data.",
+      "description": "Sync token, liquidity, holders",
       "sync": {
         "enabled": true,
         "interval": "12h",
-        "source": "https://api.basescan.org/api?module=token&action=tokeninfo&contractaddress=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
-        "fields": {
-          "totalSupply": "supply.total",
-          "decimals": "supply.decimals",
-          "contractAddress": "network.contract",
-          "name": "brand",
-          "symbol": "symbol"
-        }
+        "sources": [
+          {
+            "name": "BaseScan Token Info",
+            "url": "https://api.basescan.org/api?module=token&action=tokeninfo&contractaddress=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+            "fields": {
+              "totalSupply": "supply.total",
+              "decimals": "supply.decimals",
+              "contractAddress": "network.contract",
+              "name": "brand",
+              "symbol": "symbol"
+            }
+          },
+          {
+            "name": "DexScreener Metrics",
+            "url": "https://api.dexscreener.com/latest/dex/tokens/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+            "fields": {
+              "liquidity.usd": "metrics.liquidityUSD",
+              "volume.h24": "metrics.volume24hUSD",
+              "pairAddress": "metrics.primaryPair",
+              "priceUsd": "metrics.priceUSD"
+            }
+          },
+          {
+            "name": "BaseScan Holder Count",
+            "url": "https://api.basescan.org/api?module=token&action=tokenholdercount&contractaddress=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+            "fields": {
+              "result": "metrics.holderCount"
+            }
+          }
+        ]
       },
       "validate": {
         "schema": true,
@@ -29,16 +51,10 @@
       },
       "commit": {
         "enabled": true,
-        "message": "auto: sync verified tokenomics and audit data from BaseScan",
+        "message": "auto: sync tokenomics + liquidity + holder data",
         "branch": "staging",
         "push": true
       }
     }
-  ],
-  "notifications": {
-    "onSync": true,
-    "channel": "local",
-    "alertText": "IDIOT tokenomics synced successfully with BaseScan data."
-  }
+  ]
 }
-
