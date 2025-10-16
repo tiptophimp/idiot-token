@@ -26,7 +26,7 @@ jobs:
       - name: Start ssh-agent and add private key
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.IDIOT_SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Add host to known_hosts
         run: |
