@@ -10,11 +10,33 @@ This is the unified development repository for the IDIOT Token ecosystem, includ
 
 ---
 
+## ⚠️ CRITICAL: START EVERY SESSION HERE
+
+### 🚨 **READ THIS FILE FIRST: [`SESSION_HANDOFF.md`](SESSION_HANDOFF.md)**
+
+**Before doing ANYTHING:**
+1. Open and read `SESSION_HANDOFF.md`
+2. It contains the complete current state
+3. All context you need to continue
+
+**At the end of every session:**
+1. Update `SESSION_HANDOFF.md`
+2. Commit the changes
+3. Never skip this step
+
+See [`_START_HERE.md`](_START_HERE.md) for detailed instructions.
+
+---
+
 ## 📂 Directory Structure
 
 ```
 C:\idiot-project\
-├── _STATUS.md              ← READ THIS FIRST every session
+├── _START_HERE.md          ← READ THIS EVERY SESSION
+├── SESSION_HANDOFF.md      ← CURRENT STATE (read first!)
+├── SESSION_HANDOFF_TEMPLATE.md ← Template for updates
+├── _STATUS.md              ← Quick status reference
+├── README.md               ← This file
 ├── website\
 │   ├── dev\                ← Active development
 │   ├── staging-ready\      ← Ready for staging deployment
@@ -30,6 +52,7 @@ C:\idiot-project\
 │   ├── nginx\              ← Server configs
 │   └── ssh-keys\           ← SSH keys (gitignored)
 └── docs\
+    ├── SESSION_HANDOFF.md  ← Backup copy
     ├── WORKFLOW.md         ← Sacred deployment workflow
     ├── procedures\         ← SOPs and guides
     ├── reports\            ← Status reports
@@ -86,13 +109,28 @@ bash deploy/scripts/backup-rotation.sh
 
 ---
 
-## 📋 Before You Start
+## 📋 Session Management
 
-1. Read `_STATUS.md` to see current state
-2. Read `docs/WORKFLOW.md` to understand process
-3. Never push to production without staging test
-4. Always maintain 4 rolling backups
-5. Follow the workflow - NO EXCEPTIONS
+### Starting a New Session
+1. **READ:** `SESSION_HANDOFF.md` (has complete context)
+2. **REVIEW:** Check what's in progress, what's blocking
+3. **CONTINUE:** Pick up where the last session left off
+
+### Ending a Session
+1. **UPDATE:** `SESSION_HANDOFF.md` with current state
+2. **COMMIT:** Changes to git
+3. **VERIFY:** Handoff checklist is complete
+
+### For AI Assistants
+**Always start with:**
+```
+Read SESSION_HANDOFF.md and tell me what we're working on
+```
+
+**Always end with:**
+```
+Update SESSION_HANDOFF.md with today's progress and commit it
+```
 
 ---
 
@@ -104,6 +142,7 @@ bash deploy/scripts/backup-rotation.sh
 - ✅ Rollback capability
 - ✅ Git version control
 - ✅ Clean separation of environments
+- ✅ Session handoff system
 
 ---
 
@@ -131,8 +170,10 @@ Select a backup and restore immediately.
 > "This workflow exists because of the Oct 16 near-deletion incident.  
 > Follow it religiously. Your future self will thank you."
 
+> "Never start a session without reading SESSION_HANDOFF.md.  
+> Never end a session without updating it."
+
 ---
 
 **Created:** 2025-10-16  
-**Version:** 1.0
-
+**Version:** 2.0 (with session handoff system)

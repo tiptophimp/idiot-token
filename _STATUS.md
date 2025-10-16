@@ -5,6 +5,12 @@
 
 ---
 
+## ⚠️ CRITICAL: BEFORE DOING ANYTHING
+👉 **READ THIS FILE FIRST:** `SESSION_HANDOFF.md`
+👉 **It contains the COMPLETE current state and context**
+
+---
+
 ## 🎯 CURRENT FOCUS
 - Establishing unified project directory structure
 - Implementing safe deployment workflow
