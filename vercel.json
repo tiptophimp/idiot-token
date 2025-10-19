@@ -35,12 +35,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "index.html": {
-      "headers": {
-        "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet"
-      }
-    }
-  }
+  ]
 }
