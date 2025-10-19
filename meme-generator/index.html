@@ -265,6 +265,11 @@
             </div>
             
             <div class="controls">
+                <div style="background: #e3f2fd; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: #1976d2;">🎨 Smart Meme Generator</h3>
+                    <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">Your memes automatically get fun illustrations based on what you type! Try keywords like "money", "crypto", "happy", "sad", or "brain" to see magic happen! ✨</p>
+                </div>
+                
                 <div class="control-group">
                     <label for="templateSelect">Choose Template:</label>
                     <div class="template-grid">
@@ -285,33 +290,35 @@
                 
                 <div class="control-group">
                     <label for="topText">Top Text:</label>
-                    <input type="text" id="topText" placeholder="Enter top text..." value="BUYING IDIOT TOKEN" maxlength="100">
+                    <input type="text" id="topText" placeholder="Try: 'when you buy crypto'" value="WHEN YOU BUY CRYPTO" maxlength="100">
+                    <small style="opacity: 0.7; font-size: 0.85rem;">💡 Try words like: money, crypto, happy, sad, smart, brain</small>
                 </div>
                 
                 <div class="control-group">
                     <label for="bottomText">Bottom Text:</label>
-                    <input type="text" id="bottomText" placeholder="Enter bottom text..." value="SMART ABOUT DUMB FUN" maxlength="100">
+                    <input type="text" id="bottomText" placeholder="Try: 'and it goes to the moon'" value="AND IT PUMPS TO THE MOON" maxlength="100">
+                    <small style="opacity: 0.7; font-size: 0.85rem;">🎨 Memes adapt based on your words!</small>
                 </div>
                 
                 <div class="control-group">
                     <label for="textColor">Text Color:</label>
-                    <input type="color" id="textColor" value="#ffffff">
-                </div>
+                        <input type="color" id="textColor" value="#ffffff">
+                    </div>
                 
                 <div class="control-group">
                     <label for="textSize">Text Size: <span id="textSizeValue">40</span>px</label>
                     <input type="range" id="textSize" min="20" max="80" value="40">
-                </div>
+                    </div>
                 
                 <div class="control-group">
                     <label for="fontStyle">Font Style:</label>
-                    <select id="fontStyle">
-                        <option value="Impact">Impact (Classic)</option>
-                        <option value="Arial Black">Arial Black</option>
-                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <select id="fontStyle">
+                            <option value="Impact">Impact (Classic)</option>
+                            <option value="Arial Black">Arial Black</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
                         <option value="Inter">Inter (Modern)</option>
-                    </select>
-                </div>
+                        </select>
+                    </div>
                 
                 <div class="control-group">
                     <label>
@@ -326,13 +333,13 @@
                 
                 <div id="generateFeedback" style="display: none; margin-top: 1rem; padding: 1rem; background: #d4edda; border: 2px solid #28a745; border-radius: 8px; color: #155724; text-align: center; font-weight: 600;">
                     ✅ Meme generated successfully!
-                </div>
+                    </div>
                 
                 <div class="download-section">
                     <h3>Download Your Meme</h3>
                     <p>Click the button below to download your meme as a PNG image</p>
                     <button class="btn btn-primary" onclick="downloadMeme()">Download PNG</button>
-                </div>
+                    </div>
                 
                 <div class="share-section">
                     <h3>Share Your Creation</h3>
@@ -345,7 +352,7 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         let currentTemplate = 'drake';
         let canvas, ctx;
@@ -368,10 +375,10 @@
                     document.querySelectorAll('.template').forEach(t => t.classList.remove('selected'));
                     this.classList.add('selected');
                     currentTemplate = this.dataset.template;
-                    generateMeme();
-                });
+                generateMeme();
             });
-            
+        });
+        
             // Real-time updates
             document.getElementById('topText').addEventListener('input', generateMeme);
             document.getElementById('bottomText').addEventListener('input', generateMeme);
@@ -458,7 +465,7 @@
                 topLines.forEach((line, index) => {
                     const y = 30 + (index * textSize * 1.2);
                     if (useStroke) {
-                        ctx.strokeText(line, canvas.width / 2, y);
+                    ctx.strokeText(line, canvas.width / 2, y);
                     }
                     ctx.fillText(line, canvas.width / 2, y);
                 });
@@ -470,7 +477,7 @@
                 bottomLines.forEach((line, index) => {
                     const y = canvas.height - 30 - ((bottomLines.length - 1 - index) * textSize * 1.2);
                     if (useStroke) {
-                        ctx.strokeText(line, canvas.width / 2, y);
+                    ctx.strokeText(line, canvas.width / 2, y);
                     }
                     ctx.fillText(line, canvas.width / 2, y);
                 });
@@ -480,6 +487,24 @@
         }
         
         function drawTemplate() {
+            const topText = document.getElementById('topText').value.toLowerCase();
+            const bottomText = document.getElementById('bottomText').value.toLowerCase();
+            
+            // Add dynamic elements based on keywords
+            const keywords = {
+                money: ['money', 'rich', 'buy', 'pump', 'moon', 'lambo', 'profit', 'gains'],
+                sad: ['sad', 'rip', 'loss', 'dump', 'down', 'bear', 'crash'],
+                happy: ['happy', 'yes', 'good', 'win', 'bull', 'up', 'rocket'],
+                brain: ['smart', 'genius', 'iq', 'think', 'brain', 'idiot'],
+                crypto: ['crypto', 'token', 'coin', 'blockchain', 'defi', 'web3']
+            };
+            
+            function hasKeyword(category) {
+                return keywords[category].some(word => 
+                    topText.includes(word) || bottomText.includes(word)
+                );
+            }
+            
             switch(currentTemplate) {
                 case 'drake':
                     // Drake pointing template - improved
@@ -524,6 +549,30 @@
                     ctx.lineWidth = 2;
                     ctx.strokeRect(220, 50, 250, 100);
                     ctx.strokeRect(220, halfHeight + 50, 250, 100);
+                    
+                    // Add dynamic elements based on content
+                    if (hasKeyword('money')) {
+                        // Add dollar signs
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = 'bold 40px Arial';
+                        ctx.fillText('💰', 350, halfHeight + 120);
+                        ctx.fillText('💵', 400, halfHeight + 140);
+                    }
+                    
+                    if (hasKeyword('happy')) {
+                        // Add sparkles
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = '30px Arial';
+                        ctx.fillText('✨', 320, halfHeight + 180);
+                        ctx.fillText('✨', 420, halfHeight + 180);
+                    }
+                    
+                    if (hasKeyword('crypto')) {
+                        // Add crypto symbols
+                        ctx.fillStyle = '#FF6B35';
+                        ctx.font = 'bold 35px Arial';
+                        ctx.fillText('₿', 450, halfHeight + 100);
+                    }
                     break;
                     
                 case 'distracted':
@@ -564,6 +613,30 @@
                     ctx.fillRect(70, 150, 100, 30);
                     ctx.fillRect(200, 150, 100, 30);
                     ctx.fillRect(330, 150, 100, 30);
+                    
+                    // Add dynamic reactions
+                    if (hasKeyword('sad')) {
+                        // Sad girlfriend gets bigger
+                        ctx.fillStyle = '#FF6B9D';
+                        ctx.font = 'bold 50px Arial';
+                        ctx.fillText('😢', 100, 220);
+                    }
+                    
+                    if (hasKeyword('money')) {
+                        // Money eyes on other girl
+                        ctx.fillStyle = '#000';
+                        ctx.font = 'bold 30px Arial';
+                        ctx.fillText('💵', 365, 270);
+                        ctx.fillText('💵', 395, 270);
+                    }
+                    
+                    if (hasKeyword('crypto')) {
+                        // Add crypto symbols floating
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = '25px Arial';
+                        ctx.fillText('🚀', 200, 100);
+                        ctx.fillText('📈', 300, 120);
+                    }
                     break;
                     
                 case 'brain':
@@ -608,6 +681,32 @@
                     levels.forEach((level, index) => {
                         ctx.fillRect(50, level.y - 15, 120, 30);
                     });
+                    
+                    // Add dynamic brain power indicators
+                    if (hasKeyword('brain') || hasKeyword('smart')) {
+                        // Add extra glow to top brain
+                        ctx.shadowBlur = 40;
+                        ctx.shadowColor = '#00FFFF';
+                        ctx.fillStyle = '#00FFFF';
+                        ctx.font = 'bold 50px Arial';
+                        ctx.fillText('🧠', 350, 420);
+                        ctx.shadowBlur = 0;
+                    }
+                    
+                    if (hasKeyword('money')) {
+                        // Add money to biggest brain
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = '40px Arial';
+                        ctx.fillText('💰', 350, 380);
+                    }
+                    
+                    if (hasKeyword('crypto')) {
+                        // Add crypto symbols
+                        ctx.fillStyle = '#FF6B35';
+                        ctx.font = '35px Arial';
+                        ctx.fillText('₿', 370, 100);
+                        ctx.fillText('Ξ', 370, 200);
+                    }
                     break;
                     
                 case 'change':
@@ -652,6 +751,64 @@
                     // Arms
                     ctx.fillStyle = '#D2691E';
                     ctx.fillRect(220, 260, 60, 15);
+                    
+                    // Add dynamic elements based on content
+                    if (hasKeyword('money')) {
+                        // Add money on table
+                        ctx.fillStyle = '#85BB65';
+                        ctx.fillRect(150, 270, 40, 20);
+                        ctx.fillRect(170, 265, 40, 20);
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = '30px Arial';
+                        ctx.fillText('💵', 320, 275);
+                    }
+                    
+                    if (hasKeyword('crypto')) {
+                        // Add laptop with crypto
+                        ctx.fillStyle = '#333';
+                        ctx.fillRect(300, 265, 60, 40);
+                        ctx.fillStyle = '#4169E1';
+                        ctx.fillRect(305, 270, 50, 30);
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = '20px Arial';
+                        ctx.fillText('📈', 315, 290);
+                    }
+                    
+                    if (hasKeyword('happy')) {
+                        // Add coffee cup
+                        ctx.fillStyle = '#8B4513';
+                        ctx.fillRect(340, 275, 30, 25);
+                        ctx.fillStyle = '#D2691E';
+                        ctx.beginPath();
+                        ctx.arc(355, 270, 15, Math.PI, 0);
+                        ctx.fill();
+                        // Steam
+                        ctx.strokeStyle = '#999';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.moveTo(350, 265);
+                        ctx.quadraticCurveTo(345, 255, 350, 245);
+                        ctx.stroke();
+                    }
+                    
+                    if (hasKeyword('sad')) {
+                        // Add rain clouds
+                        ctx.fillStyle = '#666';
+                        ctx.beginPath();
+                        ctx.arc(100, 80, 25, 0, Math.PI * 2);
+                        ctx.arc(120, 75, 30, 0, Math.PI * 2);
+                        ctx.arc(140, 80, 25, 0, Math.PI * 2);
+                        ctx.fill();
+                        // Rain
+                        ctx.strokeStyle = '#4169E1';
+                        ctx.lineWidth = 2;
+                        for (let i = 0; i < 5; i++) {
+                            ctx.beginPath();
+                            ctx.moveTo(100 + i * 15, 105);
+                            ctx.lineTo(95 + i * 15, 125);
+                            ctx.stroke();
+                        }
+                    }
                     break;
             }
         }
