@@ -28,35 +28,52 @@ See [`_START_HERE.md`](_START_HERE.md) for detailed instructions.
 
 ---
 
-## 📂 Directory Structure
+## 📂 Directory Structure (UPDATED)
 
 ```
 C:\idiot-project\
-├── _START_HERE.md          ← READ THIS EVERY SESSION
-├── SESSION_HANDOFF.md      ← CURRENT STATE (read first!)
-├── SESSION_HANDOFF_TEMPLATE.md ← Template for updates
-├── _STATUS.md              ← Quick status reference
-├── README.md               ← This file
-├── website\
-│   ├── dev\                ← Active development
-│   ├── staging-ready\      ← Ready for staging deployment
-│   ├── production-ready\   ← Ready for production deployment
-│   └── backups\            ← Rolling 4 backups (auto-managed)
-├── token\
-│   ├── data\               ← Token info, tokenomics
-│   ├── scripts\            ← Payout, rewards, roles scripts
-│   ├── contracts\          ← Smart contract info
-│   └── docs\               ← Token documentation
-├── deploy\
-│   ├── scripts\            ← Deployment automation
-│   ├── nginx\              ← Server configs
-│   └── ssh-keys\           ← SSH keys (gitignored)
-└── docs\
-    ├── SESSION_HANDOFF.md  ← Backup copy
-    ├── WORKFLOW.md         ← Sacred deployment workflow
-    ├── procedures\         ← SOPs and guides
-    ├── reports\            ← Status reports
-    └── incidents\          ← Incident reports
+├── 📄 Core Files
+│   ├── index.html (main website - 1,518 lines)
+│   ├── vercel.json (deployment config)
+│   ├── package.json (dependencies)
+│   └── README.md
+│
+├── 🎨 Assets
+│   └── assets/ (images, CSS, favicon)
+│
+├── 📂 Website Sections
+│   ├── airdrop/ (airdrop portal)
+│   ├── meme-generator/ (meme creator)
+│   ├── staking/ (staking interface)
+│   ├── governance/ (governance tools)
+│   ├── partnerships/ (partnership info)
+│   ├── merch/ (merchandise)
+│   ├── news/ (news updates)
+│   ├── media/ (media resources)
+│   ├── jobs/ (job listings)
+│   ├── handbook/ (user handbook)
+│   ├── explorer/ (block explorer)
+│   ├── swap/ (swap interface)
+│   ├── tools/ (utility tools)
+│   └── whitepaper/ (whitepaper)
+│
+├── 📚 Documentation
+│   ├── docs/ (technical docs)
+│   ├── reports/ (project reports)
+│   └── legal/ (legal documents)
+│
+├── 🚀 Deployment
+│   ├── deploy/ (deployment scripts)
+│   └── scripts/ (utility scripts)
+│
+├── 💾 Data
+│   ├── data/ (token data)
+│   └── contracts/ (smart contracts)
+│
+└── 📊 Configuration
+    ├── .env (environment variables)
+    ├── .gitignore (git ignore rules)
+    └── .vercel/ (Vercel config)
 ```
 
 ---
@@ -103,8 +120,10 @@ bash deploy/scripts/backup-rotation.sh
 
 ## 🌐 Live Sites
 
-- **Production:** https://stupidiots.com
-- **Staging:** https://stupidiots.com/staging
+- **Production:** https://stupidiots.com (pending deployment)
+- **Staging:** https://idiot-project.vercel.app/ (WORKING)
+- **GitHub Pages:** https://tiptophimp.github.io/idiot-token/ (WORKING)
+- **Local Development:** http://localhost:8000 (when running)
 - **Server:** 68.183.149.106
 
 ---

@@ -2,9 +2,9 @@
 ## Critical Information for Continuity Between Sessions
 
 **Date:** 2025-01-19  
-**Time:** 02:05 (approx)  
+**Time:** 02:20 (approx)  
 **Last Updated By:** Novalex AI  
-**Session Duration:** ~5 hours  
+**Session Duration:** ~6 hours  
 
 ---
 
@@ -12,7 +12,8 @@
 
 **Project Name:** IDIOT Token  
 **Website:** stupidiots.com  
-**Staging Site:** https://idiot-token.vercel.app/  
+**Staging Site:** https://idiot-project.vercel.app/ (WORKING)
+**GitHub Pages:** https://tiptophimp.github.io/idiot-token/ (WORKING)  
 **Contract Address:** 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1  
 **Network:** Base Mainnet (Chain ID: 8453)  
 **Server IP:** 68.183.149.106  
@@ -44,12 +45,65 @@
 - [x] Add staking section and airdrop integration (✅ COMPLETED)
 - [x] Optimize assets and production-ready files (✅ COMPLETED)
 - [x] Secure staging site from public visitors (✅ COMPLETED)
+- [x] Organize project structure into idiot-project folder (✅ COMPLETED)
+- [x] Fix all functionality issues (✅ COMPLETED)
 - [ ] Deploy to production (NEXT)
 
 ### What's Blocking Us
 - ✅ **GitHub repo connected** - tiptophimp/idiot-token repository linked
 - ✅ **Staging deployed** - Vercel staging site live and secured
 - ✅ **Files optimized** - All assets and code production-ready
+- ✅ **Project organized** - All files properly structured in idiot-project folder
+
+## 📁 PROJECT STRUCTURE (UPDATED)
+
+**Main Directory:** `C:\idiot-project\`
+
+```
+idiot-project/
+├── 📄 Core Files
+│   ├── index.html (main website - 1,518 lines)
+│   ├── vercel.json (deployment config)
+│   ├── package.json (dependencies)
+│   └── README.md
+│
+├── 🎨 Assets
+│   └── assets/ (images, CSS, favicon)
+│
+├── 📂 Website Sections
+│   ├── airdrop/ (airdrop portal)
+│   ├── meme-generator/ (meme creator)
+│   ├── staking/ (staking interface)
+│   ├── governance/ (governance tools)
+│   ├── partnerships/ (partnership info)
+│   ├── merch/ (merchandise)
+│   ├── news/ (news updates)
+│   ├── media/ (media resources)
+│   ├── jobs/ (job listings)
+│   ├── handbook/ (user handbook)
+│   ├── explorer/ (block explorer)
+│   ├── swap/ (swap interface)
+│   ├── tools/ (utility tools)
+│   └── whitepaper/ (whitepaper)
+│
+├── 📚 Documentation
+│   ├── docs/ (technical docs)
+│   ├── reports/ (project reports)
+│   └── legal/ (legal documents)
+│
+├── 🚀 Deployment
+│   ├── deploy/ (deployment scripts)
+│   └── scripts/ (utility scripts)
+│
+├── 💾 Data
+│   ├── data/ (token data)
+│   └── contracts/ (smart contracts)
+│
+└── 📊 Configuration
+    ├── .env (environment variables)
+    ├── .gitignore (git ignore rules)
+    └── .vercel/ (Vercel config)
+```
 - ❓ **Production deployment** - Ready to deploy to main site
 
 ### What Just Got Completed (This Session)

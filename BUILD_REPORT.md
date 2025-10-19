@@ -1,10 +1,10 @@
 # IDIOT Token Website Rebuild Report
 **Date:** January 19, 2025  
-**Version:** 3.0  
-**Status:** ✅ COMPLETED
+**Version:** 3.1  
+**Status:** ✅ COMPLETED & ORGANIZED
 
 ## Summary
-Successfully rebuilt the entire IDIOT Token website with updated tokenomics, staking functionality, and integrated airdrop system. All files are ready for production deployment.
+Successfully rebuilt the entire IDIOT Token website with updated tokenomics, staking functionality, and integrated airdrop system. All files are organized in the idiot-project folder and ready for production deployment.
 
 ## ✅ Completed Tasks
 
@@ -35,22 +35,37 @@ Successfully rebuilt the entire IDIOT Token website with updated tokenomics, sta
 - Updated allocation to 248.4M IDIOT (24.84% of supply)
 - All links properly integrated and functional
 
-### 5. Build Directory Structure
+### 5. Project Organization
+- Organized all files into structured `idiot-project/` folder
+- Created logical directory structure for easy navigation
+- Separated website sections, documentation, deployment, and data
+- Cleaned up scattered files and duplicates
+
+### 6. Final Directory Structure
 ```
-build/
-├── index.html (main site)
-├── ChatGPT Image Sep 28, 2025, 04_50_50 PM.png (hero background)
-├── airdrop/
-│   ├── index.html (claim portal)
-│   ├── idiocracy (rules page)
-│   └── idiocracy-1.json (proofs data)
-└── assets/
-    └── img/
-        ├── idiot-logo-icon_64.png (favicon)
-        ├── og-image.png (social media)
-        ├── logo.png (main logo)
-        ├── favicon.ico (legacy favicon)
-        └── [other images...]
+idiot-project/
+├── 📄 Core Files
+│   ├── index.html (main website - 1,518 lines)
+│   ├── vercel.json (deployment config)
+│   └── package.json (dependencies)
+│
+├── 🎨 Assets
+│   └── assets/ (images, CSS, favicon)
+│
+├── 📂 Website Sections
+│   ├── airdrop/ (airdrop portal)
+│   ├── meme-generator/ (meme creator)
+│   ├── staking/ (staking interface)
+│   └── [other sections...]
+│
+├── 📚 Documentation
+│   ├── docs/ (technical docs)
+│   ├── reports/ (project reports)
+│   └── legal/ (legal documents)
+│
+└── 🚀 Deployment
+    ├── deploy/ (deployment scripts)
+    └── scripts/ (utility scripts)
 ```
 
 ## 🔧 Technical Updates
