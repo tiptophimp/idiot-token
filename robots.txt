@@ -1,0 +1,33 @@
+# robots.txt for stupidiots.com
+# IDIOT Token - Smart About Dumb Fun
+
+User-agent: *
+Allow: /
+
+# Disallow admin/private areas
+Disallow: /deploy/
+Disallow: /scripts/
+Disallow: /contracts/
+Disallow: /data/
+Disallow: /.git/
+Disallow: /archive/
+Disallow: /website/backups/
+
+# Allow important pages
+Allow: /airdrop/
+Allow: /docs/
+Allow: /meme-generator/
+Allow: /staking/
+Allow: /jobs/
+
+# Sitemap location
+Sitemap: https://stupidiots.com/sitemap.xml
+Sitemap: https://tiptophimp.github.io/idiot-token/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1
+
+# Block specific bots if needed
+# User-agent: BadBot
+# Disallow: /
+
