@@ -42,7 +42,10 @@
         
         // FAQ Collapsible Functionality
         document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.onclick = () => btn.nextElementSibling.classList.toggle('open');
+            btn.onclick = () => {
+                const faqItem = btn.closest('.faq-item');
+                faqItem.classList.toggle('open');
+            };
         });
         
         // Newsletter Form
