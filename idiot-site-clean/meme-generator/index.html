@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IDIOT Meme Generator | Create Your Own Memes</title>
+    <meta name="description" content="Create hilarious IDIOT-themed memes with our easy-to-use meme generator. Share your creativity with the community!">
+    <meta property="og:title" content="IDIOT Meme Generator">
+    <meta property="og:description" content="Create and share IDIOT memes">
+    <meta property="og:image" content="assets/og-image.png">
+    <link rel="icon" href="assets/favicon22.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            align-items: start;
+        }
+        
+        .meme-canvas-container {
+            text-align: center;
+            position: relative;
+            min-height: 500px;
+        }
+        
+        .meme-canvas {
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            width: 500px;
+            height: 500px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .control-group label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .control-group input, .control-group select, .control-group textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .control-group input:focus, .control-group select:focus, .control-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .template {
+            aspect-ratio: 1;
+            border: 3px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .template:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+        
+        .template.selected {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+        
+        .template-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .download-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .share-section {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: #e3f2fd;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../" class="back-link">← Back to IDIOT Token</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎨 IDIOT Meme Generator</h1>
+            <p>Create hilarious memes and share them with the community!</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="meme-canvas-container">
+                <canvas id="memeCanvas" class="meme-canvas" width="500" height="500"></canvas>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="templateSelect">Choose Template:</label>
+                    <div class="template-grid">
+                        <div class="template selected" data-template="drake" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzMzMzMzMyIvPgo8cmVjdCB4PSI1MCIgeT0iMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjNjY2NjY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkRyYWtlPC90ZXh0Pgo8L3N2Zz4=');">
+                            <div class="template-name">Drake</div>
+                        </div>
+                        <div class="template" data-template="distracted" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNDAiIGZpbGw9IiMzMzMzMzMiLz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iI0ZGRkZGRiIvPgo8dGV4dCB4PSIxMDAiIHk9IjE2MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5EaXN0cmFjdGVkPC90ZXh0Pgo8L3N2Zz4=');">
+                            <div class="template-name">Distracted</div>
+                        </div>
+                        <div class="template" data-template="brain" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xMDAgNDBDMTIwIDQwIDE0MCA1MCAxNDAgNzBDMTQwIDkwIDEyMCAxMDAgMTAwIDEwMEM4MCAxMDAgNjAgOTAgNjAgNzBDNjAgNTAgODAgNDAgMTAwIDQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8dGV4dCB4PSIxMDAiIHk9IjE0MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CcmFpbiBFeHBhbmRlZDwvdGV4dD4KPC9zdmc+');">
+                            <div class="template-name">Brain</div>
+                        </div>
+                        <div class="template" data-template="change" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMzMzMzMzMiLz4KPHN2Zz4KPC9zdmc+');">
+                            <div class="template-name">Change My Mind</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="topText">Top Text:</label>
+                    <input type="text" id="topText" placeholder="Enter top text..." value="Buying IDIOT token">
+                </div>
+                
+                <div class="control-group">
+                    <label for="bottomText">Bottom Text:</label>
+                    <input type="text" id="bottomText" placeholder="Enter bottom text..." value="Smart about dumb fun">
+                </div>
+                
+                <div class="control-group">
+                    <label for="textColor">Text Color:</label>
+                    <input type="color" id="textColor" value="#ffffff">
+                </div>
+                
+                <div class="control-group">
+                    <label for="textSize">Text Size:</label>
+                    <input type="range" id="textSize" min="20" max="60" value="40">
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateMeme()">Generate Meme</button>
+                    <button class="btn btn-secondary" onclick="clearMeme()">Clear</button>
+                </div>
+                
+                <div class="download-section">
+                    <h3>Download Your Meme</h3>
+                    <p>Click the button below to download your meme as a PNG image</p>
+                    <button class="btn btn-primary" onclick="downloadMeme()">Download PNG</button>
+                </div>
+                
+                <div class="share-section">
+                    <h3>Share Your Creation</h3>
+                    <p>Share your IDIOT meme with the community!</p>
+                    <div class="share-buttons">
+                        <button class="btn btn-secondary" onclick="shareTwitter()">Share on Twitter</button>
+                        <button class="btn btn-secondary" onclick="copyToClipboard()">Copy Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTemplate = 'drake';
+        let canvas, ctx;
+        
+        // Initialize canvas
+        window.onload = function() {
+            canvas = document.getElementById('memeCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Set canvas size explicitly
+            canvas.width = 500;
+            canvas.height = 500;
+            
+            // Initial render
+            generateMeme();
+            
+            // Template selection
+            document.querySelectorAll('.template').forEach(template => {
+                template.addEventListener('click', function() {
+                    document.querySelectorAll('.template').forEach(t => t.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentTemplate = this.dataset.template;
+                    generateMeme();
+                });
+            });
+            
+            // Real-time updates
+            document.getElementById('topText').addEventListener('input', generateMeme);
+            document.getElementById('bottomText').addEventListener('input', generateMeme);
+            document.getElementById('textColor').addEventListener('change', generateMeme);
+            document.getElementById('textSize').addEventListener('input', generateMeme);
+        };
+        
+        function generateMeme() {
+            if (!canvas || !ctx) {
+                console.error('Canvas or context not initialized');
+                return;
+            }
+            
+            const topText = document.getElementById('topText').value;
+            const bottomText = document.getElementById('bottomText').value;
+            const textColor = document.getElementById('textColor').value;
+            const textSize = parseInt(document.getElementById('textSize').value);
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background based on template
+            drawTemplate();
+            
+            // Draw text
+            ctx.fillStyle = textColor;
+            ctx.font = `bold ${textSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
+            
+            // Top text
+            if (topText) {
+                ctx.strokeText(topText, canvas.width / 2, 60);
+                ctx.fillText(topText, canvas.width / 2, 60);
+            }
+            
+            // Bottom text
+            if (bottomText) {
+                ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 30);
+                ctx.fillText(bottomText, canvas.width / 2, canvas.height - 30);
+            }
+            
+            console.log('Meme generated with template:', currentTemplate);
+        }
+        
+        function drawTemplate() {
+            switch(currentTemplate) {
+                case 'drake':
+                    // Drake pointing template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Left side (disapproving)
+                    ctx.fillStyle = '#333333';
+                    ctx.fillRect(50, 100, 150, 100);
+                    
+                    // Right side (approving)
+                    ctx.fillStyle = '#666666';
+                    ctx.fillRect(300, 100, 150, 100);
+                    
+                    // Drake figure
+                    ctx.fillStyle = '#8B4513';
+                    ctx.beginPath();
+                    ctx.arc(125, 80, 30, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.arc(375, 80, 30, 0, 2 * Math.PI);
+                    ctx.fill();
+                    break;
+                    
+                case 'distracted':
+                    // Distracted boyfriend template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Boyfriend
+                    ctx.fillStyle = '#333333';
+                    ctx.beginPath();
+                    ctx.arc(150, 200, 40, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Girlfriend
+                    ctx.fillStyle = '#666666';
+                    ctx.beginPath();
+                    ctx.arc(300, 200, 40, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Other girl
+                    ctx.fillStyle = '#999999';
+                    ctx.beginPath();
+                    ctx.arc(400, 200, 40, 0, 2 * Math.PI);
+                    ctx.fill();
+                    break;
+                    
+                case 'brain':
+                    // Expanding brain template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Brain levels
+                    const levels = [
+                        {y: 100, size: 60, color: '#333333'},
+                        {y: 150, size: 80, color: '#666666'},
+                        {y: 200, size: 100, color: '#999999'},
+                        {y: 250, size: 120, color: '#cccccc'}
+                    ];
+                    
+                    levels.forEach(level => {
+                        ctx.fillStyle = level.color;
+                        ctx.beginPath();
+                        ctx.arc(canvas.width / 2, level.y, level.size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    });
+                    break;
+                    
+                case 'change':
+                    // Change my mind template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Table
+                    ctx.fillStyle = '#8B4513';
+                    ctx.fillRect(50, 200, 400, 20);
+                    
+                    // Sign
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(100, 150, 300, 50);
+                    ctx.strokeStyle = '#000000';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(100, 150, 300, 50);
+                    break;
+            }
+        }
+        
+        function clearMeme() {
+            document.getElementById('topText').value = '';
+            document.getElementById('bottomText').value = '';
+            generateMeme();
+        }
+        
+        function downloadMeme() {
+            const link = document.createElement('a');
+            link.download = 'idiot-meme.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        function shareTwitter() {
+            const text = encodeURIComponent('Check out my IDIOT meme! 🧠 #IDIOTToken #MemeGenerator');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
+        
+        function copyToClipboard() {
+            canvas.toBlob(function(blob) {
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'image/png': blob
+                    })
+                ]).then(() => {
+                    alert('Meme copied to clipboard!');
+                }).catch(() => {
+                    alert('Failed to copy to clipboard. Please try downloading instead.');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "campaign": "Idiocracy Round 1",
+  "total_allocation": "248400000",
+  "token": "IDIOT",
+  "contract": "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+  "network": "Base",
+  "chain_id": 8453,
+  "merkle_root": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "snapshot_block": 0,
+  "snapshot_date": "2025-01-19T00:00:00Z",
+  "claim_start": "2025-01-21T00:00:00Z",
+  "claim_end": "2025-02-04T23:59:59Z",
+  "status": "pending",
+  "distribution": {
+    "lp_rewards": {
+      "allocation": "173880000",
+      "percentage": "70%",
+      "description": "Rewards for Uniswap V3 liquidity providers"
+    },
+    "community_engagement": {
+      "allocation": "49680000",
+      "percentage": "20%",
+      "description": "Discord, Twitter, Telegram active members"
+    },
+    "quests_campaigns": {
+      "allocation": "17388000",
+      "percentage": "7%",
+      "description": "Special quests and promotional campaigns"
+    },
+    "safety_reserve": {
+      "allocation": "7452000",
+      "percentage": "3%",
+      "description": "Community-voted emergency fund"
+    }
+  },
+  "rules": {
+    "max_per_wallet": "1000000",
+    "min_lp_duration_days": 7,
+    "min_lp_value_usd": 100,
+    "claim_window_days": 14,
+    "anti_sybil": true
+  },
+  "proofs": [],
+  "note": "Actual allocations and Merkle proofs will be published when snapshot is taken. This is a placeholder structure."
+}

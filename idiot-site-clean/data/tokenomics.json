@@ -1,0 +1,58 @@
+{ 
+  "brand": "IDIOT",
+  "symbol": "IDIOT",
+  "network": {
+    "name": "Base Mainnet",
+    "chainId": 8453,
+    "contract": "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+    "explorer": "https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1"
+  },
+  "supply": {
+    "total": 1000000000,
+    "decimals": 18,
+    "mintSource": "constructor_only",
+    "ownerFunctions": false,
+    "proxyOrUpgradeable": false,
+    "taxOrBlacklistLogic": false
+  },
+  "governance": {
+    "safe": {
+      "address": "0x9901b910333A17C8B3b75560BafcE6a893abCD5E",
+      "threshold": "3-of-4",
+      "owners": [
+        {"name": "Ledger 1 (Cold A)", "address": "0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e", "role": "Primary Cold Signer"},
+        {"name": "Ledger 2 (Cold B)", "address": "0xB4EB7C7040c887d576a2e0Cdf60901A3087f5389", "role": "Secondary Cold Signer"},
+        {"name": "HOT-LP", "address": "0xAC95d0B5603C7212a690bd089BAD472473496374", "role": "Liquidity Operations"},
+        {"name": "HOT-OPS", "address": "0x721d2adcCf634f4185edE152ee98cA836CF22EA6", "role": "Operations & Gas"}
+      ]
+    }
+  },
+  "tokenomics": [
+    {"category": "Cold Treasury", "amount": 470000000, "percent": 47},
+    {"category": "Community & Airdrops", "amount": 250000000, "percent": 25},
+    {"category": "Liquidity Pool", "amount": 150000000, "percent": 15},
+    {"category": "Team Vesting", "amount": 100000000, "percent": 10},
+    {"category": "Operations / Treasury", "amount": 30000000, "percent": 3}
+  ],
+  "links": {
+    "website": "https://stupidiots.com",
+    "basescan": "https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+    "uniswap": "https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base",
+    "github": "https://github.com/tiptophimp/idiot-token"
+  },
+  "audit": {
+    "status": "pending_external",
+    "scope": [
+      "ERC-20 compliance",
+      "constructor immutability",
+      "BaseScan bytecode match",
+      "Safe(3-of-4) config validation"
+    ],
+    "packageDoc": "docs/audit/IDIOT_Token_Full_Audit_Package.docx"
+  },
+  "metadata": {
+    "lastUpdated": "2025-10-16",
+    "verifiedBy": "BaseScan",
+    "integrityHash": "sha256-placeholder"
+  }
+}

@@ -15,7 +15,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="IDIOT Token - Smart About Dumb Fun">
     <meta property="og:description" content="Community-first meme token on Base with honest tokenomics and zero taxes">
-    <meta property="og:image" content="assets/img/og-image.png">
+    <meta property="og:image" content="assets/og-image.png">
     <meta property="og:url" content="https://stupidiots.com">
     <meta property="og:type" content="website">
     
@@ -23,18 +23,18 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="IDIOT Token - Smart About Dumb Fun">
     <meta name="twitter:description" content="Community-first meme token on Base with honest tokenomics">
-    <meta name="twitter:image" content="assets/img/og-image.png">
+    <meta name="twitter:image" content="assets/og-image.png">
     
     <!-- Favicon - Multiple sizes for better compatibility -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logo.png">
+    <link rel="icon" type="image/x-icon" hrefassets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" hrefassets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" hrefassets/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" hrefassets/logo.png">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     
     <!-- Preload Critical Assets -->
-    <link rel="preload" href="assets/img/logo.png?v=20250119" as="image">
-    <link rel="preload" href="assets/img/coin-1.png" as="image">
+    <link rel="preload" href="assets/logo.png?v=20250119" as="image">
+    <link rel="preload" href="assets/coin-1.png" as="image">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -361,6 +361,17 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 900;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Override for sections with gradient backgrounds */
+        .stats-dashboard h2,
+        .how-to-buy h2,
+        section[style*="gradient"] h2 {
+            background: none;
+            -webkit-text-fill-color: white;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .section-subtitle {
@@ -839,7 +850,7 @@
     
     <!-- Sticky Header -->
     <div class="sticky-header" id="stickyHeader">
-        <img src="assets/img/logo.png?v=20250119" alt="IDIOT" class="logo-small">
+        <img src="assets/logo.png?v=20250119" alt="IDIOT" class="logo-small">
         <div class="sticky-stats">
             <div class="stat">
                 <span class="stat-label">Price</span>
@@ -860,7 +871,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
+            <img src="assets/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
             <h1>IDIOT TOKEN</h1>
             <p class="tagline">Smart About Dumb Fun 🧠</p>
             <p style="font-size: 1.3rem; margin-bottom: 2rem; font-weight: 500;">Community-First Meme Token on Base Mainnet</p>
@@ -995,6 +1006,21 @@
             <div style="text-align: center; margin-top: 2rem;">
                 <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" class="btn btn-primary" style="background: white; color: var(--primary);" target="_blank">Swap Now on Uniswap</a>
             </div>
+        </div>
+    </section>
+
+    <!-- Uniswap Widget Section -->
+    <section style="background: white;">
+        <h2>💱 Swap IDIOT Token</h2>
+        <p class="section-subtitle">Trade directly from our website using Uniswap</p>
+        
+        <div style="max-width: 500px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <iframe
+                src="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base&theme=dark"
+                height="660px"
+                width="100%"
+                style="border: 0; margin: 0; display: block; border-radius: 20px; max-width: 500px; min-width: 300px;"
+            />
         </div>
     </section>
 
@@ -1135,274 +1161,6 @@
         </div>
     </section>
 
-    <!-- Community Rewards Section -->
-    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-        <h2 style="color: white;">🎁 Community Rewards Program</h2>
-        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Weekly emissions distributed to active community members over 2 years</p>
-        
-        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; margin: 2rem 0;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
-                <div>
-                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">250M</div>
-                    <div style="opacity: 0.9;">Total IDIOT</div>
-                </div>
-                <div>
-                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">104</div>
-                    <div style="opacity: 0.9;">Weekly Distributions</div>
-                </div>
-                <div>
-                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">2.4M</div>
-                    <div style="opacity: 0.9;">IDIOT per Week</div>
-                </div>
-                <div>
-                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">14 Days</div>
-                    <div style="opacity: 0.9;">Claim Window</div>
-                </div>
-            </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
-            <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 15px;">
-                <h3 style="color: white; margin-bottom: 1rem;">📅 How It Works</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        <strong>Tuesday 00:00 UTC:</strong> Weekly snapshot taken
-                    </li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        <strong>Thursday 00:00 UTC:</strong> Claims open
-                    </li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        <strong>14 Days:</strong> Claim window duration
-                    </li>
-                    <li style="padding: 0.5rem 0;">
-                        <strong>Unclaimed:</strong> Rolls forward to future epochs
-                    </li>
-                </ul>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 15px;">
-                <h3 style="color: white; margin-bottom: 1rem;">✅ Eligibility</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        💎 Hold IDIOT during snapshot window
-                    </li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        💧 Provide liquidity (weighted by LP-days)
-                    </li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        🎯 Complete verified quests/bounties
-                    </li>
-                    <li style="padding: 0.5rem 0;">
-                        🎨 Create quality community content
-                    </li>
-                </ul>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 15px;">
-                <h3 style="color: white; margin-bottom: 1rem;">🛡️ Safety Limits</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        <strong>Per-Wallet Cap:</strong> 0.10% of supply
-                    </li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        <strong>Anti-Sybil:</strong> Automated detection
-                    </li>
-                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
-                        <strong>Verification:</strong> All claims on-chain
-                    </li>
-                    <li style="padding: 0.5rem 0;">
-                        <strong>Security:</strong> Never share seed phrase
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="/airdrop/" class="btn" style="background: white; color: #667eea; font-size: 1.2rem; padding: 1.2rem 2.5rem;">
-                🎁 Check Your Rewards
-            </a>
-        </div>
-    </section>
-
-    <!-- Liquidity Provider Guide Section -->
-    <section style="background: white;">
-        <h2>💧 Liquidity Provider Guide</h2>
-        <p class="section-subtitle">Earn swap fees and bonus rewards by providing liquidity on Uniswap V3</p>
-        
-        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 2.5rem; border-radius: 20px; margin: 2rem 0;">
-            <h3 style="color: white; text-align: center; margin-bottom: 2rem; font-size: 2rem;">What You Earn</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">💰</div>
-                    <h4 style="color: white;">Swap Fees</h4>
-                    <p style="opacity: 0.9;">0.3% fee on all trades in your range</p>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎁</div>
-                    <h4 style="color: white;">Bonus Rewards</h4>
-                    <p style="opacity: 0.9;">Weekly IDIOT emissions for LPs</p>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📈</div>
-                    <h4 style="color: white;">Compounding</h4>
-                    <p style="opacity: 0.9;">Reinvest rewards for exponential growth</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">1️⃣</div>
-                <h3>Add Liquidity</h3>
-                <p><strong>Network:</strong> Base Mainnet</p>
-                <p><strong>Pair:</strong> IDIOT / WETH</p>
-                <p><strong>Protocol:</strong> Uniswap V3</p>
-                <p><strong>Fee Tier:</strong> 0.3%</p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                    Open Uniswap, select IDIOT and WETH, choose your price range, and deposit proportional amounts.
-                </p>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">2️⃣</div>
-                <h3>Choose Price Range</h3>
-                <p><strong>Wide Range (-50% to +100%):</strong></p>
-                <p style="font-size: 0.9rem; color: #666;">Easier management, less active rebalancing needed</p>
-                <p style="margin-top: 1rem;"><strong>Narrow Range (-10% to +10%):</strong></p>
-                <p style="font-size: 0.9rem; color: #666;">More fees near current price, but can go out of range</p>
-            </div>
-
-            <div class="feature">
-                <div class="feature-icon">3️⃣</div>
-                <h3>Earn & Claim</h3>
-                <p><strong>Automatic:</strong> Swap fees accumulate</p>
-                <p><strong>Weekly:</strong> Check Community Rewards page</p>
-                <p><strong>Register:</strong> May need to stake LP position</p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                    Rewards vest per epoch rules and must be claimed from the designated contract.
-                </p>
-            </div>
-        </div>
-
-        <div style="background: #fff3cd; padding: 2rem; border-radius: 15px; margin-top: 2rem;">
-            <h3 style="margin-bottom: 1rem;">⚠️ Important Considerations</h3>
-            <ul style="list-style-position: inside;">
-                <li><strong>Impermanent Loss:</strong> If price moves significantly, your IDIOT/ETH ratio changes</li>
-                <li><strong>Out-of-Range Risk:</strong> Narrow ranges earn 0 fees if price leaves your band</li>
-                <li><strong>Gas Costs:</strong> Consider transaction fees when adding/removing liquidity</li>
-                <li><strong>Contract Safety:</strong> Only use official Uniswap interface and verified contracts</li>
-            </ul>
-        </div>
-
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="https://app.uniswap.org/add/ETH/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1/3000?chain=base" target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 2.5rem;">
-                💧 Add Liquidity on Uniswap
-            </a>
-        </div>
-    </section>
-
-    <!-- Documentation Hub Section -->
-    <section style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
-        <h2 style="color: white;">📚 Official Documentation</h2>
-        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Complete transparency - all contracts, proofs, and guides in one place</p>
-        
-        <h3 style="color: white; text-align: center; margin: 3rem 0 2rem 0; font-size: 1.8rem;">🔗 Quick Links</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-            <a href="/airdrop/idiocracy" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📜</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Airdrop Rules</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Complete eligibility criteria and distribution schedule</p>
-            </a>
-
-            <a href="/airdrop/idiocracy-1.json" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔍</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Merkle Proofs</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Cryptographic proofs for all airdrop allocations</p>
-            </a>
-
-            <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📝</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Smart Contract</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Verified source code on BaseScan</p>
-            </a>
-
-            <a href="https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Live Analytics</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Real-time trading data and liquidity metrics</p>
-            </a>
-
-            <a href="https://app.uniswap.org/explore/pools/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏊</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Liquidity Pool</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Uniswap V3 pool details and statistics</p>
-            </a>
-
-            <a href="https://discord.gg/idiottoken" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💬</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Community Support</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Join Discord for help and announcements</p>
-            </a>
-        </div>
-
-        <h3 style="color: white; text-align: center; margin: 4rem 0 2rem 0; font-size: 1.8rem;">🎓 Educational Guides</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
-            <a href="/docs/how-to-buy-idiot-on-base.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💰</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">How to Buy IDIOT</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Step-by-step buying guide for beginners</p>
-            </a>
-
-            <a href="/docs/base-network-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Base Network Guide</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Everything about Base Layer 2 blockchain</p>
-            </a>
-
-            <a href="/docs/wallet-setup-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💼</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Wallet Setup Guide</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">MetaMask, hardware wallets, and multisig</p>
-            </a>
-
-            <a href="/docs/defi-yield-farming-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌾</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">DeFi & Yield Farming</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Earn rewards through liquidity provision</p>
-            </a>
-
-            <a href="/docs/crypto-education-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎓</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">Crypto Education</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Complete beginner's guide to cryptocurrency</p>
-            </a>
-
-            <a href="/docs/faq-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem;">❓</div>
-                <h3 style="color: white; margin-bottom: 0.5rem;">FAQ</h3>
-                <p style="opacity: 0.9; font-size: 0.95rem;">Frequently asked questions with search</p>
-            </a>
-        </div>
-
-        <div style="background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; margin-top: 3rem; border: 2px solid rgba(255,255,255,0.3);">
-            <h3 style="color: white; text-align: center; margin-bottom: 1.5rem;">🔐 Security Reminders</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                <div style="text-align: center;">
-                    <p style="font-size: 1.1rem; font-weight: 600;">Never share your seed phrase</p>
-                    <p style="opacity: 0.9; font-size: 0.9rem;">We will NEVER ask for it</p>
-                </div>
-                <div style="text-align: center;">
-                    <p style="font-size: 1.1rem; font-weight: 600;">Verify all contract addresses</p>
-                    <p style="opacity: 0.9; font-size: 0.9rem;">Always check on BaseScan</p>
-                </div>
-                <div style="text-align: center;">
-                    <p style="font-size: 1.1rem; font-weight: 600;">Use official links only</p>
-                    <p style="opacity: 0.9; font-size: 0.9rem;">Bookmark stupidiots.com</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Roadmap Section -->
     <section id="roadmap">
         <h2>🗺️ Roadmap</h2>
@@ -1509,7 +1267,7 @@
     <!-- Newsletter Section -->
     <section style="padding: 80px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); text-align: center;">
         <div style="max-width: 800px; margin: 0 auto; color: white;">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">📬 Stay Updated</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; background: none; -webkit-text-fill-color: white; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">📬 Stay Updated</h2>
             <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Get the latest news, airdrops, and exclusive updates delivered to your inbox</p>
             
             <form id="newsletterForm" style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
@@ -1538,7 +1296,7 @@
 
     <!-- Footer -->
     <footer>
-        <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
+        <img src="assets/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
         
         <div class="social-links">
             <a href="https://twitter.com/idiottoken" target="_blank" class="social-link" title="Twitter">

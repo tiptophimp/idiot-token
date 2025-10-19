@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Updates - IDIOT Token</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .news-content {
+            padding: 2rem;
+        }
+        
+        .news-date {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-title {
+            font-size: 1.5rem;
+            color: #1C1C1C;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .news-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .news-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #e7f3ff;
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .featured-post {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .featured-post .news-image {
+            height: 100%;
+            min-height: 300px;
+        }
+        
+        @media (max-width: 768px) {
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>📰 News & Updates</h1>
+        <p style="font-size: 1.2rem;">Stay informed about the latest IDIOT Token developments</p>
+    </div>
+    
+    <div class="container">
+        <div class="news-grid">
+            <!-- Featured Post -->
+            <article class="news-card featured-post">
+                <div class="news-image">🚀</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 11, 2025</div>
+                    <h2 class="news-title">IDIOT Token Launches with Complete Website Overhaul</h2>
+                    <p class="news-excerpt">
+                        We're excited to announce the launch of our completely redesigned website featuring live charts, 
+                        interactive tokenomics visualizations, comprehensive tools, and more! The new site represents 
+                        our commitment to transparency and community engagement.
+                    </p>
+                    <div>
+                        <span class="news-tag">Launch</span>
+                        <span class="news-tag">Website</span>
+                        <span class="news-tag">Community</span>
+                    </div>
+                    <a href="#" class="btn">Read Full Story</a>
+                </div>
+            </article>
+            
+            <!-- Regular Posts -->
+            <article class="news-card">
+                <div class="news-image">📊</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 10, 2025</div>
+                    <h3 class="news-title">Live Trading Chart Now Available</h3>
+                    <p class="news-excerpt">
+                        Track IDIOT Token price movements in real-time with our integrated DexScreener and DEXTools charts.
+                    </p>
+                    <div>
+                        <span class="news-tag">Trading</span>
+                        <span class="news-tag">Charts</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">🎁</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 10, 2025</div>
+                    <h3 class="news-title">Idiocracy Airdrop Details Announced</h3>
+                    <p class="news-excerpt">
+                        250 million IDIOT tokens allocated for community rewards. Learn how to participate and claim your share.
+                    </p>
+                    <div>
+                        <span class="news-tag">Airdrop</span>
+                        <span class="news-tag">Rewards</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">🛠️</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 10, 2025</div>
+                    <h3 class="news-title">New Tools & Calculators Launched</h3>
+                    <p class="news-excerpt">
+                        Access 6 powerful calculators including LP rewards, impermanent loss, ROI, and gas cost estimators.
+                    </p>
+                    <div>
+                        <span class="news-tag">Tools</span>
+                        <span class="news-tag">Utilities</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">💎</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 9, 2025</div>
+                    <h3 class="news-title">Uniswap V3 Liquidity Pool Active</h3>
+                    <p class="news-excerpt">
+                        IDIOT/WETH pool now live on Uniswap V3 with 0.3% fee tier. Start trading and providing liquidity today!
+                    </p>
+                    <div>
+                        <span class="news-tag">Liquidity</span>
+                        <span class="news-tag">Uniswap</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">🔍</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 8, 2025</div>
+                    <h3 class="news-title">Full Transparency Report Published</h3>
+                    <p class="news-excerpt">
+                        Complete breakdown of tokenomics, wallet addresses, and governance structure now available on our About page.
+                    </p>
+                    <div>
+                        <span class="news-tag">Transparency</span>
+                        <span class="news-tag">Report</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">👥</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 7, 2025</div>
+                    <h3 class="news-title">Community Dashboard Goes Live</h3>
+                    <p class="news-excerpt">
+                        Track community stats, view leaderboards, and stay updated with recent activity in our new community hub.
+                    </p>
+                    <div>
+                        <span class="news-tag">Community</span>
+                        <span class="news-tag">Features</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">🎨</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 6, 2025</div>
+                    <h3 class="news-title">Official Media Kit Released</h3>
+                    <p class="news-excerpt">
+                        Download logos, access brand guidelines, and get boilerplate text for promoting IDIOT Token.
+                    </p>
+                    <div>
+                        <span class="news-tag">Media</span>
+                        <span class="news-tag">Branding</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-image">🚀</div>
+                <div class="news-content">
+                    <div class="news-date">📅 October 5, 2025</div>
+                    <h3 class="news-title">IDIOT Token Deployed on Base</h3>
+                    <p class="news-excerpt">
+                        Genesis! 1 billion IDIOT tokens created with fixed supply, zero taxes, and transparent distribution.
+                    </p>
+                    <div>
+                        <span class="news-tag">Launch</span>
+                        <span class="news-tag">Base</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/" class="btn">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

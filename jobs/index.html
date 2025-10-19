@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs & Bounties - IDIOT Token</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <meta name="description" content="Get paid in IDIOT tokens or USD for completing tasks, bounties, and ongoing projects">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .nav-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section-header h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .section-header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .job-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            color: #1C1C1C;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .job-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .job-type {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .job-type.full-time { background: rgba(16, 185, 129, 0.3); }
+        .job-type.bounty { background: rgba(245, 158, 11, 0.3); }
+        .job-type.ongoing { background: rgba(59, 130, 246, 0.3); }
+        .job-type.one-time { background: rgba(239, 68, 68, 0.3); }
+        
+        .job-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .job-compensation {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .comp-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        .comp-item.primary {
+            font-size: 1.3em;
+            color: #10b981;
+        }
+        
+        .job-body {
+            padding: 20px;
+        }
+        
+        .job-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .job-requirements {
+            margin-bottom: 20px;
+        }
+        
+        .job-requirements h4 {
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .job-requirements ul {
+            margin-left: 20px;
+            color: #666;
+        }
+        
+        .job-requirements li {
+            margin-bottom: 5px;
+        }
+        
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            padding: 5px 12px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #666;
+        }
+        
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .deadline {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .apply-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .apply-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+        }
+        
+        .urgency-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            background: #ef4444;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .submit-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .submit-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .submit-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .jobs-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💼 Jobs & Bounties</h1>
+            <p class="subtitle">Get Paid in IDIOT Tokens or USD</p>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/careers/">Careers</a>
+                <a href="/community.html">Community</a>
+            </div>
+        </header>
+        
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="number">23</div>
+                <div class="label">Active Jobs</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">5.2M</div>
+                <div class="label">IDIOT in Bounties</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">$12.5K</div>
+                <div class="label">USD Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">147</div>
+                <div class="label">Completed Tasks</div>
+            </div>
+        </div>
+        
+        <!-- Urgent Tasks -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🚨 Urgent Tasks</h2>
+                <p>High priority tasks with immediate compensation</p>
+            </div>
+            
+            <div class="jobs-grid">
+                <!-- Urgent Task 1 -->
+                <div class="job-card" style="position: relative;">
+                    <span class="urgency-badge">URGENT</span>
+                    <div class="job-header">
+                        <span class="job-type bounty">Bounty</span>
+                        <div class="job-title">Bug Fix: Mobile Wallet Connection</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 50,000 IDIOT</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $150</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Fix MetaMask mobile connection issue on airdrop claim page. Users report connection drops on iOS devices.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Web3 integration experience</li>
+                                <li>Mobile debugging skills</li>
+                                <li>iOS testing capability</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Web3</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Mobile</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Due in 2 days</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Bug Fix Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Urgent Task 2 -->
+                <div class="job-card" style="position: relative;">
+                    <span class="urgency-badge">URGENT</span>
+                    <div class="job-header">
+                        <span class="job-type one-time">One-Time</span>
+                        <div class="job-title">Create 5 Professional Memes</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 30,000 IDIOT</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $75</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Create 5 high-quality, shareable memes for Twitter/Discord marketing campaign. Must be original and on-brand.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Graphic design skills</li>
+                                <li>Understanding of crypto memes</li>
+                                <li>Portfolio of previous work</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Design</span>
+                            <span class="tag">Marketing</span>
+                            <span class="tag">Memes</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Due in 3 days</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Meme Creation Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bounty Tasks -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🎯 Bounty Tasks</h2>
+                <p>Complete these tasks and get paid immediately</p>
+            </div>
+            
+            <div class="jobs-grid">
+                <!-- Bounty 1 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type bounty">Bounty</span>
+                        <div class="job-title">Write Tutorial: How to Buy IDIOT</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 20,000 IDIOT</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Write a comprehensive, beginner-friendly tutorial explaining how to buy IDIOT tokens on Uniswap. Include screenshots and step-by-step instructions.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Deliverables:</h4>
+                            <ul>
+                                <li>1500+ word article</li>
+                                <li>10+ screenshots</li>
+                                <li>Beginner-friendly language</li>
+                                <li>Markdown format</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Writing</span>
+                            <span class="tag">Tutorial</span>
+                            <span class="tag">Crypto</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ No deadline</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Tutorial Writing Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bounty 2 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type bounty">Bounty</span>
+                        <div class="job-title">Telegram Bot Development</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 100,000 IDIOT</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $250</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Create a Telegram bot for the IDIOT community that displays price, market cap, and allows users to check their wallet balances.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Telegram Bot API experience</li>
+                                <li>Web3 integration</li>
+                                <li>Base network knowledge</li>
+                                <li>Node.js or Python</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Development</span>
+                            <span class="tag">Bot</span>
+                            <span class="tag">Web3</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ 2 weeks</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Telegram Bot Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bounty 3 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type bounty">Bounty</span>
+                        <div class="job-title">Twitter Thread: Tokenomics Explained</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 15,000 IDIOT</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $40</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Create an engaging Twitter thread explaining IDIOT tokenomics in simple terms. Must be informative yet entertaining.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>10-15 tweets</li>
+                                <li>Include graphics/charts</li>
+                                <li>Engaging copywriting</li>
+                                <li>Submit for approval before posting</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Social Media</span>
+                            <span class="tag">Marketing</span>
+                            <span class="tag">Twitter</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ 1 week</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Twitter Thread Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bounty 4 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type bounty">Bounty</span>
+                        <div class="job-title">Video Explainer: What is IDIOT?</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 75,000 IDIOT</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $200</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Create a 2-3 minute animated explainer video about IDIOT Token. Professional quality, engaging, and shareable.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>2-3 minutes length</li>
+                                <li>Professional animation</li>
+                                <li>Voiceover or subtitles</li>
+                                <li>1080p minimum quality</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Video</span>
+                            <span class="tag">Animation</span>
+                            <span class="tag">Marketing</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ 3 weeks</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Video Explainer Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ongoing Projects -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🔄 Ongoing Projects</h2>
+                <p>Long-term positions with recurring compensation</p>
+            </div>
+            
+            <div class="jobs-grid">
+                <!-- Ongoing 1 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type ongoing">Ongoing</span>
+                        <div class="job-title">Community Moderator</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 50,000 IDIOT/month</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $300/month</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Moderate Discord and Telegram channels, engage with community, answer questions, and maintain positive atmosphere. ~10 hours/week.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Available 2-3 hours/day</li>
+                                <li>Crypto knowledge</li>
+                                <li>Good communication skills</li>
+                                <li>Previous moderation experience</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Community</span>
+                            <span class="tag">Part-Time</span>
+                            <span class="tag">Remote</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Ongoing</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Community Moderator Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ongoing 2 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type ongoing">Ongoing</span>
+                        <div class="job-title">Social Media Manager</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 100,000 IDIOT/month</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $500/month</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Manage Twitter account, create engaging content, schedule posts, interact with community, and track analytics. ~15 hours/week.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Social media experience</li>
+                                <li>Content creation skills</li>
+                                <li>Understanding of crypto Twitter</li>
+                                <li>Analytics knowledge</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Marketing</span>
+                            <span class="tag">Social Media</span>
+                            <span class="tag">Part-Time</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Ongoing</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Social Media Manager Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ongoing 3 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type ongoing">Ongoing</span>
+                        <div class="job-title">Weekly Meme Creator</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 25,000 IDIOT/week</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $65/week</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Create 5-7 high-quality memes per week for social media. Must be original, on-brand, and shareable.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Design skills</li>
+                                <li>Crypto meme knowledge</li>
+                                <li>5-7 memes per week</li>
+                                <li>Fast turnaround</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Design</span>
+                            <span class="tag">Memes</span>
+                            <span class="tag">Weekly</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Ongoing</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Weekly Meme Creator Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ongoing 4 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type ongoing">Ongoing</span>
+                        <div class="job-title">Content Writer</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💰 15,000 IDIOT/article</span>
+                            <span style="opacity: 0.8;">or</span>
+                            <span class="comp-item">💵 $40/article</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Write 2-3 blog articles per week about crypto trends, IDIOT updates, tutorials, and community stories. 800-1500 words each.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>Excellent writing skills</li>
+                                <li>Crypto knowledge</li>
+                                <li>SEO understanding</li>
+                                <li>2-3 articles per week</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Writing</span>
+                            <span class="tag">Content</span>
+                            <span class="tag">Per Article</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Ongoing</span>
+                            <a href="mailto:jobs@stupidiots.com?subject=Content Writer Application" class="apply-btn">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Full-Time Positions -->
+        <div class="section">
+            <div class="section-header">
+                <h2>💼 Full-Time Positions</h2>
+                <p>Competitive salaries with token bonuses</p>
+            </div>
+            
+            <div class="jobs-grid">
+                <!-- Full-Time 1 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type full-time">Full-Time</span>
+                        <div class="job-title">Lead Developer</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💵 $80-120K/year</span>
+                            <span style="opacity: 0.8;">+</span>
+                            <span class="comp-item">💰 Token Package</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Lead all technical development including website, smart contracts, integrations, and infrastructure. Full-time remote position.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>5+ years development experience</li>
+                                <li>Solidity expertise</li>
+                                <li>Web3 integrations</li>
+                                <li>Full-stack capabilities</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Full-Time</span>
+                            <span class="tag">Remote</span>
+                            <span class="tag">Leadership</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Open</span>
+                            <a href="/careers/" class="apply-btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Full-Time 2 -->
+                <div class="job-card">
+                    <div class="job-header">
+                        <span class="job-type full-time">Full-Time</span>
+                        <div class="job-title">Marketing Lead</div>
+                        <div class="job-compensation">
+                            <span class="comp-item primary">💵 $60-80K/year</span>
+                            <span style="opacity: 0.8;">+</span>
+                            <span class="comp-item">💰 Token Package</span>
+                        </div>
+                    </div>
+                    <div class="job-body">
+                        <div class="job-description">
+                            Develop and execute marketing strategy, manage campaigns, build partnerships, and grow community. Full-time remote.
+                        </div>
+                        <div class="job-requirements">
+                            <h4>Requirements:</h4>
+                            <ul>
+                                <li>3+ years marketing experience</li>
+                                <li>Crypto industry knowledge</li>
+                                <li>Campaign management</li>
+                                <li>Analytics skills</li>
+                            </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Full-Time</span>
+                            <span class="tag">Remote</span>
+                            <span class="tag">Marketing</span>
+                        </div>
+                        <div class="job-footer">
+                            <span class="deadline">⏰ Open</span>
+                            <a href="/careers/" class="apply-btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Submit Your Task -->
+        <div class="submit-section">
+            <h2>💡 Have a Project Idea?</h2>
+            <p style="font-size: 1.2em; margin-bottom: 30px; opacity: 0.9;">
+                Propose a task or project you can complete for the IDIOT community!
+            </p>
+            <a href="mailto:jobs@stupidiots.com?subject=Project Proposal" class="submit-btn">Submit Proposal</a>
+        </div>
+    </div>
+</body>
+</html>
+
