@@ -1,5 +1,5 @@
 # IDIOT Token Project Status
-**Last Updated:** October 19, 2025 - 8:45 AM
+**Last Updated:** October 19, 2025 - 9:15 AM
 
 ---
 
@@ -7,6 +7,17 @@
 
 ### **Main Site:** https://tiptophimp.github.io/idiot-token/
 ### **All Systems Operational** ✅
+### **Pipeline:** Fixed and verified
+
+---
+
+## 🚨 CRITICAL UPDATE (9:15 AM)
+
+### **Pipeline Issue Resolved:**
+- ✅ Fixed root/dev file sync issue
+- ✅ Logo now displays spinning coin-3.png with 3D rim animation
+- ✅ All recent updates now live on production
+- ✅ Verified: Main site (389ms), Airdrop (50ms)
 
 ---
 
@@ -23,10 +34,10 @@
 - ✅ Tokenomics
 
 ### **Latest Deployment:**
-- **Date:** October 19, 2025 - 8:40 AM
-- **Commit:** 5f4eaaf
+- **Date:** October 19, 2025 - 9:12 AM
+- **Commit:** 670ba6f
 - **Branch:** gh-pages (production)
-- **Changes:** Enhanced staking/partnerships pages, intelligent meme generator, educational guides
+- **Changes:** Pipeline fix - synced root files with website/dev, logo update, 3D spinning animation
 
 ---
 
