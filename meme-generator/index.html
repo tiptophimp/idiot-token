@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDIOT Meme Generator - Create & Share</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
-    <meta name="description" content="Create hilarious IDIOT Token memes. Drag, drop, edit, download, and share!">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IDIOT Meme Generator | Create Your Own Memes</title>
+    <meta name="description" content="Create hilarious IDIOT-themed memes with our easy-to-use meme generator. Share your creativity with the community!">
+    <meta property="og:title" content="IDIOT Meme Generator">
+    <meta property="og:description" content="Create and share IDIOT memes">
+    <meta property="og:image" content="../assets/og-image.png">
+    <link rel="icon" href="../assets/favicon22.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,681 +18,480 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
             min-height: 100vh;
             padding: 20px;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: white;
             border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
         
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
         }
         
-        .subtitle {
-            font-size: 1.2em;
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
             opacity: 0.9;
         }
         
-        .nav-links {
-            margin-top: 20px;
-        }
-        
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            transition: all 0.3s;
-        }
-        
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .main-grid {
+        .main-content {
             display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
         }
         
-        .controls-panel {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            height: fit-content;
-        }
-        
-        .canvas-area {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+        .meme-canvas-container {
             text-align: center;
         }
         
-        .section {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        .meme-canvas {
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            max-width: 100%;
+            height: auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
-        .section:last-child {
-            border-bottom: none;
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
         
-        .section h3 {
-            margin-bottom: 15px;
-            font-size: 1.2em;
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .control-group label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .control-group input, .control-group select, .control-group textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .control-group input:focus, .control-group select:focus, .control-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
         }
         
         .template-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
         
-        .template-btn {
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: white;
+        .template {
+            aspect-ratio: 1;
+            border: 3px solid #e0e0e0;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9em;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
         }
         
-        .template-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .template:hover {
+            border-color: #667eea;
             transform: scale(1.05);
         }
         
-        .template-btn.active {
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.3);
+        .template.selected {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
         }
         
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-        
-        .input-group input,
-        .input-group textarea,
-        .input-group select {
-            width: 100%;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
+        .template-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
             color: white;
-            font-family: inherit;
-            font-size: 1em;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            text-align: center;
         }
         
-        .input-group textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
-        
-        .input-group input[type="color"] {
-            height: 50px;
-            cursor: pointer;
-        }
-        
-        .input-group input[type="range"] {
-            cursor: pointer;
-        }
-        
-        .button-group {
+        .action-buttons {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
         }
         
         .btn {
-            flex: 1;
-            padding: 12px 20px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
             color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1em;
         }
         
-        .btn:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
         
-        .btn.primary {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
         }
         
-        .btn.secondary {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        .btn-secondary:hover {
+            background: #e9ecef;
         }
         
-        #memeCanvas {
-            max-width: 100%;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .download-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
             border-radius: 10px;
-            background: white;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .gallery {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .gallery h2 {
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        
-        .gallery-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .gallery-item-info {
-            padding: 10px;
             text-align: center;
         }
         
-        .upload-area {
-            border: 3px dashed rgba(255, 255, 255, 0.3);
+        .share-section {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: #e3f2fd;
             border-radius: 10px;
-            padding: 30px;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(0, 0, 0, 0.2);
         }
         
-        .upload-area:hover {
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-        
-        .upload-area.dragover {
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.2);
-        }
-        
-        #imageUpload {
-            display: none;
-        }
-        
-        @media (max-width: 1024px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .template-grid { grid-template-columns: 1fr; }
-            .button-group { flex-direction: column; }
-            .btn { width: 100%; }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
+    <a href="../" class="back-link">← Back to IDIOT Token</a>
+    
     <div class="container">
-        <header>
+        <div class="header">
             <h1>🎨 IDIOT Meme Generator</h1>
-            <p class="subtitle">Create legendary IDIOT memes in seconds!</p>
-            <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/tools/">Tools</a>
-                <a href="/community.html">Community</a>
-            </div>
-        </header>
-        
-        <div class="main-grid">
-            <!-- Controls Panel -->
-            <div class="controls-panel">
-                <!-- Template Selection -->
-                <div class="section">
-                    <h3>📋 Choose Template</h3>
-                    <div class="template-grid">
-                        <button class="template-btn active" data-template="drake">Drake</button>
-                        <button class="template-btn" data-template="distracted">Distracted BF</button>
-                        <button class="template-btn" data-template="expanding">Expanding Brain</button>
-                        <button class="template-btn" data-template="stonks">Stonks</button>
-                        <button class="template-btn" data-template="doge">Doge</button>
-                        <button class="template-btn" data-template="pepe">Pepe</button>
-                        <button class="template-btn" data-template="wojak">Wojak</button>
-                        <button class="template-btn" data-template="custom">Custom</button>
-                    </div>
-                </div>
-                
-                <!-- Upload Custom Image -->
-                <div class="section">
-                    <h3>📸 Upload Image</h3>
-                    <div class="upload-area" id="uploadArea">
-                        <p>🖼️ Drag & drop or click to upload</p>
-                        <input type="file" id="imageUpload" accept="image/*">
-                    </div>
-                </div>
-                
-                <!-- Text Controls -->
-                <div class="section">
-                    <h3>✍️ Add Text</h3>
-                    <div class="input-group">
-                        <label>Top Text</label>
-                        <textarea id="topText" placeholder="Enter top text...">OTHER TOKENS</textarea>
-                    </div>
-                    <div class="input-group">
-                        <label>Bottom Text</label>
-                        <textarea id="bottomText" placeholder="Enter bottom text...">IDIOT TOKEN 🚀</textarea>
-                    </div>
-                    <div class="input-group">
-                        <label>Text Color</label>
-                        <input type="color" id="textColor" value="#ffffff">
-                    </div>
-                    <div class="input-group">
-                        <label>Font Size: <span id="fontSizeValue">48</span>px</label>
-                        <input type="range" id="fontSize" min="20" max="100" value="48">
-                    </div>
-                    <div class="input-group">
-                        <label>Font Style</label>
-                        <select id="fontStyle">
-                            <option value="Impact">Impact (Classic)</option>
-                            <option value="Arial Black">Arial Black</option>
-                            <option value="Comic Sans MS">Comic Sans MS</option>
-                            <option value="Courier New">Courier New</option>
-                            <option value="Georgia">Georgia</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <!-- Actions -->
-                <div class="section">
-                    <h3>💾 Actions</h3>
-                    <div class="button-group">
-                        <button class="btn primary" id="generateBtn">Generate Meme</button>
-                    </div>
-                    <div class="button-group" style="margin-top: 10px;">
-                        <button class="btn secondary" id="downloadBtn">⬇️ Download</button>
-                        <button class="btn secondary" id="shareBtn">🔗 Share</button>
-                    </div>
-                    <div class="button-group" style="margin-top: 10px;">
-                        <button class="btn" id="randomBtn">🎲 Randomize</button>
-                        <button class="btn" id="resetBtn">🔄 Reset</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Canvas Area -->
-            <div class="canvas-area">
-                <h2 style="margin-bottom: 20px;">Your Meme</h2>
-                <canvas id="memeCanvas" width="800" height="800"></canvas>
-                <p style="margin-top: 15px; opacity: 0.8;">👆 Your masterpiece will appear here</p>
-            </div>
+            <p>Create hilarious memes and share them with the community!</p>
         </div>
         
-        <!-- Meme Gallery -->
-        <div class="gallery">
-            <h2>🏆 Community Memes</h2>
-            <p style="opacity: 0.8; margin-bottom: 20px;">Check out what other idiots have created!</p>
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Gallery items will be populated dynamically -->
+        <div class="main-content">
+            <div class="meme-canvas-container">
+                <canvas id="memeCanvas" class="meme-canvas" width="500" height="500"></canvas>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="templateSelect">Choose Template:</label>
+                    <div class="template-grid">
+                        <div class="template selected" data-template="drake" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzMzMzMzMyIvPgo8cmVjdCB4PSI1MCIgeT0iMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjNjY2NjY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkRyYWtlPC90ZXh0Pgo8L3N2Zz4=');">
+                            <div class="template-name">Drake</div>
+                        </div>
+                        <div class="template" data-template="distracted" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNDAiIGZpbGw9IiMzMzMzMzMiLz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iI0ZGRkZGRiIvPgo8dGV4dCB4PSIxMDAiIHk9IjE2MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5EaXN0cmFjdGVkPC90ZXh0Pgo8L3N2Zz4=');">
+                            <div class="template-name">Distracted</div>
+                        </div>
+                        <div class="template" data-template="brain" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xMDAgNDBDMTIwIDQwIDE0MCA1MCAxNDAgNzBDMTQwIDkwIDEyMCAxMDAgMTAwIDEwMEM4MCAxMDAgNjAgOTAgNjAgNzBDNjAgNTAgODAgNDAgMTAwIDQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8dGV4dCB4PSIxMDAiIHk9IjE0MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CcmFpbiBFeHBhbmRlZDwvdGV4dD4KPC9zdmc+');">
+                            <div class="template-name">Brain</div>
+                        </div>
+                        <div class="template" data-template="change" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMzMzMzMzMiLz4KPHN2Zz4KPC9zdmc+');">
+                            <div class="template-name">Change My Mind</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="topText">Top Text:</label>
+                    <input type="text" id="topText" placeholder="Enter top text..." value="Buying IDIOT token">
+                </div>
+                
+                <div class="control-group">
+                    <label for="bottomText">Bottom Text:</label>
+                    <input type="text" id="bottomText" placeholder="Enter bottom text..." value="Smart about dumb fun">
+                </div>
+                
+                <div class="control-group">
+                    <label for="textColor">Text Color:</label>
+                    <input type="color" id="textColor" value="#ffffff">
+                </div>
+                
+                <div class="control-group">
+                    <label for="textSize">Text Size:</label>
+                    <input type="range" id="textSize" min="20" max="60" value="40">
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateMeme()">Generate Meme</button>
+                    <button class="btn btn-secondary" onclick="clearMeme()">Clear</button>
+                </div>
+                
+                <div class="download-section">
+                    <h3>Download Your Meme</h3>
+                    <p>Click the button below to download your meme as a PNG image</p>
+                    <button class="btn btn-primary" onclick="downloadMeme()">Download PNG</button>
+                </div>
+                
+                <div class="share-section">
+                    <h3>Share Your Creation</h3>
+                    <p>Share your IDIOT meme with the community!</p>
+                    <div class="share-buttons">
+                        <button class="btn btn-secondary" onclick="shareTwitter()">Share on Twitter</button>
+                        <button class="btn btn-secondary" onclick="copyToClipboard()">Copy Link</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
+
     <script>
-        const canvas = document.getElementById('memeCanvas');
-        const ctx = canvas.getContext('2d');
-        
         let currentTemplate = 'drake';
-        let uploadedImage = null;
+        let canvas, ctx;
         
-        // Template buttons
-        document.querySelectorAll('.template-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentTemplate = btn.dataset.template;
-                generateMeme();
-            });
-        });
-        
-        // Upload area
-        const uploadArea = document.getElementById('uploadArea');
-        const imageUpload = document.getElementById('imageUpload');
-        
-        uploadArea.addEventListener('click', () => imageUpload.click());
-        
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
-        
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
-        });
-        
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            const file = e.dataTransfer.files[0];
-            if (file && file.type.startsWith('image/')) {
-                loadImage(file);
-            }
-        });
-        
-        imageUpload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                loadImage(file);
-            }
-        });
-        
-        function loadImage(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    uploadedImage = img;
-                    currentTemplate = 'custom';
-                    generateMeme();
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-        
-        // Text inputs
-        document.getElementById('topText').addEventListener('input', generateMeme);
-        document.getElementById('bottomText').addEventListener('input', generateMeme);
-        document.getElementById('textColor').addEventListener('input', generateMeme);
-        document.getElementById('fontSize').addEventListener('input', (e) => {
-            document.getElementById('fontSizeValue').textContent = e.target.value;
+        // Initialize canvas
+        window.onload = function() {
+            canvas = document.getElementById('memeCanvas');
+            ctx = canvas.getContext('2d');
             generateMeme();
-        });
-        document.getElementById('fontStyle').addEventListener('change', generateMeme);
+            
+            // Template selection
+            document.querySelectorAll('.template').forEach(template => {
+                template.addEventListener('click', function() {
+                    document.querySelectorAll('.template').forEach(t => t.classList.remove('selected'));
+                    this.classList.add('selected');
+                    currentTemplate = this.dataset.template;
+                    generateMeme();
+                });
+            });
+            
+            // Real-time updates
+            document.getElementById('topText').addEventListener('input', generateMeme);
+            document.getElementById('bottomText').addEventListener('input', generateMeme);
+            document.getElementById('textColor').addEventListener('change', generateMeme);
+            document.getElementById('textSize').addEventListener('input', generateMeme);
+        };
         
-        // Generate meme
         function generateMeme() {
+            const topText = document.getElementById('topText').value;
+            const bottomText = document.getElementById('bottomText').value;
+            const textColor = document.getElementById('textColor').value;
+            const textSize = parseInt(document.getElementById('textSize').value);
+            
+            // Clear canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Draw template background
-            if (currentTemplate === 'custom' && uploadedImage) {
-                ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
-            } else {
-                // Draw template placeholders
-                drawTemplate(currentTemplate);
-            }
+            // Draw background based on template
+            drawTemplate();
             
             // Draw text
-            const topText = document.getElementById('topText').value.toUpperCase();
-            const bottomText = document.getElementById('bottomText').value.toUpperCase();
-            const textColor = document.getElementById('textColor').value;
-            const fontSize = document.getElementById('fontSize').value;
-            const fontStyle = document.getElementById('fontStyle').value;
-            
-            ctx.font = `bold ${fontSize}px ${fontStyle}`;
             ctx.fillStyle = textColor;
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 3;
+            ctx.font = `bold ${textSize}px Arial`;
             ctx.textAlign = 'center';
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 3;
             
             // Top text
             if (topText) {
-                const lines = wrapText(topText, canvas.width - 40);
-                lines.forEach((line, i) => {
-                    const y = 80 + (i * parseInt(fontSize) * 1.2);
-                    ctx.strokeText(line, canvas.width / 2, y);
-                    ctx.fillText(line, canvas.width / 2, y);
-                });
+                ctx.strokeText(topText, canvas.width / 2, 60);
+                ctx.fillText(topText, canvas.width / 2, 60);
             }
             
             // Bottom text
             if (bottomText) {
-                const lines = wrapText(bottomText, canvas.width - 40);
-                lines.reverse().forEach((line, i) => {
-                    const y = canvas.height - 40 - (i * parseInt(fontSize) * 1.2);
-                    ctx.strokeText(line, canvas.width / 2, y);
-                    ctx.fillText(line, canvas.width / 2, y);
-                });
+                ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 30);
+                ctx.fillText(bottomText, canvas.width / 2, canvas.height - 30);
             }
         }
         
-        function drawTemplate(template) {
-            // Draw placeholder backgrounds for templates
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            
-            switch(template) {
+        function drawTemplate() {
+            switch(currentTemplate) {
                 case 'drake':
-                    gradient.addColorStop(0, '#ff6b6b');
-                    gradient.addColorStop(1, '#4ecdc4');
+                    // Drake pointing template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Left side (disapproving)
+                    ctx.fillStyle = '#333333';
+                    ctx.fillRect(50, 100, 150, 100);
+                    
+                    // Right side (approving)
+                    ctx.fillStyle = '#666666';
+                    ctx.fillRect(300, 100, 150, 100);
+                    
+                    // Drake figure
+                    ctx.fillStyle = '#8B4513';
+                    ctx.beginPath();
+                    ctx.arc(125, 80, 30, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    ctx.beginPath();
+                    ctx.arc(375, 80, 30, 0, 2 * Math.PI);
+                    ctx.fill();
                     break;
+                    
                 case 'distracted':
-                    gradient.addColorStop(0, '#feca57');
-                    gradient.addColorStop(1, '#ff9ff3');
+                    // Distracted boyfriend template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Boyfriend
+                    ctx.fillStyle = '#333333';
+                    ctx.beginPath();
+                    ctx.arc(150, 200, 40, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Girlfriend
+                    ctx.fillStyle = '#666666';
+                    ctx.beginPath();
+                    ctx.arc(300, 200, 40, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Other girl
+                    ctx.fillStyle = '#999999';
+                    ctx.beginPath();
+                    ctx.arc(400, 200, 40, 0, 2 * Math.PI);
+                    ctx.fill();
                     break;
-                case 'expanding':
-                    gradient.addColorStop(0, '#5f27cd');
-                    gradient.addColorStop(1, '#341f97');
+                    
+                case 'brain':
+                    // Expanding brain template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Brain levels
+                    const levels = [
+                        {y: 100, size: 60, color: '#333333'},
+                        {y: 150, size: 80, color: '#666666'},
+                        {y: 200, size: 100, color: '#999999'},
+                        {y: 250, size: 120, color: '#cccccc'}
+                    ];
+                    
+                    levels.forEach(level => {
+                        ctx.fillStyle = level.color;
+                        ctx.beginPath();
+                        ctx.arc(canvas.width / 2, level.y, level.size, 0, 2 * Math.PI);
+                        ctx.fill();
+                    });
                     break;
-                case 'stonks':
-                    gradient.addColorStop(0, '#48dbfb');
-                    gradient.addColorStop(1, '#0abde3');
+                    
+                case 'change':
+                    // Change my mind template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Table
+                    ctx.fillStyle = '#8B4513';
+                    ctx.fillRect(50, 200, 400, 20);
+                    
+                    // Sign
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(100, 150, 300, 50);
+                    ctx.strokeStyle = '#000000';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(100, 150, 300, 50);
                     break;
-                case 'doge':
-                    gradient.addColorStop(0, '#f8b500');
-                    gradient.addColorStop(1, '#ffc312');
-                    break;
-                case 'pepe':
-                    gradient.addColorStop(0, '#6ab04c');
-                    gradient.addColorStop(1, '#badc58');
-                    break;
-                case 'wojak':
-                    gradient.addColorStop(0, '#95afc0');
-                    gradient.addColorStop(1, '#535c68');
-                    break;
-                default:
-                    gradient.addColorStop(0, '#667eea');
-                    gradient.addColorStop(1, '#764ba2');
             }
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Add template label
-            ctx.font = 'bold 30px Arial';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.textAlign = 'center';
-            ctx.fillText(template.toUpperCase() + ' TEMPLATE', canvas.width / 2, canvas.height / 2);
         }
         
-        function wrapText(text, maxWidth) {
-            const words = text.split(' ');
-            const lines = [];
-            let currentLine = '';
-            
-            words.forEach(word => {
-                const testLine = currentLine + (currentLine ? ' ' : '') + word;
-                const metrics = ctx.measureText(testLine);
-                
-                if (metrics.width > maxWidth && currentLine) {
-                    lines.push(currentLine);
-                    currentLine = word;
-                } else {
-                    currentLine = testLine;
-                }
-            });
-            
-            if (currentLine) {
-                lines.push(currentLine);
-            }
-            
-            return lines;
+        function clearMeme() {
+            document.getElementById('topText').value = '';
+            document.getElementById('bottomText').value = '';
+            generateMeme();
         }
         
-        // Download button
-        document.getElementById('downloadBtn').addEventListener('click', () => {
+        function downloadMeme() {
             const link = document.createElement('a');
-            link.download = `idiot-meme-${Date.now()}.png`;
+            link.download = 'idiot-meme.png';
             link.href = canvas.toDataURL();
             link.click();
-        });
+        }
         
-        // Share button
-        document.getElementById('shareBtn').addEventListener('click', async () => {
-            try {
-                const blob = await new Promise(resolve => canvas.toBlob(resolve));
-                const file = new File([blob], 'idiot-meme.png', { type: 'image/png' });
-                
-                if (navigator.share && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: 'My IDIOT Meme',
-                        text: 'Check out this IDIOT meme I made! 🚀 #IDIOTToken'
-                    });
-                } else {
-                    // Fallback: copy to clipboard
-                    await navigator.clipboard.write([
-                        new ClipboardItem({ 'image/png': blob })
-                    ]);
-                    alert('Meme copied to clipboard! 📋');
-                }
-            } catch (err) {
-                console.error('Share failed:', err);
-                alert('Share not supported. Use Download instead!');
-            }
-        });
+        function shareTwitter() {
+            const text = encodeURIComponent('Check out my IDIOT meme! 🧠 #IDIOTToken #MemeGenerator');
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        }
         
-        // Random button
-        const randomTexts = [
-            { top: 'WEN MOON?', bottom: 'NOW MOON! 🚀' },
-            { top: 'SMRT INVESTORS', bottom: 'IDIOT HOLDERS' },
-            { top: 'OTHER TOKENS', bottom: 'IDIOT TOKEN 💎' },
-            { top: 'FINANCIAL ADVICE', bottom: 'IDIOT ADVICE' },
-            { top: 'ZERO TAX', bottom: '100% FUN' },
-            { top: 'DYOR', bottom: 'OR YOLO 🎲' },
-            { top: 'PAPER HANDS', bottom: 'IDIOT HANDS 💪' },
-            { top: 'TO THE MOON', bottom: 'ALREADY THERE ✨' }
-        ];
-        
-        document.getElementById('randomBtn').addEventListener('click', () => {
-            const random = randomTexts[Math.floor(Math.random() * randomTexts.length)];
-            document.getElementById('topText').value = random.top;
-            document.getElementById('bottomText').value = random.bottom;
-            
-            // Random colors
-            const colors = ['#ffffff', '#ffff00', '#00ff00', '#ff0000', '#00ffff', '#ff00ff'];
-            document.getElementById('textColor').value = colors[Math.floor(Math.random() * colors.length)];
-            
-            generateMeme();
-        });
-        
-        // Reset button
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            document.getElementById('topText').value = 'OTHER TOKENS';
-            document.getElementById('bottomText').value = 'IDIOT TOKEN 🚀';
-            document.getElementById('textColor').value = '#ffffff';
-            document.getElementById('fontSize').value = 48;
-            document.getElementById('fontSizeValue').textContent = 48;
-            document.getElementById('fontStyle').value = 'Impact';
-            generateMeme();
-        });
-        
-        // Populate gallery with sample memes
-        const galleryGrid = document.getElementById('galleryGrid');
-        const sampleMemes = [
-            { title: 'Moon Soon', emoji: '🌙' },
-            { title: 'Diamond Hands', emoji: '💎' },
-            { title: 'To The Moon', emoji: '🚀' },
-            { title: 'HODL Strong', emoji: '💪' },
-            { title: 'Zero Tax', emoji: '🎉' },
-            { title: 'Smart Idiots', emoji: '🧠' }
-        ];
-        
-        sampleMemes.forEach(meme => {
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.innerHTML = `
-                <div style="height: 200px; display: flex; align-items: center; justify-content: center; font-size: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    ${meme.emoji}
-                </div>
-                <div class="gallery-item-info">
-                    <strong>${meme.title}</strong>
-                </div>
-            `;
-            item.addEventListener('click', () => {
-                document.getElementById('topText').value = meme.title.toUpperCase();
-                document.getElementById('bottomText').value = 'IDIOT TOKEN 🚀';
-                generateMeme();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        function copyToClipboard() {
+            canvas.toBlob(function(blob) {
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'image/png': blob
+                    })
+                ]).then(() => {
+                    alert('Meme copied to clipboard!');
+                }).catch(() => {
+                    alert('Failed to copy to clipboard. Please try downloading instead.');
+                });
             });
-            galleryGrid.appendChild(item);
-        });
-        
-        // Initial generation
-        generateMeme();
+        }
     </script>
 </body>
 </html>
-
