@@ -86,6 +86,36 @@
             100% { background-position: 0% 50%; }
         }
         
+        /* Decorative Floating Coins */
+        .floating-coin {
+            position: fixed;
+            z-index: 999;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .floating-coin-top {
+            top: 120px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .floating-coin-bottom {
+            bottom: 100px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            animation-delay: -3s;
+        }
+        
+        @media (max-width: 768px) {
+            .floating-coin {
+                display: none;
+            }
+        }
+        
         /* Sticky Header */
         .sticky-header {
             position: fixed;
@@ -243,11 +273,15 @@
             border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             transition: all 0.3s;
             font-weight: bold;
             position: relative;
             overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
         }
         
         .btn::before {
@@ -848,6 +882,10 @@
     <!-- Animated Background -->
     <div class="animated-bg"></div>
     
+    <!-- Floating Decorative Coins -->
+    <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-top">
+    <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-bottom">
+    
     <!-- Sticky Header -->
     <div class="sticky-header" id="stickyHeader">
         <img src="assets/logo.png?v=20250119" alt="IDIOT" class="logo-small">
@@ -932,8 +970,9 @@
             <iframe 
                 id="chartFrame"
                 class="chart-iframe"
-                src="https://dexscreener.com/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25?embed=1&theme=dark&trades=0&info=0"
-                loading="lazy">
+                src="https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?embed=1&theme=dark&trades=0&info=0"
+                loading="lazy"
+                allow="clipboard-write">
             </iframe>
         </div>
     </section>
@@ -1361,7 +1400,7 @@
             event.target.classList.add('active');
             
             if (type === 'dexscreener') {
-                frame.src = 'https://dexscreener.com/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25?embed=1&theme=dark&trades=0&info=0';
+                frame.src = 'https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?embed=1&theme=dark&trades=0&info=0';
             } else if (type === 'dextools') {
                 frame.src = 'https://www.dextools.io/widget-chart/en/base/pe-light/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false';
             }
