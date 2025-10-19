@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap IDIOT Token | Built on Base</title>
+    <meta name="description" content="Swap IDIOT tokens instantly on Base network. Zero taxes, low fees.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .swap-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .wallet-status {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .wallet-address {
+            font-family: monospace;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .connect-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .swap-box {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .token-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .token-input {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .token-select {
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .swap-arrow {
+            text-align: center;
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+
+        .swap-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .swap-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .swap-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .info-box {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+
+        .balance {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .swap-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <div class="swap-card">
+            <h1>💱 Swap IDIOT</h1>
+            <p class="subtitle">Powered by Uniswap V3 on Base</p>
+
+            <div id="walletSection">
+                <button class="connect-btn" onclick="connectWallet()">
+                    🔗 Connect Wallet
+                </button>
+            </div>
+
+            <div id="swapSection" style="display: none;">
+                <div class="wallet-status">
+                    <div>✅ Connected</div>
+                    <div class="wallet-address" id="walletAddress"></div>
+                </div>
+
+                <div class="swap-box">
+                    <div class="token-label">You Pay</div>
+                    <div class="input-group">
+                        <input 
+                            type="number" 
+                            class="token-input" 
+                            id="inputAmount" 
+                            placeholder="0.0"
+                            oninput="calculateOutput()"
+                        >
+                        <select class="token-select" id="inputToken" onchange="switchTokens()">
+                            <option value="ETH">ETH</option>
+                            <option value="IDIOT">IDIOT</option>
+                        </select>
+                    </div>
+                    <div class="balance" id="inputBalance">Balance: --</div>
+                </div>
+
+                <div class="swap-arrow">⬇️</div>
+
+                <div class="swap-box">
+                    <div class="token-label">You Receive (estimated)</div>
+                    <div class="input-group">
+                        <input 
+                            type="number" 
+                            class="token-input" 
+                            id="outputAmount" 
+                            placeholder="0.0"
+                            readonly
+                        >
+                        <select class="token-select" id="outputToken" disabled>
+                            <option value="IDIOT">IDIOT</option>
+                            <option value="ETH">ETH</option>
+                        </select>
+                    </div>
+                    <div class="balance" id="outputBalance">Balance: --</div>
+                </div>
+
+                <button class="swap-btn" onclick="executeSwap()" id="swapBtn" disabled>
+                    Enter Amount
+                </button>
+
+                <div class="info-box" id="swapInfo" style="display: none;">
+                    <div class="info-row">
+                        <span>Rate:</span>
+                        <span id="exchangeRate">--</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Network Fee:</span>
+                        <span>~$0.01</span>
+                    </div>
+                    <div class="info-row">
+                        <span>Slippage Tolerance:</span>
+                        <span>1%</span>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    ⚠️ <strong>Important:</strong> This is a direct link to Uniswap V3. Always verify the contract address before swapping: <code style="font-size: 0.75rem;">0xc29ef04cffe38012dcfc1E96a2B368443f298dE1</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN_ADDRESS = '0xc29ef04cffe38012dcfc1E96a2B368443f298dE1';
+        const POOL_ADDRESS = '0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea';
+        
+        let userAddress = null;
+        let ethBalance = 0;
+        let idiotBalance = 0;
+
+        async function connectWallet() {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask to use this feature!');
+                window.open('https://metamask.io/download/', '_blank');
+                return;
+            }
+
+            try {
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_requestAccounts' 
+                });
+                
+                userAddress = accounts[0];
+                
+                // Check if on Base network
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                if (chainId !== '0x2105') { // Base = 8453 = 0x2105
+                    await switchToBase();
+                }
+
+                displayWalletConnected();
+                await loadBalances();
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                alert('Failed to connect wallet. Please try again.');
+            }
+        }
+
+        async function switchToBase() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x2105' }], // Base = 8453
+                });
+            } catch (switchError) {
+                // Chain not added, try to add it
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: '0x2105',
+                                chainName: 'Base',
+                                nativeCurrency: {
+                                    name: 'Ethereum',
+                                    symbol: 'ETH',
+                                    decimals: 18
+                                },
+                                rpcUrls: ['https://mainnet.base.org'],
+                                blockExplorerUrls: ['https://basescan.org']
+                            }]
+                        });
+                    } catch (addError) {
+                        alert('Failed to add Base network. Please add it manually.');
+                    }
+                }
+            }
+        }
+
+        function displayWalletConnected() {
+            document.getElementById('walletSection').style.display = 'none';
+            document.getElementById('swapSection').style.display = 'block';
+            document.getElementById('walletAddress').textContent = 
+                userAddress.substring(0, 6) + '...' + userAddress.substring(38);
+        }
+
+        async function loadBalances() {
+            // This would normally use Web3 to get actual balances
+            // For now, showing placeholder
+            document.getElementById('inputBalance').textContent = 'Balance: --';
+            document.getElementById('outputBalance').textContent = 'Balance: --';
+        }
+
+        function switchTokens() {
+            const inputToken = document.getElementById('inputToken').value;
+            const outputToken = document.getElementById('outputToken');
+            
+            if (inputToken === 'ETH') {
+                outputToken.value = 'IDIOT';
+            } else {
+                outputToken.value = 'ETH';
+            }
+            
+            calculateOutput();
+        }
+
+        function calculateOutput() {
+            const inputAmount = parseFloat(document.getElementById('inputAmount').value);
+            const inputToken = document.getElementById('inputToken').value;
+            const swapBtn = document.getElementById('swapBtn');
+            const swapInfo = document.getElementById('swapInfo');
+            
+            if (!inputAmount || inputAmount <= 0) {
+                swapBtn.disabled = true;
+                swapBtn.textContent = 'Enter Amount';
+                swapInfo.style.display = 'none';
+                return;
+            }
+
+            // Simple rate calculation (would be from actual pool in production)
+            const rate = 3835000; // Approximate IDIOT per ETH
+            let outputAmount;
+            
+            if (inputToken === 'ETH') {
+                outputAmount = inputAmount * rate;
+                document.getElementById('exchangeRate').textContent = `1 ETH = ${rate.toLocaleString()} IDIOT`;
+            } else {
+                outputAmount = inputAmount / rate;
+                document.getElementById('exchangeRate').textContent = `${rate.toLocaleString()} IDIOT = 1 ETH`;
+            }
+            
+            document.getElementById('outputAmount').value = outputAmount.toFixed(6);
+            swapBtn.disabled = false;
+            swapBtn.textContent = '💱 Swap on Uniswap';
+            swapInfo.style.display = 'block';
+        }
+
+        function executeSwap() {
+            const inputToken = document.getElementById('inputToken').value;
+            const outputToken = document.getElementById('outputToken').value;
+            const inputAmount = document.getElementById('inputAmount').value;
+            
+            // Redirect to Uniswap with pre-filled values
+            const uniswapUrl = `https://app.uniswap.org/swap?chain=base&inputCurrency=${
+                inputToken === 'ETH' ? 'ETH' : TOKEN_ADDRESS
+            }&outputCurrency=${
+                outputToken === 'ETH' ? 'ETH' : TOKEN_ADDRESS
+            }`;
+            
+            window.open(uniswapUrl, '_blank');
+        }
+
+        // Auto-connect if previously connected
+        window.addEventListener('load', async () => {
+            if (typeof window.ethereum !== 'undefined') {
+                const accounts = await window.ethereum.request({ 
+                    method: 'eth_accounts' 
+                });
+                if (accounts.length > 0) {
+                    userAddress = accounts[0];
+                    displayWalletConnected();
+                    await loadBalances();
+                }
+            }
+        });
+
+        // Listen for account changes
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    location.reload();
+                } else {
+                    userAddress = accounts[0];
+                    document.getElementById('walletAddress').textContent = 
+                        userAddress.substring(0, 6) + '...' + userAddress.substring(38);
+                    loadBalances();
+                }
+            });
+
+            window.ethereum.on('chainChanged', () => {
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
+

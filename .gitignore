@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IDIOT Token Project - Git Ignore
 
 # Sensitive files
@@ -19,10 +20,88 @@ Thumbs.db
 desktop.ini
 
 # Editor files
+=======
+# IDIOT Token - Secure Git Ignore
+
+# ============================================
+# SECURITY - NEVER COMMIT THESE
+# ============================================
+
+# SSH Keys & Credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*private*
+*password*
+*credential*
+*secret*
+secure/
+
+# GitHub Actions Deploy Keys (NEVER COMMIT)
+.github/*-deploy-key
+.github/github-actions-deploy-key
+!.github/github-actions-deploy-key.pub
+
+# Discord Bot Data
+idiot_points.db
+idiot_points.db-journal
+*.db
+*.db-journal
+payout_history.csv
+payout_transactions.csv
+discord.log
+
+# Wallet & Safe Files
+*safe*.json
+*wallet*
+*keys.txt
+
+# Financial Data (exclude raw sensitive data, allow docs)
+*audit-log*
+*ledger*.txt
+*holdings_snapshot*
+Book*.xlsx
+IDIOT_Treasury_Master*.csv
+IDIOT_Treasury_Master*.xlsx
+*TOKEN_FINAL_TRANSFER_BATCH.txt
+
+# Allow important documentation
+!TOKEN_TRANSFERS_COMPLETE_REPORT.md
+!TRANSPARENCY_REPORT*.md
+!TRANSFER_INSTRUCTIONS*.md
+!TRANSFER_QUICK_REFERENCE.txt
+!TRANSFER_COMMANDS.sh
+
+# ============================================
+# SYSTEM FILES
+# ============================================
+
+# Windows
+Thumbs.db
+desktop.ini
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+# ============================================
+# DEVELOPMENT
+# ============================================
+
+# IDE
+>>>>>>> e3e06bea0cd4f80b32d4ee022bb61c08cb67ab73
 .vscode/
 .idea/
 *.swp
 *.swo
+<<<<<<< HEAD
 *~
 
 # Logs
@@ -63,3 +142,59 @@ id_rsa*
 *.ppk
 known_hosts
 
+=======
+*.sublime-*
+
+# Logs
+*.log
+*.tmp
+*.temp
+logs/
+temp/
+tmp/
+
+# Node.js (if used)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build & Deployment
+dist/
+build/
+*.zip
+*.tar.gz
+deployment/
+
+# Environment
+.env
+.env.local
+.env.production
+.env.staging
+
+# Backup Files
+*.backup
+*.bak
+*backup*
+
+# ============================================
+# PROJECT SPECIFIC (if needed)
+# ============================================
+
+# Sensitive Excel/CSV files with real data
+# holdings_snapshot*.csv
+# IDIOT_Treasury*.csv
+
+# Keep documentation and templates
+!IDIOT_Complete_Tokenomics_Reference.csv
+!IDIOT_Funding_Plan.csvexcramitor-deploy-key
+excramitor-deploy-key.pub
+excramitor-new/
+stupidiots-website-clean/
+*.msix
+*.zip
+*.tar.gz
+secure/
+.env
+>>>>>>> e3e06bea0cd4f80b32d4ee022bb61c08cb67ab73

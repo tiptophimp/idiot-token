@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDIOT Token Airdrop - Claim Portal</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo img {
+            max-width: 120px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .status-box {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        
+        .links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .link-btn {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .link-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="../assets/img/logo.png" alt="IDIOT Token">
+        </div>
+        
+        <h1>🎁 IDIOT Airdrop</h1>
+        <p class="subtitle">Claim your allocation of 250M IDIOT tokens</p>
+        
+        <div class="status-box">
+            <h2 style="color: #667eea; margin-bottom: 1rem;">📢 Airdrop Status</h2>
+            <p><strong>Current Campaign:</strong> Idiocracy Round 1</p>
+            <p style="margin-top: 0.5rem;"><strong>Total Allocation:</strong> 250,000,000 IDIOT</p>
+            <p style="margin-top: 0.5rem;"><strong>Status:</strong> <span style="color: #28a745; font-weight: bold;">ACTIVE</span></p>
+        </div>
+        
+        <div class="info-box">
+            <p><strong>ℹ️ How to Claim:</strong></p>
+            <p style="margin-top: 0.5rem;">Connect your wallet below to check eligibility and claim your IDIOT tokens.</p>
+        </div>
+        
+        <button class="btn" onclick="connectWallet()">Connect Wallet</button>
+        
+        <div class="warning-box" style="margin-top: 2rem;">
+            <p><strong>⚠️ Important:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Maximum 1,000,000 IDIOT per wallet</li>
+                <li>14-day claim window from snapshot</li>
+                <li>Base network required</li>
+                <li>Unclaimed tokens return to community pool</li>
+            </ul>
+        </div>
+        
+        <div class="links">
+            <a href="idiocracy" class="link-btn">📋 Rules</a>
+            <a href="idiocracy-1.json" class="link-btn" target="_blank">🔍 Proofs</a>
+            <a href="/" class="link-btn">🏠 Home</a>
+        </div>
+    </div>
+    
+    <script>
+        async function connectWallet() {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask or another Web3 wallet to claim your airdrop.');
+                return;
+            }
+            
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const account = accounts[0];
+                
+                // Check if on Base network
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                if (chainId !== '0x2105') { // Base = 8453 = 0x2105
+                    alert('Please switch to Base network (Chain ID: 8453) to claim your airdrop.');
+                    return;
+                }
+                
+                // Show placeholder for actual claim logic
+                alert(`Wallet connected: ${account}\n\nClaim functionality coming soon!\n\nCheck back shortly or join our Discord for updates.`);
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                alert('Failed to connect wallet. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
