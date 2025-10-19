@@ -55,19 +55,25 @@
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             padding: 2rem;
+            align-items: start;
         }
         
         .meme-canvas-container {
             text-align: center;
+            position: relative;
+            min-height: 500px;
         }
         
         .meme-canvas {
             border: 3px solid #e0e0e0;
             border-radius: 15px;
-            max-width: 100%;
-            height: auto;
+            width: 500px;
+            height: 500px;
             background: white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+            position: relative;
         }
         
         .controls {
@@ -319,6 +325,12 @@
         window.onload = function() {
             canvas = document.getElementById('memeCanvas');
             ctx = canvas.getContext('2d');
+            
+            // Set canvas size explicitly
+            canvas.width = 500;
+            canvas.height = 500;
+            
+            // Initial render
             generateMeme();
             
             // Template selection
@@ -339,6 +351,11 @@
         };
         
         function generateMeme() {
+            if (!canvas || !ctx) {
+                console.error('Canvas or context not initialized');
+                return;
+            }
+            
             const topText = document.getElementById('topText').value;
             const bottomText = document.getElementById('bottomText').value;
             const textColor = document.getElementById('textColor').value;
@@ -368,6 +385,8 @@
                 ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 30);
                 ctx.fillText(bottomText, canvas.width / 2, canvas.height - 30);
             }
+            
+            console.log('Meme generated with template:', currentTemplate);
         }
         
         function drawTemplate() {
