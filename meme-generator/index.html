@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDIOT Meme Generator - AI-Powered Comedy</title>
+    <title>IDIOT Meme Generator - AI-Powered Comedy Engine</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <style>
         * {
@@ -40,6 +40,22 @@
         header p {
             font-size: 1.2rem;
             opacity: 0.9;
+        }
+        
+        .evolution-banner {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .evolution-banner img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
         .main-grid {
@@ -84,7 +100,7 @@
             font-size: 1rem;
             font-family: inherit;
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
             transition: all 0.3s;
         }
         
@@ -225,6 +241,20 @@
             display: block;
         }
         
+        .processing-info {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .processing-info strong {
+            color: #667eea;
+        }
+        
         .examples {
             background: rgba(255,255,255,0.1);
             border-radius: 12px;
@@ -271,6 +301,10 @@
             header h1 {
                 font-size: 2rem;
             }
+            
+            .evolution-banner {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -278,21 +312,25 @@
     <div class="container">
         <header>
             <h1>🧠 IDIOT Meme Generator</h1>
-            <p>AI-Powered Comedy Engine - Works with ANY Input!</p>
+            <p>AI-Powered Comedy Engine - Real Intelligence, Real Laughs!</p>
         </header>
+        
+        <div class="evolution-banner">
+            <img src="../assets/idiot-evolution.png" alt="IDIOT Token Evolution" onerror="this.style.display='none'">
+        </div>
         
         <div class="main-grid">
             <!-- Input Panel -->
             <div class="panel">
-                <h2>💭 Your Idea</h2>
+                <h2>💭 Your Raw Input</h2>
                 
                 <div class="input-group">
-                    <label>What's on your mind?</label>
-                    <textarea id="userInput" placeholder="Type anything... literally anything. Our AI will make it funny! Try: 'when you check your crypto portfolio', 'my life choices', 'monday morning', etc."></textarea>
+                    <label>What's your situation? (Be specific!)</label>
+                    <textarea id="userInput" placeholder="Describe your situation, feeling, or thought... The AI will transform it into comedy gold! Examples: 'I bought crypto at the peak', 'explaining blockchain to my grandma', 'checking portfolio every 5 minutes'"></textarea>
                 </div>
                 
                 <div class="input-group">
-                    <label>Choose Your Vibe</label>
+                    <label>Choose Your Comedy Style</label>
                     <div class="style-grid">
                         <button class="style-btn active" data-style="classic">😂 Classic</button>
                         <button class="style-btn" data-style="crypto">💎 Crypto</button>
@@ -303,30 +341,36 @@
                     </div>
                 </div>
                 
-                <button class="generate-btn" onclick="generateMeme()">✨ Generate Meme</button>
+                <button class="generate-btn" onclick="generateMeme()">✨ Transform Into Meme</button>
+                
+                <div class="processing-info" id="processingInfo" style="display: none;">
+                    <strong>🧠 AI Processing:</strong><br>
+                    <span id="processingSteps"></span>
+                </div>
                 
                 <div class="examples">
-                    <p><strong>💡 Try these:</strong></p>
+                    <p><strong>💡 Try these scenarios:</strong></p>
                     <div class="example-tags">
-                        <span class="example-tag" onclick="useExample('when you buy the dip but it keeps dipping')">📉 Buy the dip</span>
-                        <span class="example-tag" onclick="useExample('me explaining crypto to my parents')">👴 Explain crypto</span>
-                        <span class="example-tag" onclick="useExample('checking my portfolio at 3am')">🌙 3am check</span>
-                        <span class="example-tag" onclick="useExample('diamond hands forever')">💎 Diamond hands</span>
-                        <span class="example-tag" onclick="useExample('wen lambo')">🏎️ Wen lambo</span>
+                        <span class="example-tag" onclick="useExample('I bought at the all-time high thinking it would go higher')">📈 Bought the top</span>
+                        <span class="example-tag" onclick="useExample('trying to explain DeFi to my parents at dinner')">👴 Explain DeFi</span>
+                        <span class="example-tag" onclick="useExample('waking up at 3am to check my portfolio')">🌙 3am check</span>
+                        <span class="example-tag" onclick="useExample('sold before the pump started')">📉 Sold early</span>
+                        <span class="example-tag" onclick="useExample('my friend asking me for crypto advice')">💬 Crypto advice</span>
+                        <span class="example-tag" onclick="useExample('waiting for my token to moon')">🚀 Waiting to moon</span>
                     </div>
                 </div>
             </div>
             
             <!-- Output Panel -->
             <div class="panel">
-                <h2>🎨 Your Meme</h2>
+                <h2>🎨 AI-Generated Meme</h2>
                 
                 <div class="canvas-container">
                     <canvas id="memeCanvas" width="800" height="800"></canvas>
                 </div>
                 
                 <div class="loading" id="loading">
-                    🧠 Generating comedy gold...
+                    🧠 AI is analyzing your input and generating comedy...
                 </div>
                 
                 <div class="action-buttons">
@@ -351,6 +395,7 @@
         const ctx = canvas.getContext('2d');
         let currentStyle = 'classic';
         let lastInput = '';
+        let lastOutput = { top: '', bottom: '' };
         
         // Style button handling
         document.querySelectorAll('.style-btn').forEach(btn => {
@@ -361,112 +406,452 @@
             });
         });
         
-        // AI-powered text generation
-        function generateMemeText(input, style) {
-            if (!input || input.trim() === '') {
-                input = "when you forget what you were going to meme about";
-            }
+        // ============================================
+        // INTELLIGENT MEME GENERATION ENGINE
+        // ============================================
+        
+        /**
+         * Main AI Processing Pipeline
+         * Input goes through multiple transformation stages
+         * Output is ALWAYS different from input
+         */
+        function intelligentMemeProcessor(rawInput, style) {
+            // Stage 1: Input Analysis
+            const analysis = analyzeInput(rawInput);
             
-            const lowerInput = input.toLowerCase();
+            // Stage 2: Context Understanding
+            const context = extractContext(analysis);
             
-            // Analyze input for keywords and sentiment
-            const keywords = {
-                crypto: ['crypto', 'bitcoin', 'eth', 'token', 'coin', 'blockchain', 'wallet', 'hodl', 'moon', 'lambo', 'dip', 'pump', 'dump', 'bull', 'bear'],
-                money: ['money', 'rich', 'poor', 'broke', 'cash', 'dollar', 'profit', 'loss', 'invest', 'trade'],
-                emotion: ['happy', 'sad', 'angry', 'scared', 'excited', 'tired', 'stressed', 'anxious'],
-                time: ['morning', 'night', '3am', 'monday', 'friday', 'weekend', 'today', 'tomorrow'],
-                people: ['me', 'you', 'we', 'they', 'mom', 'dad', 'friend', 'boss', 'wife', 'husband']
+            // Stage 3: Comedy Generation
+            const memeText = generateComedyFromContext(context, style, rawInput);
+            
+            // Stage 4: Validation (ensure output != input)
+            const validated = validateUniqueness(memeText, rawInput);
+            
+            return validated;
+        }
+        
+        /**
+         * Stage 1: Analyze the input for patterns, keywords, and sentiment
+         */
+        function analyzeInput(input) {
+            const lower = input.toLowerCase().trim();
+            
+            return {
+                original: input,
+                lower: lower,
+                words: lower.split(/\s+/),
+                length: lower.length,
+                sentiment: detectSentiment(lower),
+                keywords: extractKeywords(lower),
+                pattern: detectPattern(lower),
+                tense: detectTense(lower),
+                person: detectPerson(lower)
             };
+        }
+        
+        /**
+         * Detect emotional sentiment
+         */
+        function detectSentiment(text) {
+            const positive = ['happy', 'great', 'awesome', 'amazing', 'love', 'excited', 'win', 'moon', 'profit', 'gain'];
+            const negative = ['sad', 'bad', 'terrible', 'hate', 'loss', 'dump', 'crash', 'rekt', 'broke', 'poor'];
+            const neutral = ['check', 'look', 'see', 'think', 'maybe', 'try', 'wait'];
+            
+            let score = 0;
+            positive.forEach(word => { if (text.includes(word)) score += 1; });
+            negative.forEach(word => { if (text.includes(word)) score -= 1; });
+            
+            if (score > 0) return 'positive';
+            if (score < 0) return 'negative';
+            return 'neutral';
+        }
+        
+        /**
+         * Extract important keywords by category
+         */
+        function extractKeywords(text) {
+            const categories = {
+                crypto: ['crypto', 'bitcoin', 'btc', 'eth', 'ethereum', 'token', 'coin', 'blockchain', 'wallet', 'hodl', 'moon', 'lambo', 'dip', 'pump', 'dump', 'bull', 'bear', 'defi', 'nft', 'trade', 'swap', 'gas', 'fee'],
+                money: ['money', 'rich', 'poor', 'broke', 'cash', 'dollar', 'profit', 'loss', 'invest', 'buy', 'sell', 'price', 'value', 'worth'],
+                emotion: ['happy', 'sad', 'angry', 'scared', 'excited', 'tired', 'stressed', 'anxious', 'confused', 'proud', 'shame'],
+                time: ['morning', 'night', '3am', 'midnight', 'monday', 'friday', 'weekend', 'today', 'tomorrow', 'always', 'never'],
+                people: ['me', 'i', 'my', 'you', 'we', 'they', 'mom', 'dad', 'parent', 'friend', 'boss', 'wife', 'husband', 'family'],
+                action: ['buy', 'sell', 'check', 'look', 'wait', 'hold', 'trade', 'explain', 'tell', 'show', 'think', 'know']
+            };
+            
+            const found = {};
+            Object.keys(categories).forEach(category => {
+                found[category] = categories[category].filter(word => text.includes(word));
+            });
+            
+            return found;
+        }
+        
+        /**
+         * Detect input pattern structure
+         */
+        function detectPattern(text) {
+            if (text.startsWith('when ') || text.includes(' when ')) return 'when';
+            if (text.startsWith('me ') || text.startsWith('i ')) return 'first_person';
+            if (text.includes('trying to') || text.includes('attempt')) return 'attempt';
+            if (text.includes('explain') || text.includes('tell')) return 'explain';
+            if (text.includes('nobody') || text.includes('no one')) return 'nobody';
+            if (text.includes('waiting') || text.includes('wait')) return 'waiting';
+            if (text.includes('?')) return 'question';
+            return 'statement';
+        }
+        
+        /**
+         * Detect tense
+         */
+        function detectTense(text) {
+            if (text.includes('will') || text.includes('gonna') || text.includes('going to')) return 'future';
+            if (text.includes('ed ') || text.includes('was') || text.includes('were')) return 'past';
+            return 'present';
+        }
+        
+        /**
+         * Detect person (1st, 2nd, 3rd)
+         */
+        function detectPerson(text) {
+            if (text.includes('i ') || text.includes('me ') || text.includes('my ')) return 'first';
+            if (text.includes('you ') || text.includes('your ')) return 'second';
+            return 'third';
+        }
+        
+        /**
+         * Stage 2: Extract meaningful context from analysis
+         */
+        function extractContext(analysis) {
+            const { keywords, sentiment, pattern, tense, person } = analysis;
+            
+            // Determine primary theme
+            let theme = 'general';
+            if (keywords.crypto.length > 0) theme = 'crypto';
+            else if (keywords.money.length > 0) theme = 'money';
+            else if (keywords.emotion.length > 0) theme = 'emotion';
+            
+            // Determine situation type
+            let situation = 'generic';
+            if (pattern === 'when') situation = 'conditional';
+            else if (pattern === 'explain') situation = 'communication_fail';
+            else if (pattern === 'attempt') situation = 'failure';
+            else if (pattern === 'waiting') situation = 'anticipation';
+            else if (pattern === 'nobody') situation = 'unprompted';
+            
+            return {
+                theme,
+                situation,
+                sentiment,
+                pattern,
+                tense,
+                person,
+                keywords
+            };
+        }
+        
+        /**
+         * Stage 3: Generate comedy based on context
+         * This is where the magic happens!
+         */
+        function generateComedyFromContext(context, style, originalInput) {
+            const { theme, situation, sentiment, pattern, keywords } = context;
             
             let topText = '';
             let bottomText = '';
             
-            // Generate contextual responses based on input
-            if (lowerInput.includes('when')) {
-                topText = input.toUpperCase();
-                bottomText = generateBottomText(lowerInput, style);
-            } else if (lowerInput.includes('me explaining') || lowerInput.includes('trying to explain')) {
-                topText = "ME EXPLAINING " + input.replace(/me explaining/i, '').toUpperCase();
-                bottomText = "THEM: 😐";
-            } else if (lowerInput.includes('nobody') || lowerInput.includes('no one')) {
+            // RULE: Never use original input as-is
+            // Always transform, reframe, or add commentary
+            
+            // Pattern-based generation
+            if (situation === 'conditional') {
+                // Transform "when X" into relatable format
+                topText = transformWhenStatement(originalInput, keywords);
+                bottomText = generateReaction(sentiment, style, theme);
+            }
+            else if (situation === 'communication_fail') {
+                // Transform explanation attempts
+                topText = "ME: " + generateExplanationAttempt(keywords, theme);
+                bottomText = generateListenerReaction(style);
+            }
+            else if (situation === 'anticipation') {
+                // Transform waiting scenarios
+                topText = generateWaitingSetup(originalInput, keywords);
+                bottomText = generateWaitingPunchline(style, theme);
+            }
+            else if (situation === 'unprompted') {
+                // Nobody: format
                 topText = "NOBODY:";
-                bottomText = input.toUpperCase();
-            } else {
-                // Default: split intelligently
-                const words = input.split(' ');
-                const midPoint = Math.ceil(words.length / 2);
-                topText = words.slice(0, midPoint).join(' ').toUpperCase();
-                bottomText = words.slice(midPoint).join(' ').toUpperCase();
+                bottomText = "ME: " + generateUnpromptedAction(keywords, theme);
+            }
+            else {
+                // Generic transformation
+                const transformed = transformGenericInput(originalInput, keywords, theme);
+                topText = transformed.top;
+                bottomText = transformed.bottom;
             }
             
-            return { topText, bottomText };
+            // Apply style modifiers
+            const styled = applyStyleModifiers(topText, bottomText, style, theme);
+            
+            return styled;
         }
         
-        function generateBottomText(input, style) {
-            const responses = {
-                classic: [
-                    "IT BE LIKE THAT SOMETIMES",
-                    "PAIN 💀",
-                    "WHY AM I LIKE THIS",
-                    "EVERY SINGLE TIME",
-                    "I CAN'T KEEP DOING THIS"
-                ],
-                crypto: [
-                    "DIAMOND HANDS 💎🙌",
-                    "TO THE MOON 🚀",
-                    "NGMI",
-                    "WAGMI",
-                    "THIS IS THE WAY"
-                ],
-                wholesome: [
-                    "AND THAT'S OKAY ❤️",
-                    "YOU'RE DOING GREAT",
-                    "PROUD OF YOU",
-                    "KEEP GOING KING/QUEEN",
-                    "WE'RE ALL GONNA MAKE IT"
-                ],
-                dark: [
-                    "SUFFERING",
-                    "EXISTENCE IS PAIN",
-                    "HELP",
-                    "IT NEVER ENDS",
-                    "WHY DO WE EXIST"
-                ],
-                absurd: [
-                    "MONKE BRAIN ACTIVATED",
-                    "REJECT MODERNITY",
-                    "EMBRACE CHAOS",
-                    "BRAIN.EXE HAS STOPPED",
-                    "WHAT IS REALITY"
-                ],
-                smart: [
-                    "GALAXY BRAIN MOMENT",
-                    "INTELLECTUAL SUPERIORITY",
-                    "200 IQ PLAY",
-                    "CALCULATED",
-                    "ACCORDING TO MY CALCULATIONS"
-                ]
+        /**
+         * Transform "when" statements into meme format
+         */
+        function transformWhenStatement(input, keywords) {
+            // Extract the core situation
+            let core = input.replace(/^when\s+/i, '').replace(/^you\s+/i, '').trim();
+            
+            // Add relatable framing
+            if (keywords.crypto.length > 0) {
+                const frames = [
+                    "POV: YOU JUST",
+                    "THAT MOMENT WHEN YOU",
+                    "CRYPTO TRADERS AFTER THEY",
+                    "ME LITERALLY EVERY TIME I"
+                ];
+                return frames[Math.floor(Math.random() * frames.length)] + " " + core.toUpperCase();
+            }
+            
+            return "THAT FEELING WHEN " + core.toUpperCase();
+        }
+        
+        /**
+         * Generate reactions based on sentiment and style
+         */
+        function generateReaction(sentiment, style, theme) {
+            const reactions = {
+                classic: {
+                    positive: ["BEST DECISION EVER", "GENIUS MOVE", "CALLED IT", "EASY MONEY"],
+                    negative: ["PAIN", "WHY DO I DO THIS", "EVERY SINGLE TIME", "I'M IN DANGER"],
+                    neutral: ["IT BE LIKE THAT", "SUCH IS LIFE", "CLASSIC", "STORY OF MY LIFE"]
+                },
+                crypto: {
+                    positive: ["WAGMI 🚀", "DIAMOND HANDS ACTIVATED", "TO THE MOON", "BULLISH AF"],
+                    negative: ["NGMI", "REKT", "GUH", "BEAR MARKET THINGS"],
+                    neutral: ["HODL MODE", "THIS IS THE WAY", "PROBABLY NOTHING", "DYOR"]
+                },
+                wholesome: {
+                    positive: ["YOU'RE DOING GREAT ❤️", "PROUD OF YOU", "KEEP IT UP", "WHOLESOME WIN"],
+                    negative: ["IT'S OKAY, WE LEARN", "TOMORROW IS NEW DAY", "YOU TRIED YOUR BEST", "GROWTH MOMENT"],
+                    neutral: ["VALID", "RELATABLE", "WE'VE ALL BEEN THERE", "SENDING GOOD VIBES"]
+                },
+                dark: {
+                    positive: ["TEMPORARY HAPPINESS", "ENJOY IT WHILE IT LASTS", "TOO GOOD TO BE TRUE", "WHAT'S THE CATCH"],
+                    negative: ["EXISTENCE IS PAIN", "SUFFERING", "NO ESCAPE", "VOID STARES BACK"],
+                    neutral: ["MEANINGLESS", "NOTHING MATTERS", "EMBRACE THE CHAOS", "WELCOME TO HELL"]
+                },
+                absurd: {
+                    positive: ["MONKE BRAIN WIN", "STONKS", "BIG BRAIN TIME", "REALITY GLITCH"],
+                    negative: ["BRAIN.EXE STOPPED", "ERROR 404: LOGIC NOT FOUND", "GLITCH IN MATRIX", "SIMULATION BROKEN"],
+                    neutral: ["REJECT MODERNITY", "RETURN TO MONKE", "WHAT IS REALITY", "CHAOS REIGNS"]
+                },
+                smart: {
+                    positive: ["CALCULATED", "ACCORDING TO PLAN", "200 IQ PLAY", "GAME THEORY WINS"],
+                    negative: ["MISCALCULATION", "VARIABLES CHANGED", "UNEXPECTED OUTCOME", "THEORY VS REALITY"],
+                    neutral: ["OBSERVING", "DATA SUGGESTS", "HYPOTHESIS TESTING", "ANALYSIS PENDING"]
+                }
             };
             
-            const styleResponses = responses[style] || responses.classic;
-            return styleResponses[Math.floor(Math.random() * styleResponses.length)];
+            const styleReactions = reactions[style] || reactions.classic;
+            const sentimentReactions = styleReactions[sentiment] || styleReactions.neutral;
+            
+            return sentimentReactions[Math.floor(Math.random() * sentimentReactions.length)];
         }
         
+        /**
+         * Generate explanation attempts
+         */
+        function generateExplanationAttempt(keywords, theme) {
+            if (theme === 'crypto') {
+                const attempts = [
+                    "*DRAWS COMPLICATED DIAGRAM*",
+                    "SO BASICALLY IT'S LIKE MONEY BUT...",
+                    "*USES 47 TECHNICAL TERMS*",
+                    "OKAY SO IMAGINE A SPREADSHEET..."
+                ];
+                return attempts[Math.floor(Math.random() * attempts.length)];
+            }
+            
+            return "*EXPLAINS PASSIONATELY FOR 20 MINUTES*";
+        }
+        
+        /**
+         * Generate listener reactions
+         */
+        function generateListenerReaction(style) {
+            const reactions = {
+                classic: ["THEM: 😐", "THEM: I DON'T GET IT", "THEM: *BLANK STARE*", "THEM: THAT'S NICE DEAR"],
+                crypto: ["THEM: SO... GAMBLING?", "THEM: SOUNDS LIKE A SCAM", "THEM: JUST USE BANKS", "THEM: IS IT LEGAL?"],
+                wholesome: ["THEM: I'M TRYING TO UNDERSTAND ❤️", "THEM: TELL ME MORE!", "THEM: YOU'RE SO SMART", "THEM: THAT'S INTERESTING"],
+                dark: ["THEM: *SOUL LEAVES BODY*", "THEM: MAKE IT STOP", "THEM: I REGRET ASKING", "THEM: HELP"],
+                absurd: ["THEM: *CONFUSED SCREAMING*", "THEM: WHAT", "THEM: ERROR", "THEM: BRAIN HURTY"],
+                smart: ["THEM: *PROCESSING*", "THEM: FASCINATING", "THEM: CONTINUE", "THEM: INTRIGUING HYPOTHESIS"]
+            };
+            
+            const styleReactions = reactions[style] || reactions.classic;
+            return styleReactions[Math.floor(Math.random() * styleReactions.length)];
+        }
+        
+        /**
+         * Generate waiting setup
+         */
+        function generateWaitingSetup(input, keywords) {
+            const setups = [
+                "DAY 1 OF WAITING:",
+                "STILL WAITING FOR:",
+                "BEEN WAITING SINCE:",
+                "PATIENTLY WAITING FOR:"
+            ];
+            
+            let core = input.replace(/waiting\s+(for\s+)?/i, '').replace(/wait\s+(for\s+)?/i, '').trim();
+            return setups[Math.floor(Math.random() * setups.length)] + " " + core.toUpperCase();
+        }
+        
+        /**
+         * Generate waiting punchline
+         */
+        function generateWaitingPunchline(style, theme) {
+            if (theme === 'crypto') {
+                return ["STILL WAITING", "ANY DAY NOW", "SOON™", "2 MORE WEEKS"][Math.floor(Math.random() * 4)];
+            }
+            return ["PATIENCE LEVEL: 0", "STILL WAITING", "ANY MINUTE NOW", "NARRATOR: THEY'RE STILL WAITING"][Math.floor(Math.random() * 4)];
+        }
+        
+        /**
+         * Generate unprompted actions
+         */
+        function generateUnpromptedAction(keywords, theme) {
+            if (theme === 'crypto') {
+                return ["*CHECKS PORTFOLIO*", "*SHILLS RANDOM COIN*", "*DRAWS LINES ON CHART*", "*CALCULATES MOON PRICE*"][Math.floor(Math.random() * 4)];
+            }
+            return ["*DOES THE THING*", "*OVERSHARES*", "*RANDOM THOUGHT*", "*UNNECESSARY COMMENT*"][Math.floor(Math.random() * 4)];
+        }
+        
+        /**
+         * Transform generic input
+         */
+        function transformGenericInput(input, keywords, theme) {
+            // Split input intelligently
+            const words = input.split(/\s+/);
+            
+            // If input is short, add context
+            if (words.length <= 3) {
+                return {
+                    top: "POV: " + input.toUpperCase(),
+                    bottom: generateReaction('neutral', 'classic', theme)
+                };
+            }
+            
+            // If input is long, extract core and add punchline
+            const midpoint = Math.ceil(words.length / 2);
+            const firstHalf = words.slice(0, midpoint).join(' ');
+            const secondHalf = words.slice(midpoint).join(' ');
+            
+            return {
+                top: firstHalf.toUpperCase(),
+                bottom: secondHalf.toUpperCase() + " 💀"
+            };
+        }
+        
+        /**
+         * Apply style-specific modifiers
+         */
+        function applyStyleModifiers(top, bottom, style, theme) {
+            // Add style-specific emojis or modifications
+            const modifiers = {
+                crypto: { emoji: '💎', suffix: '' },
+                wholesome: { emoji: '❤️', suffix: '' },
+                dark: { emoji: '💀', suffix: '' },
+                absurd: { emoji: '🤪', suffix: ' (REAL)' },
+                smart: { emoji: '🧠', suffix: '' },
+                classic: { emoji: '😂', suffix: '' }
+            };
+            
+            const mod = modifiers[style] || modifiers.classic;
+            
+            return {
+                top: top,
+                bottom: bottom + mod.suffix
+            };
+        }
+        
+        /**
+         * Stage 4: Validate that output is different from input
+         */
+        function validateUniqueness(memeText, originalInput) {
+            const { top, bottom } = memeText;
+            const combined = (top + " " + bottom).toLowerCase();
+            const original = originalInput.toLowerCase();
+            
+            // If output is too similar to input, add more transformation
+            if (combined === original || top.toLowerCase() === original) {
+                return {
+                    top: "POV: " + top,
+                    bottom: bottom + " (REAL)"
+                };
+            }
+            
+            return memeText;
+        }
+        
+        // ============================================
+        // MEME GENERATION FUNCTIONS
+        // ============================================
+        
         function generateMeme() {
-            const input = document.getElementById('userInput').value;
+            const input = document.getElementById('userInput').value.trim();
+            
+            if (!input) {
+                alert('⚠️ Please enter some text first!');
+                return;
+            }
+            
             lastInput = input;
             
-            // Show loading
+            // Show loading and processing info
             document.getElementById('loading').classList.add('active');
             document.querySelector('.canvas-container canvas').style.opacity = '0.3';
+            document.getElementById('processingInfo').style.display = 'block';
+            
+            // Simulate AI processing steps
+            const steps = [
+                '🔍 Analyzing input...',
+                '🧠 Understanding context...',
+                '💡 Generating comedy...',
+                '✨ Applying style...',
+                '✅ Meme ready!'
+            ];
+            
+            let stepIndex = 0;
+            const stepInterval = setInterval(() => {
+                if (stepIndex < steps.length) {
+                    document.getElementById('processingSteps').textContent = steps[stepIndex];
+                    stepIndex++;
+                } else {
+                    clearInterval(stepInterval);
+                }
+            }, 300);
             
             setTimeout(() => {
-                const { topText, bottomText } = generateMemeText(input, currentStyle);
-                drawMeme(topText, bottomText, currentStyle);
+                // Process through AI engine
+                const memeText = intelligentMemeProcessor(input, currentStyle);
+                lastOutput = { top: memeText.top, bottom: memeText.bottom };
                 
+                // Draw the meme
+                drawMeme(memeText.top, memeText.bottom, currentStyle);
+                
+                // Hide loading
                 document.getElementById('loading').classList.remove('active');
                 document.querySelector('.canvas-container canvas').style.opacity = '1';
-            }, 800);
+                
+                setTimeout(() => {
+                    document.getElementById('processingInfo').style.display = 'none';
+                }, 2000);
+            }, 1500);
         }
         
         function drawMeme(topText, bottomText, style) {
@@ -558,7 +943,9 @@
         }
         
         function regenerateMeme() {
-            generateMeme();
+            if (lastInput) {
+                generateMeme();
+            }
         }
         
         function downloadMeme() {
@@ -581,7 +968,7 @@
         }
         
         function shareTwitter() {
-            const text = encodeURIComponent(`Check out my IDIOT meme! 🧠 #IDIOTToken #MemeGenerator`);
+            const text = encodeURIComponent(`Just made this with the IDIOT Meme Generator! 🧠\n\nTop: ${lastOutput.top}\nBottom: ${lastOutput.bottom}\n\n#IDIOTToken #MemeGenerator`);
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent('https://stupidiots.com')}`, '_blank');
         }
         
@@ -597,6 +984,7 @@
         
         function shareDiscord() {
             copyMeme();
+            alert('📋 Meme copied! Paste it in Discord.');
         }
         
         function shareWhatsApp() {
@@ -615,7 +1003,7 @@
         
         // Generate initial meme
         window.onload = () => {
-            document.getElementById('userInput').value = "when you check your crypto portfolio";
+            document.getElementById('userInput').value = "I bought crypto at the all-time high";
             generateMeme();
         };
     </script>
