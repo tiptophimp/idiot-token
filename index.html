@@ -31,7 +31,7 @@
             if (type === 'dexscreener') {
                 frame.src = 'https://dexscreener.com/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25?embed=1&theme=dark&trades=0&info=0';
             } else if (type === 'dextools') {
-                frame.src = 'https://www.dextools.io/widget-chart/en/base/pe-light/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false';
+                frame.src = 'https://dexscreener.com/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25?embed=1&theme=light&trades=1&info=1';
             }
         }
         
@@ -100,7 +100,7 @@
         async function updatePriceData() {
             try {
                 // Fetch real data from DexScreener API
-                const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea');
+                const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25');
                 
                 if (!response.ok) {
                     throw new Error('API request failed');
