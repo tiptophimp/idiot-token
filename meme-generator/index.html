@@ -67,6 +67,7 @@
         .meme-canvas {
             border: 3px solid #e0e0e0;
             border-radius: 15px;
+            max-width: 100%;
             width: 500px;
             height: 500px;
             background: white;
@@ -74,6 +75,14 @@
             display: block;
             margin: 0 auto;
             position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .meme-canvas {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 1;
+            }
         }
         
         .controls {
@@ -276,12 +285,12 @@
                 
                 <div class="control-group">
                     <label for="topText">Top Text:</label>
-                    <input type="text" id="topText" placeholder="Enter top text..." value="Buying IDIOT token">
+                    <input type="text" id="topText" placeholder="Enter top text..." value="BUYING IDIOT TOKEN" maxlength="100">
                 </div>
                 
                 <div class="control-group">
                     <label for="bottomText">Bottom Text:</label>
-                    <input type="text" id="bottomText" placeholder="Enter bottom text..." value="Smart about dumb fun">
+                    <input type="text" id="bottomText" placeholder="Enter bottom text..." value="SMART ABOUT DUMB FUN" maxlength="100">
                 </div>
                 
                 <div class="control-group">
@@ -290,8 +299,24 @@
                 </div>
                 
                 <div class="control-group">
-                    <label for="textSize">Text Size:</label>
-                    <input type="range" id="textSize" min="20" max="60" value="40">
+                    <label for="textSize">Text Size: <span id="textSizeValue">40</span>px</label>
+                    <input type="range" id="textSize" min="20" max="80" value="40">
+                </div>
+                
+                <div class="control-group">
+                    <label for="fontStyle">Font Style:</label>
+                    <select id="fontStyle">
+                        <option value="Impact">Impact (Classic)</option>
+                        <option value="Arial Black">Arial Black</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Inter">Inter (Modern)</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="textStroke" checked> Add Text Outline
+                    </label>
                 </div>
                 
                 <div class="action-buttons">
@@ -347,7 +372,12 @@
             document.getElementById('topText').addEventListener('input', generateMeme);
             document.getElementById('bottomText').addEventListener('input', generateMeme);
             document.getElementById('textColor').addEventListener('change', generateMeme);
-            document.getElementById('textSize').addEventListener('input', generateMeme);
+            document.getElementById('textSize').addEventListener('input', function() {
+                document.getElementById('textSizeValue').textContent = this.value;
+                generateMeme();
+            });
+            document.getElementById('fontStyle').addEventListener('change', generateMeme);
+            document.getElementById('textStroke').addEventListener('change', generateMeme);
         };
         
         function generateMeme() {
@@ -356,10 +386,12 @@
                 return;
             }
             
-            const topText = document.getElementById('topText').value;
-            const bottomText = document.getElementById('bottomText').value;
+            const topText = document.getElementById('topText').value.toUpperCase();
+            const bottomText = document.getElementById('bottomText').value.toUpperCase();
             const textColor = document.getElementById('textColor').value;
             const textSize = parseInt(document.getElementById('textSize').value);
+            const fontStyle = document.getElementById('fontStyle').value;
+            const useStroke = document.getElementById('textStroke').checked;
             
             // Clear canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -369,21 +401,58 @@
             
             // Draw text
             ctx.fillStyle = textColor;
-            ctx.font = `bold ${textSize}px Arial`;
+            ctx.font = `bold ${textSize}px ${fontStyle}`;
             ctx.textAlign = 'center';
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 3;
+            ctx.textBaseline = 'top';
+            
+            if (useStroke) {
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = Math.max(2, textSize / 15);
+                ctx.lineJoin = 'round';
+            }
+            
+            // Function to wrap text
+            function wrapText(text, maxWidth) {
+                const words = text.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+                
+                for (let i = 1; i < words.length; i++) {
+                    const testLine = currentLine + ' ' + words[i];
+                    const metrics = ctx.measureText(testLine);
+                    if (metrics.width > maxWidth) {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    } else {
+                        currentLine = testLine;
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
             
             // Top text
             if (topText) {
-                ctx.strokeText(topText, canvas.width / 2, 60);
-                ctx.fillText(topText, canvas.width / 2, 60);
+                const topLines = wrapText(topText, canvas.width - 40);
+                topLines.forEach((line, index) => {
+                    const y = 30 + (index * textSize * 1.2);
+                    if (useStroke) {
+                        ctx.strokeText(line, canvas.width / 2, y);
+                    }
+                    ctx.fillText(line, canvas.width / 2, y);
+                });
             }
             
             // Bottom text
             if (bottomText) {
-                ctx.strokeText(bottomText, canvas.width / 2, canvas.height - 30);
-                ctx.fillText(bottomText, canvas.width / 2, canvas.height - 30);
+                const bottomLines = wrapText(bottomText, canvas.width - 40);
+                bottomLines.forEach((line, index) => {
+                    const y = canvas.height - 30 - ((bottomLines.length - 1 - index) * textSize * 1.2);
+                    if (useStroke) {
+                        ctx.strokeText(line, canvas.width / 2, y);
+                    }
+                    ctx.fillText(line, canvas.width / 2, y);
+                });
             }
             
             console.log('Meme generated with template:', currentTemplate);
@@ -392,89 +461,176 @@
         function drawTemplate() {
             switch(currentTemplate) {
                 case 'drake':
-                    // Drake pointing template
-                    ctx.fillStyle = '#f0f0f0';
+                    // Drake pointing template - improved
+                    ctx.fillStyle = '#f5f5f5';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Left side (disapproving)
-                    ctx.fillStyle = '#333333';
-                    ctx.fillRect(50, 100, 150, 100);
+                    // Divide into two sections
+                    const halfHeight = canvas.height / 2;
                     
-                    // Right side (approving)
-                    ctx.fillStyle = '#666666';
-                    ctx.fillRect(300, 100, 150, 100);
+                    // Top section (disapproving)
+                    ctx.fillStyle = '#ffe5e5';
+                    ctx.fillRect(0, 0, canvas.width, halfHeight);
                     
-                    // Drake figure
+                    // Bottom section (approving)
+                    ctx.fillStyle = '#e5ffe5';
+                    ctx.fillRect(0, halfHeight, canvas.width, canvas.height);
+                    
+                    // Draw Drake figure (simplified)
+                    ctx.fillStyle = '#8B4513';
+                    
+                    // Top Drake (disapproving gesture)
+                    ctx.beginPath();
+                    ctx.arc(100, halfHeight / 2, 40, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Hand gesture (disapproving)
+                    ctx.fillStyle = '#D2691E';
+                    ctx.fillRect(140, halfHeight / 2 - 10, 60, 20);
+                    
+                    // Bottom Drake (approving gesture)
                     ctx.fillStyle = '#8B4513';
                     ctx.beginPath();
-                    ctx.arc(125, 80, 30, 0, 2 * Math.PI);
+                    ctx.arc(100, halfHeight + halfHeight / 2, 40, 0, 2 * Math.PI);
                     ctx.fill();
                     
-                    ctx.beginPath();
-                    ctx.arc(375, 80, 30, 0, 2 * Math.PI);
-                    ctx.fill();
+                    // Hand gesture (pointing/approving)
+                    ctx.fillStyle = '#D2691E';
+                    ctx.fillRect(140, halfHeight + halfHeight / 2 - 10, 60, 20);
+                    
+                    // Add text areas indicators
+                    ctx.strokeStyle = '#cccccc';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(220, 50, 250, 100);
+                    ctx.strokeRect(220, halfHeight + 50, 250, 100);
                     break;
                     
                 case 'distracted':
-                    // Distracted boyfriend template
-                    ctx.fillStyle = '#f0f0f0';
+                    // Distracted boyfriend template - improved
+                    ctx.fillStyle = '#87CEEB';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Boyfriend
-                    ctx.fillStyle = '#333333';
-                    ctx.beginPath();
-                    ctx.arc(150, 200, 40, 0, 2 * Math.PI);
-                    ctx.fill();
+                    // Ground
+                    ctx.fillStyle = '#90EE90';
+                    ctx.fillRect(0, 350, canvas.width, 150);
                     
-                    // Girlfriend
-                    ctx.fillStyle = '#666666';
+                    // Girlfriend (left - upset)
+                    ctx.fillStyle = '#FF6B9D';
                     ctx.beginPath();
-                    ctx.arc(300, 200, 40, 0, 2 * Math.PI);
+                    ctx.arc(120, 280, 50, 0, 2 * Math.PI);
                     ctx.fill();
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(100, 330, 40, 80);
                     
-                    // Other girl
-                    ctx.fillStyle = '#999999';
+                    // Boyfriend (center - looking away)
+                    ctx.fillStyle = '#4169E1';
                     ctx.beginPath();
-                    ctx.arc(400, 200, 40, 0, 2 * Math.PI);
+                    ctx.arc(250, 280, 50, 0, 2 * Math.PI);
                     ctx.fill();
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(230, 330, 40, 80);
+                    
+                    // Other girl (right - attractive)
+                    ctx.fillStyle = '#FFD700';
+                    ctx.beginPath();
+                    ctx.arc(380, 280, 50, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(360, 330, 40, 80);
+                    
+                    // Labels
+                    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                    ctx.fillRect(70, 150, 100, 30);
+                    ctx.fillRect(200, 150, 100, 30);
+                    ctx.fillRect(330, 150, 100, 30);
                     break;
                     
                 case 'brain':
-                    // Expanding brain template
-                    ctx.fillStyle = '#f0f0f0';
+                    // Expanding brain template - improved
+                    ctx.fillStyle = '#1a1a2e';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Brain levels
+                    // Brain levels with glow effect
                     const levels = [
-                        {y: 100, size: 60, color: '#333333'},
-                        {y: 150, size: 80, color: '#666666'},
-                        {y: 200, size: 100, color: '#999999'},
-                        {y: 250, size: 120, color: '#cccccc'}
+                        {y: 100, size: 50, color: '#8B4513', glow: '#A0522D'},
+                        {y: 200, size: 70, color: '#CD853F', glow: '#DEB887'},
+                        {y: 300, size: 90, color: '#FFD700', glow: '#FFEC8B'},
+                        {y: 400, size: 110, color: '#00FFFF', glow: '#7FFFD4'}
                     ];
                     
                     levels.forEach(level => {
+                        // Glow effect
+                        ctx.shadowBlur = 20;
+                        ctx.shadowColor = level.glow;
+                        
+                        // Brain
                         ctx.fillStyle = level.color;
                         ctx.beginPath();
-                        ctx.arc(canvas.width / 2, level.y, level.size, 0, 2 * Math.PI);
+                        ctx.ellipse(canvas.width / 2, level.y, level.size * 1.2, level.size, 0, 0, 2 * Math.PI);
                         ctx.fill();
+                        
+                        // Brain texture
+                        ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(canvas.width / 2 - 20, level.y, level.size * 0.4, 0, Math.PI);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(canvas.width / 2 + 20, level.y, level.size * 0.4, 0, Math.PI);
+                        ctx.stroke();
+                    });
+                    
+                    ctx.shadowBlur = 0;
+                    
+                    // Text boxes
+                    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                    levels.forEach((level, index) => {
+                        ctx.fillRect(50, level.y - 15, 120, 30);
                     });
                     break;
                     
                 case 'change':
-                    // Change my mind template
-                    ctx.fillStyle = '#f0f0f0';
+                    // Change my mind template - improved
+                    // Sky background
+                    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                    gradient.addColorStop(0, '#87CEEB');
+                    gradient.addColorStop(1, '#E0F6FF');
+                    ctx.fillStyle = gradient;
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
-                    // Table
+                    // Ground
+                    ctx.fillStyle = '#8B7355';
+                    ctx.fillRect(0, 350, canvas.width, 150);
+                    
+                    // Table legs
+                    ctx.fillStyle = '#654321';
+                    ctx.fillRect(100, 300, 15, 100);
+                    ctx.fillRect(385, 300, 15, 100);
+                    
+                    // Table top
                     ctx.fillStyle = '#8B4513';
-                    ctx.fillRect(50, 200, 400, 20);
+                    ctx.fillRect(80, 280, 340, 25);
+                    
+                    // Sign stand
+                    ctx.fillStyle = '#654321';
+                    ctx.fillRect(240, 200, 20, 80);
                     
                     // Sign
                     ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(100, 150, 300, 50);
+                    ctx.fillRect(120, 120, 260, 90);
                     ctx.strokeStyle = '#000000';
-                    ctx.lineWidth = 2;
-                    ctx.strokeRect(100, 150, 300, 50);
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(120, 120, 260, 90);
+                    
+                    // Person (simplified)
+                    ctx.fillStyle = '#4169E1';
+                    ctx.beginPath();
+                    ctx.arc(250, 250, 30, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Arms
+                    ctx.fillStyle = '#D2691E';
+                    ctx.fillRect(220, 260, 60, 15);
                     break;
             }
         }
@@ -487,14 +643,18 @@
         
         function downloadMeme() {
             const link = document.createElement('a');
-            link.download = 'idiot-meme.png';
-            link.href = canvas.toDataURL();
+            const timestamp = new Date().getTime();
+            link.download = `idiot-meme-${timestamp}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
         }
         
         function shareTwitter() {
-            const text = encodeURIComponent('Check out my IDIOT meme! 🧠 #IDIOTToken #MemeGenerator');
-            const url = encodeURIComponent(window.location.href);
+            const topText = document.getElementById('topText').value;
+            const bottomText = document.getElementById('bottomText').value;
+            const memeText = topText && bottomText ? `"${topText}" - ${bottomText}` : 'Check out my IDIOT meme!';
+            const text = encodeURIComponent(`${memeText} 🧠 #IDIOTToken #SmartAboutDumbFun #MemeGenerator`);
+            const url = encodeURIComponent('https://stupidiots.com');
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
         
