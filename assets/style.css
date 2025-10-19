@@ -22,6 +22,13 @@
             color: var(--dark);
             background: var(--light);
             overflow-x: hidden;
+            padding: 0 10px;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                padding: 0;
+            }
         }
         
         /* Animated Background */
@@ -90,7 +97,7 @@
         
         /* Hero Section */
         .hero {
-            background: url('assets/hero-bg.png') center/cover no-repeat;
+            background: url('assets/hero-bg.png') center top/cover no-repeat;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -115,6 +122,12 @@
             z-index: 1;
             max-width: 1200px;
             padding: 2rem;
+        }
+        
+        .hero .logo {
+            max-width: 160px;
+            margin: 0 auto;
+            display: block;
         }
         
         .logo {
@@ -223,6 +236,11 @@
         .btn:hover::before {
             width: 300px;
             height: 300px;
+        }
+        
+        button:hover, .btn:hover {
+            filter: brightness(1.1);
+            transition: all 0.2s ease;
         }
         
         .btn-primary {
@@ -820,6 +838,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            padding: 0;
         }
         
         .faq-question::after {
@@ -855,6 +879,12 @@
             gap: 1.5rem;
             justify-content: center;
             margin: 2rem 0;
+        }
+        
+        .footer-social a {
+            margin: 0 10px;
+            display: inline-block;
+            vertical-align: middle;
         }
         
         .social-link {
