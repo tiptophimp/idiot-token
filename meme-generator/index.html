@@ -229,10 +229,18 @@
         }
         
         .share-buttons {
-            display: flex;
-            gap: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.8rem;
             justify-content: center;
-            margin-top: 1rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+        
+        .share-buttons .btn {
+            font-size: 0.9rem;
+            padding: 0.7rem 1rem;
+            white-space: nowrap;
         }
         
         @media (max-width: 768px) {
@@ -257,12 +265,12 @@
         <div class="header">
             <h1>🎨 IDIOT Meme Generator</h1>
             <p>Create hilarious memes and share them with the community!</p>
-        </div>
+            </div>
         
         <div class="main-content">
             <div class="meme-canvas-container">
                 <canvas id="memeCanvas" class="meme-canvas" width="500" height="500"></canvas>
-            </div>
+                    </div>
             
             <div class="controls">
                 <div style="background: #e3f2fd; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
@@ -273,17 +281,29 @@
                 <div class="control-group">
                     <label for="templateSelect">Choose Template:</label>
                     <div class="template-grid">
-                        <div class="template selected" data-template="drake" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzMzMzMzMyIvPgo8cmVjdCB4PSI1MCIgeT0iMTAwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjNjY2NjY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkRyYWtlPC90ZXh0Pgo8L3N2Zz4=');">
+                        <div class="template selected" data-template="drake" style="background: linear-gradient(135deg, #ffe5e5 0%, #e5ffe5 100%);">
                             <div class="template-name">Drake</div>
                         </div>
-                        <div class="template" data-template="distracted" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNDAiIGZpbGw9IiMzMzMzMzMiLz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iI0ZGRkZGRiIvPgo8dGV4dCB4PSIxMDAiIHk9IjE2MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5EaXN0cmFjdGVkPC90ZXh0Pgo8L3N2Zz4=');">
-                            <div class="template-name">Distracted</div>
+                        <div class="template" data-template="distracted" style="background: linear-gradient(135deg, #87CEEB 0%, #90EE90 100%);">
+                            <div class="template-name">Distracted BF</div>
                         </div>
-                        <div class="template" data-template="brain" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxwYXRoIGQ9Ik0xMDAgNDBDMTIwIDQwIDE0MCA1MCAxNDAgNzBDMTQwIDkwIDEyMCAxMDAgMTAwIDEwMEM4MCAxMDAgNjAgOTAgNjAgNzBDNjAgNTAgODAgNDAgMTAwIDQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8dGV4dCB4PSIxMDAiIHk9IjE0MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzMzMzMzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CcmFpbiBFeHBhbmRlZDwvdGV4dD4KPC9zdmc+');">
-                            <div class="template-name">Brain</div>
+                        <div class="template" data-template="brain" style="background: linear-gradient(135deg, #1a1a2e 0%, #4a4a6e 100%);">
+                            <div class="template-name">Galaxy Brain</div>
                         </div>
-                        <div class="template" data-template="change" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMzMzMzMzMiLz4KPHN2Zz4KPC9zdmc+');">
+                        <div class="template" data-template="change" style="background: linear-gradient(135deg, #87CEEB 0%, #8B7355 100%);">
                             <div class="template-name">Change My Mind</div>
+                        </div>
+                        <div class="template" data-template="stonks" style="background: linear-gradient(135deg, #FF6B35 0%, #FFD700 100%);">
+                            <div class="template-name">📈 Stonks</div>
+                        </div>
+                        <div class="template" data-template="wojak" style="background: linear-gradient(135deg, #f0f0f0 0%, #d0d0d0 100%);">
+                            <div class="template-name">😭 Wojak</div>
+                        </div>
+                        <div class="template" data-template="pepe" style="background: linear-gradient(135deg, #90EE90 0%, #228B22 100%);">
+                            <div class="template-name">🐸 Pepe</div>
+                        </div>
+                        <div class="template" data-template="doge" style="background: linear-gradient(135deg, #FFE4B5 0%, #DEB887 100%);">
+                            <div class="template-name">🐕 Doge</div>
                         </div>
                     </div>
                 </div>
@@ -292,13 +312,13 @@
                     <label for="topText">Top Text:</label>
                     <input type="text" id="topText" placeholder="Try: 'when you buy crypto'" value="WHEN YOU BUY CRYPTO" maxlength="100">
                     <small style="opacity: 0.7; font-size: 0.85rem;">💡 Try words like: money, crypto, happy, sad, smart, brain</small>
-                </div>
+                    </div>
                 
                 <div class="control-group">
                     <label for="bottomText">Bottom Text:</label>
                     <input type="text" id="bottomText" placeholder="Try: 'and it goes to the moon'" value="AND IT PUMPS TO THE MOON" maxlength="100">
                     <small style="opacity: 0.7; font-size: 0.85rem;">🎨 Memes adapt based on your words!</small>
-                </div>
+                    </div>
                 
                 <div class="control-group">
                     <label for="textColor">Text Color:</label>
@@ -329,7 +349,7 @@
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="generateBtn" onclick="generateMemeWithFeedback()">🎨 Generate Meme</button>
                     <button class="btn btn-secondary" onclick="clearMeme()">🗑️ Clear</button>
-                </div>
+                    </div>
                 
                 <div id="generateFeedback" style="display: none; margin-top: 1rem; padding: 1rem; background: #d4edda; border: 2px solid #28a745; border-radius: 8px; color: #155724; text-align: center; font-weight: 600;">
                     ✅ Meme generated successfully!
@@ -339,16 +359,32 @@
                     <h3>Download Your Meme</h3>
                     <p>Click the button below to download your meme as a PNG image</p>
                     <button class="btn btn-primary" onclick="downloadMeme()">Download PNG</button>
-                    </div>
-                
+            </div>
+            
                 <div class="share-section">
                     <h3>Share Your Creation</h3>
                     <p>Share your IDIOT meme with the community!</p>
                     <div class="share-buttons">
-                        <button class="btn btn-secondary" onclick="shareTwitter()">Share on Twitter</button>
-                        <button class="btn btn-secondary" onclick="copyToClipboard()">Copy Link</button>
-                    </div>
-                </div>
+                        <button class="btn btn-secondary" onclick="shareTwitter()" style="background: #1DA1F2; color: white; border-color: #1DA1F2;">
+                            🐦 Twitter
+                        </button>
+                        <button class="btn btn-secondary" onclick="shareTelegram()" style="background: #0088cc; color: white; border-color: #0088cc;">
+                            ✈️ Telegram
+                        </button>
+                        <button class="btn btn-secondary" onclick="shareReddit()" style="background: #FF4500; color: white; border-color: #FF4500;">
+                            🔴 Reddit
+                        </button>
+                        <button class="btn btn-secondary" onclick="shareDiscord()" style="background: #5865F2; color: white; border-color: #5865F2;">
+                            💬 Discord
+                        </button>
+                        <button class="btn btn-secondary" onclick="copyToClipboard()">
+                            📋 Copy Image
+                        </button>
+                        <button class="btn btn-secondary" onclick="shareWhatsApp()" style="background: #25D366; color: white; border-color: #25D366;">
+                            📱 WhatsApp
+                        </button>
+            </div>
+        </div>
             </div>
         </div>
     </div>
@@ -380,14 +416,14 @@
         });
         
             // Real-time updates
-            document.getElementById('topText').addEventListener('input', generateMeme);
-            document.getElementById('bottomText').addEventListener('input', generateMeme);
+        document.getElementById('topText').addEventListener('input', generateMeme);
+        document.getElementById('bottomText').addEventListener('input', generateMeme);
             document.getElementById('textColor').addEventListener('change', generateMeme);
             document.getElementById('textSize').addEventListener('input', function() {
                 document.getElementById('textSizeValue').textContent = this.value;
-                generateMeme();
-            });
-            document.getElementById('fontStyle').addEventListener('change', generateMeme);
+            generateMeme();
+        });
+        document.getElementById('fontStyle').addEventListener('change', generateMeme);
             document.getElementById('textStroke').addEventListener('change', generateMeme);
         };
         
@@ -810,6 +846,194 @@
                         }
                     }
                     break;
+                    
+                case 'stonks':
+                    // Stonks meme template
+                    const stonksGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                    stonksGradient.addColorStop(0, '#FF6B35');
+                    stonksGradient.addColorStop(1, '#FFD700');
+                    ctx.fillStyle = stonksGradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw stonks man
+                    ctx.fillStyle = '#000';
+                    ctx.beginPath();
+                    ctx.arc(250, 200, 60, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Body
+                    ctx.fillRect(220, 260, 60, 100);
+                    
+                    // Chart going up
+                    ctx.strokeStyle = '#00FF00';
+                    ctx.lineWidth = 8;
+                    ctx.beginPath();
+                    ctx.moveTo(50, 350);
+                    ctx.lineTo(150, 300);
+                    ctx.lineTo(250, 200);
+                    ctx.lineTo(350, 100);
+                    ctx.lineTo(450, 50);
+                    ctx.stroke();
+                    
+                    // Arrow
+                    ctx.fillStyle = '#00FF00';
+                    ctx.beginPath();
+                    ctx.moveTo(450, 50);
+                    ctx.lineTo(430, 60);
+                    ctx.lineTo(440, 70);
+                    ctx.fill();
+                    
+                    // Add money symbols
+                    if (hasKeyword('money') || hasKeyword('crypto')) {
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = 'bold 40px Arial';
+                        ctx.fillText('💰', 100, 280);
+                        ctx.fillText('💵', 350, 180);
+                        ctx.fillText('🚀', 400, 100);
+                    }
+                    break;
+                    
+                case 'wojak':
+                    // Crying Wojak template
+                    ctx.fillStyle = '#f0f0f0';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Head
+                    ctx.fillStyle = '#FFE4C4';
+                    ctx.beginPath();
+                    ctx.arc(250, 250, 120, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Eyes (crying)
+                    ctx.fillStyle = '#000';
+                    ctx.beginPath();
+                    ctx.arc(220, 230, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(280, 230, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Tears
+                    ctx.fillStyle = '#4169E1';
+                    ctx.beginPath();
+                    ctx.ellipse(220, 260, 8, 20, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.ellipse(280, 260, 8, 20, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Sad mouth
+                    ctx.strokeStyle = '#000';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.arc(250, 290, 40, 0.2 * Math.PI, 0.8 * Math.PI);
+                    ctx.stroke();
+                    
+                    if (hasKeyword('sad') || hasKeyword('loss')) {
+                        ctx.fillStyle = '#FF0000';
+                        ctx.font = 'bold 60px Arial';
+                        ctx.fillText('📉', 350, 350);
+                    }
+                    break;
+                    
+                case 'pepe':
+                    // Pepe the Frog template
+                    ctx.fillStyle = '#90EE90';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+                    // Frog head
+                    ctx.fillStyle = '#228B22';
+                    ctx.beginPath();
+                    ctx.ellipse(250, 250, 140, 120, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Eyes
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.beginPath();
+                    ctx.ellipse(210, 220, 40, 50, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.ellipse(290, 220, 40, 50, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Pupils
+                    ctx.fillStyle = '#000';
+                    ctx.beginPath();
+                    ctx.arc(210, 230, 15, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(290, 230, 15, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Mouth
+                    ctx.strokeStyle = '#000';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(250, 280, 60, 0, Math.PI);
+                    ctx.stroke();
+                    
+                    if (hasKeyword('happy') || hasKeyword('good')) {
+                        ctx.fillStyle = '#FFD700';
+                        ctx.font = '40px Arial';
+                        ctx.fillText('✨', 150, 150);
+                        ctx.fillText('✨', 320, 150);
+                    }
+                    break;
+                    
+                case 'doge':
+                    // Doge template
+                    const dogeGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                    dogeGradient.addColorStop(0, '#FFE4B5');
+                    dogeGradient.addColorStop(1, '#DEB887');
+                    ctx.fillStyle = dogeGradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Doge head
+                    ctx.fillStyle = '#D2691E';
+                    ctx.beginPath();
+                    ctx.ellipse(250, 250, 120, 100, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Ears
+                    ctx.beginPath();
+                    ctx.moveTo(180, 180);
+                    ctx.lineTo(160, 120);
+                    ctx.lineTo(200, 160);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(320, 180);
+                    ctx.lineTo(340, 120);
+                    ctx.lineTo(300, 160);
+                    ctx.fill();
+                    
+                    // Eyes
+                    ctx.fillStyle = '#000';
+                    ctx.beginPath();
+                    ctx.arc(220, 240, 12, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(280, 240, 12, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Nose
+                    ctx.beginPath();
+                    ctx.arc(250, 270, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Add "wow" text in Comic Sans style
+                    ctx.fillStyle = '#FF1493';
+                    ctx.font = 'bold 30px Comic Sans MS, cursive';
+                    ctx.fillText('wow', 100, 100);
+                    ctx.fillStyle = '#00CED1';
+                    ctx.fillText('such meme', 320, 150);
+                    ctx.fillStyle = '#FF6347';
+                    ctx.fillText('very crypto', 80, 400);
+                    
+                    if (hasKeyword('money')) {
+                        ctx.fillStyle = '#FFD700';
+                        ctx.fillText('much rich', 320, 400);
+                    }
+                    break;
             }
         }
         
@@ -836,16 +1060,67 @@
             window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
         
-        function copyToClipboard() {
+        function shareTelegram() {
+            const topText = document.getElementById('topText').value;
+            const bottomText = document.getElementById('bottomText').value;
+            const memeText = topText && bottomText ? `"${topText}" - ${bottomText}` : 'Check out my IDIOT meme!';
+            const text = encodeURIComponent(`${memeText} 🧠 #IDIOTToken`);
+            const url = encodeURIComponent('https://stupidiots.com');
+            window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+        }
+        
+        function shareReddit() {
+            const topText = document.getElementById('topText').value;
+            const bottomText = document.getElementById('bottomText').value;
+            const memeText = topText && bottomText ? `${topText} - ${bottomText}` : 'My IDIOT Token Meme';
+            const title = encodeURIComponent(`${memeText} | IDIOT Token Meme Generator`);
+            const url = encodeURIComponent('https://stupidiots.com');
+            window.open(`https://reddit.com/submit?url=${url}&title=${title}`, '_blank');
+        }
+        
+        function shareDiscord() {
+            // Discord doesn't have a direct share URL, so we'll copy the image and show instructions
+            const canvas = document.getElementById('memeCanvas');
             canvas.toBlob(function(blob) {
                 navigator.clipboard.write([
                     new ClipboardItem({
                         'image/png': blob
                     })
                 ]).then(() => {
-                    alert('Meme copied to clipboard!');
+                    alert('✅ Meme copied to clipboard! Now paste it into Discord (Ctrl+V or Cmd+V) 🎉');
                 }).catch(() => {
-                    alert('Failed to copy to clipboard. Please try downloading instead.');
+                    alert('❌ Could not copy to clipboard. Please download the meme and upload it to Discord manually.');
+                });
+            });
+        }
+        
+        function shareWhatsApp() {
+            const topText = document.getElementById('topText').value;
+            const bottomText = document.getElementById('bottomText').value;
+            const memeText = topText && bottomText ? `"${topText}" - ${bottomText}` : 'Check out my IDIOT meme!';
+            const text = encodeURIComponent(`${memeText} 🧠 #IDIOTToken`);
+            const url = encodeURIComponent('https://stupidiots.com');
+            
+            // Use WhatsApp Web for desktop, WhatsApp app for mobile
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const whatsappUrl = isMobile 
+                ? `whatsapp://send?text=${text}%20${url}`
+                : `https://web.whatsapp.com/send?text=${text}%20${url}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function copyToClipboard() {
+            const canvas = document.getElementById('memeCanvas');
+            canvas.toBlob(function(blob) {
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'image/png': blob
+                    })
+                ]).then(() => {
+                    alert('✅ Meme copied to clipboard! You can now paste it anywhere! 🎉');
+                }).catch(() => {
+                    alert('❌ Failed to copy to clipboard. Please try downloading instead.');
                 });
             });
         }
