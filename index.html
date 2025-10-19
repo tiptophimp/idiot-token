@@ -15,7 +15,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="IDIOT Token - Smart About Dumb Fun">
     <meta property="og:description" content="Community-first meme token on Base with honest tokenomics and zero taxes">
-    <meta property="og:image" content="assets/img/og-image.png">
+    <meta property="og:image" content="assets/og-image.png">
     <meta property="og:url" content="https://stupidiots.com">
     <meta property="og:type" content="website">
     
@@ -23,18 +23,18 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="IDIOT Token - Smart About Dumb Fun">
     <meta name="twitter:description" content="Community-first meme token on Base with honest tokenomics">
-    <meta name="twitter:image" content="assets/img/og-image.png">
+    <meta name="twitter:image" content="assets/og-image.png">
     
     <!-- Favicon - Multiple sizes for better compatibility -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logo.png">
+    <link rel="icon" type="image/x-icon" hrefassets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" hrefassets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" hrefassets/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" hrefassets/logo.png">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     
     <!-- Preload Critical Assets -->
-    <link rel="preload" href="assets/img/logo.png?v=20250119" as="image">
-    <link rel="preload" href="assets/img/coin-1.png" as="image">
+    <link rel="preload" href="assets/logo.png?v=20250119" as="image">
+    <link rel="preload" href="assets/coin-1.png" as="image">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -361,6 +361,17 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 900;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Override for sections with gradient backgrounds */
+        .stats-dashboard h2,
+        .how-to-buy h2,
+        section[style*="gradient"] h2 {
+            background: none;
+            -webkit-text-fill-color: white;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .section-subtitle {
@@ -839,7 +850,7 @@
     
     <!-- Sticky Header -->
     <div class="sticky-header" id="stickyHeader">
-        <img src="assets/img/logo.png?v=20250119" alt="IDIOT" class="logo-small">
+        <img src="assets/logo.png?v=20250119" alt="IDIOT" class="logo-small">
         <div class="sticky-stats">
             <div class="stat">
                 <span class="stat-label">Price</span>
@@ -860,7 +871,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
+            <img src="assets/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
             <h1>IDIOT TOKEN</h1>
             <p class="tagline">Smart About Dumb Fun 🧠</p>
             <p style="font-size: 1.3rem; margin-bottom: 2rem; font-weight: 500;">Community-First Meme Token on Base Mainnet</p>
@@ -998,6 +1009,21 @@
         </div>
     </section>
 
+    <!-- Uniswap Widget Section -->
+    <section style="background: white;">
+        <h2>💱 Swap IDIOT Token</h2>
+        <p class="section-subtitle">Trade directly from our website using Uniswap</p>
+        
+        <div style="max-width: 500px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <iframe
+                src="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base&theme=dark"
+                height="660px"
+                width="100%"
+                style="border: 0; margin: 0; display: block; border-radius: 20px; max-width: 500px; min-width: 300px;"
+            />
+        </div>
+    </section>
+
     <!-- About Section -->
     <section id="about">
         <h2>What is IDIOT Token?</h2>
@@ -1098,7 +1124,7 @@
         <h2>🎁 Idiocracy Airdrop</h2>
         
         <div class="airdrop-box">
-            <h3>200,000,000 IDIOT for the Community</h3>
+            <h3>250,000,000 IDIOT for the Community</h3>
             <p style="font-size: 1.3rem; margin-bottom: 2rem;">Rewarding active participants, liquidity providers, and content creators</p>
             
             <div class="airdrop-buttons">
@@ -1241,7 +1267,7 @@
     <!-- Newsletter Section -->
     <section style="padding: 80px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); text-align: center;">
         <div style="max-width: 800px; margin: 0 auto; color: white;">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">📬 Stay Updated</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; background: none; -webkit-text-fill-color: white; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">📬 Stay Updated</h2>
             <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Get the latest news, airdrops, and exclusive updates delivered to your inbox</p>
             
             <form id="newsletterForm" style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
@@ -1270,7 +1296,7 @@
 
     <!-- Footer -->
     <footer>
-        <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
+        <img src="assets/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
         
         <div class="social-links">
             <a href="https://twitter.com/idiottoken" target="_blank" class="social-link" title="Twitter">
