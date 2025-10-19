@@ -198,3 +198,4 @@ stupidiots-website-clean/
 secure/
 .env
 >>>>>>> e3e06bea0cd4f80b32d4ee022bb61c08cb67ab73
+.vercel
