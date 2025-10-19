@@ -15,7 +15,7 @@
     <!-- Open Graph -->
     <meta property="og:title" content="IDIOT Token - Smart About Dumb Fun">
     <meta property="og:description" content="Community-first meme token on Base with honest tokenomics and zero taxes">
-    <meta property="og:image" content="assets/og-image.png">
+    <meta property="og:image" content="assets/img/og-image.png">
     <meta property="og:url" content="https://stupidiots.com">
     <meta property="og:type" content="website">
     
@@ -23,18 +23,18 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="IDIOT Token - Smart About Dumb Fun">
     <meta name="twitter:description" content="Community-first meme token on Base with honest tokenomics">
-    <meta name="twitter:image" content="assets/og-image.png">
+    <meta name="twitter:image" content="assets/img/og-image.png">
     
     <!-- Favicon - Multiple sizes for better compatibility -->
-    <link rel="icon" type="image/x-icon" hrefassets/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" hrefassets/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" hrefassets/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" hrefassets/logo.png">
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/logo.png">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     
     <!-- Preload Critical Assets -->
-    <link rel="preload" href="assets/logo.png?v=20250119" as="image">
-    <link rel="preload" href="assets/coin-1.png" as="image">
+    <link rel="preload" href="assets/img/logo.png?v=20250119" as="image">
+    <link rel="preload" href="assets/img/coin-1.png" as="image">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -65,8 +65,6 @@
             color: var(--dark);
             background: var(--light);
             overflow-x: hidden;
-            padding-bottom: 0;
-            margin-bottom: 0;
         }
         
         /* Animated Background */
@@ -86,271 +84,6 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-        
-        /* Decorative Floating Coins */
-        .floating-coin {
-            position: fixed;
-            z-index: 999;
-            opacity: 0.6;
-            animation: float 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-        
-        .floating-coin-top {
-            top: 120px;
-            left: 20px;
-            width: 80px;
-            height: 80px;
-        }
-        
-        .floating-coin-bottom {
-            bottom: 100px;
-            right: 20px;
-            width: 100px;
-            height: 100px;
-            animation-delay: -3s;
-        }
-        
-        @media (max-width: 768px) {
-            .floating-coin {
-                display: none;
-            }
-        }
-        
-        /* Chatbot Widget */
-        .chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-        
-        .chatbot-toggle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            transition: all 0.3s ease;
-            color: white;
-        }
-        
-        .chatbot-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-        }
-        
-        .chatbot-window {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 380px;
-            height: 550px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            animation: slideUp 0.3s ease;
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .chatbot-window.open {
-            display: flex;
-        }
-        
-        .chatbot-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .chatbot-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-        
-        .chatbot-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-        
-        .chatbot-close:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .chatbot-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: #f8f9fa;
-        }
-        
-        .chatbot-message {
-            display: flex;
-            gap: 10px;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .chatbot-message.bot {
-            align-self: flex-start;
-        }
-        
-        .chatbot-message.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-        
-        .message-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-        
-        .message-avatar.bot {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .message-avatar.user {
-            background: #e0e0e0;
-        }
-        
-        .message-bubble {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            word-wrap: break-word;
-        }
-        
-        .message-bubble.bot {
-            background: white;
-            color: #333;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .message-bubble.user {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .chatbot-quick-replies {
-            padding: 10px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-        }
-        
-        .quick-reply-btn {
-            padding: 8px 16px;
-            background: #f0f0f0;
-            border: 1px solid #d0d0d0;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
-        
-        .quick-reply-btn:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-        
-        .chatbot-input-area {
-            padding: 15px 20px;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .chatbot-input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        
-        .chatbot-input:focus {
-            border-color: #667eea;
-        }
-        
-        .chatbot-send {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-        
-        .chatbot-send:hover {
-            transform: scale(1.1);
-        }
-        
-        @media (max-width: 768px) {
-            .chatbot-window {
-                width: calc(100vw - 40px);
-                height: calc(100vh - 120px);
-                right: 20px;
-            }
         }
         
         /* Sticky Header */
@@ -374,7 +107,8 @@
         }
         
         .sticky-header .logo-small {
-            height: 120px;
+            height: 40px;
+            animation: none;
         }
         
         .sticky-stats {
@@ -428,34 +162,19 @@
         }
         
         .logo {
-            max-width: 600px;
-            margin-bottom: 2rem;
+            max-width: 160px;
+            margin-bottom: 1rem;
             animation: logoSpin 4s linear infinite;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
             transform-style: preserve-3d;
         }
         
         @keyframes logoSpin {
-            0% {
-                transform: rotateY(0deg) translateY(0px);
-            }
-            25% {
-                transform: rotateY(90deg) translateY(-10px);
-            }
-            50% {
-                transform: rotateY(180deg) translateY(0px);
-            }
-            75% {
-                transform: rotateY(270deg) translateY(-10px);
-            }
-            100% {
-                transform: rotateY(360deg) translateY(0px);
-            }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            25% { transform: rotateY(90deg) rotateX(5deg); }
+            50% { transform: rotateY(180deg) rotateX(0deg); }
+            75% { transform: rotateY(270deg) rotateX(-5deg); }
+            100% { transform: rotateY(360deg) rotateX(0deg); }
         }
         
         h1 {
@@ -529,15 +248,11 @@
             border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            display: inline-block;
             transition: all 0.3s;
             font-weight: bold;
             position: relative;
             overflow: hidden;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
         }
         
         .btn::before {
@@ -651,17 +366,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 900;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        /* Override for sections with gradient backgrounds */
-        .stats-dashboard h2,
-        .how-to-buy h2,
-        section[style*="gradient"] h2 {
-            background: none;
-            -webkit-text-fill-color: white;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .section-subtitle {
@@ -935,8 +639,6 @@
         .roadmap {
             position: relative;
             padding-left: 3rem;
-            max-width: 900px;
-            margin: 0 auto;
         }
         
         .roadmap::before {
@@ -946,19 +648,17 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            border-radius: 2px;
+            background: var(--gradient-1);
         }
         
         .roadmap-item {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            background: white;
             padding: 2.5rem;
             border-radius: 20px;
             margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             position: relative;
             transition: all 0.3s;
-            border: 2px solid rgba(102, 126, 234, 0.1);
         }
         
         .roadmap-item::before {
@@ -966,46 +666,32 @@
             position: absolute;
             left: -3.75rem;
             top: 2rem;
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
             border-radius: 50%;
             border: 4px solid white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3), 0 4px 12px rgba(102, 126, 234, 0.4);
-            z-index: 1;
+            box-shadow: 0 0 0 4px var(--primary);
         }
         
         .roadmap-item:hover {
-            transform: translateX(10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
-            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
         
         .roadmap-item h3 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
             margin-bottom: 1rem;
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-        
-        .roadmap-item.completed {
-            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
-            border-color: rgba(72, 187, 120, 0.3);
+            font-size: 1.5rem;
         }
         
         .roadmap-item.completed h3 {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--success);
         }
         
         .roadmap-item.completed::before {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            box-shadow: 0 0 0 4px rgba(72, 187, 120, 0.3), 0 4px 12px rgba(72, 187, 120, 0.4);
+            background: var(--success);
+            box-shadow: 0 0 0 4px var(--success);
         }
         
         .roadmap-item ul {
@@ -1017,8 +703,6 @@
             padding: 0.5rem 0;
             padding-left: 1.5rem;
             position: relative;
-            color: #4a5568;
-            font-size: 1.05rem;
         }
         
         .roadmap-item li::before {
@@ -1026,61 +710,6 @@
             position: absolute;
             left: 0;
             color: var(--primary);
-            font-weight: bold;
-        }
-        
-        /* Spinning Discord Coin */
-        .discord-coin {
-            position: fixed;
-            bottom: 150px;
-            right: 40px;
-            width: 360px;
-            height: 360px;
-            z-index: 999;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 15px 40px rgba(102, 126, 234, 0.5));
-            perspective: 1000px;
-        }
-        
-        .discord-coin img {
-            width: 100%;
-            height: 100%;
-            animation: coinSpin 3s linear infinite;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-        
-        .discord-coin:hover img {
-            animation-play-state: paused;
-            transform: scale(1.05);
-        }
-        
-        @keyframes coinSpin {
-            0% {
-                transform: rotateY(0deg) rotateX(0deg);
-            }
-            25% {
-                transform: rotateY(90deg) rotateX(5deg);
-            }
-            50% {
-                transform: rotateY(180deg) rotateX(0deg);
-            }
-            75% {
-                transform: rotateY(270deg) rotateX(-5deg);
-            }
-            100% {
-                transform: rotateY(360deg) rotateX(0deg);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .discord-coin {
-                bottom: 120px;
-                right: 20px;
-                width: 180px;
-                height: 180px;
-            }
         }
         
         /* FAQ */
@@ -1134,14 +763,7 @@
             background: var(--dark);
             color: white;
             text-align: center;
-            padding: 4rem 2rem 6rem 2rem;
-            margin-bottom: 0;
-        }
-        
-        @media (max-width: 768px) {
-            footer {
-                padding: 3rem 1.5rem 8rem 1.5rem;
-            }
+            padding: 4rem 2rem;
         }
         
         .social-links {
@@ -1220,59 +842,9 @@
     <!-- Animated Background -->
     <div class="animated-bg"></div>
     
-    <!-- Floating Decorative Coins -->
-    <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-top">
-    <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-bottom">
-    
-    <!-- Spinning Discord Coin -->
-    <a href="https://discord.gg/idiottoken" target="_blank" class="discord-coin" title="Join our Discord!">
-        <img src="assets/coin-3.png" alt="Join Discord">
-    </a>
-    
-    <!-- Chatbot Widget -->
-    <div class="chatbot-container">
-        <button class="chatbot-toggle" onclick="toggleChatbot()" id="chatbotToggle">
-            💬
-        </button>
-        
-        <div class="chatbot-window" id="chatbotWindow">
-            <div class="chatbot-header">
-                <h3>🧠 IDIOT Assistant</h3>
-                <button class="chatbot-close" onclick="toggleChatbot()">×</button>
-            </div>
-            
-            <div class="chatbot-messages" id="chatbotMessages">
-                <div class="chatbot-message bot">
-                    <div class="message-avatar bot">🤖</div>
-                    <div class="message-bubble bot">
-                        Hi! I'm the IDIOT Token assistant. How can I help you today?
-                    </div>
-                </div>
-            </div>
-            
-            <div class="chatbot-quick-replies" id="quickReplies">
-                <button class="quick-reply-btn" onclick="sendQuickReply('How to buy?')">💰 How to buy?</button>
-                <button class="quick-reply-btn" onclick="sendQuickReply('Tokenomics?')">📊 Tokenomics?</button>
-                <button class="quick-reply-btn" onclick="sendQuickReply('Airdrop info?')">🎁 Airdrop?</button>
-                <button class="quick-reply-btn" onclick="sendQuickReply('Contract address?')">📝 Contract?</button>
-            </div>
-            
-            <div class="chatbot-input-area">
-                <input 
-                    type="text" 
-                    class="chatbot-input" 
-                    id="chatbotInput" 
-                    placeholder="Type your question..."
-                    onkeypress="if(event.key==='Enter') sendMessage()"
-                />
-                <button class="chatbot-send" onclick="sendMessage()">➤</button>
-            </div>
-        </div>
-    </div>
-    
     <!-- Sticky Header -->
     <div class="sticky-header" id="stickyHeader">
-        <img src="assets/logo.png?v=20250119" alt="IDIOT" class="logo-small">
+        <img src="assets/img/logo.png?v=20250119" alt="IDIOT" class="logo-small">
         <div class="sticky-stats">
             <div class="stat">
                 <span class="stat-label">Price</span>
@@ -1293,7 +865,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="assets/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
+            <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token Logo" class="logo">
             <h1>IDIOT TOKEN</h1>
             <p class="tagline">Smart About Dumb Fun 🧠</p>
             <p style="font-size: 1.3rem; margin-bottom: 2rem; font-weight: 500;">Community-First Meme Token on Base Mainnet</p>
@@ -1354,9 +926,8 @@
             <iframe 
                 id="chartFrame"
                 class="chart-iframe"
-                src="https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?embed=1&theme=dark&trades=0&info=0"
-                loading="lazy"
-                allow="clipboard-write">
+                src="https://dexscreener.com/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25?embed=1&theme=dark&trades=0&info=0"
+                loading="lazy">
             </iframe>
         </div>
     </section>
@@ -1429,21 +1000,6 @@
             <div style="text-align: center; margin-top: 2rem;">
                 <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" class="btn btn-primary" style="background: white; color: var(--primary);" target="_blank">Swap Now on Uniswap</a>
             </div>
-        </div>
-    </section>
-
-    <!-- Uniswap Widget Section -->
-    <section style="background: white;">
-        <h2>💱 Swap IDIOT Token</h2>
-        <p class="section-subtitle">Trade directly from our website using Uniswap</p>
-        
-        <div style="max-width: 500px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <iframe
-                src="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base&theme=dark"
-                height="660px"
-                width="100%"
-                style="border: 0; margin: 0; display: block; border-radius: 20px; max-width: 500px; min-width: 300px;">
-            </iframe>
         </div>
     </section>
 
@@ -1584,6 +1140,274 @@
         </div>
     </section>
 
+    <!-- Community Rewards Section -->
+    <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h2 style="color: white;">🎁 Community Rewards Program</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Weekly emissions distributed to active community members over 2 years</p>
+        
+        <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; margin: 2rem 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">250M</div>
+                    <div style="opacity: 0.9;">Total IDIOT</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">104</div>
+                    <div style="opacity: 0.9;">Weekly Distributions</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">2.4M</div>
+                    <div style="opacity: 0.9;">IDIOT per Week</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem;">14 Days</div>
+                    <div style="opacity: 0.9;">Claim Window</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 15px;">
+                <h3 style="color: white; margin-bottom: 1rem;">📅 How It Works</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        <strong>Tuesday 00:00 UTC:</strong> Weekly snapshot taken
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        <strong>Thursday 00:00 UTC:</strong> Claims open
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        <strong>14 Days:</strong> Claim window duration
+                    </li>
+                    <li style="padding: 0.5rem 0;">
+                        <strong>Unclaimed:</strong> Rolls forward to future epochs
+                    </li>
+                </ul>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 15px;">
+                <h3 style="color: white; margin-bottom: 1rem;">✅ Eligibility</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        💎 Hold IDIOT during snapshot window
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        💧 Provide liquidity (weighted by LP-days)
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        🎯 Complete verified quests/bounties
+                    </li>
+                    <li style="padding: 0.5rem 0;">
+                        🎨 Create quality community content
+                    </li>
+                </ul>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 15px;">
+                <h3 style="color: white; margin-bottom: 1rem;">🛡️ Safety Limits</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        <strong>Per-Wallet Cap:</strong> 0.10% of supply
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        <strong>Anti-Sybil:</strong> Automated detection
+                    </li>
+                    <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                        <strong>Verification:</strong> All claims on-chain
+                    </li>
+                    <li style="padding: 0.5rem 0;">
+                        <strong>Security:</strong> Never share seed phrase
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/airdrop/" class="btn" style="background: white; color: #667eea; font-size: 1.2rem; padding: 1.2rem 2.5rem;">
+                🎁 Check Your Rewards
+            </a>
+        </div>
+    </section>
+
+    <!-- Liquidity Provider Guide Section -->
+    <section style="background: white;">
+        <h2>💧 Liquidity Provider Guide</h2>
+        <p class="section-subtitle">Earn swap fees and bonus rewards by providing liquidity on Uniswap V3</p>
+        
+        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 2.5rem; border-radius: 20px; margin: 2rem 0;">
+            <h3 style="color: white; text-align: center; margin-bottom: 2rem; font-size: 2rem;">What You Earn</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">💰</div>
+                    <h4 style="color: white;">Swap Fees</h4>
+                    <p style="opacity: 0.9;">0.3% fee on all trades in your range</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎁</div>
+                    <h4 style="color: white;">Bonus Rewards</h4>
+                    <p style="opacity: 0.9;">Weekly IDIOT emissions for LPs</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">📈</div>
+                    <h4 style="color: white;">Compounding</h4>
+                    <p style="opacity: 0.9;">Reinvest rewards for exponential growth</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">1️⃣</div>
+                <h3>Add Liquidity</h3>
+                <p><strong>Network:</strong> Base Mainnet</p>
+                <p><strong>Pair:</strong> IDIOT / WETH</p>
+                <p><strong>Protocol:</strong> Uniswap V3</p>
+                <p><strong>Fee Tier:</strong> 0.3%</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                    Open Uniswap, select IDIOT and WETH, choose your price range, and deposit proportional amounts.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">2️⃣</div>
+                <h3>Choose Price Range</h3>
+                <p><strong>Wide Range (-50% to +100%):</strong></p>
+                <p style="font-size: 0.9rem; color: #666;">Easier management, less active rebalancing needed</p>
+                <p style="margin-top: 1rem;"><strong>Narrow Range (-10% to +10%):</strong></p>
+                <p style="font-size: 0.9rem; color: #666;">More fees near current price, but can go out of range</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">3️⃣</div>
+                <h3>Earn & Claim</h3>
+                <p><strong>Automatic:</strong> Swap fees accumulate</p>
+                <p><strong>Weekly:</strong> Check Community Rewards page</p>
+                <p><strong>Register:</strong> May need to stake LP position</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                    Rewards vest per epoch rules and must be claimed from the designated contract.
+                </p>
+            </div>
+        </div>
+
+        <div style="background: #fff3cd; padding: 2rem; border-radius: 15px; margin-top: 2rem;">
+            <h3 style="margin-bottom: 1rem;">⚠️ Important Considerations</h3>
+            <ul style="list-style-position: inside;">
+                <li><strong>Impermanent Loss:</strong> If price moves significantly, your IDIOT/ETH ratio changes</li>
+                <li><strong>Out-of-Range Risk:</strong> Narrow ranges earn 0 fees if price leaves your band</li>
+                <li><strong>Gas Costs:</strong> Consider transaction fees when adding/removing liquidity</li>
+                <li><strong>Contract Safety:</strong> Only use official Uniswap interface and verified contracts</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://app.uniswap.org/add/ETH/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1/3000?chain=base" target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 2.5rem;">
+                💧 Add Liquidity on Uniswap
+            </a>
+        </div>
+    </section>
+
+    <!-- Documentation Hub Section -->
+    <section style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+        <h2 style="color: white;">📚 Official Documentation</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Complete transparency - all contracts, proofs, and guides in one place</p>
+        
+        <h3 style="color: white; text-align: center; margin: 3rem 0 2rem 0; font-size: 1.8rem;">🔗 Quick Links</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            <a href="/airdrop/idiocracy" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📜</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Airdrop Rules</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Complete eligibility criteria and distribution schedule</p>
+            </a>
+
+            <a href="/airdrop/idiocracy-1.json" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔍</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Merkle Proofs</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Cryptographic proofs for all airdrop allocations</p>
+            </a>
+
+            <a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📝</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Smart Contract</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Verified source code on BaseScan</p>
+            </a>
+
+            <a href="https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Live Analytics</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Real-time trading data and liquidity metrics</p>
+            </a>
+
+            <a href="https://app.uniswap.org/explore/pools/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏊</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Liquidity Pool</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Uniswap V3 pool details and statistics</p>
+            </a>
+
+            <a href="https://discord.gg/idiottoken" target="_blank" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💬</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Community Support</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Join Discord for help and announcements</p>
+            </a>
+        </div>
+
+        <h3 style="color: white; text-align: center; margin: 4rem 0 2rem 0; font-size: 1.8rem;">🎓 Educational Guides</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            <a href="/docs/how-to-buy-idiot-on-base.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💰</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">How to Buy IDIOT</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Step-by-step buying guide for beginners</p>
+            </a>
+
+            <a href="/docs/base-network-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Base Network Guide</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Everything about Base Layer 2 blockchain</p>
+            </a>
+
+            <a href="/docs/wallet-setup-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">💼</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Wallet Setup Guide</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">MetaMask, hardware wallets, and multisig</p>
+            </a>
+
+            <a href="/docs/defi-yield-farming-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌾</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">DeFi & Yield Farming</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Earn rewards through liquidity provision</p>
+            </a>
+
+            <a href="/docs/crypto-education-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎓</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">Crypto Education</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Complete beginner's guide to cryptocurrency</p>
+            </a>
+
+            <a href="/docs/faq-guide.html" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 15px; text-decoration: none; color: white; transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">❓</div>
+                <h3 style="color: white; margin-bottom: 0.5rem;">FAQ</h3>
+                <p style="opacity: 0.9; font-size: 0.95rem;">Frequently asked questions with search</p>
+            </a>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.2); padding: 2rem; border-radius: 15px; margin-top: 3rem; border: 2px solid rgba(255,255,255,0.3);">
+            <h3 style="color: white; text-align: center; margin-bottom: 1.5rem;">🔐 Security Reminders</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div style="text-align: center;">
+                    <p style="font-size: 1.1rem; font-weight: 600;">Never share your seed phrase</p>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">We will NEVER ask for it</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-size: 1.1rem; font-weight: 600;">Verify all contract addresses</p>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">Always check on BaseScan</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="font-size: 1.1rem; font-weight: 600;">Use official links only</p>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">Bookmark stupidiots.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Roadmap Section -->
     <section id="roadmap">
         <h2>🗺️ Roadmap</h2>
@@ -1690,7 +1514,7 @@
     <!-- Newsletter Section -->
     <section style="padding: 80px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); text-align: center;">
         <div style="max-width: 800px; margin: 0 auto; color: white;">
-            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; background: none; -webkit-text-fill-color: white; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">📬 Stay Updated</h2>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">📬 Stay Updated</h2>
             <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Get the latest news, airdrops, and exclusive updates delivered to your inbox</p>
             
             <form id="newsletterForm" style="display: flex; gap: 10px; max-width: 600px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
@@ -1719,7 +1543,7 @@
 
     <!-- Footer -->
     <footer>
-        <img src="assets/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
+        <img src="assets/img/logo.png?v=20250119" alt="IDIOT Token" style="max-width: 100px; margin-bottom: 2rem;">
         
         <div class="social-links">
             <a href="https://twitter.com/idiottoken" target="_blank" class="social-link" title="Twitter">
@@ -1742,7 +1566,7 @@
         <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.6;">
             <p>Contract: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
             <p>Network: Base (Chain ID: 8453)</p>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem;">v4.0</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">v2.0 | Updated: Oct 11, 2025</p>
         </div>
         
         <div style="margin-top: 2rem; font-size: 0.85rem;">
@@ -1750,10 +1574,6 @@
             <a href="/legal/privacy.html" style="color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px;">Privacy Policy</a>
             <a href="/legal/disclaimer.html" style="color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px;">Disclaimer</a>
         </div>
-        
-        <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8; font-style: italic;">
-            © 2026 IDIOT Token. All rights reserved. Not financial advice—just idiots having fun. 🧠
-        </p>
     </footer>
 
     <script>
@@ -1788,7 +1608,7 @@
             event.target.classList.add('active');
             
             if (type === 'dexscreener') {
-                frame.src = 'https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?embed=1&theme=dark&trades=0&info=0';
+                frame.src = 'https://dexscreener.com/base/0xca1d61749ba1126de5c51782e15585ebb3218243b3bc1eb00eadb579ef774f25?embed=1&theme=dark&trades=0&info=0';
             } else if (type === 'dextools') {
                 frame.src = 'https://www.dextools.io/widget-chart/en/base/pe-light/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false';
             }
@@ -1797,261 +1617,6 @@
         // FAQ Toggle
         function toggleFaq(element) {
             element.classList.toggle('open');
-        }
-        
-        // Chatbot Functions
-        function toggleChatbot() {
-            const chatWindow = document.getElementById('chatbotWindow');
-            const toggle = document.getElementById('chatbotToggle');
-            
-            if (chatWindow.classList.contains('open')) {
-                chatWindow.classList.remove('open');
-                toggle.textContent = '💬';
-            } else {
-                chatWindow.classList.add('open');
-                toggle.textContent = '✕';
-            }
-        }
-        
-        function sendMessage() {
-            const input = document.getElementById('chatbotInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            // Add user message
-            addMessage(message, 'user');
-            input.value = '';
-            
-            // Show typing indicator
-            showTypingIndicator();
-            
-            // Get bot response after delay
-            setTimeout(() => {
-                hideTypingIndicator();
-                const response = getBotResponse(message);
-                addMessage(response, 'bot');
-            }, 800);
-        }
-        
-        function sendQuickReply(message) {
-            addMessage(message, 'user');
-            
-            showTypingIndicator();
-            
-            setTimeout(() => {
-                hideTypingIndicator();
-                const response = getBotResponse(message);
-                addMessage(response, 'bot');
-            }, 800);
-        }
-        
-        function addMessage(text, sender) {
-            const messagesContainer = document.getElementById('chatbotMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chatbot-message ${sender}`;
-            
-            const avatar = document.createElement('div');
-            avatar.className = `message-avatar ${sender}`;
-            avatar.textContent = sender === 'bot' ? '🤖' : '👤';
-            
-            const bubble = document.createElement('div');
-            bubble.className = `message-bubble ${sender}`;
-            bubble.innerHTML = text;
-            
-            messageDiv.appendChild(avatar);
-            messageDiv.appendChild(bubble);
-            messagesContainer.appendChild(messageDiv);
-            
-            // Scroll to bottom
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-        
-        function showTypingIndicator() {
-            const messagesContainer = document.getElementById('chatbotMessages');
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'chatbot-message bot';
-            typingDiv.id = 'typingIndicator';
-            
-            typingDiv.innerHTML = `
-                <div class="message-avatar bot">🤖</div>
-                <div class="message-bubble bot">
-                    <span style="opacity: 0.5;">typing...</span>
-                </div>
-            `;
-            
-            messagesContainer.appendChild(typingDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-        
-        function hideTypingIndicator() {
-            const indicator = document.getElementById('typingIndicator');
-            if (indicator) indicator.remove();
-        }
-        
-        function getBotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            // Contract Address
-            if (lowerMessage.includes('contract') || lowerMessage.includes('address')) {
-                return `📝 <strong>IDIOT Token Contract:</strong><br><br>
-                    <code style="background: #f0f0f0; padding: 8px; border-radius: 5px; display: block; word-break: break-all; margin: 5px 0;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code><br>
-                    <strong>Network:</strong> Base Mainnet (Chain ID: 8453)<br><br>
-                    <a href="#contract" style="color: #667eea;">View on site</a>`;
-            }
-            
-            // How to Buy
-            if (lowerMessage.includes('buy') || lowerMessage.includes('purchase') || lowerMessage.includes('get')) {
-                return `💰 <strong>How to Buy IDIOT Token:</strong><br><br>
-                    1️⃣ Get a wallet (MetaMask, Coinbase Wallet)<br>
-                    2️⃣ Add Base network (Chain ID: 8453)<br>
-                    3️⃣ Get ETH on Base via bridge.base.org<br>
-                    4️⃣ Swap ETH for IDIOT on Uniswap<br><br>
-                    <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" style="color: #667eea;">🔗 Swap on Uniswap</a>`;
-            }
-            
-            // Tokenomics
-            if (lowerMessage.includes('tokenomics') || lowerMessage.includes('supply') || lowerMessage.includes('distribution')) {
-                return `📊 <strong>IDIOT Tokenomics:</strong><br><br>
-                    <strong>Total Supply:</strong> 1,000,000,000 IDIOT<br><br>
-                    🏦 Cold Treasury: 47% (470M)<br>
-                    👥 Community & Airdrops: 25% (250M)<br>
-                    💧 Liquidity Pool: 15% (150M)<br>
-                    👨‍💻 Team Vesting: 10% (100M)<br>
-                    💼 Operations: 3% (30M)<br><br>
-                    ✅ Zero taxes | ✅ Transparent | ✅ Community-first<br><br>
-                    <a href="#tokenomics" style="color: #667eea;">View full breakdown</a>`;
-            }
-            
-            // Airdrop
-            if (lowerMessage.includes('airdrop') || lowerMessage.includes('claim') || lowerMessage.includes('free')) {
-                return `🎁 <strong>Idiocracy Airdrop:</strong><br><br>
-                    <strong>Total Allocation:</strong> 250,000,000 IDIOT<br><br>
-                    <strong>How to Earn:</strong><br>
-                    • Early community members<br>
-                    • Liquidity providers<br>
-                    • Content creators<br>
-                    • Active Discord/Twitter/Telegram participants<br><br>
-                    <strong>Cap:</strong> 1M IDIOT per wallet per campaign<br>
-                    <strong>Claim Window:</strong> 14 days after snapshot<br><br>
-                    <a href="/airdrop/" style="color: #667eea;">🎯 Check Eligibility & Claim</a>`;
-            }
-            
-            // Price
-            if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('value')) {
-                return `💵 <strong>Current Price:</strong><br><br>
-                    Check live price on:<br>
-                    📈 <a href="https://dexscreener.com/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="color: #667eea;">DexScreener</a><br>
-                    📊 <a href="https://www.dextools.io/app/base/pair-explorer/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="color: #667eea;">DEXTools</a><br><br>
-                    <a href="#chart" style="color: #667eea;">View live chart on site</a>`;
-            }
-            
-            // Liquidity
-            if (lowerMessage.includes('liquidity') || lowerMessage.includes('pool') || lowerMessage.includes('lp')) {
-                return `💧 <strong>Liquidity Information:</strong><br><br>
-                    <strong>Pool:</strong> IDIOT/WETH on Uniswap V3<br>
-                    <strong>Allocation:</strong> 15% of supply (150M IDIOT)<br>
-                    <strong>LP Value:</strong> ~$525K<br><br>
-                    Liquidity is managed transparently with gradual additions based on trading volume.<br><br>
-                    <a href="https://app.uniswap.org/explore/pools/base/0x763c9aB550dC0DAbd32F40131481Bf4BA4d8c1ea" target="_blank" style="color: #667eea;">View Pool on Uniswap</a>`;
-            }
-            
-            // Taxes
-            if (lowerMessage.includes('tax') || lowerMessage.includes('fee')) {
-                return `🚫 <strong>Zero Taxes!</strong><br><br>
-                    IDIOT Token has:<br>
-                    ✅ 0% buy tax<br>
-                    ✅ 0% sell tax<br>
-                    ✅ No hidden fees<br>
-                    ✅ Permanently renounced<br><br>
-                    What you see is what you get! 🎯`;
-            }
-            
-            // Roadmap
-            if (lowerMessage.includes('roadmap') || lowerMessage.includes('future') || lowerMessage.includes('plans')) {
-                return `🗺️ <strong>IDIOT Roadmap:</strong><br><br>
-                    <strong>Phase 1:</strong> Launch & Community Building ✅<br>
-                    <strong>Phase 2:</strong> Airdrop Campaign 🔄<br>
-                    <strong>Phase 3:</strong> Exchange Listings 📋<br>
-                    <strong>Phase 4:</strong> Governance & DAO 🎯<br>
-                    <strong>Phase 5:</strong> Ecosystem Expansion 🚀<br><br>
-                    <a href="#roadmap" style="color: #667eea;">View detailed roadmap</a>`;
-            }
-            
-            // Social Media
-            if (lowerMessage.includes('social') || lowerMessage.includes('twitter') || lowerMessage.includes('telegram') || lowerMessage.includes('discord')) {
-                return `🌐 <strong>Join Our Community:</strong><br><br>
-                    🐦 <a href="https://twitter.com/idiottoken" target="_blank" style="color: #667eea;">Twitter</a><br>
-                    💬 <a href="https://t.me/idiottoken" target="_blank" style="color: #667eea;">Telegram</a><br>
-                    🎮 <a href="https://discord.gg/idiottoken" target="_blank" style="color: #667eea;">Discord</a><br><br>
-                    Join thousands of IDIOTs worldwide! 🧠`;
-            }
-            
-            // Security
-            if (lowerMessage.includes('safe') || lowerMessage.includes('security') || lowerMessage.includes('audit') || lowerMessage.includes('scam')) {
-                return `🛡️ <strong>Security & Transparency:</strong><br><br>
-                    ✅ Contract verified on BaseScan<br>
-                    ✅ Liquidity locked<br>
-                    ✅ Multisig treasury control<br>
-                    ✅ Zero taxes (can't be changed)<br>
-                    ✅ All allocations public & verifiable<br><br>
-                    We're transparent about everything. No BS! 🎯`;
-            }
-            
-            // Team
-            if (lowerMessage.includes('team') || lowerMessage.includes('founder') || lowerMessage.includes('developer')) {
-                return `👥 <strong>About the Team:</strong><br><br>
-                    IDIOT Token is built by a community-focused team committed to transparency and honest tokenomics.<br><br>
-                    <strong>Team Allocation:</strong> 10% (100M IDIOT)<br>
-                    <strong>Vesting:</strong> Gradual release over time<br><br>
-                    We're smart about having dumb fun! 🧠`;
-            }
-            
-            // Meme Generator
-            if (lowerMessage.includes('meme') || lowerMessage.includes('generator') || lowerMessage.includes('create')) {
-                return `🎨 <strong>IDIOT Meme Generator:</strong><br><br>
-                    Create hilarious IDIOT-themed memes!<br><br>
-                    <strong>Features:</strong><br>
-                    • 4 popular templates<br>
-                    • Custom text & colors<br>
-                    • Download as PNG<br>
-                    • Share on social media<br><br>
-                    <a href="/meme-generator/" style="color: #667eea;">🎯 Create Your Meme</a>`;
-            }
-            
-            // Staking
-            if (lowerMessage.includes('stak') || lowerMessage.includes('earn') || lowerMessage.includes('reward')) {
-                return `💎 <strong>Staking (Coming Soon):</strong><br><br>
-                    Stake your IDIOT tokens to earn rewards!<br><br>
-                    <strong>Planned Options:</strong><br>
-                    • 2-Month: 1:1 rewards<br>
-                    • 6-Month: 3:1 rewards<br><br>
-                    Stay tuned for launch announcement! 🚀`;
-            }
-            
-            // Help / General
-            if (lowerMessage.includes('help') || lowerMessage.includes('support') || lowerMessage.includes('question')) {
-                return `❓ <strong>How Can I Help?</strong><br><br>
-                    I can answer questions about:<br>
-                    • How to buy IDIOT<br>
-                    • Tokenomics & distribution<br>
-                    • Airdrop information<br>
-                    • Contract address<br>
-                    • Price & charts<br>
-                    • Security & safety<br>
-                    • Community & socials<br><br>
-                    Just ask me anything! 🤖`;
-            }
-            
-            // Default response
-            return `🤔 I'm not sure about that, but I can help with:<br><br>
-                💰 How to buy IDIOT<br>
-                📊 Tokenomics info<br>
-                🎁 Airdrop details<br>
-                📝 Contract address<br>
-                💵 Price & charts<br>
-                🛡️ Security info<br><br>
-                Try asking one of these, or use the quick reply buttons! 😊`;
         }
         
         // Newsletter Form
