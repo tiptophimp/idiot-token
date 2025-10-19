@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partnerships - IDIOT Token</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <title>Partnerships - IDIOT Token | Building the Ecosystem Together</title>
+    <meta name="description" content="Explore IDIOT Token partnerships and collaboration opportunities. Join our growing ecosystem of DeFi protocols, NFT projects, and blockchain services.">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -21,100 +22,155 @@
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
         }
         
         .section {
             background: white;
             border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 2rem;
+            padding: 3.5rem;
+            margin-bottom: 2.5rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .section:hover {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
         }
         
         h2 {
             color: #667eea;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1.5rem;
         }
         
         .partners-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 2.5rem 0;
         }
         
         .partner-card {
             background: #f8f9fa;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 15px;
             text-align: center;
             transition: all 0.3s;
+            border: 2px solid transparent;
         }
         
         .partner-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
         }
         
         .partner-logo {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
         
         .partner-card h3 {
             color: #667eea;
             margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+        
+        .partner-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
         
         .partner-type {
             display: inline-block;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             background: #e7f3ff;
             color: #667eea;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
             margin: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .partner-type:hover {
+            background: #667eea;
+            color: white;
         }
         
         .cta-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 3rem;
+            padding: 4rem;
             border-radius: 20px;
             text-align: center;
-            margin: 3rem 0;
+            margin: 4rem 0;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
         }
         
         .cta-box h2 {
             color: white;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-box p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
         }
         
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem;
             background: white;
             color: #667eea;
             text-decoration: none;
@@ -122,105 +178,293 @@
             font-weight: 600;
             margin: 0.5rem;
             transition: all 0.3s;
+            font-size: 1.05rem;
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
         }
         
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
         }
         
         .benefit-item {
-            padding: 1.5rem;
+            padding: 2rem;
             background: #f8f9fa;
             border-radius: 10px;
             border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+        
+        .benefit-item:hover {
+            transform: translateX(5px);
+            background: #f0f4ff;
         }
         
         .benefit-item h4 {
             color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .benefit-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
             margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            opacity: 0.9;
+            font-size: 1.05rem;
+        }
+        
+        .partnership-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        .type-card {
+            padding: 2.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .type-card:hover {
+            border-color: #667eea;
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .type-card h3 {
+            color: #667eea;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+        }
+        
+        .type-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .process-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+        }
+        
+        .timeline-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding-top: 0.5rem;
+        }
+        
+        .timeline-content h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .timeline-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 2rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="hero">
         <h1>🤝 Partnerships</h1>
-        <p style="font-size: 1.2rem;">Building the IDIOT ecosystem together</p>
+        <p>Building the IDIOT Token ecosystem together</p>
     </div>
     
     <div class="container">
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Active Partners</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Community Members</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">$525K</div>
+                <div class="stat-label">Liquidity Pool</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">50M+</div>
+                <div class="stat-label">Daily Volume</div>
+            </div>
+        </div>
+
         <!-- Current Partners -->
         <div class="section">
-            <h2>🌟 Our Partners</h2>
-            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
-                Strategic partnerships that help grow the IDIOT Token ecosystem
+            <h2>🌟 Our Strategic Partners</h2>
+            <p style="font-size: 1.15rem; color: #666; margin-bottom: 2.5rem;">
+                We collaborate with industry-leading platforms and protocols to build a robust IDIOT Token ecosystem
             </p>
             
             <div class="partners-grid">
                 <div class="partner-card">
                     <div class="partner-logo">🦄</div>
                     <h3>Uniswap V3</h3>
-                    <p style="color: #666;">Primary decentralized exchange for IDIOT trading</p>
-                    <div style="margin-top: 1rem;">
+                    <p>Primary decentralized exchange for IDIOT trading with concentrated liquidity pools on Base network</p>
+                    <div>
                         <span class="partner-type">DEX</span>
                         <span class="partner-type">Liquidity</span>
+                        <span class="partner-type">Trading</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
                     <div class="partner-logo">🔵</div>
                     <h3>Base Network</h3>
-                    <p style="color: #666;">Layer 2 blockchain infrastructure powering IDIOT</p>
-                    <div style="margin-top: 1rem;">
+                    <p>Layer 2 blockchain infrastructure powered by Coinbase, providing fast and cheap transactions</p>
+                    <div>
                         <span class="partner-type">Blockchain</span>
                         <span class="partner-type">Infrastructure</span>
+                        <span class="partner-type">L2</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
                     <div class="partner-logo">📊</div>
                     <h3>DexScreener</h3>
-                    <p style="color: #666;">Real-time charting and analytics platform</p>
-                    <div style="margin-top: 1rem;">
+                    <p>Real-time charting, analytics, and price tracking platform for IDIOT Token traders</p>
+                    <div>
                         <span class="partner-type">Analytics</span>
                         <span class="partner-type">Charts</span>
+                        <span class="partner-type">Data</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
                     <div class="partner-logo">🔍</div>
                     <h3>BaseScan</h3>
-                    <p style="color: #666;">Blockchain explorer for transparency and verification</p>
-                    <div style="margin-top: 1rem;">
+                    <p>Blockchain explorer providing transparency, contract verification, and transaction tracking</p>
+                    <div>
                         <span class="partner-type">Explorer</span>
                         <span class="partner-type">Verification</span>
+                        <span class="partner-type">Transparency</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
                     <div class="partner-logo">🛡️</div>
                     <h3>Gnosis Safe</h3>
-                    <p style="color: #666;">Multisig wallet infrastructure for secure treasury management</p>
-                    <div style="margin-top: 1rem;">
+                    <p>Multisig wallet infrastructure for secure treasury management and governance</p>
+                    <div>
                         <span class="partner-type">Security</span>
                         <span class="partner-type">Wallet</span>
+                        <span class="partner-type">Multisig</span>
                     </div>
                 </div>
                 
                 <div class="partner-card">
                     <div class="partner-logo">🌐</div>
                     <h3>GitHub</h3>
-                    <p style="color: #666;">Open-source repository hosting and collaboration</p>
-                    <div style="margin-top: 1rem;">
+                    <p>Open-source repository hosting, version control, and collaborative development platform</p>
+                    <div>
                         <span class="partner-type">Development</span>
                         <span class="partner-type">Open Source</span>
+                        <span class="partner-type">Collaboration</span>
+                    </div>
+                </div>
+
+                <div class="partner-card">
+                    <div class="partner-logo">💬</div>
+                    <h3>Discord</h3>
+                    <p>Community hub for real-time communication, support, and governance discussions</p>
+                    <div>
+                        <span class="partner-type">Community</span>
+                        <span class="partner-type">Communication</span>
+                        <span class="partner-type">Support</span>
+                    </div>
+                </div>
+
+                <div class="partner-card">
+                    <div class="partner-logo">🐦</div>
+                    <h3>Twitter/X</h3>
+                    <p>Primary social media platform for announcements, updates, and community engagement</p>
+                    <div>
+                        <span class="partner-type">Social Media</span>
+                        <span class="partner-type">Marketing</span>
+                        <span class="partner-type">Announcements</span>
+                    </div>
+                </div>
+
+                <div class="partner-card">
+                    <div class="partner-logo">📱</div>
+                    <h3>MetaMask</h3>
+                    <p>Leading crypto wallet for seamless interaction with IDIOT Token and DeFi protocols</p>
+                    <div>
+                        <span class="partner-type">Wallet</span>
+                        <span class="partner-type">Integration</span>
+                        <span class="partner-type">DeFi</span>
                     </div>
                 </div>
             </div>
@@ -229,97 +473,210 @@
         <!-- Partnership Benefits -->
         <div class="section">
             <h2>💎 Partnership Benefits</h2>
-            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
+            <p style="font-size: 1.15rem; color: #666; margin-bottom: 2.5rem;">
                 What partners can expect when collaborating with IDIOT Token
             </p>
             
             <div class="benefits-grid">
                 <div class="benefit-item">
-                    <h4>🎯 Exposure to Our Community</h4>
-                    <p style="color: #666;">Access to 2,500+ engaged community members across platforms</p>
+                    <h4>🎯 Community Exposure</h4>
+                    <p>Access to 2,500+ engaged community members across Discord, Twitter, Telegram, and Reddit. Active daily participation and high engagement rates.</p>
                 </div>
                 
                 <div class="benefit-item">
-                    <h4>📢 Co-Marketing Opportunities</h4>
-                    <p style="color: #666;">Joint announcements, social media campaigns, and content creation</p>
+                    <h4>📢 Co-Marketing Campaigns</h4>
+                    <p>Joint announcements, social media campaigns, AMA sessions, and collaborative content creation to maximize reach and impact.</p>
                 </div>
                 
                 <div class="benefit-item">
                     <h4>🤝 Technical Integration</h4>
-                    <p style="color: #666;">Deep integration opportunities with our platform and tools</p>
+                    <p>Deep integration opportunities with our platform, smart contracts, and developer tools. Full technical support and documentation.</p>
                 </div>
                 
                 <div class="benefit-item">
                     <h4>💰 Revenue Sharing</h4>
-                    <p style="color: #666;">Mutually beneficial economic arrangements where applicable</p>
+                    <p>Mutually beneficial economic arrangements including revenue sharing, liquidity incentives, and token allocations where applicable.</p>
                 </div>
                 
                 <div class="benefit-item">
                     <h4>🚀 Growth Support</h4>
-                    <p style="color: #666;">Help with community building and user acquisition</p>
+                    <p>Help with community building, user acquisition, and ecosystem development. Cross-promotion and collaborative growth strategies.</p>
                 </div>
                 
                 <div class="benefit-item">
-                    <h4>🔍 Transparency</h4>
-                    <p style="color: #666;">Open communication and honest collaboration</p>
+                    <h4>🔍 Full Transparency</h4>
+                    <p>Open communication, honest collaboration, and transparent reporting. Regular updates and performance metrics sharing.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>🎁 Exclusive Access</h4>
+                    <p>Early access to new features, products, and initiatives. Priority consideration for future partnerships and collaborations.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>📊 Data & Analytics</h4>
+                    <p>Shared analytics, user insights, and market data to inform strategic decisions and optimize partnership performance.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>🛠️ Developer Resources</h4>
+                    <p>Access to our developer community, technical documentation, and integration support for building on IDIOT ecosystem.</p>
                 </div>
             </div>
         </div>
         
         <!-- Partner Types -->
         <div class="section">
-            <h2>🎯 We're Looking For</h2>
+            <h2>🎯 Partnership Opportunities</h2>
+            <p style="font-size: 1.15rem; color: #666; margin-bottom: 2.5rem;">
+                We're actively seeking partnerships in these key areas
+            </p>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                <div style="padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">🏦 DeFi Protocols</h3>
-                    <p style="color: #666;">DEXs, lending platforms, yield aggregators, and other DeFi projects for deeper integration</p>
+            <div class="partnership-types">
+                <div class="type-card">
+                    <h3>🏦 DeFi Protocols</h3>
+                    <p>DEXs, lending platforms, yield aggregators, liquidity pools, and other DeFi projects. Opportunities for deep integration, liquidity sharing, and cross-protocol benefits.</p>
                 </div>
                 
-                <div style="padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">🎮 NFT Projects</h3>
-                    <p style="color: #666;">NFT collections, marketplaces, and gaming projects for cross-promotion</p>
+                <div class="type-card">
+                    <h3>🎮 NFT & Gaming</h3>
+                    <p>NFT collections, marketplaces, play-to-earn games, and metaverse projects. Cross-promotion, token utility integration, and community collaboration opportunities.</p>
                 </div>
                 
-                <div style="padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">📱 Tools & Services</h3>
-                    <p style="color: #666;">Wallets, analytics, portfolio trackers, and other utility services</p>
+                <div class="type-card">
+                    <h3>📱 Tools & Services</h3>
+                    <p>Wallets, portfolio trackers, tax software, analytics platforms, and other utility services. Integration opportunities and user acquisition partnerships.</p>
                 </div>
                 
-                <div style="padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">🌐 Media & Content</h3>
-                    <p style="color: #666;">Crypto media outlets, influencers, and content creators</p>
+                <div class="type-card">
+                    <h3>🌐 Media & Content</h3>
+                    <p>Crypto media outlets, influencers, content creators, and educational platforms. Sponsored content, interviews, and collaborative marketing campaigns.</p>
                 </div>
                 
-                <div style="padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">🏢 Exchanges</h3>
-                    <p style="color: #666;">CEXs and DEXs interested in listing IDIOT Token</p>
+                <div class="type-card">
+                    <h3>🏢 Exchanges & Listings</h3>
+                    <p>Centralized and decentralized exchanges interested in listing IDIOT Token. Market making partnerships and liquidity provision arrangements.</p>
                 </div>
                 
-                <div style="padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">🤖 Tech Partners</h3>
-                    <p style="color: #666;">Infrastructure providers, oracles, and technical service partners</p>
+                <div class="type-card">
+                    <h3>🤖 Infrastructure</h3>
+                    <p>Blockchain infrastructure providers, oracles, bridges, and technical service partners. Building robust and scalable ecosystem infrastructure.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3>🎓 Education</h3>
+                    <p>Crypto education platforms, courses, and training programs. Collaborative educational content and community learning initiatives.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3>🌍 Global Expansion</h3>
+                    <p>Regional partners for international growth, localization, and community building in key markets worldwide.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3>🔐 Security</h3>
+                    <p>Security audit firms, bug bounty platforms, and cybersecurity services. Ensuring the highest security standards for our ecosystem.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partnership Process -->
+        <div class="section">
+            <h2>📋 Partnership Process</h2>
+            <p style="font-size: 1.15rem; color: #666; margin-bottom: 2.5rem;">
+                Our streamlined approach to building successful partnerships
+            </p>
+
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h4>Initial Contact</h4>
+                        <p>Reach out via Twitter, Telegram, or Discord with a brief overview of your project and partnership proposal. We respond within 24-48 hours.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h4>Discovery Call</h4>
+                        <p>Schedule a video call to discuss goals, expectations, and potential synergies. We explore how our communities and products can benefit each other.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h4>Proposal Development</h4>
+                        <p>Collaborate on a detailed partnership proposal outlining deliverables, timelines, responsibilities, and success metrics.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <h4>Agreement & Launch</h4>
+                        <p>Finalize partnership agreement, coordinate launch activities, and begin collaboration. Joint announcement to both communities.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">5</div>
+                    <div class="timeline-content">
+                        <h4>Ongoing Collaboration</h4>
+                        <p>Regular check-ins, performance reviews, and optimization. Continuous communication and mutual support for long-term success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Stories -->
+        <div class="section">
+            <h2>🏆 Partnership Success Stories</h2>
+            <p style="font-size: 1.15rem; color: #666; margin-bottom: 2.5rem;">
+                Real results from our collaborative efforts
+            </p>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4>📈 Uniswap Integration</h4>
+                    <p><strong>Result:</strong> $525K in liquidity, 50M+ daily trading volume, and seamless trading experience for our community on Base network.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>🔍 DexScreener Partnership</h4>
+                    <p><strong>Result:</strong> Real-time price tracking, advanced charting tools, and increased visibility leading to 30% growth in traders.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>💬 Community Growth</h4>
+                    <p><strong>Result:</strong> Discord and Twitter partnerships helped grow our community from 500 to 2,500+ engaged members in 3 months.</p>
                 </div>
             </div>
         </div>
         
         <!-- CTA -->
         <div class="cta-box">
-            <h2>Interested in Partnering?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
-                Let's build something amazing together! Reach out to discuss partnership opportunities.
+            <h2>Ready to Partner with IDIOT Token?</h2>
+            <p>
+                Let's build something amazing together! Reach out to discuss partnership opportunities and explore how we can create mutual value.
             </p>
             
             <div>
-                <a href="https://twitter.com/idiottoken" class="btn" target="_blank">Contact on Twitter</a>
-                <a href="https://t.me/idiottoken" class="btn" target="_blank">Message on Telegram</a>
-                <a href="https://discord.gg/idiottoken" class="btn" target="_blank">Join Our Discord</a>
+                <a href="https://twitter.com/Stup_IDIOT_s" class="btn" target="_blank">📱 Contact on Twitter</a>
+                <a href="https://t.me/idiottoken" class="btn" target="_blank">💬 Message on Telegram</a>
+                <a href="https://discord.gg/idiottoken" class="btn" target="_blank">🎮 Join Our Discord</a>
             </div>
+
+            <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.85;">
+                Or email us at: <strong>partnerships@stupidiots.com</strong>
+            </p>
         </div>
         
         <div style="text-align: center; margin-top: 3rem;">
-            <a href="/" class="btn" style="background: #667eea; color: white;">Back to Home</a>
+            <a href="/" class="btn" style="background: #667eea; color: white; padding: 1.2rem 3rem; font-size: 1.1rem;">← Back to Home</a>
         </div>
     </div>
 </body>
 </html>
+
