@@ -320,8 +320,12 @@
                 </div>
                 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="generateMeme()">Generate Meme</button>
-                    <button class="btn btn-secondary" onclick="clearMeme()">Clear</button>
+                    <button class="btn btn-primary" id="generateBtn" onclick="generateMemeWithFeedback()">🎨 Generate Meme</button>
+                    <button class="btn btn-secondary" onclick="clearMeme()">🗑️ Clear</button>
+                </div>
+                
+                <div id="generateFeedback" style="display: none; margin-top: 1rem; padding: 1rem; background: #d4edda; border: 2px solid #28a745; border-radius: 8px; color: #155724; text-align: center; font-weight: 600;">
+                    ✅ Meme generated successfully!
                 </div>
                 
                 <div class="download-section">
@@ -380,9 +384,26 @@
             document.getElementById('textStroke').addEventListener('change', generateMeme);
         };
         
+        function generateMemeWithFeedback() {
+            generateMeme();
+            
+            // Show feedback
+            const feedback = document.getElementById('generateFeedback');
+            feedback.style.display = 'block';
+            
+            // Scroll to canvas
+            document.getElementById('memeCanvas').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Hide feedback after 2 seconds
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 2000);
+        }
+        
         function generateMeme() {
             if (!canvas || !ctx) {
                 console.error('Canvas or context not initialized');
+                alert('Error: Canvas not initialized. Please refresh the page.');
                 return;
             }
             
