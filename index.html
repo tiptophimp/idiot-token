@@ -65,6 +65,8 @@
             color: var(--dark);
             background: var(--light);
             overflow-x: hidden;
+            padding-bottom: 0;
+            margin-bottom: 0;
         }
         
         /* Animated Background */
@@ -1038,7 +1040,14 @@
             background: var(--dark);
             color: white;
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 6rem 2rem;
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 768px) {
+            footer {
+                padding: 3rem 1.5rem 8rem 1.5rem;
+            }
         }
         
         .social-links {
