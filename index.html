@@ -916,6 +916,8 @@
         .roadmap {
             position: relative;
             padding-left: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
         
         .roadmap::before {
@@ -925,17 +927,19 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: var(--gradient-1);
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 2px;
         }
         
         .roadmap-item {
-            background: white;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
             padding: 2.5rem;
             border-radius: 20px;
             margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
             position: relative;
             transition: all 0.3s;
+            border: 2px solid rgba(102, 126, 234, 0.1);
         }
         
         .roadmap-item::before {
@@ -943,32 +947,46 @@
             position: absolute;
             left: -3.75rem;
             top: 2rem;
-            width: 20px;
-            height: 20px;
-            background: var(--primary);
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             border: 4px solid white;
-            box-shadow: 0 0 0 4px var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.3), 0 4px 12px rgba(102, 126, 234, 0.4);
+            z-index: 1;
         }
         
         .roadmap-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.3);
         }
         
         .roadmap-item h3 {
-            color: var(--primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        
+        .roadmap-item.completed {
+            background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+            border-color: rgba(72, 187, 120, 0.3);
         }
         
         .roadmap-item.completed h3 {
-            color: var(--success);
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .roadmap-item.completed::before {
-            background: var(--success);
-            box-shadow: 0 0 0 4px var(--success);
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            box-shadow: 0 0 0 4px rgba(72, 187, 120, 0.3), 0 4px 12px rgba(72, 187, 120, 0.4);
         }
         
         .roadmap-item ul {
@@ -980,6 +998,8 @@
             padding: 0.5rem 0;
             padding-left: 1.5rem;
             position: relative;
+            color: #4a5568;
+            font-size: 1.05rem;
         }
         
         .roadmap-item li::before {
@@ -987,6 +1007,50 @@
             position: absolute;
             left: 0;
             color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Spinning Discord Coin */
+        .discord-coin {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 120px;
+            height: 120px;
+            z-index: 999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 8px 20px rgba(102, 126, 234, 0.4));
+        }
+        
+        .discord-coin img {
+            width: 100%;
+            height: 100%;
+            animation: spin3d 4s linear infinite;
+            transition: animation 0.3s ease;
+        }
+        
+        .discord-coin:hover img {
+            animation: none;
+            transform: scale(1.1);
+        }
+        
+        @keyframes spin3d {
+            0% {
+                transform: rotateY(0deg) rotateX(15deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(15deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .discord-coin {
+                bottom: 100px;
+                right: 20px;
+                width: 80px;
+                height: 80px;
+            }
         }
         
         /* FAQ */
@@ -1129,6 +1193,11 @@
     <!-- Floating Decorative Coins -->
     <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-top">
     <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-bottom">
+    
+    <!-- Spinning Discord Coin -->
+    <a href="https://discord.gg/idiottoken" target="_blank" class="discord-coin" title="Join our Discord!">
+        <img src="assets/coin-3.png" alt="Join Discord">
+    </a>
     
     <!-- Chatbot Widget -->
     <div class="chatbot-container">
@@ -1643,7 +1712,7 @@
         <div style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.6;">
             <p>Contract: 0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
             <p>Network: Base (Chain ID: 8453)</p>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem;">v2.0 | Updated: Oct 11, 2025</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">v4.0</p>
         </div>
         
         <div style="margin-top: 2rem; font-size: 0.85rem;">
