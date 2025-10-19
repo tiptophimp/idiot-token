@@ -1068,11 +1068,10 @@
             font-weight: bold;
         }
         
-        /* Spinning Discord Coin */
+        /* Spinning Discord Coins */
         .discord-coin {
             position: fixed;
             bottom: 150px;
-            right: 40px;
             width: 360px;
             height: 360px;
             z-index: 999;
@@ -1080,6 +1079,14 @@
             transition: all 0.3s ease;
             filter: drop-shadow(0 15px 40px rgba(102, 126, 234, 0.5));
             perspective: 1000px;
+        }
+        
+        .discord-coin-left {
+            left: 40px;
+        }
+        
+        .discord-coin-right {
+            right: 40px;
         }
         
         .discord-coin img {
@@ -1116,7 +1123,6 @@
         @media (max-width: 768px) {
             .discord-coin {
                 bottom: 120px;
-                right: 20px;
                 width: 180px;
                 height: 180px;
             }
@@ -1259,12 +1265,11 @@
     <!-- Animated Background -->
     <div class="animated-bg"></div>
     
-    <!-- Floating Decorative Coins -->
-    <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-top">
-    <img src="assets/coin-3.png" alt="" class="floating-coin floating-coin-bottom">
-    
-    <!-- Spinning Discord Coin -->
-    <a href="https://discord.gg/njtNfZRA" target="_blank" class="discord-coin" title="Join our Discord!">
+    <!-- Spinning Discord Coins -->
+    <a href="https://discord.gg/njtNfZRA" target="_blank" class="discord-coin discord-coin-left" title="Join our Discord!">
+        <img src="assets/coin-3.png" alt="Join Discord">
+    </a>
+    <a href="https://discord.gg/njtNfZRA" target="_blank" class="discord-coin discord-coin-right" title="Join our Discord!">
         <img src="assets/coin-3.png" alt="Join Discord">
     </a>
     
