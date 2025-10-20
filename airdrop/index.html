@@ -1,4 +1,13 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IDIOT Token Airdrop - Claim Portal</title><link rel="icon" type="image/x-icon" href="assets/favicon.ico"><style>* {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDIOT Token Airdrop - Claim Portal</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    
+    <style>
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -51,6 +60,24 @@
             margin: 2rem 0;
         }
         
+        .connected-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .wallet-address {
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-top: 0.5rem;
+        }
+        
         .btn {
             width: 100%;
             padding: 1rem;
@@ -62,6 +89,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
+            margin-top: 1rem;
         }
         
         .btn:hover {
@@ -72,6 +100,23 @@
         .btn:disabled {
             background: #ccc;
             cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
         }
         
         .info-box {
@@ -111,28 +156,391 @@
         .link-btn:hover {
             background: #667eea;
             color: white;
-        }</style></head><body><div class="container"><div class="logo"><img src="assets/logo.png" alt="IDIOT Token"></div><h1>🎁 IDIOT Airdrop</h1><p class="subtitle">Claim your allocation of 248.4M IDIOT tokens</p><div class="status-box"><h2 style="color: #667eea; margin-bottom: 1rem;">📢 Airdrop Status</h2><p><strong>Current Campaign:</strong> Idiocracy Round 1</p><p style="margin-top: 0.5rem;"><strong>Total Allocation:</strong> 248,400,000 IDIOT</p><p style="margin-top: 0.5rem;"><strong>Status:</strong> <span style="color: #28a745; font-weight: bold;">ACTIVE</span></p></div><div class="info-box"><p><strong>ℹ️ How to Claim:</strong></p><p style="margin-top: 0.5rem;">Connect your wallet below to check eligibility and claim your IDIOT tokens.</p></div><button class="btn" onclick="connectWallet()">Connect Wallet</button><div class="warning-box" style="margin-top: 2rem;"><p><strong>⚠️ Important:</strong></p><ul style="margin-left: 1.5rem; margin-top: 0.5rem;"><li>Maximum 1,000,000 IDIOT per wallet</li><li>14-day claim window from snapshot</li><li>Base network required</li><li>Unclaimed tokens return to community pool</li></ul></div><div class="links"><a href="idiocracy" class="link-btn">📋 Rules</a> <a href="idiocracy-1.json" class="link-btn" target="_blank">🔍 Proofs</a> <a href="/" class="link-btn">🏠 Home</a></div></div><script>async function connectWallet() {
+        }
+        
+        .wallet-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .wallet-btn {
+            padding: 1rem;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .wallet-btn:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        
+        .wallet-btn img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .wallet-btn span {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        #walletModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .close-modal {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #666;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .wallet-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="../assets/img/logo.png" alt="IDIOT Token" onerror="this.style.display='none'">
+        </div>
+        
+        <h1>🎁 IDIOT Airdrop</h1>
+        <p class="subtitle">Claim your allocation of 248.4M IDIOT tokens</p>
+        
+        <div class="status-box">
+            <h2 style="color: #667eea; margin-bottom: 1rem;">📢 Airdrop Status</h2>
+            <p><strong>Current Campaign:</strong> Idiocracy Round 1</p>
+            <p style="margin-top: 0.5rem;"><strong>Total Allocation:</strong> 248,400,000 IDIOT</p>
+            <p style="margin-top: 0.5rem;"><strong>Status:</strong> <span style="color: #28a745; font-weight: bold;">ACTIVE</span></p>
+        </div>
+        
+        <div id="disconnectedState">
+            <div class="info-box">
+                <p><strong>ℹ️ How to Claim:</strong></p>
+                <p style="margin-top: 0.5rem;">Connect your wallet below to check eligibility and claim your IDIOT tokens.</p>
+            </div>
+            
+            <button class="btn" onclick="openWalletModal()">🔗 Connect Wallet</button>
+        </div>
+        
+        <div id="connectedState" style="display: none;">
+            <div class="connected-box">
+                <p><strong>✅ Wallet Connected</strong></p>
+                <div class="wallet-address" id="walletAddress"></div>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Network: <span id="networkName"></span></p>
+            </div>
+            
+            <button class="btn btn-success" onclick="checkEligibility()" id="checkBtn">
+                🔍 Check Eligibility
+            </button>
+            
+            <button class="btn btn-secondary" onclick="disconnectWallet()">
+                Disconnect Wallet
+            </button>
+        </div>
+        
+        <div class="warning-box" style="margin-top: 2rem;">
+            <p><strong>⚠️ Important:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Maximum 1,000,000 IDIOT per wallet</li>
+                <li>14-day claim window from snapshot</li>
+                <li>Base network required</li>
+                <li>Unclaimed tokens return to community pool</li>
+            </ul>
+        </div>
+        
+        <div class="links">
+            <a href="idiocracy" class="link-btn">📋 Rules</a>
+            <a href="idiocracy-1.json" class="link-btn" target="_blank">🔍 Proofs</a>
+            <a href="/" class="link-btn">🏠 Home</a>
+        </div>
+    </div>
+    
+    <!-- Wallet Selection Modal -->
+    <div id="walletModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color: #667eea;">Connect Wallet</h2>
+                <span class="close-modal" onclick="closeWalletModal()">×</span>
+            </div>
+            
+            <div class="wallet-options">
+                <div class="wallet-btn" onclick="connectMetaMask()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M32 8L22 15L23.5 11.5L32 8Z" fill="#E17726"/>
+                        <path d="M8 8L18 15L16.5 11.5L8 8Z" fill="#E27625"/>
+                        <path d="M28 27L25 32L31 33.5L33 27H28Z" fill="#E27625"/>
+                        <path d="M7 27L9 33.5L15 32L12 27H7Z" fill="#E27625"/>
+                        <path d="M15 19L13.5 21.5L19.5 21.75L19.25 15.5L15 19Z" fill="#E27625"/>
+                        <path d="M25 19L20.75 15.5L20.5 21.75L26.5 21.5L25 19Z" fill="#E27625"/>
+                    </svg>
+                    <span>MetaMask</span>
+                </div>
+                
+                <div class="wallet-btn" onclick="connectWalletConnect()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M12 16C16 12 24 12 28 16L29 17L22 24L20 22L13 15L12 16Z" fill="#3B99FC"/>
+                        <circle cx="14" cy="26" r="2" fill="#3B99FC"/>
+                        <circle cx="26" cy="26" r="2" fill="#3B99FC"/>
+                    </svg>
+                    <span>WalletConnect</span>
+                </div>
+                
+                <div class="wallet-btn" onclick="connectCoinbase()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="#0052FF"/>
+                        <rect x="14" y="14" width="12" height="12" rx="2" fill="white"/>
+                    </svg>
+                    <span>Coinbase</span>
+                </div>
+                
+                <div class="wallet-btn" onclick="connectInjected()">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="18" stroke="#667eea" stroke-width="2" fill="none"/>
+                        <path d="M20 10V20L28 24L20 10Z" fill="#667eea"/>
+                        <path d="M20 20V30L28 24L20 20Z" fill="#667eea" opacity="0.6"/>
+                    </svg>
+                    <span>Browser Wallet</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Web3 Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    
+    <script>
+        let provider = null;
+        let signer = null;
+        let userAddress = null;
+        const BASE_CHAIN_ID = 8453; // Base Mainnet
+        const BASE_HEX = '0x2105';
+        
+        // Open wallet modal
+        function openWalletModal() {
+            document.getElementById('walletModal').style.display = 'flex';
+        }
+        
+        // Close wallet modal
+        function closeWalletModal() {
+            document.getElementById('walletModal').style.display = 'none';
+        }
+        
+        // Connect MetaMask
+        async function connectMetaMask() {
             if (typeof window.ethereum === 'undefined') {
-                alert('Please install MetaMask or another Web3 wallet to claim your airdrop.');
+                alert('MetaMask is not installed. Please install MetaMask browser extension.');
+                window.open('https://metamask.io/download/', '_blank');
                 return;
             }
             
             try {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
+                closeWalletModal();
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
                 
-                // Check if on Base network
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                if (chainId !== '0x2105') { // Base = 8453 = 0x2105
-                    alert('Please switch to Base network (Chain ID: 8453) to claim your airdrop.');
-                    return;
-                }
+                await checkNetwork();
+                updateUI();
+            } catch (error) {
+                console.error('MetaMask connection error:', error);
+                alert('Failed to connect MetaMask: ' + error.message);
+            }
+        }
+        
+        // Connect WalletConnect
+        async function connectWalletConnect() {
+            try {
+                closeWalletModal();
                 
-                // Show placeholder for actual claim logic
-                alert(`Wallet connected: ${account}\n\nClaim functionality coming soon!\n\nCheck back shortly or join our Discord for updates.`);
+                const WalletConnectProvider = window.WalletConnectProvider.default;
+                const wcProvider = new WalletConnectProvider({
+                    rpc: {
+                        8453: "https://mainnet.base.org"
+                    },
+                    chainId: BASE_CHAIN_ID,
+                    qrcodeModalOptions: {
+                        mobileLinks: [
+                            "rainbow",
+                            "metamask",
+                            "argent",
+                            "trust",
+                            "imtoken",
+                            "pillar"
+                        ]
+                    }
+                });
+                
+                await wcProvider.enable();
+                provider = new ethers.providers.Web3Provider(wcProvider);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
+                
+                await checkNetwork();
+                updateUI();
+                
+                // Handle disconnect
+                wcProvider.on("disconnect", (code, reason) => {
+                    disconnectWallet();
+                });
                 
             } catch (error) {
-                console.error('Error connecting wallet:', error);
-                alert('Failed to connect wallet. Please try again.');
+                console.error('WalletConnect error:', error);
+                alert('Failed to connect via WalletConnect: ' + error.message);
             }
-        }</script></body></html>
+        }
+        
+        // Connect Coinbase Wallet
+        async function connectCoinbase() {
+            if (typeof window.ethereum !== 'undefined' && window.ethereum.isCoinbaseWallet) {
+                await connectMetaMask(); // Use same method for injected providers
+            } else {
+                alert('Coinbase Wallet not detected. Please install Coinbase Wallet extension.');
+                window.open('https://www.coinbase.com/wallet', '_blank');
+            }
+        }
+        
+        // Connect generic injected wallet
+        async function connectInjected() {
+            await connectMetaMask(); // Use MetaMask connection for any injected provider
+        }
+        
+        // Check and switch to Base network
+        async function checkNetwork() {
+            const network = await provider.getNetwork();
+            
+            if (network.chainId !== BASE_CHAIN_ID) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: BASE_HEX }],
+                    });
+                } catch (switchError) {
+                    // Chain not added, add it
+                    if (switchError.code === 4902) {
+                        try {
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: BASE_HEX,
+                                    chainName: 'Base Mainnet',
+                                    nativeCurrency: {
+                                        name: 'Ether',
+                                        symbol: 'ETH',
+                                        decimals: 18
+                                    },
+                                    rpcUrls: ['https://mainnet.base.org'],
+                                    blockExplorerUrls: ['https://basescan.org']
+                                }]
+                            });
+                        } catch (addError) {
+                            throw new Error('Failed to add Base network');
+                        }
+                    } else {
+                        throw switchError;
+                    }
+                }
+            }
+        }
+        
+        // Update UI after connection
+        function updateUI() {
+            document.getElementById('disconnectedState').style.display = 'none';
+            document.getElementById('connectedState').style.display = 'block';
+            document.getElementById('walletAddress').textContent = userAddress;
+            document.getElementById('networkName').textContent = 'Base Mainnet';
+        }
+        
+        // Disconnect wallet
+        function disconnectWallet() {
+            provider = null;
+            signer = null;
+            userAddress = null;
+            
+            document.getElementById('disconnectedState').style.display = 'block';
+            document.getElementById('connectedState').style.display = 'none';
+        }
+        
+        // Check eligibility
+        async function checkEligibility() {
+            if (!userAddress) {
+                alert('Please connect your wallet first.');
+                return;
+            }
+            
+            const btn = document.getElementById('checkBtn');
+            btn.disabled = true;
+            btn.textContent = '🔄 Checking...';
+            
+            // Simulate eligibility check
+            setTimeout(() => {
+                alert(`Eligibility Check for ${userAddress}\n\n` +
+                      `Status: Under Development\n\n` +
+                      `The claim functionality is currently being built.\n` +
+                      `Join our Discord for updates on when claiming will be available!\n\n` +
+                      `Discord: https://discord.gg/njtNfZRA`);
+                
+                btn.disabled = false;
+                btn.textContent = '🔍 Check Eligibility';
+            }, 1500);
+        }
+        
+        // Listen for account changes
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                } else if (userAddress && accounts[0] !== userAddress) {
+                    window.location.reload();
+                }
+            });
+            
+            window.ethereum.on('chainChanged', () => {
+                window.location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
