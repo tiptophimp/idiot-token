@@ -1,0 +1,48 @@
+═══════════════════════════════════════════════════════════════
+  QUICK FIX: stupidiots.com DNS Configuration
+═══════════════════════════════════════════════════════════════
+
+PROBLEM:
+  www.stupidiots.com is an A record (wrong!)
+  GitHub needs it to be a CNAME record
+
+SOLUTION (Do this in your DNS provider):
+  
+  1. DELETE this record:
+     Type: A
+     Host: www
+     Value: 185.199.109.153
+  
+  2. CREATE this record:
+     Type:  CNAME
+     Host:  www
+     Value: tiptophimp.github.io
+     TTL:   Auto or 3600
+  
+  3. SAVE changes
+  
+  4. WAIT 15-30 minutes for DNS to propagate
+  
+  5. GO BACK to GitHub Pages settings
+     https://github.com/tiptophimp/idiot-token/settings/pages
+     
+  6. The error should be GONE ✓
+
+═══════════════════════════════════════════════════════════════
+
+WHAT TO CHANGE:
+  www.stupidiots.com: A → CNAME
+
+WHERE TO CHANGE:
+  Your domain registrar's DNS management panel
+  (Namecheap, GoDaddy, Cloudflare, DigitalOcean, etc.)
+
+RESULT:
+  ✓ No more InvalidARecordError
+  ✓ SSL certificate will provision correctly
+  ✓ Site will be accessible at https://stupidiots.com
+
+═══════════════════════════════════════════════════════════════
+See DNS_FIX_INSTRUCTIONS.md for detailed provider-specific steps
+═══════════════════════════════════════════════════════════════
+
