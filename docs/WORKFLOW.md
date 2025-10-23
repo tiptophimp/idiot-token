@@ -27,31 +27,32 @@
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
 │  Step 3: STAGING DEPLOYMENT                                │
-│  ├─ Copy to: website/staging-ready/                        │
-│  ├─ Run: deploy/scripts/deploy-to-staging.sh               │
-│  ├─ Creates backup automatically                           │
-│  ├─ Deploys to: https://stupidiots.com/staging             │
-│  ├─ Test LIVE on staging server                            │
+│  ├─ Switch to staging branch: git checkout staging         │
+│  ├─ Copy/merge your changes                                │
+│  ├─ Commit and push to staging repo                        │
+│  ├─ Deploys to: https://tiptophimp.github.io/idiot-token-staging/ │
+│  ├─ Test LIVE on staging site                              │
 │  ├─ Check all links, images, functionality                 │
 │  └─ Only proceed when STAGING perfect                      │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 4: COMMIT TO REPO                                    │
-│  ├─ Copy to: website/production-ready/                     │
+│  Step 4: COMMIT TO PRODUCTION                              │
+│  ├─ Switch to gh-pages: git checkout gh-pages              │
+│  ├─ Copy/merge approved changes from staging               │
 │  ├─ Git add, commit, push to GitHub                        │
 │  ├─ Repo stays CLEAN (no broken commits!)                  │
 │  ├─ Write clear commit message                             │
-│  └─ Push to main branch                                    │
+│  └─ Push to gh-pages branch                                │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
 │  Step 5: AUTOMATIC PRODUCTION DEPLOYMENT                   │
-│  ├─ GitHub Actions CI/CD triggers                          │
-│  ├─ Creates backup automatically (rolling 4)               │
-│  ├─ Deploys to: https://stupidiots.com                     │
-│  ├─ Verification checks run                                │
-│  └─ Success/failure notification                           │
+│  ├─ GitHub Pages automatically deploys                     │
+│  ├─ Usually takes 1-3 minutes                              │
+│  ├─ Deploys to: https://www.stupidiots.com                 │
+│  ├─ Verify deployment successful                           │
+│  └─ Test live site                                         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -137,25 +138,32 @@ start C:\idiot-project\website\dev\index.html
 ### Deploy to Staging
 ```bash
 cd C:\idiot-project
-bash deploy/scripts/deploy-to-staging.sh
+git checkout staging
+# Make your changes or merge from dev
+git add .
+git commit -m "Description of changes"
+git push origin staging
+git push staging-origin staging:gh-pages
 ```
 
 ### Check Staging
 ```
-https://stupidiots.com/staging
+https://tiptophimp.github.io/idiot-token-staging/
 ```
 
-### Commit to Repo
+### Deploy to Production
 ```bash
 cd C:\idiot-project
-git add website/production-ready/
+git checkout gh-pages
+# Merge approved changes from staging
+git add .
 git commit -m "Description of changes"
-git push origin main
+git push origin gh-pages
 ```
 
 ### Check Production
 ```
-https://stupidiots.com
+https://www.stupidiots.com/
 ```
 
 ### Rollback

@@ -1,9 +1,9 @@
 # 🔄 Session Handoff - IDIOT Token Project
 ## Critical Information for Next Agent
 
-**Last Updated:** October 19, 2025 - 15:10
+**Last Updated:** October 22, 2025 - 18:40
 **Session Agent:** Novalex AI
-**Project Status:** v5.0 - Production Ready
+**Project Status:** v5.0 - LIVE in Production with Staging Environment
 **Network:** Base Mainnet (Chain ID: 8453)
 
 ---
@@ -20,9 +20,40 @@
 - **GitHub:** https://github.com/tiptophimp/idiot-token
 
 ### Deployment URLs
-- **Production/Staging:** https://tiptophimp.github.io/idiot-token/
-- **Custom Domain:** https://stupidiots.com (GitHub Pages)
-- **Branch:** gh-pages
+- **Production:** https://www.stupidiots.com/ (GitHub Pages - LIVE)
+- **Production Repo:** https://github.com/tiptophimp/idiot-token (gh-pages branch)
+- **Staging:** https://tiptophimp.github.io/idiot-token-staging/ (GitHub Pages - LIVE)
+- **Staging Repo:** https://github.com/tiptophimp/idiot-token-staging (gh-pages branch)
+
+---
+
+## 🆕 RECENT SESSION ACTIVITIES (Oct 22, 2025)
+
+### DNS & Domain Resolution FIXED ✅
+- **Problem:** DNS was broken - domain pointing to deleted DigitalOcean DNS zone
+- **Solution:** 
+  - Switched nameservers from DigitalOcean to Hostinger (ns1.dns-parking.com, ns2.dns-parking.com)
+  - Added GitHub Pages A records (185.199.108-111.153) and CNAME (www → tiptophimp.github.io)
+  - Router DNS cache cleared (ASUS ZenWiFi reboot)
+- **Result:** www.stupidiots.com is now LIVE and fully functional
+
+### Staging Environment Created ✅
+- **Problem:** No proper staging environment (Vercel was outdated, DigitalOcean server deleted)
+- **Solution:**
+  - Created new GitHub repository: tiptophimp/idiot-token-staging
+  - Configured GitHub Pages for staging
+  - Synced staging branch with production v5.0 (rotating coins, latest features)
+- **Result:** Staging site live at https://tiptophimp.github.io/idiot-token-staging/
+
+### Documentation Updated ✅
+- Updated `_STATUS.md` with current URLs and status
+- Updated `docs/WORKFLOW.md` with new staging workflow
+- Updated `SESSION_HANDOFF.md` with today's activities
+
+### Workflow Restored
+- Proper workflow now in place: Local Dev → Staging → Production
+- Both staging and production on GitHub Pages (clean, reliable)
+- All documentation reflects current state
 
 ---
 

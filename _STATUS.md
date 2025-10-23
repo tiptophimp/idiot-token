@@ -1,7 +1,7 @@
 # 📌 PROJECT STATUS - READ THIS FIRST EVERY SESSION
 
-**Last Updated:** 2025-01-19  
-**Current Phase:** Project complete and organized - ready for production deployment  
+**Last Updated:** 2025-10-22  
+**Current Phase:** Production deployed and live - staging environment configured  
 
 ---
 
@@ -36,8 +36,8 @@
 - **Sections:** `C:\idiot-project\[airdrop|meme-generator|staking|etc]\`
 
 ### Live Sites
-- **Staging:** https://idiot-project.vercel.app/ (WORKING)
-- **GitHub Pages:** https://tiptophimp.github.io/idiot-token/ (WORKING)
+- **Production:** https://www.stupidiots.com/ (LIVE - GitHub Pages)
+- **Staging:** https://tiptophimp.github.io/idiot-token-staging/ (LIVE - GitHub Pages)
 - **Local Dev:** http://localhost:8000 (when running)
 
 ### Deployment
@@ -54,29 +54,30 @@
 ---
 
 ## 📊 RECENT ACTIVITY
-- 2025-01-19: Complete website rebuild with updated tokenomics (40/24.84/15/10/5.06)
-- 2025-01-19: Added staking section and airdrop integration
-- 2025-01-19: Created functional meme generator with 4 templates
-- 2025-01-19: Fixed all functionality issues (charts, buttons, FAQ, etc.)
-- 2025-01-19: Organized project structure into idiot-project folder
-- 2025-01-19: Deployed to Vercel staging and GitHub Pages
+- 2025-10-22: Fixed DNS resolution (switched nameservers from DigitalOcean to Hostinger)
+- 2025-10-22: Created dedicated staging repository (idiot-token-staging)
+- 2025-10-22: Synced staging with production v5.0 (rotating coins, latest features)
+- 2025-10-21: Restored production site after accidental rollback
+- 2025-10-21: Fixed CNAME configuration for www.stupidiots.com
+- 2025-10-19: Complete website rebuild with updated tokenomics (40/24.84/15/10/5.06)
 
 ---
 
 ## 🎯 NEXT STEPS
-1. Deploy to production (stupidiots.com)
-2. Update DNS and domain configuration
-3. Final testing and validation
-4. Community launch preparation
+1. ✅ Production deployed and live at www.stupidiots.com
+2. ✅ DNS configured and working with Hostinger
+3. ✅ Staging environment set up and synced
+4. 🎯 Update roadmap section on website (per memory note)
+5. 🎯 Continue content improvements and community engagement
 
 ---
 
 ## 🔗 QUICK LINKS
-- Production Site: https://stupidiots.com (pending)
-- Staging Site: https://idiot-project.vercel.app/ (WORKING)
-- GitHub Pages: https://tiptophimp.github.io/idiot-token/ (WORKING)
+- Production Site: https://www.stupidiots.com/ (LIVE)
+- Staging Site: https://tiptophimp.github.io/idiot-token-staging/ (LIVE)
+- Production Repo: https://github.com/tiptophimp/idiot-token
+- Staging Repo: https://github.com/tiptophimp/idiot-token-staging
 - Local Dev: http://localhost:8000 (when running)
-- Server: 68.183.149.106
 - Workflow Doc: docs/WORKFLOW.md
 
 ---
