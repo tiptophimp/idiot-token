@@ -254,7 +254,7 @@
 - `scripts/quick-deploy.ps1` (NEW - fast deployment)
 - `scripts/deploy-with-backup.ps1` (MODIFIED - integrated version bumping)
 - `docs/WORKFLOW.md` (MODIFIED - simplified workflow)
-- `index.html` (MODIFIED - mobile optimization, version v5.3, links to how-to-buy)
+- `index.html` (MODIFIED - mobile optimization, version v5.5, links to how-to-buy)
 - `SESSION_HANDOFF.md` (MODIFIED - this file)
 
 ### Current Version
