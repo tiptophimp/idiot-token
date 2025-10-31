@@ -56,6 +56,17 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
+**OR use automated script:**
+```
+powershell -ExecutionPolicy Bypass -File scripts\deploy-with-backup.ps1
+```
+
+This script automatically:
+1. Bumps version (v5.0 → v5.1, etc.)
+2. Creates backup
+3. Deploys to production
+4. Shows new version in output
+
 ---
 
 ## 🛡️ SAFETY MECHANISMS
@@ -161,6 +172,22 @@ git commit -m "Description of changes"
 git push origin gh-pages
 ```
 
+**OR use automated script (RECOMMENDED):**
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\deploy-with-backup.ps1
+```
+
+**The automated script will:**
+1. ✅ Bump version automatically (v5.0 → v5.1, v5.1 → v5.2, etc.)
+2. ✅ Create backup
+3. ✅ Deploy to production
+4. ✅ Show new version in output
+
+**Manual version bump (if not using script):**
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\bump-version.ps1
+```
+
 ### Check Production
 ```
 https://www.stupidiots.com/
@@ -195,9 +222,11 @@ Before EVERY deployment, verify:
 ### Production
 - [ ] Backup created (verify!)
 - [ ] Staging approved
+- [ ] **Version bumped (automatically via script)**
 - [ ] Commit message written
 - [ ] Pushed to repo
 - [ ] CI/CD deployment verified
+- [ ] **Version verified at bottom of page**
 
 ---
 
