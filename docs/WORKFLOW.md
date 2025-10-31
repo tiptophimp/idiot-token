@@ -6,66 +6,56 @@
 
 ---
 
-## 📜 THE GOSPEL: 5-STEP DEPLOYMENT PROCESS
+## 📜 THE GOSPEL: SIMPLIFIED UPDATE PROCESS
+
+**When you say "update" - everything happens automatically:**
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 1: LOCAL DEVELOPMENT                                  │
-│  ├─ Work in: C:\idiot-project\website\dev\                 │
-│  ├─ Make changes to HTML, CSS, JS, images                  │
-│  └─ Save frequently                                         │
+│  AUTOMATIC UPDATE PROCESS                                   │
+│  (Just say "update" and it all happens)                     │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 2: LOCAL BROWSER REVIEW (CRITICAL!)                  │
-│  ├─ Open files directly in browser from Explorer           │
-│  ├─ No cache issues, see real changes                      │
-│  ├─ Review ALL changes thoroughly                          │
-│  ├─ Fix any issues found                                   │
-│  └─ Only proceed when LOCAL looks perfect                  │
+│  1. CREATE LOCAL BACKUP                                     │
+│  ├─ Automatic rolling backup created                       │
+│  ├─ Keeps 4 most recent backups                            │
+│  └─ Stored in: website\backups\                            │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 3: STAGING DEPLOYMENT                                │
-│  ├─ Switch to staging branch: git checkout staging         │
-│  ├─ Copy/merge your changes                                │
-│  ├─ Commit and push to staging repo                        │
-│  ├─ Deploys to: https://tiptophimp.github.io/idiot-token-staging/ │
-│  ├─ Test LIVE on staging site                              │
-│  ├─ Check all links, images, functionality                 │
-│  └─ Only proceed when STAGING perfect                      │
+│  2. BUMP VERSION AUTOMATICALLY                              │
+│  ├─ Version increments (v5.0 → v5.1 → v5.2, etc.)         │
+│  ├─ Updated in index.html footer                           │
+│  └─ Included in commit message                             │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┘
+│  3. UPDATE STAGING REPO                                     │
+│  ├─ Commit changes to staging branch                       │
+│  ├─ Push to staging repository                             │
+│  └─ Deploys to: https://tiptophimp.github.io/idiot-token-staging/ │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 4: COMMIT TO PRODUCTION                              │
-│  ├─ Switch to gh-pages: git checkout gh-pages              │
-│  ├─ Copy/merge approved changes from staging               │
-│  ├─ Git add, commit, push to GitHub                        │
-│  ├─ Repo stays CLEAN (no broken commits!)                  │
-│  ├─ Write clear commit message                             │
-│  └─ Push to gh-pages branch                                │
+│  4. UPDATE PRODUCTION REPO                                  │
+│  ├─ Commit changes to gh-pages branch                      │
+│  ├─ Push to production repository                          │
+│  └─ Deploys to: https://www.stupidiots.com                 │
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 5: AUTOMATIC PRODUCTION DEPLOYMENT                   │
-│  ├─ GitHub Pages automatically deploys                     │
-│  ├─ Usually takes 1-3 minutes                              │
-│  ├─ Deploys to: https://www.stupidiots.com                 │
-│  ├─ Verify deployment successful                           │
-│  └─ Test live site                                         │
+│  ✅ DONE - Everything updated automatically!               │
+│  ├─ Backup created ✓                                       │
+│  ├─ Version bumped ✓                                       │
+│  ├─ Staging updated ✓                                      │
+│  └─ Production updated ✓                                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**OR use automated script:**
-```
-powershell -ExecutionPolicy Bypass -File scripts\deploy-with-backup.ps1
-```
+**That's it! Simple. When you say "update" - it all happens automatically.**
 
-This script automatically:
-1. Bumps version (v5.0 → v5.1, etc.)
-2. Creates backup
-3. Deploys to production
-4. Shows new version in output
+**Rollback Available:** If anything goes wrong, we have backups in `website\backups\` to restore from.
 
 ---
 
@@ -162,34 +152,19 @@ git push staging-origin staging:gh-pages
 https://tiptophimp.github.io/idiot-token-staging/
 ```
 
-### Deploy to Production
+### Update Everything (Simplified)
 
-**⚠️ IMPORTANT: Always use the automated script to ensure version is bumped!**
+**Just say "update" and everything happens automatically:**
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\deploy-with-backup.ps1
-```
+The AI assistant will automatically:
+1. ✅ Create local backup (rolling 4 backups)
+2. ✅ Bump version automatically (v5.0 → v5.1 → v5.2, etc.)
+3. ✅ Update staging repo (commit and push)
+4. ✅ Update production repo (commit and push)
 
-**OR use quick deploy script (faster, same result):**
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\quick-deploy.ps1
-```
+**No manual steps needed!** Just say "update" and it's done.
 
-**The automated scripts will:**
-1. ✅ **Automatically bump version** (v5.0 → v5.1, v5.1 → v5.2, etc.)
-2. ✅ Create backup
-3. ✅ Commit changes with version in message
-4. ✅ Deploy to production
-5. ✅ Show new version in output
-
-**⚠️ Manual commits skip version bumping!**
-If you MUST commit manually, bump version first:
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\bump-version.ps1
-git add index.html
-git commit -m "v5.X Release: Description"
-git push origin gh-pages
-```
+**Rollback:** If anything goes wrong, backups are in `website\backups\` for easy restoration.
 
 ### Check Production
 ```
