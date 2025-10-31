@@ -163,29 +163,32 @@ https://tiptophimp.github.io/idiot-token-staging/
 ```
 
 ### Deploy to Production
-```bash
-cd C:\idiot-project
-git checkout gh-pages
-# Merge approved changes from staging
-git add .
-git commit -m "Description of changes"
-git push origin gh-pages
-```
 
-**OR use automated script (RECOMMENDED):**
+**⚠️ IMPORTANT: Always use the automated script to ensure version is bumped!**
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\deploy-with-backup.ps1
 ```
 
-**The automated script will:**
-1. ✅ Bump version automatically (v5.0 → v5.1, v5.1 → v5.2, etc.)
-2. ✅ Create backup
-3. ✅ Deploy to production
-4. ✅ Show new version in output
+**OR use quick deploy script (faster, same result):**
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\quick-deploy.ps1
+```
 
-**Manual version bump (if not using script):**
+**The automated scripts will:**
+1. ✅ **Automatically bump version** (v5.0 → v5.1, v5.1 → v5.2, etc.)
+2. ✅ Create backup
+3. ✅ Commit changes with version in message
+4. ✅ Deploy to production
+5. ✅ Show new version in output
+
+**⚠️ Manual commits skip version bumping!**
+If you MUST commit manually, bump version first:
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\bump-version.ps1
+git add index.html
+git commit -m "v5.X Release: Description"
+git push origin gh-pages
 ```
 
 ### Check Production
