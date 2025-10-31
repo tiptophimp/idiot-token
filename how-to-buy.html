@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>How to Buy IDIOT Token - Complete Step-by-Step Guide | Base Network</title>
+  <meta name="description" content="Complete guide to buying IDIOT Token on Base network. Step-by-step instructions for beginners including wallet setup, adding Base network, and swapping on Uniswap.">
+  <meta name="keywords" content="IDIOT token, how to buy, Base network, Uniswap, MetaMask, crypto guide">
+  <meta property="og:title" content="How to Buy IDIOT Token - Complete Guide">
+  <meta property="og:description" content="Step-by-step guide to buying IDIOT Token on Base network. Perfect for beginners!">
+  <meta property="og:image" content="https://www.stupidiots.com/assets/img/og-image.png">
+  <meta property="og:url" content="https://www.stupidiots.com/how-to-buy">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+      line-height: 1.6; 
+      color: #333; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { 
+      max-width: 900px; 
+      margin: 0 auto; 
+      background: white; 
+      padding: 40px; 
+      border-radius: 20px; 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 3px solid #667eea;
+    }
+    .logo {
+      max-width: 250px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+    }
+    h1 { 
+      color: #667eea; 
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    .quick-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+    .btn { 
+      padding: 14px 28px; 
+      border-radius: 12px; 
+      text-decoration: none; 
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .btn-primary { 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    .btn-primary:hover { 
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    .btn-secondary { 
+      background: #333; 
+      color: white;
+    }
+    .btn-secondary:hover { 
+      background: #555;
+      transform: translateY(-2px);
+    }
+    .btn-copy {
+      background: #30e0a1;
+      color: #000;
+      font-weight: 700;
+    }
+    .btn-copy:hover {
+      background: #28c88a;
+    }
+    .alert { 
+      padding: 20px; 
+      border-radius: 12px; 
+      margin: 25px 0;
+      border-left: 5px solid;
+    }
+    .alert-warning { 
+      background: #fff3cd; 
+      border-color: #ffc107;
+      color: #856404;
+    }
+    .alert-info { 
+      background: #d1ecf1; 
+      border-color: #0dcaf0;
+      color: #055160;
+    }
+    .alert-success { 
+      background: #d4edda; 
+      border-color: #28a745;
+      color: #155724;
+    }
+    .section { 
+      margin: 40px 0;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #f0f0f0;
+    }
+    .step { 
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 25px; 
+      margin: 20px 0; 
+      border-radius: 15px; 
+      border-left: 5px solid #667eea;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .step-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-right: 15px;
+      vertical-align: middle;
+    }
+    .step h3 {
+      display: inline-block;
+      color: #333;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      vertical-align: middle;
+    }
+    .step ul, .step ol {
+      margin: 15px 0;
+      padding-left: 30px;
+    }
+    .step li {
+      margin: 10px 0;
+      line-height: 1.8;
+    }
+    .contract-box {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 2px solid #667eea;
+      text-align: center;
+    }
+    .contract-address {
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      word-break: break-all;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-weight: 600;
+      color: #333;
+    }
+    code { 
+      background: #f1f1f1; 
+      padding: 4px 8px; 
+      border-radius: 6px; 
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      color: #e83e8c;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .info-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    .info-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .info-card p {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .footer-links {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 2px solid #f0f0f0;
+    }
+    .footer-links a {
+      color: #667eea;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .container { padding: 25px 20px; }
+      h1 { font-size: 1.8rem; }
+      .subtitle { font-size: 1rem; }
+      .quick-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .step { padding: 20px; }
+      .step-number { 
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 1rem;
+      }
+      .step h3 { font-size: 1.2rem; }
+      .info-grid { grid-template-columns: 1fr; }
+      .contract-address { font-size: 0.9rem; }
+    }
+    
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem; }
+      .container { padding: 20px 15px; }
+      .section-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="assets/img/logo.png" alt="IDIOT Token Logo" class="logo" onerror="this.style.display='none'">
+      <h1>💰 How to Buy IDIOT Token</h1>
+      <p class="subtitle">Complete Step-by-Step Guide for Beginners</p>
+      
+      <div class="quick-actions">
+        <button class="btn btn-copy" onclick="copyTokenAddress()" id="copyBtn">📋 Copy Contract Address</button>
+        <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" 
+           class="btn btn-primary" target="_blank" rel="noopener">🔄 Buy on Uniswap</a>
+      </div>
+      
+      <div class="contract-box">
+        <strong style="display: block; margin-bottom: 10px; color: #667eea;">Contract Address:</strong>
+        <div class="contract-address" id="contractAddress">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</div>
+        <small style="color: #666;">Network: Base (Chain ID: 8453)</small>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>🎯 Quick Start:</strong> If you already have MetaMask with Base network and ETH, you can skip to <a href="#step-4" style="color: #055160; font-weight: 700;">Step 4: Buy IDIOT</a>. Otherwise, follow all steps below.
+    </div>
+
+    <!-- Prerequisites -->
+    <div class="section">
+      <h2 class="section-title">📋 Prerequisites</h2>
+      <p>Before buying IDIOT Token, you'll need:</p>
+      <ul style="margin: 20px 0; padding-left: 30px;">
+        <li>A crypto wallet (MetaMask recommended)</li>
+        <li>Base network added to your wallet</li>
+        <li>ETH on Base network (for gas fees and buying)</li>
+        <li>Access to Uniswap</li>
+      </ul>
+    </div>
+
+    <!-- Step 1: Wallet Setup -->
+    <div class="section" id="step-1">
+      <div class="step">
+        <span class="step-number">1</span>
+        <h3>Set Up Your Wallet</h3>
+        <p><strong>Option A: MetaMask (Recommended for Beginners)</strong></p>
+        <ol>
+          <li>Visit <a href="https://metamask.io" target="_blank" rel="noopener" style="color: #667eea; font-weight: 600;">metamask.io</a></li>
+          <li>Click "Download" and select your browser (Chrome, Firefox, Brave, Edge)</li>
+          <li>Add the MetaMask extension to your browser</li>
+          <li>Click "Get Started" and choose "Create a Wallet"</li>
+          <li>Create a strong password</li>
+          <li><strong>IMPORTANT:</strong> Save your seed phrase in a secure location. Write it down and never share it with anyone!</li>
+          <li>Confirm your seed phrase to complete setup</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Option B: Coinbase Wallet</strong></p>
+        <ol>
+          <li>Download Coinbase Wallet app from App Store or Google Play</li>
+          <li>Create a new wallet or import an existing one</li>
+          <li>Base network is automatically included</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Option C: Other Wallets</strong></p>
+        <p>You can also use Trust Wallet, Rainbow Wallet, or any wallet that supports Base network.</p>
+      </div>
+    </div>
+
+    <!-- Step 2: Add Base Network -->
+    <div class="section" id="step-2">
+      <div class="step">
+        <span class="step-number">2</span>
+        <h3>Add Base Network to MetaMask</h3>
+        <p>If you're using MetaMask, you need to add Base network manually:</p>
+        <ol>
+          <li>Open MetaMask extension in your browser</li>
+          <li>Click the network dropdown at the top (usually shows "Ethereum Mainnet")</li>
+          <li>Scroll down and click "Add Network"</li>
+          <li>Click "Add a network manually"</li>
+          <li>Enter the following information:</li>
+        </ol>
+        
+        <div class="contract-box" style="text-align: left; margin: 20px 0;">
+          <p><strong>Network Name:</strong> <code>Base</code></p>
+          <p><strong>RPC URL:</strong> <code>https://mainnet.base.org</code></p>
+          <p><strong>Chain ID:</strong> <code>8453</code></p>
+          <p><strong>Currency Symbol:</strong> <code>ETH</code></p>
+          <p><strong>Block Explorer URL:</strong> <code>https://basescan.org</code></p>
+        </div>
+        
+        <ol start="6">
+          <li>Click "Save"</li>
+          <li>Switch to Base network by clicking the network dropdown and selecting "Base"</li>
+        </ol>
+        
+        <div class="alert alert-success" style="margin-top: 20px;">
+          <strong>✅ Success!</strong> You should now see "Base" in your network dropdown and ETH as your currency symbol.
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Get ETH on Base -->
+    <div class="section" id="step-3">
+      <div class="step">
+        <span class="step-number">3</span>
+        <h3>Get ETH on Base Network</h3>
+        <p>You need ETH on Base to pay for gas fees and buy IDIOT tokens. Here are your options:</p>
+        
+        <p style="margin-top: 20px;"><strong>Method 1: Bridge from Ethereum Mainnet</strong></p>
+        <ol>
+          <li>Make sure you have ETH in your wallet on Ethereum Mainnet</li>
+          <li>Visit <a href="https://bridge.base.org" target="_blank" rel="noopener" style="color: #667eea; font-weight: 600;">bridge.base.org</a></li>
+          <li>Connect your MetaMask wallet</li>
+          <li>Select the amount of ETH you want to bridge</li>
+          <li>Click "Deposit" and confirm the transaction in MetaMask</li>
+          <li>Wait for confirmation (usually 10-20 minutes)</li>
+          <li>Your ETH will appear in your wallet on Base network</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Method 2: Buy Directly on Base</strong></p>
+        <ol>
+          <li>Use Coinbase to buy ETH and withdraw directly to Base network</li>
+          <li>Or use services like Ramp, MoonPay, or Transak directly on Base</li>
+          <li>These services allow you to buy crypto with a credit card</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Method 3: Use Coinbase Wallet</strong></p>
+        <ol>
+          <li>If you use Coinbase Wallet, you can easily transfer from Coinbase exchange</li>
+          <li>Base network is already configured in Coinbase Wallet</li>
+        </ol>
+        
+        <div class="alert alert-warning" style="margin-top: 20px;">
+          <strong>💡 Tip:</strong> You only need a small amount of ETH for gas fees (usually $0.01-$0.10 per transaction). The rest can be used to buy IDIOT tokens.
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Buy IDIOT -->
+    <div class="section" id="step-4">
+      <div class="step">
+        <span class="step-number">4</span>
+        <h3>Buy IDIOT Token on Uniswap</h3>
+        <p>Now you're ready to buy IDIOT! Follow these steps:</p>
+        
+        <p style="margin-top: 20px;"><strong>Step 4.1: Connect Your Wallet</strong></p>
+        <ol>
+          <li>Visit <a href="https://app.uniswap.org" target="_blank" rel="noopener" style="color: #667eea; font-weight: 600;">app.uniswap.org</a></li>
+          <li>Click "Connect Wallet" in the top right corner</li>
+          <li>Select your wallet (MetaMask, Coinbase Wallet, etc.)</li>
+          <li>Approve the connection in your wallet popup</li>
+          <li><strong>IMPORTANT:</strong> Make sure you're connected to Base network (not Ethereum Mainnet)</li>
+          <li>You should see your wallet address and ETH balance in the top right</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Step 4.2: Select Trading Pair</strong></p>
+        <ol>
+          <li>In the "From" field, select ETH (or WETH if ETH doesn't appear)</li>
+          <li>In the "To" field, click to search for a token</li>
+          <li>Paste the IDIOT contract address: <code>0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code></li>
+          <li>Click on "IDIOT" when it appears</li>
+          <li>Verify the token symbol shows "IDIOT"</li>
+          <li>Verify the contract address matches exactly</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Step 4.3: Enter Amount</strong></p>
+        <ol>
+          <li>Enter the amount of ETH you want to spend</li>
+          <li>Or enter the amount of IDIOT you want to receive</li>
+          <li>Check the estimated output amount</li>
+          <li>Review the price impact (try to keep it under 5% for better prices)</li>
+          <li>Review the gas fee estimate</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Step 4.4: Adjust Slippage (Optional)</strong></p>
+        <ol>
+          <li>Click the settings icon (gear) in the swap interface</li>
+          <li>Set slippage tolerance (start with 0.5% for better prices)</li>
+          <li>If your transaction fails, try increasing to 1% or 2%</li>
+          <li>For volatile tokens, you might need 3-5% slippage</li>
+        </ol>
+        
+        <p style="margin-top: 20px;"><strong>Step 4.5: Confirm Transaction</strong></p>
+        <ol>
+          <li>Review all details:
+            <ul style="margin-top: 10px;">
+              <li>Input amount (ETH you're spending)</li>
+              <li>Output amount (IDIOT you'll receive)</li>
+              <li>Gas fee estimate</li>
+              <li>Price impact</li>
+              <li>Slippage tolerance</li>
+            </ul>
+          </li>
+          <li>Click "Swap" button</li>
+          <li>Review the transaction details in your wallet popup</li>
+          <li>Click "Confirm" in your wallet</li>
+          <li>Wait for transaction confirmation (usually 10-30 seconds on Base)</li>
+          <li>Your IDIOT tokens will appear in your wallet!</li>
+        </ol>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" 
+             class="btn btn-primary" target="_blank" rel="noopener" style="font-size: 1.2rem; padding: 18px 36px;">
+            🚀 Buy IDIOT Now on Uniswap
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Reference -->
+    <div class="section">
+      <h2 class="section-title">📊 Quick Reference</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h4>Contract Address</h4>
+          <p style="font-size: 0.85rem; word-break: break-all; font-family: monospace;">0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</p>
+        </div>
+        <div class="info-card">
+          <h4>Network</h4>
+          <p>Base</p>
+        </div>
+        <div class="info-card">
+          <h4>Chain ID</h4>
+          <p>8453</p>
+        </div>
+        <div class="info-card">
+          <h4>DEX</h4>
+          <p>Uniswap V3</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="section">
+      <h2 class="section-title">🔧 Troubleshooting</h2>
+      
+      <div class="step">
+        <h3>Transaction Failed</h3>
+        <ul>
+          <li>Increase slippage tolerance to 1-2% or higher</li>
+          <li>Make sure you have enough ETH for gas fees</li>
+          <li>Try again during lower network congestion</li>
+          <li>Check that you're on Base network, not Ethereum</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h3>Token Not Found</h3>
+        <ul>
+          <li>Verify you're on Base network (Chain ID: 8453)</li>
+          <li>Double-check the contract address is correct</li>
+          <li>Copy and paste the address directly: <code>0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code></li>
+          <li>Try refreshing the Uniswap page</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h3>Insufficient Gas</h3>
+        <ul>
+          <li>Make sure you have ETH in your wallet (not just tokens)</li>
+          <li>You need ETH for gas fees (usually $0.01-$0.10 per transaction)</li>
+          <li>Keep some ETH aside for gas, don't swap all of it</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h3>Wallet Not Connecting</h3>
+        <ul>
+          <li>Make sure your wallet extension is unlocked</li>
+          <li>Refresh the Uniswap page and try again</li>
+          <li>Check that pop-ups aren't blocked</li>
+          <li>Try disconnecting and reconnecting your wallet</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h3>High Price Impact</h3>
+        <ul>
+          <li>Try swapping smaller amounts</li>
+          <li>Wait for better liquidity conditions</li>
+          <li>Price impact over 5% means you're affecting the price significantly</li>
+          <li>Consider splitting large orders into multiple smaller trades</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Security Tips -->
+    <div class="section">
+      <h2 class="section-title">🛡️ Security Tips</h2>
+      
+      <div class="alert alert-warning">
+        <strong>⚠️ Never Share Your Seed Phrase!</strong>
+        <ul style="margin-top: 10px; padding-left: 25px;">
+          <li>Your seed phrase is like your password - never share it with anyone</li>
+          <li>No legitimate service will ask for your seed phrase</li>
+          <li>Store it securely offline (written down, not saved digitally)</li>
+        </ul>
+      </div>
+      
+      <div class="alert alert-info">
+        <strong>✅ Always Verify:</strong>
+        <ul style="margin-top: 10px; padding-left: 25px;">
+          <li>You're on the official Uniswap website (app.uniswap.org)</li>
+          <li>The contract address matches exactly: <code>0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1</code></li>
+          <li>You're connected to Base network (not Ethereum)</li>
+          <li>Transaction details match what you expect before confirming</li>
+        </ul>
+      </div>
+      
+      <div class="step">
+        <h3>Best Practices</h3>
+        <ul>
+          <li>Start with small amounts to test the process</li>
+          <li>Use hardware wallets for large amounts</li>
+          <li>Keep software updated</li>
+          <li>Be cautious of phishing attempts</li>
+          <li>Double-check all addresses before sending</li>
+          <li>Set slippage appropriately (0.5-1% for better prices)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Additional Resources -->
+    <div class="section">
+      <h2 class="section-title">📚 Additional Resources</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h4>🔗 View on BaseScan</h4>
+          <p><a href="https://basescan.org/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1" target="_blank" rel="noopener" style="color: white; text-decoration: underline;">View Contract</a></p>
+        </div>
+        <div class="info-card">
+          <h4>💬 Join Discord</h4>
+          <p><a href="https://discord.gg/njtNfZRA" target="_blank" rel="noopener" style="color: white; text-decoration: underline;">Community Chat</a></p>
+        </div>
+        <div class="info-card">
+          <h4>🐦 Follow on X</h4>
+          <p><a href="https://x.com/Stup_IDIOT_s" target="_blank" rel="noopener" style="color: white; text-decoration: underline;">@Stup_IDIOT_s</a></p>
+        </div>
+        <div class="info-card">
+          <h4>🏠 Homepage</h4>
+          <p><a href="/" target="_blank" rel="noopener" style="color: white; text-decoration: underline;">Visit stupidiots.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="https://discord.gg/njtNfZRA" target="_blank" rel="noopener">Discord</a>
+      <a href="https://x.com/Stup_IDIOT_s" target="_blank" rel="noopener">Twitter</a>
+      <a href="https://app.uniswap.org/swap?outputCurrency=0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1&chain=base" target="_blank" rel="noopener">Buy IDIOT</a>
+      <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">
+        © 2025 IDIOT Token. Built on Base Mainnet. This is not financial advice.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function copyTokenAddress() {
+      const contractAddress = '0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1';
+      const button = document.getElementById('copyBtn');
+      
+      navigator.clipboard.writeText(contractAddress).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✅ Copied!';
+        button.style.background = '#28a745';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = '#30e0a1';
+        }, 2000);
+      }).catch(err => {
+        console.error('Copy failed:', err);
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = contractAddress;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        const originalText = button.textContent;
+        button.textContent = '✅ Copied!';
+        button.style.background = '#28a745';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = '#30e0a1';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
+
