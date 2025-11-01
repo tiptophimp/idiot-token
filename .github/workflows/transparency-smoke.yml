@@ -26,3 +26,19 @@ jobs:
         run: |
           set -e
           curl -sS https://stupidiots.com/transparency/docs/wallet_balances_snapshot.json | jq . >/dev/null
+
+      - name: Validate PDF + receipts
+        run: |
+          set -e
+          curl -sS -I https://stupidiots.com/transparency/docs/Final_Reconciliation_Report.pdf | grep -q "200 OK"
+          for j in \
+            0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1.json \
+            0x6AD03686ab6c3bA2c77992995E4879c62dE88996.json \
+            0x5817dccb35cd3a67520e5bda1ebc413cf097a8ee.json \
+            0x9d466e39799fec7204f40133ecc0beb115813c13.json \
+            0x721d2adcCf634f4185edE152ee98cA836CF22EA6.json \
+            0xAC95d0B5603C7212a690bd089BAD472473496374.json \
+            0xf123f1269Fcb1d0c6F1DCFc3EF1F68dEDDf52a5e.json
+          do
+            curl -sS https://stupidiots.com/transparency/BaseScan_Receipts/$j | jq . >/dev/null
+          done

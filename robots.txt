@@ -22,6 +22,7 @@ Allow: /jobs/
 
 # Sitemap location
 Sitemap: https://stupidiots.com/sitemap.xml
+Sitemap: https://stupidiots.com/transparency/sitemap.xml
 Sitemap: https://tiptophimp.github.io/idiot-token/sitemap.xml
 
 # Crawl-delay for politeness
