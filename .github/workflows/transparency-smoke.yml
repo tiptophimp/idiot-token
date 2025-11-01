@@ -1,0 +1,28 @@
+name: Transparency Smoke
+
+on:
+  schedule: [{ cron: "17 6 * * *" }]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe pages
+        run: |
+          set -e
+          for u in \
+           https://stupidiots.com/transparency/ \
+           https://stupidiots.com/transparency/tokenomics.html \
+           https://stupidiots.com/transparency/audit.html \
+           https://stupidiots.com/transparency/wallets.html \
+          ; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$u")
+            echo "$code $u"
+            [ "$code" = "200" ]
+          done
+
+      - name: Validate JSON
+        run: |
+          set -e
+          curl -sS https://stupidiots.com/transparency/docs/wallet_balances_snapshot.json | jq . >/dev/null

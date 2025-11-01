@@ -1,0 +1,9 @@
+Release: Transparency v5.17
+Deployed: 2025-11-01
+Commit: 541964e
+ZIP SHA256: DF74822337B7E0A91AF6E94ECC8866C62F6A9E296DA38F832D71264800455EB3
+URLs:
+  https://stupidiots.com/transparency/
+  https://stupidiots.com/transparency/tokenomics.html
+  https://stupidiots.com/transparency/audit.html
+  https://stupidiots.com/transparency/wallets.html
