@@ -30,8 +30,10 @@ $currentVersion = "v$majorVersion.$minorVersion"
 $minorVersion++
 $newVersion = "v$majorVersion.$minorVersion"
 
-# Replace version in file
-$updatedContent = $content -replace [regex]::Escape($currentVersion), $newVersion
+# Replace version in footer only (avoid replacing versions in comments/docs)
+# Matches: <p style="margin-top: 0.5rem; font-size: 0.75rem;">v5.15</p>
+$footerPattern = '<p style="margin-top: 0\.5rem; font-size: 0\.75rem;">' + [regex]::Escape($currentVersion) + '</p>'
+$updatedContent = $content -replace $footerPattern, "<p style=""margin-top: 0.5rem; font-size: 0.75rem;"">$newVersion</p>"
 Set-Content -Path $indexFile -Value $updatedContent -NoNewline
 
 Write-Host "[OK] Version updated: $currentVersion -> $newVersion" -ForegroundColor Green
