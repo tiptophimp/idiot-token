@@ -1,11 +1,7 @@
-# Claude — idiot-token entry point
+# CLAUDE.md — idiot-token
 
-> ⛔ **HARD RULE — never echo credentials to chat.** If asked "are you connected?", reply with the API user identity, NEVER the token. Use silent parsing for credential files. Violations force full token rotation.
+**Read `AGENTS.md` in this repo root** — canonical entry for agents.
 
-**Read in this order before any work:**
+Then read `E:\Dev\_shared\configs\AGENT_RULES.md` (Autonomy Doctrine + Hard Stops) and `E:\Dev\_shared\configs\FLEET_AGENT_ROSTER.md`.
 
-1. `E:\Projects_Main\AGENT_RULES.md` — master operating manual
-2. `AGENTS.md` (this repo root) — scope and git workflow
-3. `README.md` (this repo root) — project setup
-
-**Current date:** use the date provided by your runtime environment, not a hardcoded value.
+Branch: `agent/claude/<task-id>-<short-slug>`. Squash-merge your own PR after required CI checks. Never direct-push main.

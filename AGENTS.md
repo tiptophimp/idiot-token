@@ -11,4 +11,4 @@
 ## Git workflow
 
 - **`main` is protected:** PR required, no force-push, no branch deletion.
-- Work on `feature/…` or `fix/…` branches; open a PR; Ernest merges.
+- Work on `feature/…` or `fix/…` branches; open a PR; when required checks are green, squash-merge your own PR (`gh pr merge --squash`)
