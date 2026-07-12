@@ -1,11 +1,15 @@
 # Windsurf — rules entry point (idiot-token)
 
-> ⛔ **HARD RULE — never echo credentials to chat.** If asked "are you connected?", reply with the API user identity, NEVER the token. Use silent parsing for credential files. Violations force full token rotation.
+> HARD RULE — never echo credentials to chat. Reply with API user identity only, never tokens.
 
 REQUIRED READING:
 
-1. `E:\Projects_Main\AGENT_RULES.md` — master operating manual
+1. `E:\Dev\_shared\configs\AGENT_RULES.md` — master operating manual (Autonomy Doctrine + Hard Stops)
 2. `AGENTS.md` (this repo root) — scope and git workflow
-3. `README.md` (this repo root) — project setup
+3. `E:\Dev\_shared\configs\FLEET_AGENT_ROSTER.md` — who codes vs who advises
 
-Branch prefix: `agent/windsurf/<task-id>-<short-slug>`. Ernest merges all PRs.
+Branch prefix: `agent/windsurf/<task-id>-<short-slug>`.
+
+**Merge policy (2026-07-12):** when required CI checks are green, squash-merge your own PR (`gh pr merge --squash` or `--auto`). Never direct-push main, never force-push, never `gh pr merge --admin`.
+
+All other rules in `AGENT_RULES.md`.
