@@ -2,8 +2,11 @@
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
 <!-- shared-sha: 96709c6864a8 -->
-<!-- Source: _shared/configs/AGENT_RULES.md. Regenerate with
-     _shared/configs/apply_agent_docs.py - do not hand-edit. -->
+<!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
+     Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
+     Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
+     `_shared` is a workspace-level folder, not part of this repo.
+     Do not hand-edit inside this block. -->
 
 # Agent rules
 
