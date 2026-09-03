@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 96709c6864a8 -->
+<!-- shared-sha: 2c312de572e0 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -112,6 +112,19 @@ re-running the same checks adds a queue and no information.
 
 Do not merge another agent's PR unless asked. Never direct-push `main`. Never bypass branch
 protection, and never use an admin merge.
+
+**Check before you push.** 32 of 45 repos have branch protection, and every one is set
+`enforce_admins: false` — so an admin push succeeds and GitHub merely *reports*
+`Bypassed rule violations` afterwards. The protection does not stop you; it records that you
+went around it. A push that is technically permitted is still a bypass.
+
+If Ernest grants a one-time exception to push directly, say explicitly that it means
+bypassing protection on the repos that have it, and name them. He can only weigh the
+exception if he knows what it actually costs.
+
+```
+gh api repos/tiptophimp/<repo>/branches/main/protection    # 404 = unprotected
+```
 
 ### Status `Review` means exactly one thing: Ernest must look at this
 
