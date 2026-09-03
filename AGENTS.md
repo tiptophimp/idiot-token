@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 2c312de572e0 -->
+<!-- shared-sha: 08cea796c8ba -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -38,6 +38,22 @@ permission written in a vault is not evidence the token holds it. A cron express
    this file. Not distrust: the source may simply be out of date.
 6. **When a check contradicts a document, the check wins** — and the document gets fixed in
    the same session. Never leave the contradiction for the next agent.
+7. **Verify the effect, not the acknowledgement.** A `200` means the request was accepted,
+   not that the thing happened. Confirm the change at the destination — re-read the record,
+   re-query the resource, re-run the check — never from the response you got back.
+8. **Then verify again after a pause.** Many APIs are asynchronous and answer
+   `{"message": "Request accepted"}` while the work is still queued. A single immediate
+   re-check can show the *old* state and look like a failure. If the first verification
+   contradicts a success response, wait and check once more before concluding either way.
+
+> Both of those cost a wrong answer on 2026-09-02. Six Hostinger nameserver updates
+> returned `200`; the first verification showed the old values and the conclusion drawn was
+> "the 200 lied". It had not — the endpoint is async, and the change landed moments later.
+> The opposite error happened the same hour: Cloudflare zone creation returned success and
+> was *assumed* to inherit the account's nameserver pair. It does not; pairs are assigned
+> per zone, so six domains had to be repointed at the registrar afterwards. One error was
+> concluding failure too early, the other concluding success without looking. The same
+> discipline prevents both.
 
 > Four failures on 2026-09-02, all the same shape: a token's permissions reported from
 > intent rather than probed (it had 3 of 7); `200 + empty array` scored as a capability pass
@@ -123,8 +139,15 @@ bypassing protection on the repos that have it, and name them. He can only weigh
 exception if he knows what it actually costs.
 
 ```
-gh api repos/tiptophimp/<repo>/branches/main/protection    # 404 = unprotected
+gh api repos/tiptophimp/<repo>/branches/main/protection
 ```
+
+Read the response, do not read the status code alone. A 404 here means "no protection
+found **for that branch name, with this token**" — it is equally consistent with a
+mistyped branch, a repo whose default is `master`, or a token without admin scope on the
+repo. Confirm the branch name and that the token can see the repo before concluding
+anything. Treating 404 as "unprotected" is the same "cannot see" versus "not there"
+confusion Rule 0 exists to prevent.
 
 ### Status `Review` means exactly one thing: Ernest must look at this
 
