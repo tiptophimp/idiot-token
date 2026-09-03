@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 5037bbde6fe8 -->
+<!-- shared-sha: 6de18380c55e -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -9,6 +9,40 @@
      Do not hand-edit inside this block. -->
 
 # Agent rules
+
+## Start here — orientation for a session with no memory
+
+You are reading this because it is embedded in a repo's `AGENTS.md`. Everything below is
+the shared rulebook. These are the other things you need, and **nobody is going to tell you
+they exist**, so they are listed here.
+
+**Run these before touching anything.** Each is ten seconds and reports live state, not
+what a document claims:
+
+```
+python E:\Dev\email-accounts-management\scripts\check_access.py    API access, credentials, domain expiry
+python E:\Dev\email-accounts-management\scripts\backup_zones.py --check   DNS vs last known-good snapshot
+python E:\Dev\email-accounts-management\scripts\check_repos.py     work that is finished but not landed
+python E:\Dev\_shared\configs\apply_agent_docs.py --check          instruction drift across every repo
+```
+
+**Read these when the task calls for it:**
+
+| File | What it is |
+|---|---|
+| `E:\Dev\_shared\configs\OPEN_ITEMS.md` | **What is outstanding right now.** Read before asking Ernest what to do. |
+| `E:\Dev\_shared\configs\WORKSPACE_FACTS.md` | Settled infrastructure facts — hosts, IPs, DNS, deploy paths |
+| `E:\Dev\_shared\configs\AGENT_RULES_DECISIONS.md` | Ernest's rulings and the reasoning behind these rules |
+| `E:\Dev\_shared\configs\AGENT_DOC_AUDIT.md` | The 2026-09-02 audit that produced this rulebook |
+| `E:\Dev\.secrets_vault\agent-credentials.md` | The only credential store. Read silently, never echo. |
+
+`_shared` is a workspace-level folder, not part of any repo. It is version-controlled at
+`github.com/tiptophimp/dev-shared`.
+
+**Ernest will not remember to point you at these.** That is the point of listing them where
+every agent is already looking.
+
+---
 
 **Canonical. This is the only `AGENT_RULES.md` in the workspace.** Five other copies
 existed until 2026-09-02 and disagreed with each other on who merges, what `Review` means,
