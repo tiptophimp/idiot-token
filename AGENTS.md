@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 08cea796c8ba -->
+<!-- shared-sha: 5037bbde6fe8 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -148,6 +148,29 @@ mistyped branch, a repo whose default is `master`, or a token without admin scop
 repo. Confirm the branch name and that the token can see the repo before concluding
 anything. Treating 404 as "unprotected" is the same "cannot see" versus "not there"
 confusion Rule 0 exists to prevent.
+
+### Leave the repo on its default branch
+
+**Check out a branch, and you own returning the repo to `main` (or `master`) when you are
+done with it** — after your PR merges, or the moment you stop working in that repo. Delete
+your local branch once its PR has landed.
+
+**Before you commit anything, confirm which branch you are on.** `git status` takes a
+second. A commit does not ask; it lands wherever HEAD happens to point.
+
+> On 2026-09-02 an agent left `E:\Dev\OmniLedgr` checked out on `docs/2026-09-02-rule0-verify-effect`.
+> Ernest then made an unrelated infrastructure change — GPU reservations in
+> `docker-compose.yml` — and committed it. It went onto the agent's docs branch, and would
+> have shipped inside a documentation PR. Nothing warned him: the commit succeeded, the
+> hooks passed, the output looked entirely normal.
+
+This is not a git rule, it is a shared-state rule. **A working directory is shared state,
+and so is anything else an agent changes and walks away from** — a checked-out branch, a
+stash, an applied filter, a modified config, a running process, an env var. The person who
+touches it next inherits it without being told, and inherits it silently.
+
+So: put back what you moved. If you cannot put it back, say so explicitly rather than
+leaving it for someone to discover.
 
 ### Status `Review` means exactly one thing: Ernest must look at this
 
