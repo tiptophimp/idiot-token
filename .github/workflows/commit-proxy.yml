@@ -1,4 +1,4 @@
-﻿name: Commit Proxy
+name: Commit Proxy
 
 on:
   workflow_dispatch:
@@ -17,11 +17,11 @@ on:
 
 jobs:
   commit:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Perform authenticated commit
         env:
-          GH_TOKEN: ${{ secrets.idiot-personal-access }}
+          GH_TOKEN: ${{ secrets.IDIOT_PERSONAL_ACCESS }}
           REPO: ${{ github.repository }}
           FILE: ${{ github.event.inputs.filename }}
           MESSAGE: ${{ github.event.inputs.message }}
