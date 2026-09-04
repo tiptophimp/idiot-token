@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 6de18380c55e -->
+<!-- shared-sha: 6d2b5e7ed1f7 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -24,7 +24,13 @@ python E:\Dev\email-accounts-management\scripts\check_access.py    API access, c
 python E:\Dev\email-accounts-management\scripts\backup_zones.py --check   DNS vs last known-good snapshot
 python E:\Dev\email-accounts-management\scripts\check_repos.py     work that is finished but not landed
 python E:\Dev\_shared\configs\apply_agent_docs.py --check          instruction drift across every repo
+powershell -File E:\Dev\_shared\configs\fleet-runners.ps1          all 16 CI runners, GitHub vs local
 ```
+
+**If a PR is `BLOCKED` with nothing red, check the runners before you touch the PR.**
+A required check on an offline self-hosted runner sits `queued` forever and is
+indistinguishable from a slow one. On 2026-09-03 this had silently stalled every
+soundboard PR, including two HIGH security advisories.
 
 **Read these when the task calls for it:**
 
@@ -34,6 +40,7 @@ python E:\Dev\_shared\configs\apply_agent_docs.py --check          instruction d
 | `E:\Dev\_shared\configs\WORKSPACE_FACTS.md` | Settled infrastructure facts — hosts, IPs, DNS, deploy paths |
 | `E:\Dev\_shared\configs\AGENT_RULES_DECISIONS.md` | Ernest's rulings and the reasoning behind these rules |
 | `E:\Dev\_shared\configs\AGENT_DOC_AUDIT.md` | The 2026-09-02 audit that produced this rulebook |
+| `E:\Dev\_shared\configs\FLEET.md` | The 16 CI runners — which machine, how each starts, what is broken |
 | `E:\Dev\.secrets_vault\agent-credentials.md` | The only credential store. Read silently, never echo. |
 
 `_shared` is a workspace-level folder, not part of any repo. It is version-controlled at
@@ -79,6 +86,22 @@ permission written in a vault is not evidence the token holds it. A cron express
    `{"message": "Request accepted"}` while the work is still queued. A single immediate
    re-check can show the *old* state and look like a failure. If the first verification
    contradicts a success response, wait and check once more before concluding either way.
+
+9. **Match the error mode to the risk.** In a shell script, a "keep going on error"
+   setting is right for a read-only sweep — one repo failing should not blind you to the
+   other 44. It is wrong for anything destructive, because a failed step lets the next step
+   run on a false premise. In PowerShell:
+
+   ```
+   $ErrorActionPreference = 'Continue'   # read-only sweeps, surveys, reporting
+   $ErrorActionPreference = 'Stop'       # delete, push, write, rename, rebase, merge
+   ```
+
+   The same applies anywhere else: `set -e` in bash for destructive work, checked return
+   codes rather than fire-and-forget. On 2026-09-02/03 an agent used `Continue` on commands
+   that deleted branches, removed files and pushed to remotes. Nothing went wrong — but
+   only because each was verified afterwards. Verification caught it; the setting would not
+   have.
 
 > Both of those cost a wrong answer on 2026-09-02. Six Hostinger nameserver updates
 > returned `200`; the first verification showed the old values and the conclusion drawn was
@@ -128,22 +151,49 @@ Every agent operates under identical rules. There is no advisor tier, no
 implementer tier, no model-based capability split. What an agent may do is governed by
 Rule 0, Rule 1, and the Major Changes list — never by which model is running.
 
-### The task ledger is ClickUp
+### The task ledger is GitHub Issues
 
-Workspace `90141071195`, Team Space `90144799090`. There is no `TASK_LEDGER.md` or
-`TASKS_MIRROR.md`; both were retired 2026-09-02. Never carry task context between repos or
-from a previous session — re-discover current work from ClickUp.
+One issue per unit of work, in the repo the work lands in. Work that spans repos, or is
+infrastructure with no repo of its own, goes in `tiptophimp/dev-shared`. Find current work
+with `gh issue list --repo tiptophimp/<repo>` — never carry task context between repos or
+from a previous session, and never keep a task list in a file.
+
+**ClickUp is retired (2026-09-04).** Its 579 tasks are exported, with comments, to
+`E:\Dev\_shared\configs\clickup-export-2026-09-04.json`; nothing in it is live. Do not
+read it for current work and do not create anything there. `TASK_LEDGER.md` and
+`TASKS_MIRROR.md` were retired 2026-09-02 for the same reason: a second ledger only adds a
+place for state to rot. Work lands in GitHub, so the ledger lives in GitHub.
+
+Labels carry the state; there are no status columns to forget to move:
+
+| Label | Meaning |
+|---|---|
+| `agent-ready` | Fully specified — acceptance criteria and a verification command in the body. The night shift may pick it up unattended. |
+| `agent:claude` / `agent:gemini` / `agent:cursor` / `agent:copilot` / `agent:devin` | Which runner the night shift dispatches it to. Without one, `agent:claude`. |
+| `in-progress` | A branch or PR exists. The night shift skips it. |
+| `blocked` | Waiting on another issue or an external dependency — link it in the body. |
+| `needs-ernest` | Only Ernest can move it: a decision, a secret, a purchase, an account action, or a Major Change (below). This is what `Review` used to mean. |
+
+**An issue is closed by the PR that ships it** — `Closes #N` in the PR body, so the merge
+closes it. Never close an issue by hand while its PR is open, and never open a PR without
+an issue for anything larger than a typo. This is the single rule that keeps the ledger
+true: the previous ledger drifted within days because agents planned in one place and
+shipped in another.
+
+The overnight dispatcher is `E:\Dev\_shared\scripts\night-shift.ps1`; the morning
+report is `E:\Dev\_shared\scripts\morning-report.ps1`. Both read the repos, nothing
+else. Neither is scheduled until Ernest says so.
 
 ### Branches
 
 ```
-<type>/<task-id>-<short-slug>      feature/13599-media-library
-                                   fix/13482-verified-id-traps
+<type>/<issue#>-<short-slug>       feature/41-media-library
+                                   fix/17-verified-id-traps
                                    chore/2026-09-02-cf-token-single-source
 ```
 
-`type` is `feature`, `fix`, `chore` or `docs`. Use the task ID when one exists, a date slug
-when not. **One branch per unit of work, named for what it does.** The agent's own name is
+`type` is `feature`, `fix`, `chore` or `docs`. Use the issue number when one exists, a date
+slug when not. **One branch per unit of work, named for what it does.** The agent's own name is
 not in the branch — it encoded the retired tier system and made identical work look
 different when two agents touched one task.
 
@@ -206,10 +256,10 @@ touches it next inherits it without being told, and inherits it silently.
 So: put back what you moved. If you cannot put it back, say so explicitly rather than
 leaving it for someone to discover.
 
-### Status `Review` means exactly one thing: Ernest must look at this
+### `needs-ernest` means exactly one thing: Ernest must look at this
 
-It is not a CI waiting room. A green PR never enters it. If a task sits in `Review`, a human
-is blocking.
+It is not a CI waiting room. A green PR never gets it. If an issue carries `needs-ernest`,
+a human is blocking, and the body says what he has to decide.
 
 ### Major changes — stop and wait for Ernest
 
@@ -230,7 +280,7 @@ Hard stop regardless of CI status. Post what you found and what you propose, the
 ## Credentials
 
 **Never echo a credential to chat, logs, or console output.** Asked "are you connected?",
-answer with the API's identity ("auth OK as Ernest Gapen, ClickUp id 204070857"), never the
+answer with the API's identity ("auth OK as tiptophimp via gh"), never the
 token. When debugging credential files, parse silently — never `cat`, `sed`, `grep` or
 `Get-Content` the values. A violation forces rotation across every integration.
 
