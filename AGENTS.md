@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 6d2b5e7ed1f7 -->
+<!-- shared-sha: 7b01eca734b3 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -42,6 +42,8 @@ soundboard PR, including two HIGH security advisories.
 | `E:\Dev\_shared\configs\AGENT_DOC_AUDIT.md` | The 2026-09-02 audit that produced this rulebook |
 | `E:\Dev\_shared\configs\FLEET.md` | The 16 CI runners — which machine, how each starts, what is broken |
 | `E:\Dev\.secrets_vault\agent-credentials.md` | The only credential store. Read silently, never echo. |
+| `E:\Dev\.secrets_vault\SERVICES.md` | **Every account and service — URL, login, where its secret is.** Add a row the day you create or cancel anything. |
+| `E:\Dev\.secrets_vault\crypto\README.md` | Every wallet, key location and contract found on the drives. Nothing crypto gets deleted; it gets listed here. |
 
 `_shared` is a workspace-level folder, not part of any repo. It is version-controlled at
 `github.com/tiptophimp/dev-shared`.
@@ -158,7 +160,7 @@ infrastructure with no repo of its own, goes in `tiptophimp/dev-shared`. Find cu
 with `gh issue list --repo tiptophimp/<repo>` — never carry task context between repos or
 from a previous session, and never keep a task list in a file.
 
-**ClickUp is retired (2026-09-04).** Its 579 tasks are exported, with comments, to
+**ClickUp is retired (2026-09-04) and the subscription cancelled (2026-09-05).** Its 579 tasks are exported, with comments, to
 `E:\Dev\_shared\configs\clickup-export-2026-09-04.json`; nothing in it is live. Do not
 read it for current work and do not create anything there. `TASK_LEDGER.md` and
 `TASKS_MIRROR.md` were retired 2026-09-02 for the same reason: a second ledger only adds a
