@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 7b01eca734b3 -->
+<!-- shared-sha: 86b24c3be948 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -36,7 +36,7 @@ soundboard PR, including two HIGH security advisories.
 
 | File | What it is |
 |---|---|
-| `E:\Dev\_shared\configs\OPEN_ITEMS.md` | **What is outstanding right now.** Read before asking Ernest what to do. |
+| `E:\Dev\_shared\configs\OPEN_ITEMS.md` | **What is outstanding right now.** Read before asking Ernest what to do. Ernest edits this file directly from a Desktop shortcut and does not commit; **if it has uncommitted changes when you start, commit them first** (`chore: Ernest's OPEN_ITEMS edits`) so his notes are never lost to a `git pull`. |
 | `E:\Dev\_shared\configs\WORKSPACE_FACTS.md` | Settled infrastructure facts — hosts, IPs, DNS, deploy paths |
 | `E:\Dev\_shared\configs\AGENT_RULES_DECISIONS.md` | Ernest's rulings and the reasoning behind these rules |
 | `E:\Dev\_shared\configs\AGENT_DOC_AUDIT.md` | The 2026-09-02 audit that produced this rulebook |
