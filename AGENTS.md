@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 86b24c3be948 -->
+<!-- shared-sha: 85fa624ca696 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -257,6 +257,87 @@ touches it next inherits it without being told, and inherits it silently.
 
 So: put back what you moved. If you cannot put it back, say so explicitly rather than
 leaving it for someone to discover.
+
+### Abandoned work may be picked up - after a threshold, and without rewriting history
+
+The problem here is not that work goes wrong. It is that work **stops and nobody notices**.
+A session ends mid-task - Ernest gets called away, a machine reboots, an agent runs out of
+context - and the branch, the issue and the half-finished tree sit there until someone
+stumbles on them months later.
+
+> Measured on 2026-09-06: **seven** local clones were parked on non-default branches, six of
+> them 2026-09-05 `clickup-retirement` chores that never landed, and **seven** had
+> uncommitted work. None of it appeared in any check, because every check watched pull
+> requests and this work had not reached one.
+
+**So idle work is fair game. Silence means abandoned - agents do not take holidays.** Three
+conditions, because "not actively working" without a threshold is a licence for two agents
+to collide on the same task:
+
+1. **Wait out the threshold, measured in hours.** A green PR is abandoned after **1 hour** -
+   merging is one command. A branch ahead of its default with no PR, or an issue labelled
+   `in-progress` with no branch, is abandoned after **4 hours** - one working session. Below
+   the threshold, leave it and assume someone is mid-thought.
+
+   > These were 3 days until 2026-09-06. That was wrong and Ernest said so: at 150 commits
+   > in three days, a three-day threshold makes abandoned work untouchable for longer than
+   > the project cycle. **The standard is not "eventually someone notices" - it is "open a
+   > branch, finish it in that session, or say in the issue why you could not."**
+
+2. **Never rewrite someone else's history.** Branch *from* their work, or open a fresh
+   branch and cherry-pick. No force-push and no rebase of a branch you did not create. Their
+   commits must survive the takeover, because you cannot tell from outside which choices
+   were deliberate.
+
+3. **`needs-ernest` and `blocked` are never taken over.** Idleness there is the expected
+   state, not neglect. Report them, do not grab them.
+
+`python E:\Dev\email-accounts-management\scripts\check_repos.py` reports all four shapes:
+claimed-and-abandoned issues, orphan branches with no PR, local clones parked off their
+default branch, and dirty working trees. Run it at the start of a session. **Picking up
+abandoned work is not scope creep - it is the job.**
+
+### Push every increment, not every session
+
+**A commit that exists only on your machine is one crash from gone.** Commit saves it
+locally; push is what makes it survive.
+
+This is not a general nicety, it is specific to this estate:
+
+- `ohio-tax-reform/.github/workflows/deploy.yml` runs `git fetch origin && git reset --hard
+  origin/main` on the GMKtec runner. Anything on that server not pushed to GitHub is
+  **erased** on the next deploy.
+- `refresh-data.yml` runs `0 6 * * *` UTC, commits and pushes when fingerprints change, and
+  therefore triggers that deploy **daily**, with no human involved.
+
+So:
+
+1. **Push as soon as something works** - not when the task is finished. A working increment
+   is a pushable increment. Ten small pushes beat one big one, and cost nothing.
+2. **Nothing is left unpushed at the end of a session.** Not a commit, not a stash, not a
+   dirty file. If you cannot push it, say so explicitly and say why.
+3. **On GMKtec, `git commit && git push` immediately.** There is no safe interval there.
+4. **Before significant work, know what is at risk:** `git status` and
+   `git log origin/<branch>..HEAD`. If the second prints anything, that work exists in one
+   place only.
+
+> Read the graph in any IDE the same way: `main` above `origin/main` means those commits are
+> on this machine and nowhere else. Same row means synced.
+
+### Editing this rulebook obliges you to propagate it
+
+Every repo carries this text verbatim inside a marked block in its own `AGENTS.md`. **If you
+edit `AGENT_RULES.md`, run the propagation in the same session:**
+
+```
+python E:\Dev\_shared\configs\apply_agent_docs.py --apply
+```
+
+**This is an agent obligation, not Ernest's.** He edits the rulebook directly and will not
+remember a follow-up command - and a reminder that depends on him remembering is not a
+mechanism, it is a hope. `apply_agent_docs.py --check` is check 4 of the start-of-session
+sweep, so drift gets caught eventually; causing it and relying on the catch is worse than
+not causing it.
 
 ### `needs-ernest` means exactly one thing: Ernest must look at this
 
