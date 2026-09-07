@@ -1,0 +1,28 @@
+{
+  "id": "0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+  "name": "Idiot Token",
+  "symbol": "IDIOT",
+  "decimals": 18,
+  "status": "active",
+  "description": "A meme token deployed on the Base blockchain.",
+  "website": "https://stupidiots.com",
+  "explorer": "https://etherscan.io/token/0xC29EF04CFFe38012dcfc1E96a2B368443f298dE1",
+  "links": [
+    {
+      "name": "twitter",
+      "url": "https://x.com/Stup_IDIOT_s"
+    },
+    {
+      "name": "discord",
+      "url": "https://discord.com/invite/zpfnkHHE"
+    },
+    {
+      "name": "facebook",
+      "url": "https://facebook.com/profile.php?id=61580473892697"
+    }
+  ],
+  "tags": [
+    "defi",
+    "memes"
+  ]
+}
