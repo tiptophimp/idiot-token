@@ -1,9 +1,9 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 57cb4bf081e1 -->
+<!-- shared-sha: 6f29e504aabc -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
-     Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
+     Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --land
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
      `_shared` is a workspace-level folder, not part of this repo.
      Do not hand-edit inside this block. -->
@@ -89,6 +89,22 @@ permission written in a vault is not evidence the token holds it. A cron express
    re-check can show the *old* state and look like a failure. If the first verification
    contradicts a success response, wait and check once more before concluding either way.
 
+9. **Match the error mode to the risk.** In a shell script, a "keep going on error"
+   setting is right for a read-only sweep — one repo failing should not blind you to the
+   other 44. It is wrong for anything destructive, because a failed step lets the next step
+   run on a false premise. In PowerShell:
+
+   ```
+   $ErrorActionPreference = 'Continue'   # read-only sweeps, surveys, reporting
+   $ErrorActionPreference = 'Stop'       # delete, push, write, rename, rebase, merge
+   ```
+
+   The same applies anywhere else: `set -e` in bash for destructive work, checked return
+   codes rather than fire-and-forget. On 2026-09-02/03 an agent used `Continue` on commands
+   that deleted branches, removed files and pushed to remotes. Nothing went wrong — but
+   only because each was verified afterwards. Verification caught it; the setting would not
+   have.
+
 10. **Never read a value out of a stream that also carries commentary, and
     never parse output by column position.** Both cost a wrong answer on
     2026-09-08, in the same tool, hours apart.
@@ -108,7 +124,7 @@ permission written in a vault is not evidence the token holds it. A cron express
     of trimming can corrupt — instead of parsing a display format. And
     validate: a Git object name is 40 hex characters, so check that it is.
 
-10. **`??` is not `M`. Being dirty is not permission to overwrite.** Before
+11. **`??` is not `M`. Being dirty is not permission to overwrite.** Before
     writing over any file you were not asked to create, ask git what it is:
 
     ```
@@ -133,36 +149,20 @@ permission written in a vault is not evidence the token holds it. A cron express
     The same applies to any single-copy state: an untracked file, a stash, an
     un-exported database row, a file open in an editor with unsaved changes.
 
-9. **Match the error mode to the risk.** In a shell script, a "keep going on error"
-   setting is right for a read-only sweep — one repo failing should not blind you to the
-   other 44. It is wrong for anything destructive, because a failed step lets the next step
-   run on a false premise. In PowerShell:
-
-   ```
-   $ErrorActionPreference = 'Continue'   # read-only sweeps, surveys, reporting
-   $ErrorActionPreference = 'Stop'       # delete, push, write, rename, rebase, merge
-   ```
-
-   The same applies anywhere else: `set -e` in bash for destructive work, checked return
-   codes rather than fire-and-forget. On 2026-09-02/03 an agent used `Continue` on commands
-   that deleted branches, removed files and pushed to remotes. Nothing went wrong — but
-   only because each was verified afterwards. Verification caught it; the setting would not
-   have.
-
 > Both of those cost a wrong answer on 2026-09-02. Six Hostinger nameserver updates
 > returned `200`; the first verification showed the old values and the conclusion drawn was
 > "the 200 lied". It had not — the endpoint is async, and the change landed moments later.
+> The opposite error happened the same hour: Cloudflare zone creation returned success and
+> was *assumed* to inherit the account's nameserver pair. It does not; pairs are assigned
+> per zone, so six domains had to be repointed at the registrar afterwards. One error was
+> concluding failure too early, the other concluding success without looking. The same
+> discipline prevents both.
 
 > And on 2026-09-08, `gh pr merge --squash --auto` exited `0` having armed
 > nothing. The tool reported the change as landed; the PR's `autoMergeRequest`
 > was `null` and it would have sat open forever. An exit code says the command
 > was accepted. Re-read the object — here, the PR's own merge state — before
 > claiming the effect.
-> The opposite error happened the same hour: Cloudflare zone creation returned success and
-> was *assumed* to inherit the account's nameserver pair. It does not; pairs are assigned
-> per zone, so six domains had to be repointed at the registrar afterwards. One error was
-> concluding failure too early, the other concluding success without looking. The same
-> discipline prevents both.
 
 > Four failures on 2026-09-02, all the same shape: a token's permissions reported from
 > intent rather than probed (it had 3 of 7); `200 + empty array` scored as a capability pass
@@ -232,7 +232,9 @@ ClickUp or tells an agent to use it.
 > on 2026-09-05. Because both are `[CmdletBinding()]`, the call is a hard
 > `NamedParameterNotFound` error — those four status scripts were completely
 > broken, with the flag or without it, and nothing reported it. **Removing an
-> integration means removing every caller, not just the implementation.** `TASK_LEDGER.md` and
+> integration means removing every caller, not just the implementation.**
+
+`TASK_LEDGER.md` and
 `TASKS_MIRROR.md` were retired 2026-09-02 for the same reason: a second ledger only adds a
 place for state to rot. Work lands in GitHub, so the ledger lives in GitHub.
 
