@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 85fa624ca696 -->
+<!-- shared-sha: 1cc8c33731fb -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -199,7 +199,7 @@ slug when not. **One branch per unit of work, named for what it does.** The agen
 not in the branch — it encoded the retired tier system and made identical work look
 different when two agents touched one task.
 
-### You own your PR through to merge
+### You own your PR through to merge — and through to production
 
 Open the PR. If checks are red, that is your problem, not a handoff — fix, push, re-run,
 repeat. When every required check is green, **squash-merge your own PR and delete the
@@ -214,6 +214,26 @@ re-running the same checks adds a queue and no information.
 
 Do not merge another agent's PR unless asked. Never direct-push `main`. Never bypass branch
 protection, and never use an admin merge.
+
+**Merge is not done.** Landing on GitHub `main` is not the same as shipping to users.
+On 2026-09-04 → 09-06, sixteen soundboard commits sat on `main` while production stayed
+on an older SHA because agents merged and walked away. That must not happen again.
+
+If the repo has a production deploy path, **you own that deploy in the same session as
+the merge** — or you say explicitly that deploy is blocked and why (host down, secret
+missing, Ernest gate). Do not report the task complete, and do not move on to the next
+issue, while production is still behind `origin/main` for the surfaces you changed.
+
+| Surface | "Done" means |
+|---|---|
+| Backend / API | Deployed SHA on the server matches `origin/main` (or you documented why not) |
+| Frontend / web | Deployed frontend SHA matches `origin/main` when `frontend/` changed |
+| Desktop / installer | Customers get a published release — **say so**. Merge alone is not production |
+| Docs / CI-only | No production deploy required; say "docs/CI only, no deploy" |
+
+Verify with a **read of the live marker or health endpoint**, not with "the workflow was
+triggered." A failed load probe after a successful switch still counts as deployed if
+the server marker matches; a green CI job that never ran the deploy does not.
 
 **Check before you push.** 32 of 45 repos have branch protection, and every one is set
 `enforce_admins: false` — so an admin push succeeds and GitHub merely *reports*
