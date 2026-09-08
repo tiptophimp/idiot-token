@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 1cc8c33731fb -->
+<!-- shared-sha: 57cb4bf081e1 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --apply
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -89,6 +89,50 @@ permission written in a vault is not evidence the token holds it. A cron express
    re-check can show the *old* state and look like a failure. If the first verification
    contradicts a success response, wait and check once more before concluding either way.
 
+10. **Never read a value out of a stream that also carries commentary, and
+    never parse output by column position.** Both cost a wrong answer on
+    2026-09-08, in the same tool, hours apart.
+
+    A helper returned `stdout + stderr` combined. `git hash-object` writes the
+    blob SHA to stdout and a CRLF warning to stderr, so the "SHA" arrived as
+    two lines and the commit could not be built. The same helper `.strip()`ed
+    its output, which ate the leading space of `git status --porcelain`'s
+    two-column status field, so a fixed-width `line[3:]` slice turned
+    `" M AGENTS.md"` into `"GENTS.md"`. That silently reported **nothing to
+    land in every dirty repo** — and it is invisible for `?? path` and
+    `MM path`, which have no leading space, so casual testing passes.
+
+    So: capture stdout separately from stderr whenever the output is a value
+    rather than a log. Ask a tool for the shape you want to consume —
+    `git diff --name-only` and `git ls-files` emit bare paths that no amount
+    of trimming can corrupt — instead of parsing a display format. And
+    validate: a Git object name is 40 hex characters, so check that it is.
+
+10. **`??` is not `M`. Being dirty is not permission to overwrite.** Before
+    writing over any file you were not asked to create, ask git what it is:
+
+    ```
+    git status --porcelain -- <path>
+    ```
+
+    `M ` means tracked and modified — git holds the previous bytes and
+    `git restore` undoes your write. `??` means **untracked: there is exactly
+    one copy in existence and you are about to replace it.** Commit it on a
+    scratch branch first, or copy it aside, or leave it alone. Overwriting an
+    untracked file is destruction, not modification, and no amount of
+    verification afterwards can undo it.
+
+    > On 2026-09-08 I rewrote `personal-ai-chatbot/scripts/agent-status.ps1`
+    > while fixing a real breakage in it. It was untracked, so the original is
+    > unrecoverable — `git cat-file` cannot find the blob and
+    > `git log --all` for the path is empty. My own baseline had recorded that
+    > file under "MUST NOT CHANGE" one hour earlier. What was lost happened to
+    > be worthless (the script was a hard error on every run), but that was
+    > luck, not care. See `docs/INCIDENT-2026-09-08-untracked-file-overwritten.md`.
+
+    The same applies to any single-copy state: an untracked file, a stash, an
+    un-exported database row, a file open in an editor with unsaved changes.
+
 9. **Match the error mode to the risk.** In a shell script, a "keep going on error"
    setting is right for a read-only sweep — one repo failing should not blind you to the
    other 44. It is wrong for anything destructive, because a failed step lets the next step
@@ -108,6 +152,12 @@ permission written in a vault is not evidence the token holds it. A cron express
 > Both of those cost a wrong answer on 2026-09-02. Six Hostinger nameserver updates
 > returned `200`; the first verification showed the old values and the conclusion drawn was
 > "the 200 lied". It had not — the endpoint is async, and the change landed moments later.
+
+> And on 2026-09-08, `gh pr merge --squash --auto` exited `0` having armed
+> nothing. The tool reported the change as landed; the PR's `autoMergeRequest`
+> was `null` and it would have sat open forever. An exit code says the command
+> was accepted. Re-read the object — here, the PR's own merge state — before
+> claiming the effect.
 > The opposite error happened the same hour: Cloudflare zone creation returned success and
 > was *assumed* to inherit the account's nameserver pair. It does not; pairs are assigned
 > per zone, so six domains had to be repointed at the registrar afterwards. One error was
@@ -160,9 +210,29 @@ infrastructure with no repo of its own, goes in `tiptophimp/dev-shared`. Find cu
 with `gh issue list --repo tiptophimp/<repo>` — never carry task context between repos or
 from a previous session, and never keep a task list in a file.
 
-**ClickUp is retired (2026-09-04) and the subscription cancelled (2026-09-05).** Its 579 tasks are exported, with comments, to
-`E:\Dev\_shared\configs\clickup-export-2026-09-04.json`; nothing in it is live. Do not
-read it for current work and do not create anything there. `TASK_LEDGER.md` and
+**ClickUp is gone.** Retired 2026-09-04, subscription cancelled 2026-09-05,
+and on 2026-09-08 Ernest deleted the workspace outright: *"deleted entirely,
+terminated entirely and the subscription totally canceled. That's gone. And
+won't be coming back either."*
+
+There is nothing to log in to and nothing to restore. Its 579 tasks and their
+comments survive only as
+`E:\Dev\_shared\configs\clickup-export-2026-09-04.json`, which is therefore
+an **irreplaceable archive, not a stale mirror — do not delete it**. Nothing in
+it is live: do not read it for current work, do not treat a task ID in it as
+actionable, and do not create anything there.
+
+Historical ClickUp task IDs in code comments and commit messages are
+provenance and stay as they are. What must not remain is anything that *calls*
+ClickUp or tells an agent to use it.
+
+> Found 2026-09-08 while auditing this: `scripts/agent-status.ps1` in
+> `Verndex`, `fps-deploy`, `personal-ai-chatbot` and `stair-app` still
+> forwarded `-SkipClickUp` to the shared engine, which dropped that parameter
+> on 2026-09-05. Because both are `[CmdletBinding()]`, the call is a hard
+> `NamedParameterNotFound` error — those four status scripts were completely
+> broken, with the flag or without it, and nothing reported it. **Removing an
+> integration means removing every caller, not just the implementation.** `TASK_LEDGER.md` and
 `TASKS_MIRROR.md` were retired 2026-09-02 for the same reason: a second ledger only adds a
 place for state to rot. Work lands in GitHub, so the ledger lives in GitHub.
 
@@ -227,7 +297,7 @@ issue, while production is still behind `origin/main` for the surfaces you chang
 | Surface | "Done" means |
 |---|---|
 | Backend / API | Deployed SHA on the server matches `origin/main` (or you documented why not) |
-| Frontend / web | Deployed frontend SHA matches `origin/main` when `frontend/` changed |
+| Frontend / web | Deployed web SHA matches `origin/main` when the web app's source changed. **Find that directory in the repo** — it is `frontend/` in some, `apps/web/` in OmniLedgr, `desktop/` in soundboard. "`frontend/` is untouched" is not evidence that no deploy is needed |
 | Desktop / installer | Customers get a published release — **say so**. Merge alone is not production |
 | Docs / CI-only | No production deploy required; say "docs/CI only, no deploy" |
 
@@ -277,6 +347,32 @@ touches it next inherits it without being told, and inherits it silently.
 
 So: put back what you moved. If you cannot put it back, say so explicitly rather than
 leaving it for someone to discover.
+
+### Do not use `git stash`
+
+**A stash is invisible work.** It does not show in `git status`, no check
+watches it, it is never pushed, and it is bound to the one machine that holds
+it. It is the one place work can sit where nothing at all will surface it.
+
+> Measured 2026-09-08: **95 stashes across 35 of 47 clones.** Not one was
+> mentioned in any handoff, and the rulebook had never named them. Some
+> predate every branch in their repo.
+
+Whatever the stash was for, there is a better move:
+
+| Instead of stashing | Do this |
+|---|---|
+| "I need a clean tree to switch branches" | Commit to your branch and push. A work-in-progress commit is not a sin; a lost one is |
+| "This is scratch work I might want" | Commit it on a throwaway branch and push it. Branches are free |
+| "I only need to check something else quickly" | `git worktree add` a second directory, or read the other branch with `git show <branch>:<path>` — neither disturbs your tree |
+| "I want to discard this" | Then discard it: `git restore`. Say so, do not park it |
+
+**Amnesty for the 95 that already exist.** They were created under a rulebook
+that never mentioned them, so they are nobody's fault. Do not mass-drop them —
+some may hold the only copy of real work. When you are next in a repo that has
+one, inspect it (`git stash list`, `git stash show -p`), then either land it or
+drop it deliberately, and say in the session which you did and why. Clearing a
+stash you have not read is destroying work you have not seen.
 
 ### Abandoned work may be picked up - after a threshold, and without rewriting history
 
@@ -350,8 +446,40 @@ Every repo carries this text verbatim inside a marked block in its own `AGENTS.m
 edit `AGENT_RULES.md`, run the propagation in the same session:**
 
 ```
-python E:\Dev\_shared\configs\apply_agent_docs.py --apply
+python E:\Dev\_shared\configs\apply_agent_docs.py --land
 ```
+
+`--land` writes the file **and** commits, pushes, opens the PR and arms
+auto-merge. Use it, not `--apply`. `--apply` writes and stops, which leaves
+every repo it touched holding an uncommitted change.
+
+**This is the general rule, not a detail about one script: a tool that writes
+files and stops has not run.** Finish the transaction it started, in the same
+invocation.
+
+> On 2026-09-08 `--check` reported "all repos current" while **43 of 47 repos**
+> held a correct-but-uncommitted `AGENTS.md`. The propagation tool wrote files
+> and stopped, so every sweep manufactured the fleet-wide dirt that the next
+> sweep had to wade through — and the check that was supposed to catch drift
+> read the working tree, so it saw the right content and said everything was
+> fine. **The tool meant to prevent the mess was its largest single source.**
+
+Two companions:
+
+```
+python E:\Dev\_shared\configs\apply_agent_docs.py --tidy   reconcile what a previous run left mid-merge
+python E:\Dev\_shared\configs\rules_sync_report.py         read-only: every repo in one bucket, with a reason
+```
+
+`--tidy` runs first inside every `--land`, because cleanup cannot happen at
+the end of a land — auto-merge is usually still in flight when the tool
+finishes. `rules_sync_report.py` exits non-zero **only** when a repo needs a
+human, and runs on a schedule every weekday morning.
+
+**Repos archived on GitHub are read-only and out of scope.** They accept
+fetches and refuse every write with a `403`; that is permanent, not a flaky
+network. `service-scheduler` is the one on this estate. Do not retry it, and
+do not count it as fleet dirt.
 
 **This is an agent obligation, not Ernest's.** He edits the rulebook directly and will not
 remember a follow-up command - and a reminder that depends on him remembering is not a
