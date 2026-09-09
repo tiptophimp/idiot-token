@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 76fd9dd26159 -->
+<!-- shared-sha: a8ece0287c9c -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --land
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -427,6 +427,29 @@ to collide on the same task:
 3. **`needs-ernest` and `blocked` are never taken over.** Idleness there is the expected
    state, not neglect. Report them, do not grab them.
 
+4. **Retire the branch you superseded, in the same session your takeover lands.** The
+   takeover is: fresh branch off the default, cherry-pick their commits, finish the work,
+   PR with `Closes #N`, squash-merge. Then prove their branch adds nothing to `main`:
+
+   ```
+   git fetch origin --prune
+   git diff --stat origin/main $(git merge-tree --write-tree origin/main origin/<their-branch>)
+   ```
+
+   `merge-tree` merges their branch into `main` without touching anything; if the diff
+   prints nothing, the merge would change nothing, so every line they wrote is already on
+   `main` and the branch is a duplicate. Delete it (`git push origin --delete <their-branch>`),
+   return any clone parked on it to the default branch, and comment on the issue
+   "superseded by #<PR>, branch deleted". That deletion needs nobody's approval - see
+   *Major changes* below. If the diff is **not** empty, or `merge-tree` reports a
+   conflict, something on their branch did not make it into your takeover: do not delete,
+   and name the differing files in the issue. (`git branch --merged`, `git cherry` and
+   `git log main..branch` are all wrong here - a squash gives the commit a new patch
+   identity, so they report every merged branch as unmerged.)
+
+   > A takeover that leaves the original behind has only doubled the stale branches. That
+   > is how 140 of them accumulated before 2026-08-29.
+
 `python E:\Dev\email-accounts-management\scripts\check_repos.py` reports all four shapes:
 claimed-and-abandoned issues, orphan branches with no PR, local clones parked off their
 default branch, and dirty working trees. Run it at the start of a session. **Picking up
@@ -506,6 +529,18 @@ mechanism, it is a hope. `apply_agent_docs.py --check` is check 4 of the start-o
 sweep, so drift gets caught eventually; causing it and relying on the catch is worse than
 not causing it.
 
+### Ernest's approval is needed for exactly two things
+
+An issue labelled `needs-ernest`, and the *Major changes* table below. **Nothing else.**
+No rule in this file, in any repo's `AGENTS.md`, or in any per-tool rules file may add a
+third: "unless Ernest approves", "ask first", "per-instance approval" and the old
+Preservation Rule are retired phrasings as of 2026-09-09 - delete them where you find them.
+If a step is reversible on a branch, do it. If it is in the table, stop. There is no middle.
+
+> Why: work that waits for Ernest stops when Ernest is away, and it stopped often enough
+> that on 2026-09-09 he removed the ask entirely. The guardrails are the table, CI, branch
+> protection and the 1-hour / 4-hour takeover thresholds - not a human in the loop.
+
 ### `needs-ernest` means exactly one thing: Ernest must look at this
 
 It is not a CI waiting room. A green PR never gets it. If an issue carries `needs-ernest`,
@@ -517,7 +552,7 @@ Hard stop regardless of CI status. Post what you found and what you propose, the
 
 | Category | Examples |
 |---|---|
-| Destructive | dropping or truncating tables, destructive migrations, deleting a repo, branch, bucket or volume, force-push to a shared branch |
+| Destructive | dropping or truncating tables, destructive migrations, deleting a repo, bucket or volume, force-push to a shared branch. **Not** deleting a branch whose content is proven on `main` - your own after its PR merges, or one you superseded (*Abandoned work*, step 4): delete those without asking |
 | Money | payments, Stripe, billing, pricing, anything that charges a customer |
 | Live DNS | any production DNS record change |
 | Secrets | creating, rotating, or committing a credential |
