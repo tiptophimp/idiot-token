@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: a8ece0287c9c -->
+<!-- shared-sha: eb0b966f23bf -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --land
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -307,6 +307,18 @@ Verify with a **read of the live marker or health endpoint**, not with "the work
 triggered." A failed load probe after a successful switch still counts as deployed if
 the server marker matches; a green CI job that never ran the deploy does not.
 
+**A failed deploy is the incident, not noise.** After your merge, open the deploy
+workflow's run for that commit and read its conclusion; if it is red, fixing it is your
+task now, before anything else. Every repo with a production deploy path must have a
+workflow that alerts when the deploy fails (soundboard-app `failure-alert.yml` is the
+pattern: alert on state change, name the failed step, announce recovery).
+
+> On 2026-09-04 a compose change broke OmniLedgr's production deploy. It failed on every
+> push to `main` for five days - eight times on 2026-09-09 alone - while agents kept
+> merging on top of it. Production ran a five-day-old image, a `fix(critical)` never
+> shipped, and the LLM proxy container did not exist at all. Nobody noticed because a
+> red deploy run alerted nobody and no one looked. Found 2026-09-09 by accident.
+
 **Check before you push.** 32 of 45 repos have branch protection, and every one is set
 `enforce_admins: false` — so an admin push succeeds and GitHub merely *reports*
 `Bypassed rule violations` afterwards. The protection does not stop you; it records that you
@@ -585,9 +597,19 @@ is missing.
 
 ## Infrastructure
 
+Two production boxes on the home LAN. **They are not interchangeable, and neither is a
+dev box** - the authoritative table is `WORKSPACE_FACTS.md` § *Hosts*:
+
+| Box | Hostname | Runs |
+|---|---|---|
+| GMKtec NucBox G5 (Intel N97) | `gmktec-server`, 192.168.50.60, ssh `gmktec` | SaaSound production, NPM for ~19 other domains, FPS, ohio-tax-reform, the runner deploy target |
+| Beelink EQ13 (Intel N100, **no NVIDIA GPU**) | `omniserver-EQ13`, 192.168.50.124, ssh `beelink` | OmniLedgr production + staging, and nothing else |
+
+The RTX 4090 is in the Windows "Beast" workstation, not in either server.
+
 ```
 Internet → Cloudflare (DNS + proxy)
-        → either: Cloudflare Tunnel → cloudflared on GMKtec → container   [target]
+        → either: Cloudflare Tunnel → cloudflared on the serving box → container   [target]
         → or:     router port-forward 80/443 → 192.168.50.60 → NPM → container   [legacy]
 ```
 
@@ -609,8 +631,32 @@ disagrees with what the machine reports, the machine is right.
 
 Deploy documentation lives in the repo it describes, not in a central folder.
 
-**If you edit anything on GMKtec you must `git commit && git push` immediately.** The deploy
-runs `git reset --hard origin/main` and will erase un-pushed server-side edits.
+**If you edit anything on GMKtec or the Beelink you must `git commit && git push`
+immediately.** The deploys run `git reset --hard origin/main` and will erase un-pushed
+server-side edits.
+
+**Infrastructure changes are tested on the box they deploy to.** A compose file, a
+systemd unit, an env file, a runner label, a firewall rule: the test that counts is the
+one run on the target host, and the PR says which host that was. "It came up on my
+machine" is not a test of production.
+
+> On 2026-09-04 PR omniledgr#942 added an NVIDIA GPU reservation to the LiteLLM service
+> "for the Beelink / the 4090". The Beelink has no GPU; the 4090 is in the Beast, where
+> the PR's `docker compose up` test actually ran. See the deploy note under *Merge is
+> not done* for what that cost.
+
+**Alerts fire on state change, not on every run.** A check that runs every 30 minutes
+and e-mails every failure sends 48 identical e-mails during a one-day outage; the reader
+stops opening them, and the one that matters is lost. Alert once when something starts
+failing, remind on a fixed cadence (6 h) while it stays red, and say so once when it
+recovers - with the failed step named in the body. `soundboard-app/.github/workflows/
+failure-alert.yml` is the reference implementation.
+
+**Neither box has a UPS** (2026-09-09). Both have the Intel TCO hardware watchdog on and
+`kernel.panic=10`, so a hung or panicked kernel reboots itself within a minute; a power
+cut does not - the BIOS "Restore on AC Power Loss" setting is Ernest's, tracked in
+soundboard-app #384. After any outage, check `uptime -s` on both boxes before assuming
+which one went down.
 
 ---
 
