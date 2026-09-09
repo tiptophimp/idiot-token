@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 0e6e3f01d62f -->
+<!-- shared-sha: 76fd9dd26159 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --land
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -24,7 +24,7 @@ python E:\Dev\email-accounts-management\scripts\check_access.py    API access, c
 python E:\Dev\email-accounts-management\scripts\backup_zones.py --check   DNS vs last known-good snapshot
 python E:\Dev\email-accounts-management\scripts\check_repos.py     work that is finished but not landed
 python E:\Dev\_shared\configs\apply_agent_docs.py --check          instruction drift across every repo
-powershell -File E:\Dev\_shared\configs\fleet-runners.ps1          all 16 CI runners, GitHub vs local
+powershell -File E:\Dev\_shared\configs\fleet-runners.ps1          # status of every CI runner (GitHub vs local). Do not pass a positional argument.
 ```
 
 **If a PR is `BLOCKED` with nothing red, check the runners before you touch the PR.**
