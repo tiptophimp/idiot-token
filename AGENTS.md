@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: 6f29e504aabc -->
+<!-- shared-sha: 0e6e3f01d62f -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --land
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -369,12 +369,29 @@ Whatever the stash was for, there is a better move:
 | "I only need to check something else quickly" | `git worktree add` a second directory, or read the other branch with `git show <branch>:<path>` — neither disturbs your tree |
 | "I want to discard this" | Then discard it: `git restore`. Say so, do not park it |
 
-**Amnesty for the 95 that already exist.** They were created under a rulebook
-that never mentioned them, so they are nobody's fault. Do not mass-drop them —
-some may hold the only copy of real work. When you are next in a repo that has
-one, inspect it (`git stash list`, `git stash show -p`), then either land it or
-drop it deliberately, and say in the session which you did and why. Clearing a
-stash you have not read is destroying work you have not seen.
+**The amnesty is discharged.** All 95 were read and resolved on 2026-09-08:
+two landed as PRs, one became issue #976, and 92 were dropped with a stated
+reason each. Nothing was lost. The full accounting is in
+`docs/STASH-RESOLUTION-2026-09-08.md`.
+
+So there is no backlog left, and no amnesty to inherit. **A stash on this
+estate from here is a new one**, created against this rule, and
+`stash_report.py` will surface it the next weekday morning.
+
+If you find one anyway — yours or someone else's — the standard has not
+changed: **read it before you do anything to it.** Clearing a stash you have
+not read is destroying work you have not seen.
+
+```
+python E:\Dev\_shared\configs\stash_report.py      what exists, and does it hold real work
+python E:\Dev\_shared\configs\stash_snapshot.py    pin each to its SHA and re-classify
+python E:\Dev\_shared\configs\stash_drop.py <plan> drop by SHA, never by index
+```
+
+Drop by **SHA, never by `stash@{N}`**. The index is a position in a reflog:
+dropping one renumbers the rest, so a plan written as indices is wrong the
+moment the first drop lands. On 2026-09-08 the OmniLedgr drops landed at
+indices 2, 2, 3, 7, 10, 10 — the same numbers, different stashes.
 
 ### Abandoned work may be picked up - after a threshold, and without rewriting history
 
