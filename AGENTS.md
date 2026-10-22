@@ -1,7 +1,7 @@
 # AGENTS.md - idiot-token
 
 <!-- ==== SHARED RULES - GENERATED, DO NOT EDIT INSIDE THIS BLOCK ==== -->
-<!-- shared-sha: eb0b966f23bf -->
+<!-- shared-sha: 3549048b0d80 -->
 <!-- Source:     E:\Dev\_shared\configs\AGENT_RULES.md
      Regenerate: python E:\Dev\_shared\configs\apply_agent_docs.py --land
      Verify:     python E:\Dev\_shared\configs\apply_agent_docs.py --check
@@ -40,10 +40,11 @@ soundboard PR, including two HIGH security advisories.
 | `E:\Dev\_shared\configs\WORKSPACE_FACTS.md` | Settled infrastructure facts — hosts, IPs, DNS, deploy paths |
 | `E:\Dev\_shared\configs\AGENT_RULES_DECISIONS.md` | Ernest's rulings and the reasoning behind these rules |
 | `E:\Dev\_shared\configs\AGENT_DOC_AUDIT.md` | The 2026-09-02 audit that produced this rulebook |
-| `E:\Dev\_shared\configs\FLEET.md` | The 16 CI runners — which machine, how each starts, what is broken |
+| `E:\Dev\_shared\configs\FLEET.md` | The 30 CI runners — which machine, how each starts, what is broken. Count measured 2026-10-14 with `gh api repos/tiptophimp/<repo>/actions/runners` across every repo. |
 | `E:\Dev\.secrets_vault\agent-credentials.md` | The only credential store. Read silently, never echo. |
 | `E:\Dev\.secrets_vault\SERVICES.md` | **Every account and service — URL, login, where its secret is.** Add a row the day you create or cancel anything. |
 | `E:\Dev\.secrets_vault\crypto\README.md` | Every wallet, key location and contract found on the drives. Nothing crypto gets deleted; it gets listed here. |
+| `E:\Dev\_shared\agent_bus.sqlite3` | Central SQLite inter-agent message & alert bus (MCP server: `agent-bus`). Check `poll_alerts` on start; `broadcast_alert` on breaking estate news. |
 
 `_shared` is a workspace-level folder, not part of any repo. It is version-controlled at
 `github.com/tiptophimp/dev-shared`.
@@ -253,6 +254,14 @@ closes it. Never close an issue by hand while its PR is open, and never open a P
 an issue for anything larger than a typo. This is the single rule that keeps the ledger
 true: the previous ledger drifted within days because agents planned in one place and
 shipped in another.
+
+### Inter-agent communication (The Agent Bus)
+
+Agents coordinate across separate windows, CLI processes, and environments using the shared `agent-bus` MCP server backed by `E:\Dev\_shared\agent_bus.sqlite3`.
+
+1. **Check on session start:** Call `poll_alerts` with your agent name (`gemini`, `claude`, `cursor`) to read any unread alerts or instructions before starting work.
+2. **Warn or alert other agents immediately:** When discovering critical estate facts (such as copyright prohibitions, broken dependencies, or branch collisions), do not keep it isolated. Call `send_alert` (to a specific agent) or `broadcast_alert` (to all agents) with priority `URGENT` or `CRITICAL`.
+3. **Reactive real-time listener:** If an agent is running an extended workflow or awaiting updates, it can run the background listener (`node E:\Dev\Multi_Agents_MCP\scripts\agent-bus-listener.mjs --agent <name>`), which will reactively wake the agent if an urgent notification arrives.
 
 The overnight dispatcher is `E:\Dev\_shared\scripts\night-shift.ps1`; the morning
 report is `E:\Dev\_shared\scripts\morning-report.ps1`. Both read the repos, nothing
