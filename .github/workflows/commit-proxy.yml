@@ -17,7 +17,7 @@ on:
 
 jobs:
   commit:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, gmktec-idiot-token]
     steps:
       - name: Perform authenticated commit
         env:
